@@ -1,0 +1,89 @@
+{
+  "login": {
+    "user": "Usuario",
+    "password": "Contraseña",
+    "enter": "Entrar"
+  },
+  "item": {
+    "title": "Titulo"
+  },
+  "demo": {
+    "title": "Demo"
+  },
+  "menu": {
+    "home": "Home",
+    "contacts": "Contactos",
+    "logout": "Cerrar sesión"
+  },
+  "language": {
+    "spanish": "Español",
+    "galician": "Gallego",
+    "english": "Inglés"
+  },
+  "table": {
+    "contacts": {
+      "name": "Nombre",
+      "surname1": "Primer apellido",
+      "surname2": "Segundo apellido",
+      "phone": "Teléfono",
+      "email": "E-Mail"
+    }
+  },
+  "form": {
+    "contact": "Contacto"
+  },
+  "button": {
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  },
+  "paginator": {
+    "first_page": "Primera página",
+    "last_page": "Última página",
+    "items_per_page": "Elementos por página",
+    "next_page": "Página siguiente",
+    "previous_page": "Página anterior",
+    "of": "de"
+  },
+  "EN": "Inglés",
+  "ES": "Español",
+  "GL": "Gallego",
+  "USER_NOT_EXISTS": "El usuario no existe en la base de datos",
+  "WRONG_PASSWORD": "Contraseña incorrecta",
+  "TOKEN_EXPIRED": "La sesión expiró",
+  "CONTACT_EDIT_SUCCESS":"Contacto editado",
+  "CONTACT_CREATE_SUCCESS": "Contacto creado",
+  "CONTACT_DELETE_SUCCESS": "Contacto borrado",
+  "CONTACT_NOT_EDIT": "Error al editar el contacto",
+  "CONTACT_NOT_DELETE": "Contacto no borrado",
+  "USER_EDIT_SUCCESS": "Usuario editado",
+  "CONTACT_NOT_CREATED": "Contacto no creado",
+  "NAME_REQUIRED" :"Nombre obligatorio",
+  "ID_NOT_EXISTS" :"Id no existe",
+  "ID_REQUIRED" :"Id obligatorio",
+  "SURNAME1_REQUIRED" :"Primer apellido obligatorio",
+  "SURNAME2_REQUIRED" :"Segundo apellido obligatorio",
+  "PHONE_REQUIRED" :"Teléfono obrigatorio",
+  "PHONE_INVALID" :"Teléfono inválido",
+  "EMAIL_REQUIRED" :"Email obligatorio",
+  "EMAIL_INVALID" :"Email inválido",
+  "CONTACT_NOT_EXISTS" :"Contacto no existe",
+  "CONTACT_ALREADY_EXISTS" :"Contacto ya existe",
+  "CONTACT_CONSTRAINT_VIOLATION" :"Violación de restricción de contacto",
+  "PHONE_ALREADY_EXISTS": "El teléfono ya existe",
+  "UNKNOWN_ERROR": "Error desconocido",
+  "SESSION_EXPIRED": "Sesión expirada",
+  "CLOSE": "CERRAR",
+  "filter": "Filtro",
+  "new": "Nuevo",
+  "delete": "Eliminar",
+  "refresh": "Refrescar",
+  "loading": "Cargando",
+  "no": "No",
+  "yes": "Si",
+  "delete-element-confirmation": "¿Está seguro de que quiere continuar? Todos los elementos seleccionados se eliminarán",
+  "namerequired": "El nombre es un campo obligatorio",
+  "surname1required": "El apellido es un campo obligatorio",
+  "phonerequired":"El teléfono es un campo obligatorio",
+  "phonepattern": "El formato del teléfono no es correcto",
+  "emailpattern": "El formato del email no es correcto"
+}
