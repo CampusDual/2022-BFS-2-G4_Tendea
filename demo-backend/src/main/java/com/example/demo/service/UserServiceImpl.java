@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.dto.ContactDTO;
+import com.example.demo.dto.UserDTO;
+import com.example.demo.dto.mapper.ContactMapper;
+import com.example.demo.dto.mapper.UserMapper;
+import com.example.demo.entity.Contact;
 import com.example.demo.entity.Section;
 import com.example.demo.entity.User;
 import com.example.demo.exception.DemoException;
@@ -18,7 +23,7 @@ import com.example.demo.utils.Constant;
 
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends AbstractDemoService implements IUserService {
 
 	/**
 	 * Especificación JPA para {@link User}.
@@ -52,10 +57,12 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public User createUser() {
-		return userRepository.save(null);
+	@Transactional
+	public UserDTO createUser(UserDTO userDtoRequest) {
+		User user = UserMapper.INSTANCE.userDTOtoUser(userDtoRequest);
+		User newUser = userRepository.save(user);
+		return UserMapper.INSTANCE.userToUserDTO(newUser);
 	}
-	
 	
 	
 	
