@@ -16,8 +16,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({ "profiles", "sections" })
 public class User implements Serializable {
 	private static final long serialVersionUID = -2185803412812655677L;
 

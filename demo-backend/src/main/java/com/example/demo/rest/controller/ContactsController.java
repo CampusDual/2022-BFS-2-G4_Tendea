@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
+import com.example.demo.dto.ContactDTO;
 import com.example.demo.entity.Contact;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
@@ -55,7 +56,7 @@ public class ContactsController {
 	@PreAuthorize("hasAnyAuthority('CONTACTS')")
 	public ResponseEntity<?> getContact(@RequestParam(value = "id") Integer id) {
 		LOGGER.info("getContact in progress...");
-		Contact contact = null;
+		ContactDTO contact = null;
 		Map<String, Object> response = new HashMap<>();
 		ResponseEntity<?>re = null;
 		try {
@@ -66,7 +67,7 @@ public class ContactsController {
 				re = new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 			}else {
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
-				re = new ResponseEntity<Contact>(contact, HttpStatus.OK);
+				re = new ResponseEntity<ContactDTO>(contact, HttpStatus.OK);
 			}
 		} catch (DataAccessException e) {
 			LOGGER.error(e.getMessage());
@@ -89,9 +90,9 @@ public class ContactsController {
 	 */
 	@PostMapping(path = "/getContacts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyAuthority('CONTACTS')")
-	public @ResponseBody DataSourceRESTResponse<List<Contact>> getContacts(@RequestBody AnyPageFilter pageFilter) {
+	public @ResponseBody DataSourceRESTResponse<List<ContactDTO>> getContacts(@RequestBody AnyPageFilter pageFilter) {
 		LOGGER.info("getContacts in progress...");
-		DataSourceRESTResponse<List<Contact>> dres = new DataSourceRESTResponse<>();
+		DataSourceRESTResponse<List<ContactDTO>> dres = new DataSourceRESTResponse<>();
 		try {
 			dres = contactService.getContacts(pageFilter);
 		} catch (DemoException e) {
@@ -111,7 +112,7 @@ public class ContactsController {
 	 */
 	@GetMapping(path = "/getContacts")
 	@PreAuthorize("hasAnyAuthority('CONTACTS')")
-	public @ResponseBody List<Contact> findAll() {
+	public @ResponseBody List<ContactDTO> findAll() {
 		LOGGER.info("findAll in progress...");
 		return contactService.findAll();
 	}
@@ -124,9 +125,9 @@ public class ContactsController {
 	 */
 	@PostMapping(path = "/createContact")
 	@PreAuthorize("hasAnyAuthority('CONTACTS')")
-	public ResponseEntity<?> createContact(@Valid @RequestBody Contact createContactRequest, BindingResult result) {
+	public ResponseEntity<?> createContact(@Valid @RequestBody ContactDTO createContactRequest, BindingResult result) {
 		LOGGER.info("createContact in progress...");
-		Contact contactNew = null;
+		ContactDTO contactNew = null;
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
 		String message = Constant.CONTACT_CREATE_SUCCESS;
@@ -173,10 +174,10 @@ public class ContactsController {
 	 */
 	@PostMapping(path = "/editContact", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyAuthority('CONTACTS')")
-	public ResponseEntity<?> editContact(@Valid @RequestBody Contact editContactRequest, BindingResult result) {
+	public ResponseEntity<?> editContact(@Valid @RequestBody ContactDTO editContactRequest, BindingResult result) {
 		LOGGER.info("editContact in progress...");
 		int id = 0;
-		Contact contactOlder = contactService.getContact(editContactRequest.getId());
+		ContactDTO contactOlder = contactService.getContact(editContactRequest.getId());
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
 		String message = Constant.CONTACT_EDIT_SUCCESS;

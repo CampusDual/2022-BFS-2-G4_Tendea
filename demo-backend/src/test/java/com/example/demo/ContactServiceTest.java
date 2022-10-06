@@ -24,6 +24,8 @@ import org.springframework.data.domain.Pageable;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.borjaglez.springify.repository.specification.SpecificationImpl;
+import com.example.demo.dto.ContactDTO;
+import com.example.demo.dto.mapper.ContactMapper;
 import com.example.demo.entity.Contact;
 import com.example.demo.exception.DemoException;
 import com.example.demo.repository.ContactRepository;
@@ -65,7 +67,7 @@ class ContactServiceTest {
 		when(this.contactRepository.findAll(any(SpecificationImpl.class), isA(Pageable.class))).thenReturn(contacts);
 
 		// test
-		List<Contact> empList = contactService.getContacts(pageFilter).getData();
+		List<ContactDTO> empList = contactService.getContacts(pageFilter).getData();
 
 		assertEquals(3, empList.size());
 	}
@@ -75,7 +77,7 @@ class ContactServiceTest {
 		when(contactRepository.findById(1)).thenReturn(
 				Optional.of(new Contact(1, "One", "Surname1One", "Surname2One", 666555444, "contact-one@gmail.com")));
 
-		Contact contact = contactService.getContact(1);
+		ContactDTO contact = contactService.getContact(1);
 
 		assertNotNull(contact);
 	}
@@ -91,12 +93,13 @@ class ContactServiceTest {
 	void addContactTest() {
 		Contact createContactRequest = new Contact("One", "Surname1One", "Surname2One",
 				666555444, "contact-one@gmail.com");
-		Contact contact = contactService.fromCreateContactRequest(createContactRequest);
+		ContactDTO contactDTO = ContactMapper.INSTANCE.contactToContactDto(createContactRequest);
+		Contact contact = contactService.fromCreateContactRequest(contactDTO);
 		contact.setId(1);
 		
 		when(contactRepository.save(any(Contact.class))).thenReturn(contact);
 
-		Integer newContactId = contactService.createContact(createContactRequest).getId();
+		Integer newContactId = contactService.createContact(contactDTO).getId();
 
 		assertNotNull(newContactId);
 		assertEquals(1, newContactId);
@@ -106,12 +109,13 @@ class ContactServiceTest {
 	void editContactTest() {
 		Contact editContactRequest = new Contact(1, "OneEdit", "Surname1OneEdit", "Surname2OneEdit",
 				666555444, "contact-one-edit@gmail.com");
-		Contact contact = contactService.fromCreateContactRequest(editContactRequest);
+		ContactDTO contactDTO = ContactMapper.INSTANCE.contactToContactDto(editContactRequest);
+		Contact contact = contactService.fromCreateContactRequest(contactDTO);
 		contact.setId(1);
 		
 		when(contactRepository.save(any(Contact.class))).thenReturn(contact);
 
-		Integer editContactId = contactService.editContact(editContactRequest);
+		Integer editContactId = contactService.editContact(contactDTO);
 
 		assertNotNull(editContactId);
 		assertEquals(1, editContactId);
