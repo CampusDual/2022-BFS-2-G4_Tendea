@@ -27,7 +27,7 @@ public class User implements Serializable {
 	private Integer id;
 
 	@Column
-	private String nif;
+	private String email;
 
 	@Column
 	private String name;
@@ -56,17 +56,17 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(String nif, String name, String surname1, String surname2, String login) {
+	public User(String email, String name, String surname1, String surname2, String login) {
 		super();
-		this.nif = nif;
+		this.email = email;
 		this.name = name;
 		this.surname1 = surname1;
 		this.surname2 = surname2;
 		this.login = login;
 	}
 
-	public User(Integer id, String nif, String name, String surname1, String surname2, String login) {
-		this(nif, name, surname1, surname2, login);
+	public User(Integer id, String email, String name, String surname1, String surname2, String login) {
+		this(email, name, surname1, surname2, login);
 		this.id = id;
 	}
 
@@ -78,12 +78,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getNif() {
-		return nif;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setNif(String nif) {
-		this.nif = nif;
+	public void setEmail(String nif) {
+		this.email = email;
 	}
 
 	public String getName() {

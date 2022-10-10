@@ -22,7 +22,7 @@ public class UserDTO {
 	private Integer id;
 
 	@Column
-	private String nif;
+	private String email;
 
 	@Column
 	private String name;
@@ -54,12 +54,12 @@ public class UserDTO {
 		this.id = id;
 	}
 
-	public String getNif() {
-		return this.nif;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setNif(String nif) {
-		this.nif = nif;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getName() {
