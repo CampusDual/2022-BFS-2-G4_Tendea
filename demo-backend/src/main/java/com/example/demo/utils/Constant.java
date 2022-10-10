@@ -1,6 +1,7 @@
 package com.example.demo.utils;
 
 public class Constant {
+    
 	//Contact error
 	public static final String NAME_REQUIRED ="NAME_REQUIRED";
 	public static final String ID_REQUIRED ="ID_REQUIRED";
@@ -37,6 +38,12 @@ public class Constant {
 	public static final String USER_NOT_EXISTS ="USER_NOT_EXISTS";
 	public static final String NO_SECTIONS_ACCESS ="NO_SECTIONS_ACCESS";
 	public static final String USER_CONSTRAINT_VIOLATION ="USER_CONSTRAINT_VIOLATION";
+	public static final String USER_INCORRECT_SIZE ="INCORRECT_SIZE";
+	public static final String USER_LETTERS_ONLY ="LETTERS_ONLY";
+	public static final String USER_ALPHANUMERIC_ONLY ="ALPHANUMERIC_ONLY";
+	public static final String USER_PASSWORD_REQUIRED ="PASSWORD_REQUIRED";
+	public static final String USER_CREATION_DATE_REQUIRED ="CREATION_DATE_REQUIRED";
+	public static final String USER_ACTIVE_STATUS_REQUIRED ="ACTIVE_STATUS_REQUIRED";
 	
 	//Profile error
 	public static final String PROFILE_CONSTRAINT_VIOLATION ="PROFILE_CONSTRAINT_VIOLATION";

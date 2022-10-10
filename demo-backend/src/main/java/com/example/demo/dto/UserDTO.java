@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,8 +46,17 @@ public class UserDTO {
 
 	@Column
 	private String password;
+	
+	@Column
+	private Date createdAt;
+	
+	@Column(name = "active_status")
+	private Integer activeStatus;
 
-	public Integer getId() {
+	
+    // -------- GETTERS/SETTERS -------
+	
+    public Integer getId() {
 		return this.id;
 	}
 
@@ -118,6 +128,21 @@ public class UserDTO {
 		this.password = password;
 	}
 	
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+    }
 	
 
 

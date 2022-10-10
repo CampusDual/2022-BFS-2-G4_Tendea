@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,9 +13,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Formula;
+
+import com.example.demo.utils.Constant;
 
 
 @Entity
@@ -22,23 +32,40 @@ import org.hibernate.annotations.Formula;
 public class User implements Serializable {
 	private static final long serialVersionUID = -2185803412812655677L;
 
+	
+    // --- ATTRIBUTES ---
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column
+	@NotEmpty(message = Constant.EMAIL_REQUIRED)
+    @Email(message= Constant.EMAIL_INVALID)
+    @Column(nullable=false, unique=true)
 	private String email;
 
-	@Column
+	@NotEmpty(message = Constant.NAME_REQUIRED)
+	@Size(min = 2, max = 24, message = Constant.USER_INCORRECT_SIZE)
+	@Pattern(regexp="^[A-Za-z]*$",message = Constant.USER_LETTERS_ONLY)
+	@Column(nullable=false)
 	private String name;
 
-	@Column
+    @NotEmpty(message = Constant.SURNAME1_REQUIRED)
+    @Size(min = 2, max = 24, message = Constant.USER_INCORRECT_SIZE)
+    @Pattern(regexp="^[A-Za-z]*$",message = Constant.USER_LETTERS_ONLY)
+    @Column(nullable=false)
 	private String surname1;
 
-	@Column
+    @NotEmpty(message = Constant.SURNAME2_REQUIRED)
+    @Size(min = 2, max = 24, message = Constant.USER_INCORRECT_SIZE)
+    @Pattern(regexp="^[A-Za-z]*$",message = Constant.USER_LETTERS_ONLY)
+    @Column(nullable=false)
 	private String surname2;
 
-	@Column(unique = true)
+    @NotEmpty(message = Constant.NAME_REQUIRED)
+    @Size(min = 2, max = 24, message = Constant.USER_INCORRECT_SIZE)
+    @Pattern(regexp="[A-Za-z0-9]+$",message = Constant.USER_ALPHANUMERIC_ONLY)
+	@Column(nullable=false, unique=true)
 	private String login;
 
 	@Formula("name || ' ' || surname1 || ' ' || surname2")
@@ -49,9 +76,28 @@ public class User implements Serializable {
 			@JoinColumn(name = "profile_id") })
 	private Set<Profile> profiles = new HashSet<>();
 
-	@Column
+    @NotEmpty(message = Constant.USER_PASSWORD_REQUIRED)
+    @Size(min = 6, max = 24, message = Constant.USER_INCORRECT_SIZE)
+    @Pattern(regexp="[A-Za-z0-9]+$",message = Constant.USER_ALPHANUMERIC_ONLY)
+    @Column(nullable=false)
 	private String password;
+	
+	@Column(name = "created_at", nullable=false)
+	@Temporal(TemporalType.DATE)
+	private Date createdAt;
+	
+    @NotEmpty(message = Constant.USER_ACTIVE_STATUS_REQUIRED)
+	@Column(name = "active_status", nullable=false)
+	private Integer activeStatus;
 
+    // ------ PREPERSIST ------
+    @PrePersist
+    public void prePersist() {
+        createdAt = new Date();
+    }
+    
+    // ------ METHODS ------
+    
 	public User() {
 		super();
 	}
@@ -171,7 +217,23 @@ public class User implements Serializable {
 		this.fullName = fullName;
 	}
 
-	public String getPassword() {
+	public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
+    public String getPassword() {
 		return password;
 	}
 
