@@ -38,6 +38,7 @@ public class Profile implements Serializable {
 			@JoinColumn(name = "profile_id") }, inverseJoinColumns = { @JoinColumn(name = "section_id") })
 	private List<Section> sections = new ArrayList<>();
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "profiles")
 	private Set<User> users = new HashSet<>();
 
