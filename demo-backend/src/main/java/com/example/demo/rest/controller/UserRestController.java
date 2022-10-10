@@ -48,10 +48,10 @@ public class UserRestController {
 	private IUserService userService;
 	
 	
-	@GetMapping(path = "/getUsers")
-	public @ResponseBody List<User> findAll() {
-		return userService.findAll();
-	}
+//	@GetMapping(path = "/getUsers")
+//	public @ResponseBody List<User> findAll() {
+//		return userService.findAll();
+//	}
 	
 	@PostMapping(path = "createUser")
 	@ResponseStatus(HttpStatus.CREATED)

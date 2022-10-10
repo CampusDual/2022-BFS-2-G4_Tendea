@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.UserDTO;
+//import com.example.demo.dto.UserGetDTO;
 import com.example.demo.dto.mapper.ContactMapper;
 import com.example.demo.dto.mapper.UserMapper;
 import com.example.demo.entity.Contact;
@@ -51,10 +52,11 @@ public class UserServiceImpl extends AbstractDemoService implements IUserService
 //		return true;
 //	}
 	
-	@Override
-	public List<User> findAll() {
-		return (List<User>)userRepository.findAll();
-	}
+//	@Override
+//	public List<UserGetDTO> findAll() {
+//		
+//		return (List<UserGetDTO>)userRepository.findAll();
+//	}
 	
 	@Override
 	@Transactional
