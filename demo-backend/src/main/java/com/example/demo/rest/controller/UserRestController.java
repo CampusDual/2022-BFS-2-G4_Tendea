@@ -79,7 +79,7 @@ public class UserRestController {
 				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 				
 			}
-			response.put("contacto", userNew);
+			response.put("usuario", userNew);
 		}else {
 			List<String> errors = new ArrayList<>();
 			for(FieldError error : result.getFieldErrors()) {
