@@ -33,7 +33,6 @@ public class Profile implements Serializable {
 	@Column
 	private String description;
 
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "profiles_sections_map", joinColumns = {
 			@JoinColumn(name = "profile_id") }, inverseJoinColumns = { @JoinColumn(name = "section_id") })

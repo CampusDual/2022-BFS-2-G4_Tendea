@@ -10,7 +10,7 @@ public interface IUserService {
 
 //	Boolean canLogin(String user);
 	
-	List<User> findAll();
+//	List<User> findAll();
 	
 	UserDTO createUser(UserDTO createUserRequest);
 	
