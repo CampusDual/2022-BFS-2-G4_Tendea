@@ -57,7 +57,7 @@ public class UserRestController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PreAuthorize("hasAnyAuthority('CONTACTS')")
 	public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO createUserRequest, BindingResult result) {
-		LOGGER.info("createContact in progress...");
+		LOGGER.info("createContact in progress..." + createUserRequest);
 		UserDTO userNew = null;
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
@@ -65,6 +65,7 @@ public class UserRestController {
 		if(!result.hasErrors()) {
 			try {
 				userNew = userService.createUser(createUserRequest);	
+				// userNew.setActiveStatus(1);
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
 			} catch (DataAccessException e) {
 				if(e.getMostSpecificCause().getMessage().contains(Constant.PHONE_ERROR)) {

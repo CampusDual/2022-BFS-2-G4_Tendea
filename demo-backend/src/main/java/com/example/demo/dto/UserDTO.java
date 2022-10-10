@@ -11,49 +11,41 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 
 import org.hibernate.annotations.Formula;
 
 import com.example.demo.entity.Profile;
 
 public class UserDTO {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Integer id;
 
-	@Column
 	private String email;
 
-	@Column
 	private String name;
 
-	@Column
 	private String surname1;
 
-	@Column
 	private String surname2;
 
-	@Column(unique = true)
 	private String login;
 
-	@Formula("name || ' ' || surname1 || ' ' || surname2")
 	private String fullName;
 
-	@ManyToMany	@JoinTable(name = "users_profiles_map", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "profile_id") })
 	private Set<Profile> profiles = new HashSet<>();
 
-	@Column
 	private String password;
 	
-	@Column
 	private Date createdAt;
 	
-	@Column(name = "active_status")
 	private Integer activeStatus;
 
-	
+    @PrePersist
+    public void prePersist() {
+        createdAt = new Date();
+    }
+    
     // -------- GETTERS/SETTERS -------
 	
     public Integer getId() {

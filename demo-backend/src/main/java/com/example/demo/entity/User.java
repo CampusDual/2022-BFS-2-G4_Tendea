@@ -31,7 +31,6 @@ import com.example.demo.utils.Constant;
 @Table(name = "users")
 public class User implements Serializable {
 	private static final long serialVersionUID = -2185803412812655677L;
-
 	
     // --- ATTRIBUTES ---
 	
@@ -46,25 +45,21 @@ public class User implements Serializable {
 
 	@NotEmpty(message = Constant.NAME_REQUIRED)
 	@Size(min = 2, max = 24, message = Constant.USER_INCORRECT_SIZE)
-	@Pattern(regexp="^[A-Za-z]*$",message = Constant.USER_LETTERS_ONLY)
 	@Column(nullable=false)
 	private String name;
 
     @NotEmpty(message = Constant.SURNAME1_REQUIRED)
     @Size(min = 2, max = 24, message = Constant.USER_INCORRECT_SIZE)
-    @Pattern(regexp="^[A-Za-z]*$",message = Constant.USER_LETTERS_ONLY)
     @Column(nullable=false)
 	private String surname1;
 
     @NotEmpty(message = Constant.SURNAME2_REQUIRED)
     @Size(min = 2, max = 24, message = Constant.USER_INCORRECT_SIZE)
-    @Pattern(regexp="^[A-Za-z]*$",message = Constant.USER_LETTERS_ONLY)
     @Column(nullable=false)
 	private String surname2;
 
     @NotEmpty(message = Constant.NAME_REQUIRED)
     @Size(min = 2, max = 24, message = Constant.USER_INCORRECT_SIZE)
-    @Pattern(regexp="[A-Za-z0-9]+$",message = Constant.USER_ALPHANUMERIC_ONLY)
 	@Column(nullable=false, unique=true)
 	private String login;
 
@@ -78,16 +73,16 @@ public class User implements Serializable {
 
     @NotEmpty(message = Constant.USER_PASSWORD_REQUIRED)
     @Size(min = 6, max = 24, message = Constant.USER_INCORRECT_SIZE)
-    @Pattern(regexp="[A-Za-z0-9]+$",message = Constant.USER_ALPHANUMERIC_ONLY)
+    //@Pattern(regexp="[A-Za-z0-9]+$",message = Constant.USER_ALPHANUMERIC_ONLY)
     @Column(nullable=false)
 	private String password;
 	
-	@Column(name = "created_at", nullable=false)
-	@Temporal(TemporalType.DATE)
+	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	
-    @NotEmpty(message = Constant.USER_ACTIVE_STATUS_REQUIRED)
-	@Column(name = "active_status", nullable=false)
+    //@NotEmpty(message = Constant.USER_ACTIVE_STATUS_REQUIRED)
+	@Column(name = "active_status")
 	private Integer activeStatus;
 
     // ------ PREPERSIST ------
@@ -102,19 +97,23 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(String email, String name, String surname1, String surname2, String login) {
+	public User(String email, String name, String surname1, String surname2, String login, Date createdAt, Integer activeStatus) {
 		super();
 		this.email = email;
 		this.name = name;
 		this.surname1 = surname1;
 		this.surname2 = surname2;
 		this.login = login;
+		this.createdAt = createdAt;
+		this.activeStatus = activeStatus;
 	}
 
+	/*
 	public User(Integer id, String email, String name, String surname1, String surname2, String login) {
 		this(email, name, surname1, surname2, login);
 		this.id = id;
 	}
+	*/
 
 	public Integer getId() {
 		return id;
@@ -128,7 +127,7 @@ public class User implements Serializable {
 		return email;
 	}
 
-	public void setEmail(String nif) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -200,8 +199,9 @@ public class User implements Serializable {
 		profiles.forEach(profile -> profile.getUsers().remove(this));
 	}
 
-	public static User from(String query) {
-		return new User(query, query, query, query, query);
+	
+	public static User from(String query, Date date, Integer status) {
+		return new User(query, query, query, query, query, date, status);
 	}
 
 	/**
