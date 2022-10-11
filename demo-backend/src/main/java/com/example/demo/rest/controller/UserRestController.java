@@ -32,6 +32,7 @@ import com.example.demo.entity.Profile;
 import com.example.demo.entity.User;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.service.IUserService;
+import com.example.demo.utils.CipherUtils;
 import com.example.demo.utils.Constant;
 
 import org.slf4j.LoggerFactory;
@@ -64,8 +65,9 @@ public class UserRestController {
 		String message = "USUARIO CREADO";
 		if(!result.hasErrors()) {
 			try {
-				userNew = userService.createUser(createUserRequest);	
-				// userNew.setActiveStatus(1);
+				CipherUtils cipher = new CipherUtils();
+				createUserRequest.setPassword(cipher.encrypt(createUserRequest.getLogin() , createUserRequest.getPassword()));
+				userNew = userService.createUser(createUserRequest);
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
 			} catch (DataAccessException e) {
 				if(e.getMostSpecificCause().getMessage().contains(Constant.PHONE_ERROR)) {
@@ -97,7 +99,7 @@ public class UserRestController {
 		
 		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
-	
+		
 	
 	
 	
