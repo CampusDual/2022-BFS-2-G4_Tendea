@@ -12,14 +12,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { JwtModule } from '@auth0/angular-jwt';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { CoreModule, FlexLayoutModule } from '@angular/flex-layout';
+import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     TranslateModule,
     CommonModule,
@@ -31,6 +34,9 @@ export function tokenGetter() {
     FlexLayoutModule,
     MatSelectModule,
     MatIconModule,
+    ReactiveFormsModule,
+    CoreModule,
+    MatCardModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,

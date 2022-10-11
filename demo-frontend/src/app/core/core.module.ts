@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from '../main/main-routing.module';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { MatCardHeader, MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -55,6 +55,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FlexLayoutModule,
     MatBadgeModule,
     BrowserModule,
+    MatCardModule,
     ReactiveFormsModule
   ],
   exports: [

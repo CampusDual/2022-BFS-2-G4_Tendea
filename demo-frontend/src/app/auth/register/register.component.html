@@ -1,0 +1,52 @@
+<p>register works!</p>
+
+<form [formGroup]="registerForm" (ngSubmit)="save()" class="h-full" >
+    <div fxLayout="column" fxLayoutGap="20px" class="form-content">
+        <div class="input-row">
+            <mat-card fxFlex>
+                <mat-card-header>
+                    <mat-card-title>Registro de cliente</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <mat-form-field fxFlex>
+                            <input matInput type="text" name="login" placeholder="Nombre de usuario">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <mat-form-field fxFlex>
+                            <input matInput type="text" formControlName="name" placeholder="Nombre">
+                            <mat-error *ngIf="validField('name')"> Campo invalido </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <mat-form-field fxFlex>
+                            <input matInput type="text" name="surname1" placeholder="Primer apellido">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <mat-form-field fxFlex>
+                            <input matInput type="text" name="surname2" placeholder="Segundo apellido">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <mat-form-field fxFlex>
+                            <input matInput type="text" name="email" placeholder="E-mail">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <mat-form-field fxFlex>
+                            <input matInput type="text" formControlName="password" placeholder="Contraseña">
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" > Enviar </button>
+    </div>
+
+</form>
+  
