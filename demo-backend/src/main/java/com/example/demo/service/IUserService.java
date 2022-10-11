@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.UserDTO;
+import com.example.demo.dto.UserGetDTO;
 import com.example.demo.entity.User;
 
 public interface IUserService {
 
 //	Boolean canLogin(String user);
 	
-//	List<User> findAll();
+	List<UserGetDTO> findAll();
 	
 	UserDTO createUser(UserDTO createUserRequest);
 	

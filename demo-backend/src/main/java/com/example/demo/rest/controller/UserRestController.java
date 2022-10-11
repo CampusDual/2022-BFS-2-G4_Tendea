@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.UserDTO;
+import com.example.demo.dto.UserGetDTO;
 import com.example.demo.dto.mapper.UserMapper;
 import com.example.demo.entity.Profile;
 import com.example.demo.entity.User;
@@ -49,10 +50,10 @@ public class UserRestController {
 	private IUserService userService;
 	
 	
-//	@GetMapping(path = "/getUsers")
-//	public @ResponseBody List<User> findAll() {
-//		return userService.findAll();
-//	}
+	@GetMapping(path = "/getUsers")
+	public @ResponseBody List<UserGetDTO> findAll() {
+		return userService.findAll();
+	}
 	
 	@PostMapping(path = "createUser")
 	@ResponseStatus(HttpStatus.CREATED)

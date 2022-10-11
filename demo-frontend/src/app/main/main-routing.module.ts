@@ -20,7 +20,8 @@ const routes: Routes = [
     data: {
       allowedRoles: ['CONTACTS'],
     },
-  },
+  }
+
 ];
 
 @NgModule({
