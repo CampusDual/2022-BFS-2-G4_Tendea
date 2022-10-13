@@ -1,3 +1,4 @@
+import { User } from 'src/app/auth/register/user';
 import { Contact } from '../contact';
 
 export class QuerySortPaginationRequest {
@@ -30,6 +31,35 @@ export class CreateContactRequest {
     this.phone = contact.phone;
     this.email = contact.email;
   }
+
+  
+
+}
+
+
+export class CreateUserRequest {
+  login : string;
+  name: string;
+  surname1: string;
+  surname2: string;
+  phone: number;
+  email: string;
+  password: string;
+  profiles: string[];
+
+
+  constructor(user: User) {
+    this.login = user.login;
+    this.name = user.name;
+    this.surname1 = user.surname1;
+    this.surname2 = user.surname2;
+    this.email = user.email;
+    this.password = user.password;
+    this.profiles = ["2"];
+  }
+
+  
+
 }
 
 export class EditContactRequest extends CreateContactRequest {

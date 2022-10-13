@@ -57,7 +57,7 @@ public class UserRestController {
 	
 	@PostMapping(path = "createUser")
 	@ResponseStatus(HttpStatus.CREATED)
-	@PreAuthorize("hasAnyAuthority('CONTACTS')")
+//	@PreAuthorize("hasAnyAuthority('CONTACTS')")
 	public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO createUserRequest, BindingResult result) {
 		LOGGER.info("createContact in progress..." + createUserRequest);
 		UserDTO userNew = null;

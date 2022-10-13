@@ -49,13 +49,14 @@
                         </div>
                         <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                             <mat-form-field fxFlex>
-                                <input matInput type="text" formControlName="password" placeholder="Contraseña" formControlName = "password">
+                                <input matInput type="password" formControlName="password" placeholder="Contraseña" formControlName = "password">
                                 <mat-error *ngIf="registerForm.get('password').hasError('required')"> {{'register.PASSWORD_REQUIRED' | translate}} </mat-error>
                                 <mat-error *ngIf="registerForm.get('password').hasError('pattern')"> {{'register.INVALID_PASSWORD' | translate}} </mat-error>
                             </mat-form-field>
                         </div>
                         <div>
                             <button type="submit" mat-raised-button color="primary"> Enviar </button>
+                            <a routerLink="/" mat-raised-button color="basic"> Cancelar </a>
                         </div>
                     </mat-card-content>
                 </mat-card>
