@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { API_CONFIG } from '../shared/api.config';
 import { CreateUserRequest } from '../model/rest/request';
 import { catchError, throwError, Observable } from 'rxjs';
-import { User } from '../auth/register/user';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -29,17 +29,18 @@ export class UserServicesService {
    */
   registerUser(registerUser): Observable<User> {
     const url = API_CONFIG.createUser;
-    const body: CreateUserRequest = new CreateUserRequest(registerUser);
+    //const body: CreateUserRequest = new CreateUserRequest(registerUser);
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
     });
 
-    return this.http.post<User>(url, body, { headers }).pipe(
+    console.log(registerUser);
+    return this.http.post<User>(url, registerUser, { headers }).pipe(
       catchError((e) => {
-        if (e.error.errors.includes('email')) {
+        if (e.error.errors!.includes('email')) {
           this.showMessageError('Este email ya esta registrado');
         }
-        if (e.error.errors.includes('login')) {
+        if (e.error.errors!.includes('login')) {
           this.showMessageError('Este nombre de usuario ya esta registrado');
         }
         return throwError(() => e);

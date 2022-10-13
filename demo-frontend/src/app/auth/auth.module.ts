@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 
-import { CoreModule, FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -18,22 +18,16 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [RegisterComponent, LoginComponent],
   imports: [
     TranslateModule,
     CommonModule,
     AuthRoutingModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
     FlexLayoutModule,
-    MatSelectModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    CoreModule,
     MatCardModule,
     MaterialModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,

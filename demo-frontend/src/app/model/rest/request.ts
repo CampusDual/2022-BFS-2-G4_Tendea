@@ -1,5 +1,5 @@
-import { User } from 'src/app/auth/register/user';
 import { Contact } from '../contact';
+import { User } from '../user';
 
 export class QuerySortPaginationRequest {
   query: string;
@@ -8,7 +8,13 @@ export class QuerySortPaginationRequest {
   sortDirection: string;
   sortColumn: string;
 
-  constructor(query: string, pageIndex: number, pageSize: number, sortDirection: string, sortColumn: string) {
+  constructor(
+    query: string,
+    pageIndex: number,
+    pageSize: number,
+    sortDirection: string,
+    sortColumn: string
+  ) {
     this.query = query;
     this.pageIndex = pageIndex;
     this.pageSize = pageSize;
@@ -31,14 +37,10 @@ export class CreateContactRequest {
     this.phone = contact.phone;
     this.email = contact.email;
   }
-
-  
-
 }
 
-
 export class CreateUserRequest {
-  login : string;
+  login: string;
   name: string;
   surname1: string;
   surname2: string;
@@ -47,7 +49,6 @@ export class CreateUserRequest {
   password: string;
   profiles: string[];
 
-
   constructor(user: User) {
     this.login = user.login;
     this.name = user.name;
@@ -55,11 +56,8 @@ export class CreateUserRequest {
     this.surname2 = user.surname2;
     this.email = user.email;
     this.password = user.password;
-    this.profiles = ["2"];
+    this.profiles = ['2'];
   }
-
-  
-
 }
 
 export class EditContactRequest extends CreateContactRequest {

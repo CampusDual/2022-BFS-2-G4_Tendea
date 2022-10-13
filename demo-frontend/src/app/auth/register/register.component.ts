@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { User } from './user';
+import { Router } from '@angular/router';
+
 import { UserServicesService } from '../../services/user-services.service';
+import { User } from '../../model/user';
 
 @Component({
   selector: 'app-register',
@@ -15,24 +15,24 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup = this.fb.group({
     login: [
-      '',
+      'demo',
       [Validators.required, Validators.minLength(2), Validators.maxLength(24)],
     ],
     name: [
-      '',
+      'Adolfo',
       [Validators.required, Validators.minLength(2), Validators.maxLength(24)],
     ],
     surname1: [
-      '',
+      'Blanco',
       [Validators.required, Validators.minLength(2), Validators.maxLength(24)],
     ],
     surname2: [
-      '',
+      'Salazar',
       [Validators.required, Validators.minLength(2), Validators.maxLength(24)],
     ],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['@mail.com', [Validators.required, Validators.email]],
     password: [
-      '',
+      'Ajcldkcb67',
       {
         validators: [
           Validators.required,
@@ -48,9 +48,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserServicesService,
     private router: Router
-  ) {
-    this.user = new User();
-  }
+  ) {}
 
   ngOnInit(): void {}
 
@@ -67,9 +65,10 @@ export class RegisterComponent implements OnInit {
     }
 
     /** Le agregamos el rol al nuevo objeto que generamos */
-    let profile = 2;
-    let nUser = { profile, ...newUser };
-    this.userService.registerUser(newUser).subscribe((res) => {
+    let profiles = ['2'];
+    let nUser = { profiles, ...newUser };
+    this.userService.registerUser(nUser).subscribe((res) => {
+      console.log(res);
       this.router.navigate(['./']);
     });
   }
