@@ -1,52 +1,65 @@
-<p>register works!</p>
 
-<form [formGroup]="registerForm" (ngSubmit)="save()" class="h-full" >
-    <div fxLayout="column" fxLayoutGap="20px" class="form-content">
-        <div class="input-row">
-            <mat-card fxFlex>
-                <mat-card-header>
-                    <mat-card-title>Registro de cliente</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                        <mat-form-field fxFlex>
-                            <input matInput type="text" name="login" placeholder="Nombre de usuario">
-                        </mat-form-field>
-                    </div>
-                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                        <mat-form-field fxFlex>
-                            <input matInput type="text" formControlName="name" placeholder="Nombre">
-                            <mat-error *ngIf="validField('name')"> Campo invalido </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                        <mat-form-field fxFlex>
-                            <input matInput type="text" name="surname1" placeholder="Primer apellido">
-                        </mat-form-field>
-                    </div>
-                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                        <mat-form-field fxFlex>
-                            <input matInput type="text" name="surname2" placeholder="Segundo apellido">
-                        </mat-form-field>
-                    </div>
-                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                        <mat-form-field fxFlex>
-                            <input matInput type="text" name="email" placeholder="E-mail">
-                        </mat-form-field>
-                    </div>
-                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                        <mat-form-field fxFlex>
-                            <input matInput type="text" formControlName="password" placeholder="Contraseña">
-                        </mat-form-field>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+<div class = "container">
+    <form [formGroup]="registerForm" (ngSubmit)="save()" class="h-full" >
+        <div fxLayout="column" fxLayoutGap="20px" class="form-content">
+            <div class="input-row">
+                <mat-card fxFlex>
+                    <mat-card-header>
+                        <mat-card-title>Registro de cliente</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                            <mat-form-field fxFlex>
+                                <input matInput type="text" name="login" placeholder="Nombre de usuario" formControlName = "login">
+                                <mat-error *ngIf="registerForm.get('login').hasError('minlength')"> {{'register.INVALID_NAME_LENGTH' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('login').hasError('maxlength')"> {{'register.INVALID_NAME_LENGTH' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('login').hasError('required')"> {{'register.LOGIN_REQUIRED' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                            <mat-form-field fxFlex>
+                                <input matInput type="text" formControlName="name" placeholder="Nombre" formControlName = "name">
+                                <mat-error *ngIf="registerForm.get('name').hasError('minlength')"> {{'register.INVALID_NAME_LENGTH' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('name').hasError('maxlength')"> {{'register.INVALID_NAME_LENGTH' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('name').hasError('required')"> {{'NAME_REQUIRED' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                            <mat-form-field fxFlex>
+                                <input matInput type="text" name="surname1" placeholder="Primer apellido" formControlName = "surname1">
+                                <mat-error *ngIf="registerForm.get('surname1').hasError('minlength')"> {{'register.INVALID_NAME_LENGTH' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('surname1').hasError('maxlength')"> {{'register.INVALID_NAME_LENGTH' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('surname1').hasError('required')"> {{'SURNAME1_REQUIRED' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                            <mat-form-field fxFlex>
+                                <input matInput type="text" name="surname2" placeholder="Segundo apellido" formControlName = "surname2">
+                                <mat-error *ngIf="registerForm.get('surname2').hasError('minlength')"> {{'register.INVALID_NAME_LENGTH' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('surname2').hasError('maxlength')"> {{'register.INVALID_NAME_LENGTH' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('surname2').hasError('required')"> {{'SURNAME2_REQUIRED' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                            <mat-form-field fxFlex>
+                                <input matInput type="text" name="email" placeholder="E-mail" formControlName="email" formControlName = "email">
+                                <mat-error *ngIf="registerForm.get('email').hasError('required')"> {{'EMAIL_REQUIRED' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('email').hasError('email')"> {{'emailpattern' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                            <mat-form-field fxFlex>
+                                <input matInput type="text" formControlName="password" placeholder="Contraseña" formControlName = "password">
+                                <mat-error *ngIf="registerForm.get('password').hasError('required')"> {{'register.PASSWORD_REQUIRED' | translate}} </mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('pattern')"> {{'register.INVALID_PASSWORD' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button type="submit" mat-raised-button color="primary"> Enviar </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
-    </div>
-
-    <div>
-        <button type="submit" > Enviar </button>
-    </div>
-
-</form>
-  
+    </form>    
+</div>

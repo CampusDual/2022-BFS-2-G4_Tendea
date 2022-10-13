@@ -8,6 +8,7 @@ export const environment = {
   authBaseUrl: 'http://localhost:9999',
   adminBaseUrl: 'http://localhost:9999',
   contactsBaseUrl: 'http://localhost:9999/contacts',
+  usersBaseUrl: 'http://localhost:9999/users',
   loginBaseUrl: 'http://localhost:9999/login',
   clientName: 'demo',
   clientSecret: '8Fjkk59bXKws8bmMNFZB',

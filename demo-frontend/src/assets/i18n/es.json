@@ -44,6 +44,12 @@
     "previous_page": "Página anterior",
     "of": "de"
   },
+  "register": {
+    "LOGIN_REQUIRED": "El nombre de usuario es obligatorio",
+    "PASSWORD_REQUIRED": "La contraseña es obligatoria",
+    "INVALID_PASSWORD": "La contraseña debe tener entre 6 y 32 caracteres no especiales, incluyendo minúsculas, al menos una mayúscula y al menos un número",
+    "INVALID_NAME_LENGTH": "La longitud debe ser entre 2 y 24 caracteres"
+  },
   "EN": "Inglés",
   "ES": "Español",
   "GL": "Gallego",
@@ -86,4 +92,5 @@
   "phonerequired":"El teléfono es un campo obligatorio",
   "phonepattern": "El formato del teléfono no es correcto",
   "emailpattern": "El formato del email no es correcto"
+
 }
