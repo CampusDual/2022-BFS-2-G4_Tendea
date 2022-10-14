@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { API_CONFIG } from '../shared/api.config';
-import { CreateUserRequest } from '../model/rest/request';
 import { catchError, throwError, Observable } from 'rxjs';
 import { User } from '../model/user';
 
@@ -16,7 +15,8 @@ export class UserServicesService {
    * registerUser mensaje de alerta
    */
   showMessageError(message: string) {
-    this._snackBar.open(`${message}`, 'Error', {
+    this._snackBar.open(`${message}`, 'CERRAR', {
+      duration: 4000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
     });
