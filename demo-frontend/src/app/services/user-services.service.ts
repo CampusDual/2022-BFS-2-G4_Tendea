@@ -34,14 +34,13 @@ export class UserServicesService {
       'Content-type': 'application/json; charset=utf-8',
     });
 
-    console.log(registerUser);
     return this.http.post<User>(url, registerUser, { headers }).pipe(
       catchError((e) => {
         if (e.error.errors!.includes('email')) {
-          this.showMessageError('Este email ya esta registrado');
+          this.showMessageError('Este email ya está registrado');
         }
         if (e.error.errors!.includes('login')) {
-          this.showMessageError('Este nombre de usuario ya esta registrado');
+          this.showMessageError('Este nombre de usuario ya está registrado');
         }
         return throwError(() => e);
       })
