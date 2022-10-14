@@ -17,10 +17,9 @@ interface ROUTE {
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit, OnDestroy {
-
   @ViewChild('commandbarSidenav') public sidenav: MatSidenav;
 
   sidenavRoutes: ROUTE[] = [
@@ -28,20 +27,25 @@ export class NavComponent implements OnInit, OnDestroy {
       icon: 'home',
       route: 'main',
       title: 'menu.home',
-      allowedRoles: ['CONTACTS']
+      allowedRoles: ['CLIENTS'],
     },
     {
       icon: 'people',
       route: 'contacts',
       title: 'menu.contacts',
-      allowedRoles: ['CONTACTS']
+      allowedRoles: ['CLIENTS'],
     },
   ];
 
   protected subscription: Subscription;
 
-  constructor(private commandBarSidenavService: SidenavService, private authService: AuthService, private logger: LoggerService,
-              private authGuard: AuthGuard, private router: Router) { }
+  constructor(
+    private commandBarSidenavService: SidenavService,
+    private authService: AuthService,
+    private logger: LoggerService,
+    private authGuard: AuthGuard,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.logger.info('NavComponent: ngOnInit()');
@@ -49,7 +53,14 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   public isAuthenticated() {
-    if (!this.authService.isLoggedIn() && !(this.router.url === '/login' || this.router.url === '/' || this.router.url === '/register')) {
+    if (
+      !this.authService.isLoggedIn() &&
+      !(
+        this.router.url === '/login' ||
+        this.router.url === '/' ||
+        this.router.url === '/register'
+      )
+    ) {
       this.authService.redirectLoginSessionExpiration();
     }
     return this.authService.isLoggedIn();
@@ -62,7 +73,7 @@ export class NavComponent implements OnInit, OnDestroy {
   get allowedRoutes() {
     const allowedRoutes: Array<ROUTE> = [];
     if (this.isAuthenticated()) {
-      this.sidenavRoutes.forEach(route => {
+      this.sidenavRoutes.forEach((route) => {
         if (this.authGuard.isAllowed(route.allowedRoles)) {
           allowedRoutes.push(route);
         }
