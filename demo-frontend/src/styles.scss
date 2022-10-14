@@ -1,16 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import "themes/main.theme";
-@import '~@angular/material/theming';
-@import url('//fonts.googleapis.com/icon?family=Material+Icons');
+@import "~@angular/material/theming";
+@import url("//fonts.googleapis.com/icon?family=Material+Icons");
 
 @import "globals";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-$primary: mat-palette($mat-grey, 900);
-$accent:  mat-palette($mat-grey, 600);
-$warn:    mat-palette($mat-red, 500);
+$primary: mat-palette($teal-palette, 600);
+$accent: mat-palette($mat-grey, 600);
+$warn: mat-palette($mat-red, 500);
 $theme: mat-light-theme($primary, $accent, $warn);
 @include angular-material-theme($theme);
 

@@ -3,14 +3,14 @@
 
 // https://github.com/Teradata/covalent/blob/develop/src/theme.scss
 
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 @import "./material.icons";
 
 // https://material.angular.io/guide/typography
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Open Sans, sans-serif'
+  $font-family: "Open Sans, sans-serif",
 );
 
 @include mat-core($custom-typography);
@@ -24,9 +24,9 @@ $custom-typography: mat-typography-config(
 @import "./palette";
 @import "./demo.theme";
 
-$primary: mat-palette($mat-black, 900);
-$accent:  mat-palette($mat-indigo, 500, A100, A400);
-$warn:    mat-palette($mat-red, 600);
+$primary: mat-palette($teal-palette, 900);
+$accent: mat-palette($mat-indigo, 500, A100, A400);
+$warn: mat-palette($mat-red, 600);
 
 $theme: mat-light-theme($primary, $accent, $warn);
 
@@ -36,13 +36,14 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 // top, right, bottom, and left
 
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
 }
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .page-content {
@@ -69,7 +70,7 @@ body {
 }
 
 .row-link:hover {
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
 
@@ -113,7 +114,6 @@ th.mat-header-cell {
   }
 
   background-color: #f5f5f5;
-
 }
 
 $command-bar-sidenav-width: 160px; // card layout
@@ -141,7 +141,6 @@ $command-bar-sidenav-width: 160px; // card layout
   }
 
   background-color: transparent;
-
 }
 
 //
@@ -158,7 +157,6 @@ $command-bar-sidenav-width: 160px; // card layout
   @media ($mat-xsmall) {
     height: calc(100vh - 140px);
   }
-
 }
 
 .app-component-title-container {
@@ -178,7 +176,6 @@ $command-bar-sidenav-width: 160px; // card layout
 
     margin-top: $mat-toolbar-height-mobile + $app-command-bar-height-mobile;
   }
-
 }
 
 .app-component-title {
@@ -271,7 +268,6 @@ $task-list-width: 320px; // 240px;
   @media ($mat-xsmall) {
     height: calc(100vh - 200px);
   }
-
 }
 
 .app-task-list-icon {
@@ -348,9 +344,11 @@ $task-list-width: 320px; // 240px;
 //
 
 .lib-component-title {
-  margin-top: $mat-toolbar-height-desktop + $app-command-bar-height-desktop + $app-component-title-margin;
+  margin-top: $mat-toolbar-height-desktop + $app-command-bar-height-desktop +
+    $app-component-title-margin;
   @media ($mat-xsmall) {
-    margin-top: $mat-toolbar-height-mobile + $app-command-bar-height-mobile + $app-component-title-margin;
+    margin-top: $mat-toolbar-height-mobile + $app-command-bar-height-mobile +
+      $app-component-title-margin;
   }
   margin-bottom: $app-component-title-margin;
   text-align: center;

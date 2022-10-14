@@ -92,7 +92,8 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <a routerLink="/" mat-raised-button color="basic">Cancelar</a>
-                            <button type="submit" mat-raised-button color="primary">Guardar</button>
+                            <button type="submit" mat-raised-button color="primary"
+                                [disabled]="registerForm.invalid">Guardar</button>
                         </div>
                     </mat-card-content>
                 </mat-card>
