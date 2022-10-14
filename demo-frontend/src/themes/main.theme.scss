@@ -24,7 +24,7 @@ $custom-typography: mat-typography-config(
 @import "./palette";
 @import "./demo.theme";
 
-$primary: mat-palette($teal-palette, 900);
+$primary: mat-palette($teal-palette, A700);
 $accent: mat-palette($mat-indigo, 500, A100, A400);
 $warn: mat-palette($mat-red, 600);
 
