@@ -45,8 +45,7 @@ export class NavComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private logger: LoggerService,
     private authGuard: AuthGuard,
-    private router: Router,
-
+    private router: Router
   ) {}
 
   ngOnInit() {
