@@ -4,18 +4,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-mat-snack-bar',
   templateUrl: './mat-snack-bar.component.html',
-  styleUrls: ['./mat-snack-bar.component.scss']
+  styleUrls: ['./mat-snack-bar.component.scss'],
 })
 export class MatSnackBarComponent {
-
-  constructor(public snackBar: MatSnackBar) { }
+  constructor(public snackBar: MatSnackBar) {}
 
   openSnackBar(message: string, action: string, className: string) {
-
     this.snackBar.open(message, action, {
-      duration: 5000,
+      duration: 4000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
       panelClass: [className],
     });
-}
-
+  }
 }
