@@ -31,12 +31,18 @@ import { CustomMatPaginatorIntl } from './model/custom-mat-paginator';
 import { InterceptService } from './services/intercept.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { GridComponent } from './components/landing/grid/grid.component';
+import { NavSearchComponent } from './components/landing/nav-search/nav-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfirmationDialogComponent,
     MatSnackBarComponent,
+    LandingComponent,
+    GridComponent,
+    NavSearchComponent,
   ],
   imports: [
     TranslateModule.forRoot({
