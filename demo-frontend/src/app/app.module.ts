@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,12 +25,17 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './model/custom-mat-paginator';
 import { CoreModule } from './core/core.module';
+import { ProductComponent } from './product/product.component';
+import { WallComponent } from './wall/wall.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfirmationDialogComponent,
-    MatSnackBarComponent
+    MatSnackBarComponent,
+    ProductComponent,
+    WallComponent
   ],
   imports: [
     TranslateModule.forRoot({
@@ -52,7 +58,9 @@ import { CoreModule } from './core/core.module';
     CoreModule,
     MatSnackBarModule,
     NgxSpinnerModule,
-    NgIdleKeepaliveModule.forRoot()
+    NgIdleKeepaliveModule.forRoot(),
+    MatGridListModule,
+    MatCardModule
   ],
   entryComponents: [
     ConfirmationDialogComponent
