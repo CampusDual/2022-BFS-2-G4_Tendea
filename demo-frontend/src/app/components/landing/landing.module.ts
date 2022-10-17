@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { LandingRoutingModule } from './landing-routing.module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    LandingRoutingModule
-  ]
+  imports: [CommonModule, LandingRoutingModule],
 })
-export class LandingModule { }
+export class LandingModule {}
