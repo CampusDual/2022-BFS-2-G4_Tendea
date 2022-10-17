@@ -1,1 +1,19 @@
-<p>nav-search works!</p>
+<div class="mt-3">
+  <div class="mx-auto col-8">
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Busqueda de producto</mat-label>
+      <input type="text" aria-label="Number" matInput [matAutocomplete]="auto" />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <!-- <mat-option *ngFor="let heroe of heroes" [value]="heroe">
+          {{ heroe.superhero }}
+        </mat-option> -->
+
+        <!-- <mat-option value="" *ngIf="heroes.length === 0 && termino.trim().length > 0">
+          No se encontro ningun superheroe con el {{termino}}
+        </mat-option> -->
+
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>

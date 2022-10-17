@@ -34,6 +34,9 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
 import { LandingComponent } from './components/landing/landing.component';
 import { GridComponent } from './components/landing/grid/grid.component';
 import { NavSearchComponent } from './components/landing/nav-search/nav-search.component';
+import { LandingRoutingModule } from './components/landing/landing-routing.module';
+import { LandingModule } from './components/landing/landing.module';
+import { FooterComponent } from './components/landing/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,8 @@ import { NavSearchComponent } from './components/landing/nav-search/nav-search.c
     LandingComponent,
     GridComponent,
     NavSearchComponent,
+    LandingComponent,
+    FooterComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -63,6 +68,7 @@ import { NavSearchComponent } from './components/landing/nav-search/nav-search.c
     CoreModule,
     NgxSpinnerModule,
     MaterialModule,
+    LandingRoutingModule,
     NgIdleKeepaliveModule.forRoot(),
   ],
   entryComponents: [ConfirmationDialogComponent],

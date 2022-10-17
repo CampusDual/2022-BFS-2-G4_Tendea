@@ -55,3 +55,25 @@
   -webkit-box-pack: end;
   justify-content: end;
 }
+
+/**
+ * Landing Page Styles
+ */
+
+/** Colores */
+.color-green {
+  color: #00af91;
+}
+
+.backgroung-green {
+  color: white;
+  background-color: #00af91;
+}
+
+.nav-logo {
+  width: 200px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
