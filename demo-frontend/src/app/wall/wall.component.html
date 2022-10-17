@@ -1,12 +1,10 @@
 <p>wall works!</p>
 
-<mat-card class="product-card" >
+<!-- <mat-card class="product-card" >
     <img mat-card-image src="./assets/images/gazelle.jpg" alt="Adidas Gazelle azules" height="200px" >
     <mat-card-title> Adidas Gazelle  Azules </mat-card-title>
     <mat-card-subtitle> Deportes Valentín </mat-card-subtitle>
-
-
-</mat-card>
+</mat-card> -->
 
 <mat-grid-list cols="4" gutterSize="25" rowHeight="3:4" >
     <mat-grid-tile> 
@@ -31,7 +29,22 @@
           </mat-card>
           
     </mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card class="mat-card" >
+            <mat-card-header>
+                <mat-card-title> Adidas Gazelle  Azules </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="./assets/images/gazelle.jpg" alt="Adidas Gazelle azules" height="200px" >
+            <mat-card-subtitle> Deportes Valentín </mat-card-subtitle>
+
+            <mat-card-actions align="end">
+                <button mat-button>
+                    <mat-icon> favorite </mat-icon>
+                </button>
+            </mat-card-actions>
+            
+        </mat-card>
+    </mat-grid-tile>
     <mat-grid-tile>3</mat-grid-tile>
     <mat-grid-tile>4</mat-grid-tile>
     <mat-grid-tile>5</mat-grid-tile>

@@ -28,6 +28,8 @@ import { CoreModule } from './core/core.module';
 import { ProductComponent } from './product/product.component';
 import { WallComponent } from './wall/wall.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { MatCardModule } from '@angular/material/card';
     NgxSpinnerModule,
     NgIdleKeepaliveModule.forRoot(),
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   entryComponents: [
     ConfirmationDialogComponent
