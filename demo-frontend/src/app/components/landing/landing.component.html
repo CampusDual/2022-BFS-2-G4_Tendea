@@ -44,12 +44,12 @@
   </mat-sidenav>
 
   <mat-toolbar>
+    <img [src]="'../../../assets/images/logo2.png'" class="nav-logo" >
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-
     <span class="spacer"></span>
-    <img [src]="'../../../assets/images/logo2.png'" class="nav-logo" >
+
     <a mat-button color="primary" routerLink="/login">Ingresar</a>
   </mat-toolbar>
 
