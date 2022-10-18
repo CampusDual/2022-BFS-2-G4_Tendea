@@ -45,6 +45,11 @@ public class Constant {
 	public static final String USER_CREATION_DATE_REQUIRED ="CREATION_DATE_REQUIRED";
 	public static final String USER_ACTIVE_STATUS_REQUIRED ="ACTIVE_STATUS_REQUIRED";
 	
+	//Products error
+	public static final String PRODUCT_NOT_CREATED = "PRODUCT_NOT_CREATED";
+	
+	
+	
 	//Profile error
 	public static final String PROFILE_CONSTRAINT_VIOLATION ="PROFILE_CONSTRAINT_VIOLATION";
 	
