@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserServicesService } from '../../services/user-services.service';
 import { User } from '../../model/user';
 
+import { Location } from '@angular/common'
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -47,7 +49,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserServicesService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {}
@@ -76,6 +79,10 @@ export class RegisterComponent implements OnInit {
   cancel() {
     this.router.navigate(['./']);
 }
+
+  back(): void {
+    this.location.back()
+  }
 
   validField(campo: string) {
     return (
