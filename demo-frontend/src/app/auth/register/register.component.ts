@@ -68,10 +68,14 @@ export class RegisterComponent implements OnInit {
     let profiles = ['2'];
     let nUser = { profiles, ...newUser };
     this.userService.registerUser(nUser).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.router.navigate(['./']);
     });
   }
+
+  cancel() {
+    this.router.navigate(['./']);
+}
 
   validField(campo: string) {
     return (

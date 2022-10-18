@@ -1,10 +1,10 @@
 <div class="container mt-4 mx-auto col-4 animate__animated a animate__fadeIn">
   <div class="row mx-auto">
-    <img src="./assets/images/logo.png" alt="Logo" class="mx-auto" routerLink="/" />
+    <img src="./assets/images/logo.png" alt="Logo" class="mx-auto" routerLink="/" role="button" />
   </div>
 
   <mat-card>
-    <mat-card-title class="text-center">Ingres a tu cuenta</mat-card-title>
+    <mat-card-title class="text-center">Ingresa a tu cuenta</mat-card-title>
     <mat-card-content>
       <form class="form" autocomplete="off">
         <mat-form-field style="width: 100%">
@@ -17,10 +17,18 @@
             placeholder="{{ 'login.password' | translate }}" />
         </mat-form-field>
 
-        <button mat-raised-button type="submit" color="primary" (click)="login(username.value, password.value, $event)"
+        <div id="buttons">
+          <button mat-raised-button type="submit" color="primary" (click)="login(username.value, password.value, $event)"
           id="login-button">
           {{ "login.enter" | translate }}
         </button>
+
+        <button mat-raised-button type="button" color="basic" (click)="cancel()"
+          id="cancel-button">
+          {{ "login.cancel" | translate }}
+        </button>
+        </div>
+
 
         <div fxlayout="column" fxlayoutalign="center center" layout-padding="" style="
             flex-direction: column;
@@ -30,7 +38,7 @@
             align-items: center;
             padding: 10px;
           " ng-reflect-fx-layout="column" ng-reflect-fx-layout-align="center" color="black">
-          <span>¿Aún no tienes una cuenta? <a routerLink="/register">Registrate</a>
+          <span>¿Aún no tienes una cuenta? <a routerLink="/register">Regístrate</a>.
           </span>
         </div>
       </form>

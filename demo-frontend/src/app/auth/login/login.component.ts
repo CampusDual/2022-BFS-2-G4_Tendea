@@ -48,6 +48,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
+  cancel() {
+      const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/';
+      // Redirect the user
+      this.router.navigateByUrl(redirect);
+
+  }
+
   redirectMain() {
     if (this.authService.isLoggedIn()) {
       // Get the redirect URL from our auth service
@@ -58,4 +65,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.router.navigateByUrl(redirect);
     }
   }
+
+
 }

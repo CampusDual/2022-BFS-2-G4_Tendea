@@ -1,7 +1,7 @@
 <div class="mx-auto col-8 animate__animated a animate__fadeIn">
 
     <div class="row mx-auto">
-        <img src="./assets/images/logo.png" alt="Logo" class="mx-auto" routerLink="/" />
+        <img src="./assets/images/logo.png" alt="Logo" class="mx-auto" routerLink="/" role="button"/>
     </div>
 
     <div class="row">
@@ -65,7 +65,7 @@
                         <mat-card fxFlex>
                             <mat-card-header>
                                 <mat-card-title class="text-center">
-                                    <mat-card-title class="text-center">Ingresa tu cuenta</mat-card-title>
+                                    <mat-card-title class="text-center">Crea una cuenta</mat-card-title>
                                 </mat-card-title>
                             </mat-card-header>
                             <mat-divider></mat-divider>
@@ -147,9 +147,10 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <a routerLink="/"> ¿Ya tienes una cuenta?, Ingresa</a>
-                                    <button type="submit" mat-raised-button color="primary"
-                                        [disabled]="registerForm.invalid">Guardar</button>
+                                    <div class="p-2">¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>.</div>
+                                    <div class="ml-auto p-2"><button type="submit" mat-raised-button color="primary"
+                                        [disabled]="registerForm.invalid">{{ "button.save" | translate }}</button></div>
+                                    <div class="ml-auto p-2"><button type="basic" mat-raised-button (click)="cancel()">{{ "button.cancel" | translate }}</button></div>
                                 </div>
                             </mat-card-content>
                         </mat-card>
