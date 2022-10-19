@@ -1,6 +1,9 @@
 package com.example.demo.dto;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 
 import com.example.demo.entity.ProductImage;
 
@@ -16,7 +19,7 @@ public class ProductDTO {
 	
 	private Float discount;
 	
-	private Set<ProductImage> images;
+	private Set<ProductImage> images = new HashSet<>();
 
 	
 	//Getters & Setters

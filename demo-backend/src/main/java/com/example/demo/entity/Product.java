@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -27,8 +27,8 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-	private Set<ProductImage> images;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<ProductImage> images = new HashSet<>();
 	
 	@NotEmpty(message = Constant.NAME_REQUIRED)
 	@Column(nullable = false, name="product_name")
@@ -110,6 +110,16 @@ public class Product implements Serializable {
 		return new Product(querySet, query, number, number);
 	}
 	
+	
+	//Methods
+	
+    public void addImage(ProductImage image) {
+        if (null == images) {
+            images = new HashSet<>();
+        }
+        images.add(image);
+        image.setId(this.id);
+    }
 	
 	
 	

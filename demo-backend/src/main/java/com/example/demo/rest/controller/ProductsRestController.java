@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -22,8 +23,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.entity.enums.ResponseCodeEnum;
+import com.example.demo.exception.DemoException;
+import com.example.demo.rest.response.DataSourceRESTResponse;
 import com.example.demo.service.IProductService;
 import com.example.demo.utils.Constant;
 
@@ -37,12 +41,19 @@ public class ProductsRestController {
 	@Autowired
 	private IProductService productService;
 	
-	@GetMapping(path = "products")
-	public @ResponseBody List<ProductDTO> findAll() {
-		return productService.findAll();
-	}
 	
 	//Listado con paginación
+	@PostMapping(path= "/getProducts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProducts(@RequestBody AnyPageFilter pageFilter ) {
+		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
+		try {
+			dres = productService.getProducts(pageFilter);
+		} catch (DemoException e) {
+			dres.setResponseMessage(e.getMessage());
+		}
+		return dres;
+	}
+	
 	
 	
 	@PostMapping(path = "createProduct")
@@ -63,7 +74,7 @@ public class ProductsRestController {
 				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			}
 			
-			response.put("usuario", productNew);
+			response.put("producto", productNew);
 		} else {
 			List<String> errors = new ArrayList<>();
 			for(FieldError error : result.getFieldErrors()) {
