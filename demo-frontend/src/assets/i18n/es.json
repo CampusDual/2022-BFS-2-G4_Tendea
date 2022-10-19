@@ -2,8 +2,7 @@
   "login": {
     "user": "Usuario",
     "password": "Contraseña",
-    "enter": "Entrar",
-    "cancel": "Cancelar"
+    "enter": "Entrar"
   },
   "item": {
     "title": "Titulo"
@@ -14,7 +13,8 @@
   "menu": {
     "home": "Home",
     "contacts": "Contactos",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "products": "Productos"
   },
   "language": {
     "spanish": "Español",

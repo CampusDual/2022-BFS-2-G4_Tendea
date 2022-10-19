@@ -1,0 +1,37 @@
+<p>works</p>
+
+<div>
+  <div
+  fxLayout="row"
+  fxLayoutAlign="space-between"
+  class="upper-menu"
+  fxLayout.lt-sm="column"
+  fxLayoutGap="20px"
+  fxLayoutGap.lt-sm="10px">
+    <div fxFlex fxLayout.lt-sm="row" class="k-flex-wrap">
+      <button mat-raised-button (click)="onAdd()">
+        <mat-icon>add</mat-icon> {{ "new" | translate }}
+      </button>
+      <button
+      mat-raised-button
+      (click)="onDelete()"
+      >
+        <mat-icon>delete</mat-icon> {{ "delete" | translate }}
+      </button>
+      <button mat-raised-button (click)="loadProductsPage()">
+        <mat-icon>refresh</mat-icon> {{ "refresh" | translate }}
+      </button>
+    </div>
+    <div fxflex>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="{{ 'filter' | translate }}"
+          #input
+          id="contacts-filter"
+          name="contacts-filter"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+</div>

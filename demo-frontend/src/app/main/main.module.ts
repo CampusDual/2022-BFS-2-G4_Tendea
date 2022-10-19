@@ -14,9 +14,11 @@ import { AppComponent } from '../app.component';
 import { CoreModule } from '../core/core.module';
 import { FilterItemDirective } from './directives/filter-item.directive';
 import { MaterialModule } from '../material/material.module';
+import { StoreComponent } from './store/store.component';
+import { CreateProductComponent } from './store/products/create-product/create-product.component';
 
 @NgModule({
-  declarations: [MainHomeComponent, FilterItemDirective],
+  declarations: [MainHomeComponent, FilterItemDirective, StoreComponent, CreateProductComponent],
   imports: [
     TranslateModule,
     CommonModule,
