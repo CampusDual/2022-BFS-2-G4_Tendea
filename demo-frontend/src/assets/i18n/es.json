@@ -2,7 +2,8 @@
   "login": {
     "user": "Usuario",
     "password": "Contraseña",
-    "enter": "Entrar"
+    "enter": "Entrar",
+    "cancel": "Cancelar"
   },
   "item": {
     "title": "Titulo"

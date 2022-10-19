@@ -22,7 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -50,6 +50,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSidenavModule,
     MatSortModule,
     MatPaginatorModule,
+    MatAutocompleteModule
   ],
 })
 export class MaterialModule {}

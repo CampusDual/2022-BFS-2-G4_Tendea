@@ -1,37 +1,47 @@
-<div fxLayout="row" class="login-outer-container animate__animated a animate__fadeIn">
-  <div class="login-inner-container mat-elevation-z1">
-    <div class="logo-container mat-elevation-z4">
-      <img src="./assets/images/campus-dual-azul-squared.png" alt="Logo" />
-    </div>
-
-    <form class="form">
-      <mat-form-field style="width: 100%">
-        <input matInput type="text" color="primary" #username id="username" name="username"
-          placeholder="{{ 'login.user' | translate }}" />
-      </mat-form-field>
-
-      <mat-form-field style="width: 100%">
-        <input matInput type="password" color="primary" #password id="password" name="password"
-          placeholder="{{ 'login.password' | translate }}" />
-      </mat-form-field>
-
-      <button mat-raised-button type="submit" color="primary" (click)="login(username.value, password.value, $event)"
-        id="login-button">
-        {{ "login.enter" | translate }}
-      </button>
-
-      <div fxlayout="column" fxlayoutalign="center center" layout-padding="" style="
-          flex-direction: column;
-          box-sizing: border-box;
-          display: flex;
-          place-content: center;
-          align-items: center;
-          padding: 10px;
-        " ng-reflect-fx-layout="column" ng-reflect-fx-layout-align="center" color="black">
-        <span>O registrate
-          <a routerLink="/register">aquí</a>
-        </span>
-      </div>
-    </form>
+<div class="container mt-4 mx-auto col-4 animate__animated a animate__fadeIn">
+  <div class="row mx-auto">
+    <img src="./assets/images/logo.png" alt="Logo" class="mx-auto" routerLink="/" role="button" />
   </div>
+
+  <mat-card>
+    <mat-card-title class="text-center">Ingresa a tu cuenta</mat-card-title>
+    <mat-card-content>
+      <form class="form" autocomplete="off">
+        <mat-form-field style="width: 100%">
+          <input matInput type="text" color="primary" #username id="username" name="username"
+            placeholder="{{ 'login.user' | translate }}" />
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+          <input matInput type="password" color="primary" #password id="password" name="password"
+            placeholder="{{ 'login.password' | translate }}" />
+        </mat-form-field>
+
+        <div id="buttons">
+          <button mat-raised-button type="submit" color="primary" (click)="login(username.value, password.value, $event)"
+          id="login-button">
+          {{ "login.enter" | translate }}
+        </button>
+
+        <button mat-raised-button type="button" color="basic" (click)="cancel()"
+          id="cancel-button">
+          {{ "login.cancel" | translate }}
+        </button>
+        </div>
+
+
+        <div fxlayout="column" fxlayoutalign="center center" layout-padding="" style="
+            flex-direction: column;
+            box-sizing: border-box;
+            display: flex;
+            place-content: center;
+            align-items: center;
+            padding: 10px;
+          " ng-reflect-fx-layout="column" ng-reflect-fx-layout-align="center" color="black">
+          <span>¿Aún no tienes una cuenta? <a routerLink="/register">Regístrate</a>.
+          </span>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

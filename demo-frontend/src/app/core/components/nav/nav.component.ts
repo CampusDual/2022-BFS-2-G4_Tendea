@@ -58,8 +58,8 @@ export class NavComponent implements OnInit, OnDestroy {
     if (
       !this.authService.isLoggedIn() &&
       !(
-        this.router.url === '/login' ||
         this.router.url === '/' ||
+        this.router.url === '/login' ||
         this.router.url === '/register'
       )
     ) {

@@ -1,1 +1,65 @@
-<p>landing works!</p>
+<app-nav-search></app-nav-search>
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push">
+    <mat-toolbar color="primary">
+      <span>Menú</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon mat-list-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <mat-list role="list">
+        <h4 class="m-3">Categorías</h4>
+        <mat-list-item role="listitem">Alimentación</mat-list-item>
+        <mat-list-item role="listitem">Limpieza y hogar</mat-list-item>
+        <mat-list-item role="listitem">Electrónica</mat-list-item>
+      </mat-list>
+
+      <mat-divider></mat-divider>
+
+      <mat-list role="list">
+        <h4 class="m-3">Últimos productos</h4>
+        <mat-list-item role="listitem">Accesorios</mat-list-item>
+        <mat-list-item role="listitem">Hogar</mat-list-item>
+        <mat-list-item role="listitem">Electronica</mat-list-item>
+      </mat-list>
+
+      <mat-divider></mat-divider>
+
+      <mat-list role="list">
+        <h4 class="m-3">Últimas tiendas registradas</h4>
+        <mat-list-item role="listitem">Accesorios</mat-list-item>
+        <mat-list-item role="listitem">Hogar</mat-list-item>
+        <mat-list-item role="listitem">Electronica</mat-list-item>
+      </mat-list>
+
+      <!-- <a mat-list-item (click)="sidenav.toggle()" routerLink="./clientes/nuevo">
+        <mat-icon mat-list-icon>create</mat-icon>
+        <span>Nuevo Cliente</span>
+      </a> -->
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-toolbar>
+    <img [src]="'../../../assets/images/logo2.png'" class="nav-logo" routerLink="/" role="button">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+
+    <a mat-button color="primary" routerLink="/login">Ingresar</a>
+  </mat-toolbar>
+
+  <div class="container-fluid">
+    <app-nav-search></app-nav-search>
+    <app-grid></app-grid>
+    <app-footer></app-footer>
+  </div>
+
+</mat-sidenav-container>
+
+
+<mat-divider></mat-divider>

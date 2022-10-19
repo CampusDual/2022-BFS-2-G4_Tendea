@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBarComponent } from 'src/app/components/mat-snack-bar/mat-snack-bar.component';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { MatSnackBarComponent } from 'src/app/components/mat-snack-bar/mat-snack
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   constructor(public authService: AuthService, public router: Router,
-              private translateService: TranslateService, private snackBar: MatSnackBarComponent) {
+              private translateService: TranslateService, private snackBar: MatSnackBarComponent, private location: Location) {
   }
 
   ngOnInit() {
@@ -48,6 +49,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
+  cancel() {
+      const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/';
+      // Redirect the user
+      this.router.navigateByUrl(redirect);
+  }
+
+  back(): void {
+    this.location.back()
+  }
+
   redirectMain() {
     if (this.authService.isLoggedIn()) {
       // Get the redirect URL from our auth service
@@ -58,4 +69,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.router.navigateByUrl(redirect);
     }
   }
+
+
 }
