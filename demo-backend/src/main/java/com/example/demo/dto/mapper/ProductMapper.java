@@ -11,6 +11,7 @@ import com.example.demo.entity.Product;
 @Mapper
 public interface ProductMapper {
 	
+	
 	ProductMapper INSTANCE = Mappers.getMapper( ProductMapper.class );
 	
 	ProductDTO productToProductDTO(Product product);
