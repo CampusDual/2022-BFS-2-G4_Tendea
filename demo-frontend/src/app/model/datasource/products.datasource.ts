@@ -14,7 +14,6 @@ import { finalize } from 'rxjs/operators';
 export class ProductDataSource extends DataSource<Product> {
   productsSubject = new BehaviorSubject<Product[]>([]);
   loadingSubject = new BehaviorSubject<boolean>(false);
-
   public loadinig$ = this.loadingSubject.asObservable();
   public totalElements: number;
 
@@ -37,7 +36,8 @@ export class ProductDataSource extends DataSource<Product> {
   connect(): BehaviorSubject<Product[]> {
     return this.productsSubject;
   }
-  disconnect(collectionViewer: CollectionViewer): void {
+
+  disconnect(): void {
     this.productsSubject.complete();
     this.loadingSubject.complete();
   }

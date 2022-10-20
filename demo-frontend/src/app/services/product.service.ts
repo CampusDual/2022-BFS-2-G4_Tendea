@@ -30,9 +30,8 @@ export class ProductService {
           'utf8'
         ).toString('base64'),
     });
-    return this.http
-      .post<DataSourceRESTResponse<Product[]>>(url, pageFilter, {
-        headers,
-      });
+    return this.http.post<DataSourceRESTResponse<Product[]>>(url, pageFilter, {
+      headers,
+    });
   }
 }
