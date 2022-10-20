@@ -2,8 +2,7 @@
   "login": {
     "user": "Usuario",
     "password": "Contrasinal",
-    "enter": "Entrar",
-    "cancel": "Cancelar"
+    "enter": "Entrar"
   },
   "item": {
     "title": "Titulo"

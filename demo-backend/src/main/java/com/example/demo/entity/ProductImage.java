@@ -12,63 +12,57 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Clase de imagen, esta relacion se genera automaticamente,  desde productos
+ */
+
 @Entity
-@Table(name = "images")
+@Table(name = "product_images")
 public class ProductImage implements Serializable {
-	private static final long serialVersionUID = -2189555412812655677L;
-	
-	
-	//Attributes
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column(name="image_name")
-	private String imageName;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id", nullable = false)
-	private Product product;
 
+	private String name;
+
+	private String url;
+
+	/**
+	 * Getters & Setters
+	 */
 	
-	
-	//Getters & Setters
+	//TODO: deberiamos crear un metodo o en el constructor poner algo que genere el nombre de la imagen.
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getImageName() {
-		return imageName;
-	}
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
+	public String getUrl() {
+		return url;
 	}
 
-	public Product getProduct() {
-		return product;
+	public void setUrl(String url) {
+		this.url = url;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+
+	public String getName() {
+		return name;
 	}
-	
-	//Constructor
-	public ProductImage() {
-		super();
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public ProductImage(String imageName, Product product) {
-		super();
-		this.imageName = imageName;
-		this.product = product;
-		
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
-	
-	
-	
+
+	private static final long serialVersionUID = 1L;
 	
 
 }

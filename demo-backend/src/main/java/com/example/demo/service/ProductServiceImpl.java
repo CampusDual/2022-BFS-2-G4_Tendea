@@ -20,12 +20,12 @@ public class ProductServiceImpl extends AbstractDemoService implements IProductS
 	
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Override
 	public List<ProductDTO> findAll() {
 		return ProductMapper.INSTANCE.productToProductDTOList(productRepository.findAll());
 	}
-	
+
 	@Override
 	@Transactional
 	public ProductDTO createProduct(ProductDTO productDTORequest) {
@@ -33,23 +33,35 @@ public class ProductServiceImpl extends AbstractDemoService implements IProductS
 		Product newProduct = productRepository.save(product);
 		return ProductMapper.INSTANCE.productToProductDTO(newProduct);
 	}
-	
+
+
+	@Override
+	public ProductDTO getProduct(Integer id) {
+		Product product = productRepository.findById(id).orElse(null);
+		return ProductMapper.INSTANCE.productToProductDTO(product);
+	}
+
+	@Override
+	public Integer deleteProduct(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Devuleve el DTO paginado
+	 */
 	
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public DataSourceRESTResponse<List<ProductDTO>> getProducts(AnyPageFilter pageFilter) {
 		checkInputParams(pageFilter);
 		Page<Product> products = SpecificationBuilder.selectDistinctFrom(productRepository).where(pageFilter)
 				.findAll(pageFilter); 
 		DataSourceRESTResponse<List<ProductDTO>> datares = new DataSourceRESTResponse<>();
 		datares.setTotalElements((int) products.getTotalElements());
-		List<ProductDTO> lProductDTO = ProductMapper.INSTANCE.productToProductDTOList(products.getContent());
-		datares.setData(lProductDTO);
+		List<ProductDTO> lContactDTO = ProductMapper.INSTANCE.productToProductDTOList(products.getContent());
+		datares.setData(lContactDTO);
 		return datares;
 	}
-	
-	
-	
-	
 
 }

@@ -2,8 +2,7 @@
   "login": {
     "user": "User",
     "password": "Password",
-    "enter": "Enter",
-    "cancel": "Cancel"
+    "enter": "Enter"
   },
   "item": {
     "title": "Title"
