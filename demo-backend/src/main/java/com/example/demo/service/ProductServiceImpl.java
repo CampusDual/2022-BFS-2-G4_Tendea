@@ -9,14 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.borjaglez.springify.repository.specification.SpecificationBuilder;
+import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.dto.mapper.ContactMapper;
 import com.example.demo.dto.mapper.ProductMapper;
+import com.example.demo.entity.Contact;
 import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 
 @Service
-public class ProductServiceImpl extends AbstractDemoService implements IProductService {
+public class ProductServiceImpl extends AbstractProductService implements IProductService {
 	
 	@Autowired
 	private ProductRepository productRepository;
@@ -43,8 +46,8 @@ public class ProductServiceImpl extends AbstractDemoService implements IProductS
 
 	@Override
 	public Integer deleteProduct(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		productRepository.deleteById(id);
+		return id;
 	}
 
 	/**
@@ -62,6 +65,16 @@ public class ProductServiceImpl extends AbstractDemoService implements IProductS
 		List<ProductDTO> lContactDTO = ProductMapper.INSTANCE.productToProductDTOList(products.getContent());
 		datares.setData(lContactDTO);
 		return datares;
+	}
+
+	/**
+	 * Edita un producto con el id (Esto viene de @AbstractProductService)
+	 */
+	@Override
+	public Integer editProduct(ProductDTO editProductRequest) {
+		Product productFromDTO = ProductMapper.INSTANCE.productDTOtoProduct(editProductRequest); 
+		Product editProduct = productRepository.save(fromEditProductRequest(productFromDTO));
+		return editProduct.getId();
 	}
 
 }

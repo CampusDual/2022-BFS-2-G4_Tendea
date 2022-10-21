@@ -29,12 +29,14 @@ public class AbstractProductService {
 
 	public Product fromEditProductRequest(Product productRequest) {
 		return new Product(productRequest.getId(), productRequest.getName(), productRequest.getPrice(),
-				productRequest.getCreateAt(), productRequest.getImages());
+				productRequest.getCreateAt(), productRequest.getImages(), productRequest.getDiscount(),
+				productRequest.getBulk(), productRequest.getUpdateAt());
 	}
 
 	public Product fromCreateProductRequest(ProductDTO productRequest) {
 		return new Product(productRequest.getId(), productRequest.getName(), productRequest.getPrice(),
-				productRequest.getCreateAt(), productRequest.getImages());
+				productRequest.getCreateAt(), productRequest.getImages(), productRequest.getDiscount(),
+				productRequest.getBulk(), productRequest.getUpdateAt());
 	}
 
 }
