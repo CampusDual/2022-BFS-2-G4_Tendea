@@ -1,1 +1,57 @@
-<p>create-product works!</p>
+<p> add product works</p>
+
+<form [formGroup]="productForm" (ngSubmit)="save()" class="h-full">
+  <div fxLayout="column" fxLayoutGap="20px" class="form-content">
+    <div class="input-row">
+      <mat-card fxFlex>
+        <mat-card-header>
+          <mat-card-title>{{ 'form.create_product' | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+          </div>
+          <div class="input-row">
+            <mat-form-field fxFlex>
+              <input matInput type="text" color="primary" placeholder="{{ 'table.product.name' | translate }}"
+                formControlName="name" name="table.product.name" required />
+                <mat-error *ngIf="productForm.get('name').hasError('minlength')">
+                  {{'register.product.INVALID_NAME' | translate}} </mat-error>
+              <mat-error *ngIf="productForm.get('name').hasError('maxlength')">
+                  {{'register.product.INVALID_NAME' | translate}} </mat-error>
+              <mat-error *ngIf="productForm.get('name').hasError('required')">
+                  {{'register.product.NAME_REQUIRED' | translate}} </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <mat-label>Categoría</mat-label>
+              <mat-select required>
+                <mat-option *ngFor="let categoryArray of category" [value]="categoryArray.name">
+                  {{categoryArray.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="input-row">
+            <mat-form-field fxFlex>
+              <input matInput type="number" color="primary" placeholder="{{ 'table.product.price' | translate }}"
+                formControlName="price" name="table.product.price" required />
+                <mat-error *ngIf="productForm.get('price').hasError('required')">
+                  {{'register.product.PRICE_REQUIRED' | translate}} </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input matInput type="number" color="primary" placeholder="{{ 'table.product.discount' | translate }}"
+                formControlName="discount" name="table.product.discount" />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button fxFlex="25" fxFlex.xs="30" mat-raised-button type="submit" color="primary"
+          [disabled]="!productForm.valid">{{ 'button.save' | translate }}</button>
+          <div fclass="input-row" xLayoutGap="20px" fxLayoutAlign="center center">
+            <button fxFlex="25" fxFlex.xs="30" mat-raised-button type="button" (click)="cancel()"
+              [formNoValidate]="true">{{ 'button.cancel' | translate }}</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</form>

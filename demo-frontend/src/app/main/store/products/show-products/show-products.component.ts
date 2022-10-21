@@ -45,7 +45,7 @@ export class ShowProductsComponent implements OnInit {
       '',
       this.fields.map((field) => new AnyField(field)),
       0,
-      20,
+      10,
       'name'
     );
     this.dataSource.getProducts(pageFilter);
@@ -77,7 +77,23 @@ export class ShowProductsComponent implements OnInit {
     const dialogRef = this.dialog.open();
   }
 
-  loadProductsPage() {}
+  loadProductsPage() {
+    this.selection.clear();
+    this.error = false;
+    const pageFilter = new AnyPageFilter(
+      this.input.nativeElement.value,
+      this.fields.map((field) => new AnyField(field)),
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    );
+    pageFilter.order = [];
+    pageFilter.order.push(
+      new SortFilter(this.sort.active, this.sort.direction.toString())
+    );
+    this.dataSource.getProducts(pageFilter);
+  }
+
+
 
   /**
    * Selecciona un producto para editar
