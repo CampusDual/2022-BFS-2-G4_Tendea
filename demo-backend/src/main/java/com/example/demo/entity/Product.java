@@ -25,6 +25,8 @@ import com.example.demo.utils.Constant;
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
+	
+	//: TODO: Quedan pendientes las categorias y la relacion OneToMany
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +42,21 @@ public class Product implements Serializable {
 
 	@Column(nullable = false)
 	private Double price;
+	
+	private Double discount;
+	
+	private int bulk;
+	
+	private String description;
+	
 
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
+	
+	@Column(name = "updated_at")
+	@Temporal(TemporalType.DATE)
+	private Date updateAt;
 
 	@PrePersist
 	public void prePersist() {
@@ -53,13 +66,15 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
-	public Product() {
+	public Product(Integer integer, String string, Double double1, Date date, List<ProductImage> list, Double double2, int i, Date date2) {
 		this.images = new ArrayList<>();
 	}
 
 	public Product(Integer integer, String string, Double double1, Date date, List<ProductImage> list) {
 		this.images = new ArrayList<>();
 	}
+	
+	
 
 	// Getters & Setters
 
@@ -103,4 +118,39 @@ public class Product implements Serializable {
 		this.createAt = createAt;
 	}
 
+	public Double getDiscount() {
+		return this.discount;
+	}
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
+	}
+
+	public int getBulk() {
+		return this.bulk;
+	}
+
+	public void setBulk(int bulk) {
+		this.bulk = bulk;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getUpdateAt() {
+		return this.updateAt;
+	}
+
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
+	}
+
+	
+	
+	
 }

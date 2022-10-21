@@ -6,10 +6,21 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.swing.event.AncestorEvent;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import com.example.demo.entity.ProductImage;
+import com.example.demo.utils.Constant;
 import com.google.gson.annotations.Since;
 
 public class ProductDTO {
@@ -17,17 +28,89 @@ public class ProductDTO {
 	 * Esto va sin las relaciones (Buble infinito)
 	 */
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	private List<ProductImage> images;
 
 	private String name;
 
 	private Double price;
-
+	
 	private Double discount;
-
+	
+	private int bulk;
+	
+	private String description;
+	
 	private Date createAt;
 
 	private Date updateAt;
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public List<ProductImage> getImages() {
+		return this.images;
+	}
+
+	public void setImages(List<ProductImage> images) {
+		this.images = images;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getPrice() {
+		return this.price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Double getDiscount() {
+		return this.discount;
+	}
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
+	}
+
+	public int getBulk() {
+		return this.bulk;
+	}
+
+	public void setBulk(int bulk) {
+		this.bulk = bulk;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreateAt() {
+		return this.createAt;
+	}
+
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
 
 	public Date getUpdateAt() {
 		return this.updateAt;
@@ -36,55 +119,8 @@ public class ProductDTO {
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
 	}
+	
+	
 
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-
-	private List<ProductImage> images;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Double getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(Double discount) {
-		this.discount = discount;
-	}
-
-	public List<ProductImage> getImages() {
-		return images;
-	}
-
-	public void setImages(List<ProductImage> images) {
-		this.images = images;
-	}
 
 }

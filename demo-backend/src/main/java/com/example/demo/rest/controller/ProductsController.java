@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.bouncycastle.jcajce.provider.asymmetric.dsa.DSASigner.detDSA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
+import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
@@ -52,7 +55,7 @@ public class ProductsController {
 	 * @return el contacto cuyo id sea el pasado por parámetros.
 	 */
 	@GetMapping("/getProduct")
-	@PreAuthorize("hasAnyAuthority('CLIENTS')") //TODO: Debemos poner los roles correctos
+	@PreAuthorize("hasAnyAuthority('CLIENTS')") // TODO: Debemos poner los roles correctos
 	public ResponseEntity<?> getProducts(@RequestParam(value = "id") Integer id) {
 		LOGGER.info("getContact in progress...");
 		ProductDTO product = null;
@@ -94,6 +97,14 @@ public class ProductsController {
 		return dres;
 	}
 
+	/**
+	 * Crea los productos
+	 * 
+	 * @param createProductRequest
+	 * @param result
+	 * @return
+	 */
+
 	@PostMapping(path = "createProduct")
 	@ResponseStatus(HttpStatus.CREATED)
 //	@PreAuthorize("hasAnyAuthority('CONTACTS')")
@@ -125,6 +136,88 @@ public class ProductsController {
 		}
 
 		return new ResponseEntity<Map<String, Object>>(response, status);
+	}
+
+	/**
+	 * Elimina un producto de la BD
+	 * 
+	 * @param id
+	 * @return
+	 */
+
+	@DeleteMapping("/deleteProduct")
+	@PreAuthorize("hasAnyAuthority('CONTACTS')")
+	public ResponseEntity<?> deleteProduct(@RequestParam(value = "id") Integer id) {
+		LOGGER.info("deleteProduct in progress...");
+		Map<String, Object> response = new HashMap<>();
+		HttpStatus status = HttpStatus.OK;
+		String message = Constant.CONTACT_DELETE_SUCCESS;
+		try {
+			productService.deleteProduct(id);
+			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
+		} catch (DataAccessException e) {
+			response.put(Constant.MESSAGE, Constant.DATABASE_QUERY_ERROR);
+			response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+			status = HttpStatus.BAD_REQUEST;
+			message = Constant.CONTACT_NOT_DELETE;
+		}
+		response.put(Constant.MESSAGE, message);
+		LOGGER.info("deleteProduct is finished...");
+		return new ResponseEntity<Map<String, Object>>(response, status);
+	}
+
+	/**
+	 * TODO: verificar esto Listado de los productos son paginador
+	 */
+	@GetMapping("/getAllProducts")
+	public List<ProductDTO> getAllProducts() {
+		return productService.findAll();
+	}
+
+	/**
+	 * Edicion de un producto de la BD
+	 */
+
+	public ResponseEntity<?> editProduct(@Valid @RequestBody ContactDTO editProductRequest, BindingResult result) {
+		LOGGER.info("editContact in progress...");
+		int id = 0;
+		ProductDTO productOlder = productService.getProduct(editProductRequest.getId());
+		Map<String, Object> response = new HashMap<>();
+		HttpStatus status = HttpStatus.CREATED;
+		String message = Constant.CONTACT_EDIT_SUCCESS;
+		if (productOlder != null) {
+			if (!result.hasErrors()) {
+				try {
+					id = productService.editProduct(editProductRequest);
+					response.put("product_id", id);
+					response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
+				} catch (DataAccessException e) {
+					response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+					response.put(Constant.ERROR,
+							e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+				}
+
+			} else {
+				List<String> errors = new ArrayList<>();
+				for (FieldError error : result.getFieldErrors()) {
+					errors.add(error.getDefaultMessage());
+				}
+				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.WARNING.getValue());
+				message = Constant.CONTACT_NOT_EDIT;
+				response.put(Constant.ERROR, errors);
+				status = HttpStatus.OK;
+			}
+		} else {
+			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+			message = Constant.ID_NOT_EXISTS;
+			status = HttpStatus.BAD_REQUEST;
+		}
+
+		response.put(Constant.MESSAGE, message);
+		LOGGER.info("eeditProduct is finished...");
+		return new ResponseEntity<Map<String, Object>>(response, status);
+
 	}
 
 }
