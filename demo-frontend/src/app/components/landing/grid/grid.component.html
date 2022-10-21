@@ -1,23 +1,23 @@
-<div class="content">    
-  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="2% grid"> 
-    <div fxFlex="18%" fxFlex.xs = "100%" fxFlex.md ="30%"  fxFlex.sm="100%"  
-    *ngFor="let num of [1,2,3,4,5,6,7]">        
+<div class="content" fxLayout="wrap">    
+  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="3% grid"> 
+    <div fxFlex="25%" fxFlex.xs = "100%" fxFlex.md ="30%"  fxFlex.sm="100%"
+    *ngFor="let product of dataSource.products">        
       <mat-card class="example-card">            
                 
           <div class="container">                
             <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">  
-              <img class="top-left" [src]="'../../../assets/images/DiscountLabel.png'" alt="Discount Label">
-              <p class="centered-text"> 10% <p>           
+              <img *ngIf="product.discount != null" class="top-left" [src]="'../../../assets/images/DiscountLabel.png'" alt="Discount Label">
+              <p class="centered-text"> {{ product.discount }} <p>           
           </div>    
 
             <div>
-              <mat-card-title>Zapatillas Gazelle Azules</mat-card-title>              
-              <mat-card-subtitle> <a> Zapatos Manolo </a></mat-card-subtitle> 
+              <mat-card-title> {{ product.name }} </mat-card-title>              
+              <mat-card-subtitle> <a> Vendor space </a></mat-card-subtitle> 
             </div>      
             <mat-card-content> 
               <table style="width:100%">
                 <td align="center">  </td> 
-                <td align="center"> <h1 class="discounted-price"> 60€ </h1> </td>
+                <td align="center"> <h1 class="discounted-price"> {{ product.price * (1-product.discount) }} € </h1> </td>
                 <td align="left"> <h2 class="original-price"> 70 € </h2> </td>
                 <td align="center">  </td>
               </table>
@@ -28,12 +28,17 @@
    </div>
   </div>
 
-<table>
-  <tr *ngFor="let product of products">
-    <td>{{product.id}}</td>
-    <td>{{product.product_name}}</td>
-  </tr>
-</table>
+  <div>
+    <table>
+      <td *ngFor="let product of dataSource.products">
+        {{ product.name }}  
+      </td>
+
+    </table>
+
+  </div>
+  
+
 
   <mat-paginator [length]="dataSource.totalElements"
               [pageSize]="5"

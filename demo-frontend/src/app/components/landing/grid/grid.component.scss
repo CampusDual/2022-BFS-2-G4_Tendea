@@ -1,3 +1,9 @@
+.content {
+  justify-content: center;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
 .container {
   position: relative;
   text-align: center;
@@ -5,8 +11,8 @@
 
 .top-left {
   position: absolute;
-  top: 8px; //porcentajes
-  left: -12px;
+  top: 3%; //porcentajes
+  left: -5%;
   color: white;
   width: 20%;
   height: 12%;
@@ -14,8 +20,8 @@
 
 .centered-text {
   position: absolute;
-  top: calc(12% - 8px);
-  left: calc(10% - 12px);
+  top: 9%;
+  left: 5%;
   transform: translate(-50%, -50%);
   color: white;
   font-size: 1em;

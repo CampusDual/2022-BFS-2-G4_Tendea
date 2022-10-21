@@ -17,6 +17,9 @@ export class ProductDataSource extends DataSource<Product> {
   public loadinig$ = this.loadingSubject.asObservable();
   public totalElements: number;
 
+
+  products : Product[];
+
   constructor(private productService: ProductService) {
     super();
   }
@@ -30,7 +33,9 @@ export class ProductDataSource extends DataSource<Product> {
       .subscribe((response) => {
         this.totalElements = response.totalElements;
         this.productsSubject.next(response.data);
+        this.products = response.data;
       });
+
   }
 
   connect(): BehaviorSubject<Product[]> {
