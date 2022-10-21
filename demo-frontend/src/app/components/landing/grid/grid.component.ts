@@ -1,5 +1,5 @@
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, OnChanges, ViewChild, AfterViewInit, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ProductDataSource } from 'src/app/model/datasource/products.datasource';
@@ -23,6 +23,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   error = false;
 
   products: Product[];
+  sProducts: Product[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -37,7 +38,7 @@ export class GridComponent implements OnInit, AfterViewInit {
       '',
       this.fields.map((field) => new AnyField(field)),
       0,
-      100,
+      20,
       'name'
     );
     this.dataSource.getProducts(pageFilter);
@@ -53,11 +54,26 @@ export class GridComponent implements OnInit, AfterViewInit {
         this.loadProductsPage();
       })
     ).subscribe();
+
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0;
+      this.selection.clear();
+    });
+
+    merge(this.sort.sortChange, this.paginator.page)
+    .pipe(
+      tap(() => {
+        this.loadProductsPage();
+      })
+    )
+    .subscribe();
+
   }
 
   // ngAfterViewInit() : void {
   //   this.loadProductsPage();
   // }
+  
 
 
 
