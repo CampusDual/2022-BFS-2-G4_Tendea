@@ -1,8 +1,8 @@
 package com.example.demo.dto;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,6 +22,9 @@ import javax.validation.constraints.NotEmpty;
 import com.example.demo.entity.ProductImage;
 import com.example.demo.utils.Constant;
 import com.google.gson.annotations.Since;
+
+import com.example.demo.entity.ProductImage;
+
 
 public class ProductDTO {
 	/**

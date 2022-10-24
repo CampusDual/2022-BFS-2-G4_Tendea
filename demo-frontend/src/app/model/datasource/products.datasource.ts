@@ -5,6 +5,7 @@ import { Product } from '../product';
 import { ProductService } from '../../services/product.service';
 import { AnyPageFilter } from '../rest/filter';
 import { finalize } from 'rxjs/operators';
+import { ShowProductsComponent } from 'src/app/main/store/products/show-products/show-products.component';
 
 /**
  * Adolfo B.
@@ -16,6 +17,9 @@ export class ProductDataSource extends DataSource<Product> {
   loadingSubject = new BehaviorSubject<boolean>(false);
   public loadinig$ = this.loadingSubject.asObservable();
   public totalElements: number;
+
+
+  products : Product[];
 
   constructor(private productService: ProductService) {
     super();
@@ -30,8 +34,11 @@ export class ProductDataSource extends DataSource<Product> {
       .subscribe((response) => {
         this.totalElements = response.totalElements;
         this.productsSubject.next(response.data);
+        this.products = response.data;
       });
+
   }
+
 
   connect(): BehaviorSubject<Product[]> {
     return this.productsSubject;

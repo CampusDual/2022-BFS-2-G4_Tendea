@@ -34,4 +34,33 @@ export class ProductService {
       headers,
     });
   }
+
+  public getProductsLanding(pageNumber: number, pageSize: number) {
+    // Le enviamos un objeto con esas dos propiedades.
+    const pageFilter = { pageNumber, pageSize };
+    const url = `${environment.apiBaseUrl}/products/getProducts`;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+      // Authorization: 'Basic ' + btoa(`${environment.clientName}:${environment.clientSecret}`),
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+
+
+    //!Hay que ver que devuleve esta movida o si va aqui
+    return this.http.post<DataSourceRESTResponse<Product[]>>(url, pageFilter, {
+      headers,
+    });
+
+  }
+
+
+
+
+
+
 }
