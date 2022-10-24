@@ -35,6 +35,7 @@ export class ProductService {
     });
   }
 
+
   /*
 public createProduct(product: Product): Observable<any> {
   const url = API_CONFIG.createProduct;
@@ -55,5 +56,4 @@ public createProduct(product: Product): Observable<any> {
   );
 }
 */
-
 }
