@@ -27,10 +27,19 @@
       "surname2": "Segundo apelido",
       "phone": "Teléfono",
       "email": "E-Mail"
+    },
+    "product": {
+      "id": "Código do produto",
+      "name": "Nome do produto",
+      "price": "Prezo do produto",
+      "discount": "Desconto",
+      "namerequired": "O nome é un campo obligatorio",
+      "pricerequired": "O prezo é un campo obligatorio"
     }
   },
   "form": {
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "product": "Produto"
   },
   "button": {
     "cancel": "Cancelar",

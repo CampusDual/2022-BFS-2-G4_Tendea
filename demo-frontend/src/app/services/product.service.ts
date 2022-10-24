@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../model/product';
 import { AnyPageFilter } from '../model/rest/filter';
@@ -35,6 +35,27 @@ export class ProductService {
     });
   }
 
+// @param createUser
+// @returns product
+public createProduct(product: Product): Observable<any> {
+  const url = API_CONFIG.createProduct;
+  // const body: CreateProductRequest = new CreateProductRequest(product);
+  const headers = new HttpHeaders({
+    'Content-type': 'application/json; charset=utf-8',
+    Authorization:
+      'Basic ' +
+      Buffer.from(
+        `${environment.clientName}:${environment.clientSecret}`,
+        'utf8'
+      ).toString('base64'),
+  });
+  return this.http.post<Product>(url, product, { headers }).pipe(
+    catchError((e) => {
+      return throwError(() => e);
+    })
+  );
+}
+
   public getProductsLanding(pageNumber: number, pageSize: number) {
     // Le enviamos un objeto con esas dos propiedades.
     const pageFilter = { pageNumber, pageSize };
@@ -57,10 +78,6 @@ export class ProductService {
     });
 
   }
-
-
-
-
 
 
 }

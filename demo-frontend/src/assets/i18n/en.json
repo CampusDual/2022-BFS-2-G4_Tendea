@@ -27,10 +27,19 @@
       "surname2": "Second Surname",
       "phone": "Phone",
       "email": "E-Mail"
+    },
+    "product": {
+      "id": "Product ID",
+      "name": "Product name",
+      "price": "Product price",
+      "discount": "Discount",
+      "namerequired": "Name is a required field",
+      "pricerequired": "Price is a required field"
     }
   },
   "form": {
-    "contact": "Contact"
+    "contact": "Contact",
+    "product": "Product"
   },
   "button": {
     "cancel": "Cancel",

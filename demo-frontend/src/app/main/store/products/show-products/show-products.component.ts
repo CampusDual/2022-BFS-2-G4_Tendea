@@ -6,8 +6,10 @@ import { ProductService } from 'src/app/services/product.service';
 import { AnyPageFilter, AnyField, SortFilter } from 'src/app/model/rest/filter';
 import { Product } from 'src/app/model/product';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 /**
  * Roi / Adolfo B
@@ -45,18 +47,18 @@ export class ShowProductsComponent implements OnInit {
       '',
       this.fields.map((field) => new AnyField(field)),
       0,
-      20,
+      10,
       'name'
     );
     this.dataSource.getProducts(pageFilter);
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.productsSubject.value.length;
-    return numSelected === numRows;
-  }
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.productsSubject.value.length;
+  //   return numSelected === numRows;
+  // }
 
   masterToggle() {
     this.isAllSelected()
@@ -77,7 +79,21 @@ export class ShowProductsComponent implements OnInit {
     const dialogRef = this.dialog.open();
   }
 
-  loadProductsPage() {}
+  loadProductsPage() {
+    this.selection.clear();
+    this.error = false;
+    const pageFilter = new AnyPageFilter(
+      this.input.nativeElement.value,
+      this.fields.map((field) => new AnyField(field)),
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    );
+    pageFilter.order = [];
+    pageFilter.order.push(
+      new SortFilter(this.sort.active, this.sort.direction.toString())
+    );
+    this.dataSource.getProducts(pageFilter);
+  }
 
   /**
    * Selecciona un producto para editar
@@ -85,5 +101,53 @@ export class ShowProductsComponent implements OnInit {
    */
   onEdit(row: Product) {
     this.highlightedRow = row;
+  }
+
+  /**
+   * Busqueda de productos
+   */
+  ngAfterViewInit(): void {
+    // server-side search
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadProductsPage();
+        })
+      )
+      .subscribe();
+
+    // reset the paginator after sorting
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0;
+      this.selection.clear();
+    });
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.productsSubject.value.length;
+    return numSelected === numRows;
+  }
+
+  /**
+   * Paginator
+   */
+
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  pageEvent: PageEvent;
+
+  setPageSizeOptions(event?: PageEvent) {
+    this.pageEvent = event;
+
+    this.paginator.pageIndex = this.pageEvent.pageIndex;
+    this.loadProductsPage();
+
+    return event;
   }
 }

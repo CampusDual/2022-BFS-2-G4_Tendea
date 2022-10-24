@@ -28,10 +28,19 @@
       "surname2": "Segundo apellido",
       "phone": "Teléfono",
       "email": "E-Mail"
+    },
+    "product": {
+      "id": "Código de producto",
+      "name": "Nombre de producto",
+      "price": "Precio de producto",
+      "discount": "Descuento",
+      "category": "Categoría"
     }
   },
   "form": {
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "product": "Producto",
+    "create_product" : "Crear producto"
   },
   "button": {
     "cancel": "Cancelar",
@@ -49,7 +58,13 @@
     "LOGIN_REQUIRED": "El nombre de usuario es obligatorio",
     "PASSWORD_REQUIRED": "La contraseña es obligatoria",
     "INVALID_PASSWORD": "La contraseña debe tener entre 6 y 32 caracteres no especiales, incluyendo minúsculas, al menos una mayúscula y al menos un número",
-    "INVALID_NAME_LENGTH": "La longitud debe ser entre 2 y 24 caracteres"
+    "INVALID_NAME_LENGTH": "La longitud debe ser entre 2 y 24 caracteres",
+    "product" : {
+      "NAME_REQUIRED": "El nombre es un campo obligatorio",
+      "PRICE_REQUIRED": "El precio es un campo obligatorio",
+      "INVALID_NAME": "El nombre del producto debe tener entre 3 y 50 caracteres",
+      "INVALID_PRICE": "El precio tiene un formato incorrecto"
+    }
   },
   "EN": "Inglés",
   "ES": "Español",
