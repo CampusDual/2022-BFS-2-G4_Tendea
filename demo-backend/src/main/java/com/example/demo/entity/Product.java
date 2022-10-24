@@ -45,7 +45,7 @@ public class Product implements Serializable {
 	
 	private Double discount;
 	
-	private int bulk;
+	private Integer bulk;
 	
 	private String description;
 	

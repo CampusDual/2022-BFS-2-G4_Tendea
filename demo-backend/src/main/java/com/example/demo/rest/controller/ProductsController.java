@@ -179,7 +179,7 @@ public class ProductsController {
 	 * Edicion de un producto de la BD
 	 */
 
-	public ResponseEntity<?> editProduct(@Valid @RequestBody ContactDTO editProductRequest, BindingResult result) {
+	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDTO editProductRequest, BindingResult result) {
 		LOGGER.info("editContact in progress...");
 		int id = 0;
 		ProductDTO productOlder = productService.getProduct(editProductRequest.getId());
