@@ -27,6 +27,10 @@ import com.example.demo.entity.ProductImage;
 
 
 public class ProductDTO {
+	public void setBulk(Integer bulk) {
+		this.bulk = bulk;
+	}
+
 	/**
 	 * Esto va sin las relaciones (Buble infinito)
 	 */
@@ -91,12 +95,9 @@ public class ProductDTO {
 		this.discount = discount;
 	}
 
-	public int getBulk() {
-		return this.bulk;
-	}
 
-	public void setBulk(int bulk) {
-		this.bulk = bulk;
+	public Integer getBulk() {
+		return this.bulk;
 	}
 
 	public String getDescription() {

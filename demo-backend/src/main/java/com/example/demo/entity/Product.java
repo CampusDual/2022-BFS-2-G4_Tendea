@@ -45,8 +45,13 @@ public class Product implements Serializable {
 	
 	private Double discount;
 	
+	@Column(nullable = false)
 	private Integer bulk;
 	
+	public void setBulk(Integer bulk) {
+		this.bulk = bulk;
+	}
+
 	private String description;
 	
 
@@ -57,6 +62,16 @@ public class Product implements Serializable {
 	@Column(name = "updated_at")
 	@Temporal(TemporalType.DATE)
 	private Date updateAt;
+	
+	
+	public Product() {
+		this.images = new ArrayList<>();
+	}
+
+	public Product(Integer id2, String name2, Double price2, Date createAt2, List<ProductImage> images2,
+			Double discount2, int bulk2, Date updateAt2) {
+		// TODO Auto-generated constructor stub
+	}
 
 	@PrePersist
 	public void prePersist() {
@@ -66,15 +81,7 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
-	public Product(Integer integer, String string, Double double1, Date date, List<ProductImage> list, Double double2, int i, Date date2) {
-		this.images = new ArrayList<>();
-	}
 
-	public Product(Integer integer, String string, Double double1, Date date, List<ProductImage> list) {
-		this.images = new ArrayList<>();
-	}
-	
-	
 
 	// Getters & Setters
 
@@ -126,13 +133,6 @@ public class Product implements Serializable {
 		this.discount = discount;
 	}
 
-	public int getBulk() {
-		return this.bulk;
-	}
-
-	public void setBulk(int bulk) {
-		this.bulk = bulk;
-	}
 
 	public String getDescription() {
 		return this.description;
@@ -148,6 +148,10 @@ public class Product implements Serializable {
 
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
+	}
+
+	public Integer getBulk() {
+		return this.bulk;
 	}
 
 	
