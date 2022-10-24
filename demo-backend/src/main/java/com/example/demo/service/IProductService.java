@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
+import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 
@@ -46,5 +47,12 @@ public interface IProductService {
 	 * @since 0.0.5
 	 */
 	DataSourceRESTResponse<List<ProductDTO>> getProducts(AnyPageFilter pageFilter);
+	
+	/**
+	 * Edita un contacto de la BD
+	 * @param editProductRequest
+	 * @return
+	 */
+	Integer editProduct(ProductDTO editProductRequest);
 
 }

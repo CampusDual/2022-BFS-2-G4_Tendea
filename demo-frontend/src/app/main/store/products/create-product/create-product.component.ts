@@ -4,9 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/model/product';
 import { LoggerService } from 'src/app/services/logger.service';
 import { ProductService } from 'src/app/services/product.service';
+import { Location } from '@angular/common'
+
 
 import {MatSelectModule} from '@angular/material/select';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-create-product',
@@ -28,22 +31,24 @@ export class CreateProductComponent implements OnInit {
     ],
     category: this.fb.array(
       [
-        ['Granel'],
-        ['Unitario']
+        ['Carnes'],
+        ['Pescados']
       ],
       Validators.required
-    )
+    ),
+    soldOnBulk: [false]
   });
   product: Product;
   errores: string[];
-  category: any[] = [{name:'Granel'}, {name:'Unitario'}];
+  category: any[] = [{name:'Carnes'}, {name:'Pescados'}, {name: 'Frutas'}];
 
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private location: Location
   ) {
     this.product = new Product();
   }
@@ -59,17 +64,17 @@ export class CreateProductComponent implements OnInit {
       id: [this.product.id],
       name: [this.product.product_name],
       discount: [this.product.discount],
-      price: [this.product.price]
+      price: [this.product.price],
+      category: [this.product.category],
+      soldOnBulk: [this.product.soldOnBulk]
     });
   }
 
   save() {
-    /*
     const newProduct: Product = Object.assign({}, this.productForm.value);
       this.productService.createProduct(newProduct).subscribe((response) => {
         this.redirectList(response);
       });
-    */
   }
 
   redirectList(response: any) {
@@ -82,6 +87,10 @@ export class CreateProductComponent implements OnInit {
 
   cancel() {
 
+  }
+
+  back(): void {
+    this.location.back();
   }
 
 }

@@ -33,7 +33,8 @@
       "id": "Código de producto",
       "name": "Nombre de producto",
       "price": "Precio de producto",
-      "discount": "Descuento"
+      "discount": "Descuento",
+      "category": "Categoría"
     }
   },
   "form": {

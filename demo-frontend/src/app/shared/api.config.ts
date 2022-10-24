@@ -7,8 +7,6 @@ export const API_CONFIG = {
   getAllProfiles: environment.adminBaseUrl + '/getAllProfiles',
   getAllSections: environment.adminBaseUrl + '/getAllSections',
 
-
-
   // Contacts API
   getContacts: environment.contactsBaseUrl + '/getContacts',
   getContact: environment.contactsBaseUrl + '/getContact',
@@ -17,8 +15,8 @@ export const API_CONFIG = {
   deleteContact: environment.contactsBaseUrl + '/deleteContact',
 
   // Users API
-  createUser: environment.usersBaseUrl + '/createUser'
+  createUser: environment.usersBaseUrl + '/createUser',
 
   // Product API
-
+  createProduct: environment.productsBaseUrl + '/add'
 };

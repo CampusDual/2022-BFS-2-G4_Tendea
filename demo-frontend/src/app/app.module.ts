@@ -36,6 +36,7 @@ import { GridComponent } from './components/landing/grid/grid.component';
 import { NavSearchComponent } from './components/landing/nav-search/nav-search.component';
 import { LandingRoutingModule } from './components/landing/landing-routing.module';
 import { LandingModule } from './components/landing/landing.module';
+import { Location } from '@angular/common'
 import { FooterComponent } from './components/landing/footer/footer.component';
 
 @NgModule({

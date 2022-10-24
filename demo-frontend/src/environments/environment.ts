@@ -10,6 +10,7 @@ export const environment = {
   contactsBaseUrl: 'http://localhost:9999/contacts',
   usersBaseUrl: 'http://localhost:9999/users',
   loginBaseUrl: 'http://localhost:9999/login',
+  productsBaseUrl: 'http://localhost:9999/products',
   clientName: 'demo',
   clientSecret: '8Fjkk59bXKws8bmMNFZB',
   isDebugMode: false,

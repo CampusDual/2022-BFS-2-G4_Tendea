@@ -1,0 +1,50 @@
+.content {
+  justify-content: center;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+}
+
+.top-left {
+  position: absolute;
+  top: 3%; //porcentajes
+  left: -5%;
+  color: white;
+  width: 20%;
+  height: 12%;
+}
+
+.centered-text {
+  position: absolute;
+  top: 9%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1em;
+
+}
+
+.precio {
+  position: absolute;
+  top: 8 px;
+  left : 12 px
+}
+
+.discounted-price {
+  color: #00af91;
+
+}
+
+.original-price {
+  color: darkgrey;
+  text-decoration: line-through;
+
+}
+
+.currency {
+  text-align-last: right;
+}
