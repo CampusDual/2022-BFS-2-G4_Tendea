@@ -71,7 +71,10 @@
       <mat-spinner></mat-spinner>
     </mat-card>
 
-    <mat-paginator [length]="dataSource.totalElements" [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]"
-      showFirstLastButtons></mat-paginator>
+    <mat-paginator [length]="dataSource.totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      aria-label="Select page" showFirstLastButtons (page)="pageEvent = setPageSizeOptions($event)">
+    </mat-paginator>
+
+
   </div>
 </div>
