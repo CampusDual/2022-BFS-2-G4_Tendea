@@ -1,1 +1,38 @@
+<div class="content" fxLayout="wrap">    
+  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="3% grid">
+    <div fxFlex="25%" fxFlex.xs = "100%" fxFlex.md ="30%"  fxFlex.sm="100%"
+    *ngFor="let product of sProducts">        
+      <mat-card class="example-card">            
+                
+          <div class="container">                
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">  
+              <img *ngIf="product.discount != null" class="top-left" [src]="'../../../assets/images/DiscountLabel.png'" alt="Discount Label">
+              <p class="centered-text"> {{ product.discount }} <p>           
+          </div>    
 
+            <div>
+              <mat-card-title> {{ product.name }} </mat-card-title>              
+              <mat-card-subtitle> <a> Vendor space </a></mat-card-subtitle> 
+            </div>      
+            <mat-card-content> 
+              <table style="width:100%">
+                <td align="center">  </td> 
+                <td align="center"> <h2 class="discounted-price"> {{ product.price * (1-product.discount) | currency: 'EUR' }}  </h2> </td>
+                <td align="left"> <h4 class="original-price"> {{ product.price | currency: 'EUR'}} </h4> </td>
+                <td align="center">  </td>
+              </table>
+
+            </mat-card-content>                                              
+      </mat-card>      
+    </div>   
+   </div>
+  </div>
+
+  <mat-paginator 
+  [length]="dataSource.totalElements" 
+  [pageSize]="pageSize" 
+  [pageSizeOptions]="pageSizeOptions"
+  aria-label="Select page"
+  showFirstLastButtons
+  (page)="pageEvent = setPageSizeOptions($event)">
+  </mat-paginator>
