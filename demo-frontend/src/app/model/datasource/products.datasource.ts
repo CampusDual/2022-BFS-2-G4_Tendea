@@ -5,6 +5,7 @@ import { Product } from '../product';
 import { ProductService } from '../../services/product.service';
 import { AnyPageFilter } from '../rest/filter';
 import { finalize } from 'rxjs/operators';
+import { ShowProductsComponent } from 'src/app/main/store/products/show-products/show-products.component';
 
 /**
  * Adolfo B.
@@ -37,6 +38,7 @@ export class ProductDataSource extends DataSource<Product> {
       });
 
   }
+
 
   connect(): BehaviorSubject<Product[]> {
     return this.productsSubject;
