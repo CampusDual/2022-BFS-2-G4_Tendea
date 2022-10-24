@@ -3,4 +3,6 @@ export class Product {
   product_name: string;
   price: number;
   discount: number;
+  category: string;
+  soldOnBulk: boolean;
 }

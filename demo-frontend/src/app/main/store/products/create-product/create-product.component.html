@@ -22,13 +22,17 @@
                   {{'register.product.NAME_REQUIRED' | translate}} </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex>
-              <mat-label>Categoría</mat-label>
-              <mat-select required>
+              <mat-label>{{ 'table.product.category' | translate }}</mat-label>
+              <mat-select placeholder="{{ 'table.product.category' | translate }}" formControlName="category"
+              name="table.product.category" required>
                 <mat-option *ngFor="let categoryArray of category" [value]="categoryArray.name">
                   {{categoryArray.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+            <section>
+              <mat-checkbox formControlName="soldOnBulk" name="table.product.onBulk">Producto a granel</mat-checkbox>
+            </section>
           </div>
           <div class="input-row">
             <mat-form-field fxFlex>
@@ -47,7 +51,7 @@
           <button fxFlex="25" fxFlex.xs="30" mat-raised-button type="submit" color="primary"
           [disabled]="!productForm.valid">{{ 'button.save' | translate }}</button>
           <div fclass="input-row" xLayoutGap="20px" fxLayoutAlign="center center">
-            <button fxFlex="25" fxFlex.xs="30" mat-raised-button type="button" (click)="cancel()"
+            <button fxFlex="25" fxFlex.xs="30" mat-raised-button type="button" (click)="back()"
               [formNoValidate]="true">{{ 'button.cancel' | translate }}</button>
           </div>
         </mat-card-actions>

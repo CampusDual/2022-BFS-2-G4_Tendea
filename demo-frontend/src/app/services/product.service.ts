@@ -35,10 +35,12 @@ export class ProductService {
     });
   }
 
-  /*
+
+// @param createUser
+// @returns product
 public createProduct(product: Product): Observable<any> {
   const url = API_CONFIG.createProduct;
-  const body: CreateProductRequest = new CreateProductRequest(product);
+  // const body: CreateProductRequest = new CreateProductRequest(product);
   const headers = new HttpHeaders({
     'Content-type': 'application/json; charset=utf-8',
     Authorization:
@@ -48,12 +50,12 @@ public createProduct(product: Product): Observable<any> {
         'utf8'
       ).toString('base64'),
   });
-  return this.http.post<Product>(url, body, { headers }).pipe(
+  return this.http.post<Product>(url, product, { headers }).pipe(
     catchError((e) => {
       return throwError(() => e);
     })
   );
 }
-*/
+
 
 }
