@@ -53,7 +53,7 @@ public class ProductDTO {
 	
 	private Date createAt;
 
-	private Date updateAt;
+//	private Date updateAt;
 
 	public Integer getId() {
 		return this.id;
@@ -116,13 +116,13 @@ public class ProductDTO {
 		this.createAt = createAt;
 	}
 
-	public Date getUpdateAt() {
-		return this.updateAt;
-	}
-
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
-	}
+//	public Date getUpdateAt() {
+//		return this.updateAt;
+//	}
+//
+//	public void setUpdateAt(Date updateAt) {
+//		this.updateAt = updateAt;
+//	}
 	
 	
 

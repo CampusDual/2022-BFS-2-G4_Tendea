@@ -7,21 +7,21 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.bouncycastle.jcajce.provider.asymmetric.dsa.DSASigner.detDSA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
-import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
@@ -83,7 +82,7 @@ public class ProductsController {
 	}
 
 	@PostMapping(path = "/getProducts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyAuthority('CLIENTS')")
+//	@PreAuthorize("hasAnyAuthority('CLIENTS')")
 	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProducts(@RequestBody AnyPageFilter pageFilter) {
 		LOGGER.info("getProducts in progress...");
 		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
@@ -179,9 +178,10 @@ public class ProductsController {
 	 * Edicion de un producto de la BD
 	 */
 
+	@PostMapping(path = "/editProduct", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDTO editProductRequest, BindingResult result) {
-		LOGGER.info("editContact in progress...");
-		int id = 0;
+		LOGGER.info("editProduct in progress...");
+		int id;
 		ProductDTO productOlder = productService.getProduct(editProductRequest.getId());
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;

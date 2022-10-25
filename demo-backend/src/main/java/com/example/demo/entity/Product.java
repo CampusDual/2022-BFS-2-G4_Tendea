@@ -36,7 +36,7 @@ public class Product implements Serializable {
 	@JoinColumn(name = "product_id") // crea la llave foranea en la otra tabla
 	private List<ProductImage> images;
 
-	@NotEmpty(message = Constant.NAME_REQUIRED)
+	@NotEmpty(message = "falta name")
 	@Column(nullable = false, name = "product_name")
 	private String name;
 
@@ -52,6 +52,7 @@ public class Product implements Serializable {
 		this.bulk = bulk;
 	}
 
+	@Column()
 	private String description;
 	
 
@@ -59,9 +60,9 @@ public class Product implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
 	
-	@Column(name = "updated_at")
-	@Temporal(TemporalType.DATE)
-	private Date updateAt;
+//	@Column(name = "updated_at")
+//	@Temporal(TemporalType.DATE)
+//	private Date updateAt;
 	
 	
 	public Product() {
@@ -69,8 +70,14 @@ public class Product implements Serializable {
 	}
 
 	public Product(Integer id2, String name2, Double price2, Date createAt2, List<ProductImage> images2,
-			Double discount2, int bulk2, Date updateAt2) {
-		// TODO Auto-generated constructor stub
+			Double discount2, Integer bulk2) {
+		this.id = id2;
+		this.name = name2;
+		this.price = price2;
+		this.createAt = createAt2;
+		this.images = images2;
+		this.discount = discount2;
+		this.bulk = bulk2;
 	}
 
 	@PrePersist
@@ -142,13 +149,13 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 
-	public Date getUpdateAt() {
-		return this.updateAt;
-	}
-
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
-	}
+//	public Date getUpdateAt() {
+//		return this.updateAt;
+//	}
+//
+//	public void setUpdateAt(Date updateAt) {
+//		this.updateAt = updateAt;
+//	}
 
 	public Integer getBulk() {
 		return this.bulk;
