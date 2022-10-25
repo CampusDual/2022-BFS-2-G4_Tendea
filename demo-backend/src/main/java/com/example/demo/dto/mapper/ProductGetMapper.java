@@ -4,12 +4,8 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
-import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.ProductGetDTO;
-import com.example.demo.dto.UserGetDTO;
 import com.example.demo.entity.Product;
-import com.example.demo.entity.User;
 
 @Mapper
 public interface ProductGetMapper {
