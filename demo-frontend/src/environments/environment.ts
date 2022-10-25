@@ -11,6 +11,7 @@ export const environment = {
   usersBaseUrl: 'http://localhost:9999/users',
   loginBaseUrl: 'http://localhost:9999/login',
   productsBaseUrl: 'http://localhost:9999/products',
+  categoriesBaseUrl: 'http://localhost:9999/categories',
   clientName: 'demo',
   clientSecret: '8Fjkk59bXKws8bmMNFZB',
   isDebugMode: false,

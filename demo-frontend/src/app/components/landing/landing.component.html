@@ -12,9 +12,7 @@
     <mat-nav-list>
       <mat-list role="list">
         <h4 class="m-3">Categorías</h4>
-        <mat-list-item role="listitem">Alimentación</mat-list-item>
-        <mat-list-item role="listitem">Limpieza y hogar</mat-list-item>
-        <mat-list-item role="listitem">Electrónica</mat-list-item>
+        <mat-list-item role="listitem" *ngFor="let category of categories">{{category.name}}</mat-list-item>
       </mat-list>
 
       <mat-divider></mat-divider>

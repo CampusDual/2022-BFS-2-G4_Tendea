@@ -18,5 +18,8 @@ export const API_CONFIG = {
   createUser: environment.usersBaseUrl + '/createUser',
 
   // Product API
-  createProduct: environment.productsBaseUrl + '/add'
+  createProduct: environment.productsBaseUrl + '/add',
+
+  // Category API
+  getCategories: environment.categoriesBaseUrl + '/getCategories'
 };

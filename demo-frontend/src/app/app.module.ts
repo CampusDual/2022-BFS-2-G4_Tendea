@@ -48,7 +48,7 @@ import { FooterComponent } from './components/landing/footer/footer.component';
     GridComponent,
     NavSearchComponent,
     LandingComponent,
-    FooterComponent,
+    FooterComponent
   ],
   imports: [
     TranslateModule.forRoot({
