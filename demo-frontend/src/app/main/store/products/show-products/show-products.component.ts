@@ -27,8 +27,8 @@ export class ShowProductsComponent implements OnInit {
   selection = new SelectionModel<Product>(true, []);
   error = false;
   highlightedRow: Product;
-  displayedColumns = ['id', 'name'];
-  fields = ['id', 'name'];
+  displayedColumns = ['select','id', 'name', 'category'];
+  fields = ['select', 'id', 'name', 'category'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

@@ -20,9 +20,11 @@
       </mat-form-field>
     </div>
   </div>
+
   <div class="mat-elevation-z8 table-responsive">
     <table mat-table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc" matSortDisableClear
       class="w-full">
+
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
         <th id="header" mat-header-cell *matHeaderCellDef>
@@ -37,6 +39,7 @@
         </td>
       </ng-container>
 
+      <!-- ID -->
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ "table.product.id" | translate }}
@@ -46,6 +49,7 @@
         </mat-cell>
       </ng-container>
 
+      <!-- NAME -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ "table.product.name" | translate }}
@@ -55,7 +59,14 @@
         </mat-cell>
       </ng-container>
 
-
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "table.product.category" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="category">
+          {{ row.category }}
+        </mat-cell>
+      </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onEdit(row)" class="row-link"
