@@ -71,7 +71,5 @@ public class Category implements Serializable{
         this.productList = productList;
     }
 
-
-
     private static final long serialVersionUID = 2L;
 }
