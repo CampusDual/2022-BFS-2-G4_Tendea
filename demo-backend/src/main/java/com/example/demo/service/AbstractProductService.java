@@ -32,13 +32,13 @@ public class AbstractProductService {
 		
 		return new Product(productRequest.getId(), productRequest.getName(), productRequest.getPrice(),
 				productRequest.getCreateAt(), productRequest.getImages(), productRequest.getDiscount(),
-				productRequest.getBulk());
+				productRequest.getBulk(), productRequest.getCategory());
 	}
 
 	public Product fromCreateProductRequest(ProductDTO productRequest) {
 		return new Product(productRequest.getId(), productRequest.getName(), productRequest.getPrice(),
 				productRequest.getCreateAt(), productRequest.getImages(), productRequest.getDiscount(),
-				productRequest.getBulk());
+				productRequest.getBulk(), productRequest.getCategory());
 	}
 
 }

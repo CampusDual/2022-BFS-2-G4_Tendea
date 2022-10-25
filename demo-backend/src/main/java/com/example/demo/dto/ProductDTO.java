@@ -19,6 +19,7 @@ import javax.swing.event.AncestorEvent;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import com.example.demo.entity.Category;
 import com.example.demo.entity.ProductImage;
 import com.example.demo.utils.Constant;
 import com.google.gson.annotations.Since;
@@ -52,6 +53,8 @@ public class ProductDTO {
 	private String description;
 	
 	private Date createAt;
+	
+	private Category category;
 
 //	private Date updateAt;
 
@@ -116,6 +119,14 @@ public class ProductDTO {
 		this.createAt = createAt;
 	}
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
 //	public Date getUpdateAt() {
 //		return this.updateAt;
 //	}
@@ -123,6 +134,7 @@ public class ProductDTO {
 //	public void setUpdateAt(Date updateAt) {
 //		this.updateAt = updateAt;
 //	}
+	
 	
 	
 

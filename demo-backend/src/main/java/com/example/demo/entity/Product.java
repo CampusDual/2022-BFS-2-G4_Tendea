@@ -13,7 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
 import com.example.demo.utils.Constant;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "products")
@@ -48,6 +51,10 @@ public class Product implements Serializable {
 	@Column(nullable = false)
 	private Integer bulk;
 	
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    @ManyToOne(fetch = FetchType.LAZY)
+	private Category category;
+	
 	public void setBulk(Integer bulk) {
 		this.bulk = bulk;
 	}
@@ -70,7 +77,7 @@ public class Product implements Serializable {
 	}
 
 	public Product(Integer id2, String name2, Double price2, Date createAt2, List<ProductImage> images2,
-			Double discount2, Integer bulk2) {
+			Double discount2, Integer bulk2, Category category) {
 		this.id = id2;
 		this.name = name2;
 		this.price = price2;
@@ -78,17 +85,13 @@ public class Product implements Serializable {
 		this.images = images2;
 		this.discount = discount2;
 		this.bulk = bulk2;
+		this.category = category;
 	}
 
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();
 	}
-
-	private static final long serialVersionUID = 1L;
-	
-	
-
 
 	// Getters & Setters
 
@@ -161,7 +164,14 @@ public class Product implements Serializable {
 		return this.bulk;
 	}
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 	
-	
+    private static final long serialVersionUID = 4L;
 	
 }
