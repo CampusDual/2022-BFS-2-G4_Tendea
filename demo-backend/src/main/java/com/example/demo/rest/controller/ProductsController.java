@@ -1,5 +1,9 @@
 package com.example.demo.rest.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,9 +32,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.dto.mapper.ProductMapper;
+import com.example.demo.entity.ProductImage;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
 import com.example.demo.rest.response.DataSourceRESTResponse;
@@ -43,6 +50,7 @@ import com.example.demo.utils.Constant;
 public class ProductsController {
 	public static final String REQUEST_MAPPING = "products";
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
+	
 
 	@Autowired
 	private IProductService productService;
@@ -220,4 +228,81 @@ public class ProductsController {
 
 	}
 
-}
+	
+	
+	
+	//Post Product with images
+	
+//	@PostMapping(path = "createProduct")
+//	@ResponseStatus(HttpStatus.CREATED)
+////	@PreAuthorize("hasAnyAuthority('CONTACTS')")
+//	public ResponseEntity<?> createProductImg(@Valid @RequestBody ProductDTO createProductRequest, BindingResult result) {
+//		ProductDTO productNew = null;
+//		Map<String, Object> response = new HashMap<>();
+//		HttpStatus status = HttpStatus.CREATED;
+//		String message = "PRODUCTO CREADO";
+//		if (!result.hasErrors()) {
+//			try {
+//				productNew = productService.createProduct(createProductRequest);
+//				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
+//
+//			} catch (DataAccessException e) {
+//				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+//				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+//			}
+//
+//			response.put("product", productNew);
+//		} else {
+//			List<String> errors = new ArrayList<>();
+//			for (FieldError error : result.getFieldErrors()) {
+//				errors.add(error.getDefaultMessage());
+//			}
+//			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.WARNING.getValue());
+//			message = Constant.PRODUCT_NOT_CREATED;
+//			response.put(Constant.ERROR, errors);
+//			status = HttpStatus.BAD_REQUEST;
+//		}
+//
+//		return new ResponseEntity<Map<String, Object>>(response, status);
+//	}
+	
+	
+	
+	@PostMapping("/upload")
+	  public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, @RequestParam("id") Integer id) {
+	    Map<String, Object> response = new HashMap<>();
+	    ProductDTO product = productService.getProduct(id); 
+
+	    if (!file.isEmpty()) {
+	      String fileName = file.getOriginalFilename();
+	      Path fileRoute = Paths.get("uploads").resolve(fileName).toAbsolutePath();
+	      try {
+	        Files.copy(file.getInputStream(), fileRoute);
+	      } catch (IOException e) {
+	        response.put("message", "Error al subir el logo del cliente el actualizar en la base de datos"); //Acordarse constante TRANSLATE
+	        response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
+	        e.printStackTrace();
+	      }
+	      
+	      ProductImage productImg = new ProductImage();
+	      productImg.setName(fileName);
+	      productImg.setUrl(fileName);
+
+
+	      product.getImages().add(productImg);
+	      productService.createProduct(product); //editProduct <-?
+	      response.put("product", product);
+	      response.put("message", "Imagen subida correctamente");
+	    }
+
+	    return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+
+	  }
+	}
+
+
+
+
+
+
+

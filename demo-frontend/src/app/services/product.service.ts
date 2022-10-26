@@ -48,6 +48,7 @@ public createProduct(product: Product): Observable<any> {
         'utf8'
       ).toString('base64'),
   });
+
   return this.http.post<Product>(url, product, { headers }).pipe(
     catchError((e) => {
       return throwError(() => e);
@@ -76,6 +77,30 @@ public createProduct(product: Product): Observable<any> {
       headers,
     });
 
+  }
+
+  public uploadProductImg(product: any, img: File): Observable<any> {
+    const url = API_CONFIG.uploadProductImg;
+    // const body: CreateProductRequest = new CreateProductRequest(product);
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+    let formData = new FormData();
+    console.log(product)
+    formData.append("file", img);
+    formData.append("id", product.id);
+
+    return this.http.post<Product>(url, formData, { headers }).pipe(
+      catchError((e) => {
+        return throwError(() => e);
+      })
+    );
   }
 
 }

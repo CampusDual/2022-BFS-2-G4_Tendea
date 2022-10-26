@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.nio.file.Path;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

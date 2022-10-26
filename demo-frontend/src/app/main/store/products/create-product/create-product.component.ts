@@ -10,6 +10,7 @@ import { Location } from '@angular/common'
 import {MatSelectModule} from '@angular/material/select';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { subscribeOn } from 'rxjs';
 
 @Component({
   selector: 'app-create-product',
@@ -31,16 +32,17 @@ export class CreateProductComponent implements OnInit {
     ],
     category: this.fb.array(
       [
-        ['Carnes'],
-        ['Pescados']
+        [1],
+        [2]
       ],
       Validators.required
     ),
-    soldOnBulk: [false]
+    soldOnBulk: [false],
+    file: [''],
   });
   product: Product;
   errores: string[];
-  category: any[] = [{name:'Carnes'}, {name:'Pescados'}, {name: 'Frutas'}];
+  category: any[] = [{id: 1, name:'Electronica'}, {id:2}];
 
   constructor(
     private fb: FormBuilder,
@@ -66,15 +68,26 @@ export class CreateProductComponent implements OnInit {
       discount: [this.product.discount],
       price: [this.product.price],
       category: [this.product.category],
-      soldOnBulk: [this.product.soldOnBulk]
+      soldOnBulk: [this.product.soldOnBulk],
+      file: [this.product.images]
     });
   }
 
   save() {
+    console.log(this.productForm);
+
     const newProduct: Product = Object.assign({}, this.productForm.value);
       this.productService.createProduct(newProduct).subscribe((response) => {
         this.redirectList(response);
       });
+
+      this.productService.uploadProductImg(this.product.id , this.productForm["file"])
+
+      
+  }
+
+  uploadImg() {
+    this.productService.uploadProductImg(this.product.id , this.productForm["file"])
   }
 
   redirectList(response: any) {
