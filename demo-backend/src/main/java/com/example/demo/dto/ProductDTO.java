@@ -26,7 +26,6 @@ import com.google.gson.annotations.Since;
 
 import com.example.demo.entity.ProductImage;
 
-
 public class ProductDTO {
 	public void setBulk(Integer bulk) {
 		this.bulk = bulk;
@@ -45,15 +44,15 @@ public class ProductDTO {
 	private String name;
 
 	private Double price;
-	
+
 	private Double discount;
-	
+
 	private Integer bulk;
-	
+
 	private String description;
-	
+
 	private Date createAt;
-	
+
 	private Category category;
 
 //	private Date updateAt;
@@ -98,7 +97,6 @@ public class ProductDTO {
 		this.discount = discount;
 	}
 
-
 	public Integer getBulk() {
 		return this.bulk;
 	}
@@ -119,13 +117,13 @@ public class ProductDTO {
 		this.createAt = createAt;
 	}
 
-    public Category getCategory() {
-        return category;
-    }
+	public Category getCategory() {
+		return category;
+	}
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 //	public Date getUpdateAt() {
 //		return this.updateAt;
@@ -134,9 +132,5 @@ public class ProductDTO {
 //	public void setUpdateAt(Date updateAt) {
 //		this.updateAt = updateAt;
 //	}
-	
-	
-	
-
 
 }

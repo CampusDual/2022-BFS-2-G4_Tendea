@@ -15,14 +15,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
-import com.example.demo.utils.Constant;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -51,8 +49,8 @@ public class Product implements Serializable {
 	@Column(nullable = false)
 	private Integer bulk;
 	
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
 	private Category category;
 	
 	public void setBulk(Integer bulk) {
