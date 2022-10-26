@@ -83,7 +83,7 @@ public createProduct(product: Product): Observable<any> {
     const url = API_CONFIG.uploadProductImg;
     // const body: CreateProductRequest = new CreateProductRequest(product);
     const headers = new HttpHeaders({
-      'Content-type': 'application/json; charset=utf-8',
+      'Content-type': 'multipart/form-data; charset=utf-8',
       Authorization:
         'Basic ' +
         Buffer.from(

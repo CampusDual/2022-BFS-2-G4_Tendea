@@ -94,5 +94,6 @@
   "surname1required": "Surname is a required field",
   "phonerequired":"Phone is a required field",
   "phonepattern": "The phone format is not correct",
-  "emailpattern": "The email format is not correct"
+  "emailpattern": "The email format is not correct",
+  "PRODUCT_CREATED": "Product created"
 }

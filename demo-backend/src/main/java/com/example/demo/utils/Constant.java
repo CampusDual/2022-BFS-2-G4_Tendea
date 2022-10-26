@@ -47,11 +47,12 @@ public class Constant {
 	
 	//Products error
 	public static final String PRODUCT_NOT_CREATED = "PRODUCT_NOT_CREATED";
-	
+	public static final String PRODUCT_CREATED ="PRODUCT_CREATED";
 	
 	
 	//Profile error
 	public static final String PROFILE_CONSTRAINT_VIOLATION ="PROFILE_CONSTRAINT_VIOLATION";
+	
 	
 	//Common error
 	public static final String ID_NOT_EXISTS ="ID_NOT_EXISTS";

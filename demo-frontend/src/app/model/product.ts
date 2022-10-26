@@ -6,8 +6,9 @@ export class Product {
   price: number;
   discount: number;
   category: Category;
-  soldOnBulk: boolean;
+  boolBulk: boolean;
   createAt: string;
   updateAt: string;
   images: string[];
+  bulk: number;
 }

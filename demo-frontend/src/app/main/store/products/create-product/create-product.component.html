@@ -25,13 +25,13 @@
               <mat-label>{{ 'table.product.category' | translate }}</mat-label>
               <mat-select placeholder="{{ 'table.product.category' | translate }}" formControlName="category"
               name="table.product.category" required>
-                <mat-option *ngFor="let categoryArray of category" [value]="categoryArray.id">
+                <mat-option *ngFor="let categoryArray of categories" [value]="{id: categoryArray.id, name: categoryArray.name}">
                   {{categoryArray.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <section>
-              <mat-checkbox formControlName="soldOnBulk" name="table.product.onBulk">Producto a granel</mat-checkbox>
+              <mat-checkbox formControlName="boolBulk" name="table.product.onboolBulk" value="boolBulk"  >Producto a granel</mat-checkbox>
             </section>
           </div>
           <div class="input-row">
@@ -45,7 +45,7 @@
               <input matInput type="number" color="primary" placeholder="{{ 'table.product.discount' | translate }}"
                 formControlName="discount" name="table.product.discount" />
             </mat-form-field>
-              <input class="ng-hide" id="input-file-id" multiple type="file" /><label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
+              <!-- <input class="ng-hide" id="input-file-id" multiple type="file" /><label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label> -->
           </div>
         </mat-card-content>
         <mat-card-actions>

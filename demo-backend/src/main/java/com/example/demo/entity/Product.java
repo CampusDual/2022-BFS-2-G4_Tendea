@@ -21,8 +21,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
@@ -49,8 +47,9 @@ public class Product implements Serializable {
 	@Column(nullable = false)
 	private Integer bulk;
 	
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "category_id")
+	@ManyToOne
 	private Category category;
 	
 	public void setBulk(Integer bulk) {

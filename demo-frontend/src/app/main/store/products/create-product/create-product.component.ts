@@ -11,6 +11,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { subscribeOn } from 'rxjs';
+import { Category } from 'src/app/model/category';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-create-product',
@@ -30,19 +32,17 @@ export class CreateProductComponent implements OnInit {
       '',
       Validators.required
     ],
-    category: this.fb.array(
-      [
-        [1],
-        [2]
-      ],
+    category:[
+      '',
       Validators.required
-    ),
-    soldOnBulk: [false],
+    ],
+    boolBulk: false,
     file: [''],
   });
   product: Product;
   errores: string[];
-  category: any[] = [{id: 1, name:'Electronica'}, {id:2}];
+  categories: Category[];
+  category : Category;
 
   constructor(
     private fb: FormBuilder,
@@ -50,12 +50,16 @@ export class CreateProductComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private logger: LoggerService,
-    private location: Location
+    private location: Location,
+    private categoryService: CategoryService
   ) {
     this.product = new Product();
   }
 
   ngOnInit(): void {
+    this.categoryService.getCategories().subscribe(
+      res => this.categories = res
+    );
     this.createFormGroup();
     // this.productId = this.route.snapshot.params['id'];
 
@@ -68,27 +72,37 @@ export class CreateProductComponent implements OnInit {
       discount: [this.product.discount],
       price: [this.product.price],
       category: [this.product.category],
-      soldOnBulk: [this.product.soldOnBulk],
-      file: [this.product.images]
+      boolBulk: [this.product.boolBulk],
+      file: [this.product.images],
+      bulk: [this.product.bulk]
     });
   }
 
   save() {
     console.log(this.productForm);
 
-    const newProduct: Product = Object.assign({}, this.productForm.value);
+    if(this.productForm.value.boolBulk == false) {
+      this.productForm.value.bulk = 0;
+    } else {
+      this.productForm.value.bulk = 1;
+    }
+
+    console.log(this.productForm.value.boolBulk);
+    console.log(this.product.bulk);
+
+    const newProduct: Product = Object.assign({}, this.productForm.value );
       this.productService.createProduct(newProduct).subscribe((response) => {
         this.redirectList(response);
       });
 
-      this.productService.uploadProductImg(this.product.id , this.productForm["file"])
+      // this.productService.uploadProductImg(this.product.id , this.productForm["file"])
 
       
   }
 
-  uploadImg() {
-    this.productService.uploadProductImg(this.product.id , this.productForm["file"])
-  }
+  // uploadImg() {
+  //   this.productService.uploadProductImg(this.product.id , this.productForm["file"])
+  // }
 
   redirectList(response: any) {
     if (response.responseCode === 'OK') {

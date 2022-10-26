@@ -119,7 +119,7 @@ public class ProductsController {
 		ProductDTO productNew = null;
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
-		String message = "PRODUCTO CREADO";
+		String message = Constant.PRODUCT_CREATED;
 		if (!result.hasErrors()) {
 			try {
 				productNew = productService.createProduct(createProductRequest);
@@ -142,6 +142,7 @@ public class ProductsController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 
+		response.put(Constant.MESSAGE, message); //Meter en todos los controller
 		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
 
