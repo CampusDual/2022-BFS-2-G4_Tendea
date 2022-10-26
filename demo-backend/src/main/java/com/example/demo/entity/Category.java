@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,12 +33,13 @@ public class Category implements Serializable{
     
     @JoinColumn(name = "category_id")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({ "product_id" })
     private List<Product> productList;
     
     // METHODS
     
     public Category() {
+    	
+    	this.productList = new ArrayList<>();
         
     }
     
@@ -63,6 +65,7 @@ public class Category implements Serializable{
         this.name = name;
     }
     
+ 
     public List<Product> getProductList() {
         return productList;
     }
