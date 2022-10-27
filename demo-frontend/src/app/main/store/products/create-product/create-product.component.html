@@ -1,8 +1,7 @@
-<p> add product works</p>
 
-<form [formGroup]="productForm" (ngSubmit)="save()" class="h-full">
-  <div fxLayout="column" fxLayoutGap="20px" class="form-content">
-    <div class="input-row">
+<form [formGroup]="productForm" (ngSubmit)="save()" class="h-full d-flex justify-content-center" >
+  <div fxLayout="column" fxLayoutGap="20px" class="form-content" style="width: 75%">
+    <div class="input-row d-flex">
       <mat-card fxFlex>
         <mat-card-header>
           <mat-card-title>{{ 'form.create_product' | translate }}</mat-card-title>
@@ -49,12 +48,16 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <button fxFlex="25" fxFlex.xs="30" mat-raised-button type="submit" color="primary"
-          [disabled]="!productForm.valid">{{ 'button.save' | translate }}</button>
-          <div fclass="input-row" xLayoutGap="20px" fxLayoutAlign="center center">
-            <button fxFlex="25" fxFlex.xs="30" mat-raised-button type="button" (click)="back()"
-              [formNoValidate]="true">{{ 'button.cancel' | translate }}</button>
+
+          <div class="d-flex justify-content-end" >
+            <button fxFlex="6" fxFlex.xs="30" mat-raised-button type="submit" color="primary"
+            [disabled]="!productForm.valid">{{ 'button.save' | translate }}</button>
+            <!-- <div fclass="input-row" xLayoutGap="20px" fxLayoutAlign="center center"> -->
+              <button fxFlex="6" fxFlex.xs="30" mat-raised-button type="button" (click)="back()"
+                [formNoValidate]="true">{{ 'button.cancel' | translate }}</button>
+            <!-- </div> -->
           </div>
+
         </mat-card-actions>
       </mat-card>
     </div>

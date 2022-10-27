@@ -81,10 +81,10 @@ export class CreateProductComponent implements OnInit {
   save() {
     console.log(this.productForm);
 
-    if(this.productForm.value.boolBulk == false) {
-      this.productForm.value.bulk = 0;
-    } else {
+    if(this.productForm.value.boolBulk == true) {
       this.productForm.value.bulk = 1;
+    } else {
+      this.productForm.value.bulk = 0;
     }
 
     console.log(this.productForm.value.boolBulk);

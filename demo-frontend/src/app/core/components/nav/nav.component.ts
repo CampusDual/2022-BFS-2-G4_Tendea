@@ -26,7 +26,7 @@ export class NavComponent implements OnInit, OnDestroy {
   sidenavRoutes: ROUTE[] = [
     {
       icon: 'home',
-      route: 'main',
+      route: '/',
       title: 'menu.home',
       allowedRoles: ['CLIENTS'],
     },
