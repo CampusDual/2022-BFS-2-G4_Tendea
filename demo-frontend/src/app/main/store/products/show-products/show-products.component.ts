@@ -8,8 +8,10 @@ import { Product } from 'src/app/model/product';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, fromEvent, merge, Observable, Observer } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 /**
  * Roi / Adolfo B
@@ -22,13 +24,13 @@ import { tap } from 'rxjs/operators';
   styles: [],
 })
 export class ShowProductsComponent implements OnInit {
-  dialog: any;
+  // dialog: any;
   dataSource: ProductDataSource;
   selection = new SelectionModel<Product>(true, []);
   error = false;
   highlightedRow: Product;
   displayedColumns = ['select','id', 'name', 'category'];
-  fields = ['select', 'id', 'name', 'category.name'];
+  fields = [ 'id', 'name', 'category.name'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -37,7 +39,8 @@ export class ShowProductsComponent implements OnInit {
   constructor(
     private translate: TranslateService, // Pipe traductor //TODO: Faltan hacer las traducciones de los productos
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +79,45 @@ export class ShowProductsComponent implements OnInit {
   }
 
   onDelete() {
-    const dialogRef = this.dialog.open();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: this.translate.instant('delete-element-confirmation'),
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.delete();
+        return new Observable((observer: Observer<boolean>) =>
+          observer.next(true)
+        );
+      } else {
+        return new Observable((observer: Observer<boolean>) =>
+          observer.next(false)
+        );
+      }
+    });
+  }
+
+  delete() {
+    const product = this.selection.selected[0];
+    this.selection.deselect(product);
+    if (this.selection.selected && this.selection.selected.length === 0) {
+      this.productService.deleteProduct(product.id).subscribe((response) => {
+        console.log(response)
+        if (response.responseCode !== 'OK') {
+           this.error = true;
+         } else {
+          this.loadProductsPage();
+         }
+      });
+    } else {
+      this.productService.deleteProduct(product.id).subscribe((response) => {
+        console.log(response);
+        if (response.responseCode !== 'OK') {
+           this.error = true;
+        }
+        this.delete();
+      });
+    }
   }
 
   loadProductsPage() {
@@ -124,6 +165,15 @@ export class ShowProductsComponent implements OnInit {
       this.paginator.pageIndex = 0;
       this.selection.clear();
     });
+
+    // on sort or paginate events, load a new page
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => {
+          this.loadProductsPage();
+        })
+      )
+      .subscribe();
   }
 
   isAllSelected() {

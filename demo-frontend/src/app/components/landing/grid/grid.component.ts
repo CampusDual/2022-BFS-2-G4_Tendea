@@ -144,6 +144,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   }
 
+
   // loadProducts() {
   //   const pageFilter = new AnyPageFilter(
   //     this.input.nativeElement.value,
@@ -156,6 +157,15 @@ export class GridComponent implements OnInit, AfterViewInit {
   //     this.sProducts = this.products.slice(1,8);
 
   // }
+
+  textTruncate(value: string ): string  {
+    const limit = 31;
+    const trail = '...';
+    return value.length > limit ? value.substring(0, limit) + trail : value;
+  }
+
+
+
 
 
 

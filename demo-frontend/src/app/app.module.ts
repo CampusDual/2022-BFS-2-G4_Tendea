@@ -36,8 +36,13 @@ import { GridComponent } from './components/landing/grid/grid.component';
 import { NavSearchComponent } from './components/landing/nav-search/nav-search.component';
 import { LandingRoutingModule } from './components/landing/landing-routing.module';
 import { LandingModule } from './components/landing/landing.module';
-import { Location } from '@angular/common'
+import { Location, registerLocaleData } from '@angular/common'
 import { FooterComponent } from './components/landing/footer/footer.component';
+import localeEs from '@angular/common/locales/es';
+
+
+registerLocaleData(localeEs);
+
 
 @NgModule({
   declarations: [
@@ -70,7 +75,7 @@ import { FooterComponent } from './components/landing/footer/footer.component';
     NgxSpinnerModule,
     MaterialModule,
     LandingRoutingModule,
-    NgIdleKeepaliveModule.forRoot(),
+    NgIdleKeepaliveModule.forRoot()
   ],
   entryComponents: [ConfirmationDialogComponent],
   exports: [TranslateModule],

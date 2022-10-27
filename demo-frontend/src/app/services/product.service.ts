@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -78,6 +78,24 @@ public createProduct(product: Product): Observable<any> {
     });
 
   }
+
+
+  public deleteProduct(id: number): Observable<any> {
+    const url = API_CONFIG.deleteProduct;
+    const headers = new HttpHeaders({
+      'Content-type': 'charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+    const params = new HttpParams().set('id', id.toString());
+    return this.http.delete<any>(url, { params, headers });
+  }
+
+
 
   public uploadProductImg(product: any, img: File): Observable<any> {
     const url = API_CONFIG.uploadProductImg;

@@ -1,6 +1,6 @@
 
-<form [formGroup]="productForm" (ngSubmit)="save()" class="h-full d-flex justify-content-center" >
-  <div fxLayout="column" fxLayoutGap="20px" class="form-content" style="width: 75%">
+<form [formGroup]="productForm" (ngSubmit)="save()" class="h-full d-flex justify-content-center mt-5 mx-auto col-8" >
+  <div fxLayout="column" fxLayoutGap="20px" class="form-content" style="width: 60%">
     <div class="input-row d-flex">
       <mat-card fxFlex>
         <mat-card-header>
@@ -50,10 +50,10 @@
         <mat-card-actions>
 
           <div class="d-flex justify-content-end" >
-            <button fxFlex="6" fxFlex.xs="30" mat-raised-button type="submit" color="primary"
+            <button fxFlex="10" fxFlex.xs="30" mat-raised-button type="submit" color="primary"
             [disabled]="!productForm.valid">{{ 'button.save' | translate }}</button>
             <!-- <div fclass="input-row" xLayoutGap="20px" fxLayoutAlign="center center"> -->
-              <button fxFlex="6" fxFlex.xs="30" mat-raised-button type="button" (click)="back()"
+              <button fxFlex="10" fxFlex.xs="30" mat-raised-button type="button" (click)="back()"
                 [formNoValidate]="true">{{ 'button.cancel' | translate }}</button>
             <!-- </div> -->
           </div>
