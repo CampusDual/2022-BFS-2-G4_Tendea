@@ -1,8 +1,9 @@
 
 <div>
+  <h1 class="color-green">{{ 'menu.products' | translate }}</h1>
   <div fxLayout="row" fxLayoutAlign="space-between" class="upper-menu" fxLayout.lt-sm="column" fxLayoutGap="20px"
     fxLayoutGap.lt-sm="10px">
-    <div fxFlex fxLayout.lt-sm="row" class="k-flex-wrap">
+    <div fxFlex fxLayout.lt-sm="row" fxLayoutGap="20px" lass="k-flex-wrap" >
       <button mat-raised-button (click)="onAdd()">
         <mat-icon>add</mat-icon> {{ "new" | translate }}
       </button>

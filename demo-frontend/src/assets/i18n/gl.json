@@ -11,9 +11,14 @@
     "title": "Demo"
   },
   "menu": {
-    "home": "Home",
+    "menu": "Menú",
+    "home": "Inicio",
     "contacts": "Contactos",
-    "logout": "Pechar sesión"
+    "login": "Ingresar",
+    "logout": "Pechar sesión",
+    "products": "Produtos",
+    "categories": "Categorías",
+    "latest_products": "Últimos produtos"
   },
   "language": {
     "spanish": "Castelán",
@@ -39,7 +44,8 @@
   },
   "form": {
     "contact": "Contacto",
-    "product": "Produto"
+    "product": "Produto",
+    "create_product" : "Crear produto"
   },
   "button": {
     "cancel": "Cancelar",
@@ -52,6 +58,18 @@
     "next_page": "Páxina seguinte",
     "previous_page": "Páxina anterior",
     "of": "de"
+  },
+  "register": {
+    "LOGIN_REQUIRED": "O nome de usuario é obligatorio",
+    "PASSWORD_REQUIRED": "O contrasinal é obligatorio",
+    "INVALID_PASSWORD": "O contrasinal debe ter entre 6 y 32 caracteres non especiais, incluindo minúsculas, polo menos unha maiúscula e polo menos un número",
+    "INVALID_NAME_LENGTH": "A lonxitude debe ser entre 2 y 24 caracteres",
+    "product" : {
+      "NAME_REQUIRED": "O nome é un campo obligatorio",
+      "PRICE_REQUIRED": "O prezo é un campo obligatorio",
+      "INVALID_NAME": "O nome do produto debe ter entre 3 y 50 caracteres",
+      "INVALID_PRICE": "O prezo ten un formato incorrecto"
+    }
   },
   "EN": "Inglés",
   "ES": "Castelán",

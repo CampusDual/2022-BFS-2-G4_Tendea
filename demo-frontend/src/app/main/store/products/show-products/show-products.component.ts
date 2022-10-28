@@ -29,7 +29,7 @@ export class ShowProductsComponent implements OnInit {
   selection = new SelectionModel<Product>(true, []);
   error = false;
   highlightedRow: Product;
-  displayedColumns = ['select','id', 'name', 'category'];
+  displayedColumns = ['select','name', 'category'];
   fields = [ 'id', 'name', 'category.name'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

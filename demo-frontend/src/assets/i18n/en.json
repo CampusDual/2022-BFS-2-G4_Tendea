@@ -11,9 +11,14 @@
     "title": "Demo"
   },
   "menu": {
+    "menu": "Menu",
     "home": "Home",
     "contacts": "Contacts",
-    "logout": "Logout"
+    "login": "Login",
+    "logout": "Logout",
+    "products": "Products",
+    "categories": "Categories",
+    "latest_products": "Latest products"
   },
   "language": {
     "spanish": "Spanish",
@@ -39,7 +44,8 @@
   },
   "form": {
     "contact": "Contact",
-    "product": "Product"
+    "product": "Product",
+    "create_product" : "Create product"
   },
   "button": {
     "cancel": "Cancel",
@@ -52,6 +58,18 @@
     "next_page": "Next page",
     "previous_page": "Previous page",
     "of": "of"
+  },
+  "register": {
+    "LOGIN_REQUIRED": "Name is a required field",
+    "PASSWORD_REQUIRED": "Password is a required field",
+    "INVALID_PASSWORD": "The password must be between 6 and 32 non-special characters, including lowercase letters, at least one uppercase letter and at least one number",
+    "INVALID_NAME_LENGTH": "Name Length must be between 2 and 24 characters",
+    "product" : {
+      "NAME_REQUIRED": "Name is a required field",
+      "PRICE_REQUIRED": "Price is a required field",
+      "INVALID_NAME": "Product name must be between 3 and 50 characters in length",
+      "INVALID_PRICE": "Product has an invalid format"
+    }
   },
   "EN": "English",
   "ES": "Spanish",

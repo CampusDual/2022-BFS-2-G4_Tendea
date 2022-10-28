@@ -11,10 +11,14 @@
     "title": "Demo"
   },
   "menu": {
+    "menu": "Menú",
     "home": "Home",
     "contacts": "Contactos",
+    "login": "Ingresar",
     "logout": "Cerrar sesión",
-    "products": "Productos"
+    "products": "Productos",
+    "categories": "Categorías",
+    "latest_products": "Últimos productos"
   },
   "language": {
     "spanish": "Español",
@@ -34,7 +38,9 @@
       "name": "Nombre de producto",
       "price": "Precio de producto",
       "discount": "Descuento",
-      "category": "Categoría"
+      "category": "Categoría",
+      "namerequired": "El nombre es un campo obligatorio",
+      "pricerequired": "El precio es un campo obligatorio"
     }
   },
   "form": {
