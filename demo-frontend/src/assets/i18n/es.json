@@ -39,6 +39,7 @@
       "price": "Precio de producto",
       "discount": "Descuento",
       "category": "Categoría",
+      "shop": "Tienda",
       "namerequired": "El nombre es un campo obligatorio",
       "pricerequired": "El precio es un campo obligatorio"
     }

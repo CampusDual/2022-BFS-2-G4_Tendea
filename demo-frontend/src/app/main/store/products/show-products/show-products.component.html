@@ -59,12 +59,43 @@
         </mat-cell>
       </ng-container>
 
+      <!-- SHOP -->
+      <ng-container matColumnDef="shop">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "table.product.shop" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="shop">
+          {{ row.shop.name }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- CATEGORY -->
       <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ "table.product.category" | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="category">
           {{ row.category.name }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- PRICE -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "table.product.price" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="price">
+          {{ row.price }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- DISCOUNT -->
+      <ng-container matColumnDef="discount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "table.product.discount" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="discount">
+          {{ row.discount }}
         </mat-cell>
       </ng-container>
 

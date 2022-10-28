@@ -38,6 +38,7 @@
       "name": "Nome do produto",
       "price": "Prezo do produto",
       "discount": "Desconto",
+      "shop": "Tenda",
       "namerequired": "O nome é un campo obligatorio",
       "pricerequired": "O prezo é un campo obligatorio"
     }

@@ -38,6 +38,7 @@
       "name": "Product name",
       "price": "Product price",
       "discount": "Discount",
+      "shop": "Shop",
       "namerequired": "Name is a required field",
       "pricerequired": "Price is a required field"
     }

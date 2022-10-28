@@ -29,8 +29,10 @@ export class ShowProductsComponent implements OnInit {
   selection = new SelectionModel<Product>(true, []);
   error = false;
   highlightedRow: Product;
-  displayedColumns = ['select','name', 'category'];
-  fields = [ 'id', 'name', 'category.name'];
+  displayedColumns = ['select','name', 'category', 'price', 'discount'];
+  fields = [ 'id', 'name', 'category.name', 'price', 'discount'];
+
+  // TODO: FALTA PONER AÑADIR SHOP Y SHOP.NAME
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
