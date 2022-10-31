@@ -23,6 +23,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { TranslateModule } from '@ngx-translate/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [],
@@ -50,7 +52,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSidenavModule,
     MatSortModule,
     MatPaginatorModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    TranslateModule,
+    FlexLayoutModule
   ],
 })
 export class MaterialModule {}

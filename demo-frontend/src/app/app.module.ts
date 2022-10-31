@@ -36,13 +36,15 @@ import { GridComponent } from './components/landing/grid/grid.component';
 import { NavSearchComponent } from './components/landing/nav-search/nav-search.component';
 import { LandingRoutingModule } from './components/landing/landing-routing.module';
 import { LandingModule } from './components/landing/landing.module';
-import { Location, registerLocaleData } from '@angular/common'
+import { Location, registerLocaleData } from '@angular/common';
 import { FooterComponent } from './components/landing/footer/footer.component';
 import localeEs from '@angular/common/locales/es';
-
+import { JwtModule } from '@auth0/angular-jwt';
 
 registerLocaleData(localeEs);
-
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -53,7 +55,7 @@ registerLocaleData(localeEs);
     GridComponent,
     NavSearchComponent,
     LandingComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -61,6 +63,11 @@ registerLocaleData(localeEs);
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
+      },
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
       },
     }),
     BrowserModule,
@@ -75,7 +82,7 @@ registerLocaleData(localeEs);
     NgxSpinnerModule,
     MaterialModule,
     LandingRoutingModule,
-    NgIdleKeepaliveModule.forRoot()
+    NgIdleKeepaliveModule.forRoot(),
   ],
   entryComponents: [ConfirmationDialogComponent],
   exports: [TranslateModule],

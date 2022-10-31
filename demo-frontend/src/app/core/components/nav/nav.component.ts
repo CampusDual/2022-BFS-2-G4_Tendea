@@ -41,7 +41,7 @@ export class NavComponent implements OnInit, OnDestroy {
       route: 'products',
       title: 'menu.products', // TODO añadir a translate GAL/ENG, decidir nombre
       allowedRoles: ['CLIENTS'],
-    }
+    },
   ];
 
   protected subscription: Subscription;
@@ -64,9 +64,11 @@ export class NavComponent implements OnInit, OnDestroy {
     if (
       !this.authService.isLoggedIn() &&
       !(
-        this.router.url === '/' ||
-        this.router.url === '/login' ||
-        this.router.url === '/register'
+        this.router.url === '/catgoria/' ||
+        this.router.url === '/catgoria/:id' ||
+        this.router.url === '/auth/login' ||
+        this.router.url === '/auth/registro' ||
+        this.router.url === '/'
       )
     ) {
       this.authService.redirectLoginSessionExpiration();
