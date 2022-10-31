@@ -19,19 +19,18 @@
 
         <div class="d-flex justify-content-between">
           <div id="buttons">
-            <button mat-raised-button type="submit" color="primary" (click)="login(username.value, password.value, $event)"
-            id="login-button" style="margin-right: 5%">
-            {{ "login.enter" | translate }}
-          </button>
-  
-          <button mat-raised-button type="button" color="basic" (click)="back()"
-            id="cancel-button">
-            {{ "button.cancel" | translate }}
-          </button>
+            <button mat-raised-button type="submit" color="primary"
+              (click)="login(username.value, password.value, $event)" id="login-button" style="margin-right: 5%">
+              {{ "login.enter" | translate }}
+            </button>
+
+            <button mat-raised-button type="button" color="basic" (click)="back()" id="cancel-button">
+              {{ "button.cancel" | translate }}
+            </button>
           </div>
         </div>
 
-        
+
 
 
         <div fxlayout="column" fxlayoutalign="center center" layout-padding="" style="
@@ -42,7 +41,7 @@
             align-items: center;
             padding: 10px;
           " ng-reflect-fx-layout="column" ng-reflect-fx-layout-align="center" color="black">
-          <span>¿Aún no tienes una cuenta? <a routerLink="/register">Regístrate</a>.
+          <span>¿Aún no tienes una cuenta? <a routerLink="/auth/registro">Regístrate</a>.
           </span>
         </div>
       </form>

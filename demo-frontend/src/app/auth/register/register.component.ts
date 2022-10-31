@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit {
 }
 
   back(): void {
-    this.location.back()
+    this.router.navigate(['/']);
   }
 
   validField(campo: string) {

@@ -16,7 +16,6 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((a) => a.AuthModule),
   },
-  { path: 'register', component: RegisterComponent },
   {
     path: 'contacts',
     loadChildren: () =>

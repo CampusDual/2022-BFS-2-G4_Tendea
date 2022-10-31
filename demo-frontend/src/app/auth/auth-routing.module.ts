@@ -15,10 +15,10 @@ const routes: Routes = [
         path: 'registro',
         component: RegisterComponent,
       },
-      // {
-      //   path: '**',
-      //   redirectTo: 'login',
-      // },
+      {
+        path: '**',
+        redirectTo: 'login',
+      },
     ],
   },
 ];
