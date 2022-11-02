@@ -9,6 +9,7 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class LandingComponent implements OnInit {
   categories: Category[];
+  category : Category;
 
   constructor(private categoryService: CategoryService) {
 

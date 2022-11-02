@@ -70,7 +70,7 @@ export class NavComponent implements OnInit, OnDestroy {
         this.router.url === '/'
       )
     ) {
-      console.log(this.router)
+      /** Si lo activo entro en un bucle infinito */
       //this.authService.redirectLoginSessionExpiration();
     }
     return this.authService.isLoggedIn();

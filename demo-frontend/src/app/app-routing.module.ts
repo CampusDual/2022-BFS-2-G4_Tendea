@@ -14,7 +14,6 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    pathMatch: 'full',
     loadChildren: () => import('./auth/auth.module').then((a) => a.AuthModule),
   },
   {
