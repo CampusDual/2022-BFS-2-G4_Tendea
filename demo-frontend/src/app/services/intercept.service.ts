@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { stringToKeyValue } from '@angular/flex-layout/extended/style/style-transforms';
 
 
 @Injectable()
@@ -60,7 +59,7 @@ export class InterceptService implements HttpInterceptor {
             this.snackBar.openSnackBar(this.translate.instant('UNAUTHORIZED_USER'), this.translate.instant('CLOSE'), 'red-snackbar');
           } else if (err.status === 401) {
             localStorage.removeItem('access_token');
-            this.router.navigateByUrl('/login');
+            this.router.navigateByUrl('/auth/login');
             this.snackBar.openSnackBar(this.translate.instant('TOKEN_EXPIRED'), this.translate.instant('CLOSE'), 'red-snackbar');
           }if (err.status === 500) {
             this.snackBar.openSnackBar(this.translate.instant('DATABASE_QUERY_ERROR'), this.translate.instant('CLOSE'), 'red-snackbar');

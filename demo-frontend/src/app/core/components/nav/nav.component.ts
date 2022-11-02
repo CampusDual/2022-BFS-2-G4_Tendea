@@ -64,14 +64,14 @@ export class NavComponent implements OnInit, OnDestroy {
     if (
       !this.authService.isLoggedIn() &&
       !(
-        this.router.url === '/catgoria/' ||
-        this.router.url === '/catgoria/:id' ||
+        this.router.url === `/categoria/${Number}` ||
         this.router.url === '/auth/login' ||
         this.router.url === '/auth/registro' ||
         this.router.url === '/'
       )
     ) {
-      this.authService.redirectLoginSessionExpiration();
+      console.log(this.router)
+      //this.authService.redirectLoginSessionExpiration();
     }
     return this.authService.isLoggedIn();
   }

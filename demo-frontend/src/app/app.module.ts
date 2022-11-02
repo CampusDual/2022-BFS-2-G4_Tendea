@@ -21,7 +21,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { MatSnackBarComponent } from './components/mat-snack-bar/mat-snack-bar.component';
 import { CoreModule } from './core/core.module';
@@ -31,13 +30,7 @@ import { CustomMatPaginatorIntl } from './model/custom-mat-paginator';
 import { InterceptService } from './services/intercept.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
-import { LandingComponent } from './components/landing/landing.component';
-import { GridComponent } from './components/landing/grid/grid.component';
-import { NavSearchComponent } from './components/landing/nav-search/nav-search.component';
-import { LandingRoutingModule } from './components/landing/landing-routing.module';
-import { LandingModule } from './components/landing/landing.module';
-import { Location, registerLocaleData } from '@angular/common';
-import { FooterComponent } from './components/landing/footer/footer.component';
+import { registerLocaleData } from '@angular/common';;
 import localeEs from '@angular/common/locales/es';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -51,11 +44,6 @@ export function tokenGetter() {
     AppComponent,
     ConfirmationDialogComponent,
     MatSnackBarComponent,
-    LandingComponent,
-    GridComponent,
-    NavSearchComponent,
-    LandingComponent,
-    FooterComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -77,11 +65,9 @@ export function tokenGetter() {
     HttpClientModule,
     FlexLayoutModule,
     MainModule,
-    AuthModule,
     CoreModule,
     NgxSpinnerModule,
     MaterialModule,
-    LandingRoutingModule,
     NgIdleKeepaliveModule.forRoot(),
   ],
   entryComponents: [ConfirmationDialogComponent],

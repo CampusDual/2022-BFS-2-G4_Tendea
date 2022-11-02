@@ -4,6 +4,8 @@ import { MainHomeComponent } from './main-home/main-home.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { ContactsComponent } from './contacts/contacts.component';
 import { StoreComponent } from './store/store.component';
+import { RegisterComponent } from '../auth/register/register.component';
+import { LandingComponent } from '../components/landing/landing.component';
 
 const routes: Routes = [
   {
@@ -24,14 +26,13 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    loadChildren: ()=>import ('./store/store.module').then((m) => m.StoreModule),
-    // el import es como una función anónima para cargar el módulo (lazy loading), y el then coge la respuesta (promesa), le pone el nombre m y le asigna el módulo.
+    loadChildren: () =>
+      import('./store/store.module').then((m) => m.StoreModule),
     canActivate: [AuthGuard],
     data: {
-      allowedRoles: ['CLIENTS']
-    }
-  }
-
+      allowedRoles: ['CLIENTS'],
+    },
+  },
 ];
 
 @NgModule({

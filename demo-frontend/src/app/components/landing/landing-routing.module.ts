@@ -6,6 +6,16 @@ const routes: Routes = [
   {
     path: '',
     component: LandingComponent,
+    children: [
+      {
+        path: 'categoria/:id',
+        component: LandingComponent,
+      },
+      // {
+      //   path: '**',
+      //   redirectTo: '',
+      // },
+    ],
   },
 ];
 

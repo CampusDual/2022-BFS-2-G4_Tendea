@@ -33,7 +33,10 @@ export class AuthService {
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
       Authorization:
         'Basic ' +
-        Buffer.from(`${environment.clientName}:${environment.clientSecret}`, 'utf8').toString('base64'),
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
     });
 
     const urlGrantTypeParams = new URLSearchParams();
@@ -65,7 +68,7 @@ export class AuthService {
   }
 
   public isLoggedIn() {
-    return localStorage.getItem('access_token') !== null;
+    return localStorage.getItem('access_token');
   }
 
   isLoggedOut() {
@@ -86,7 +89,7 @@ export class AuthService {
 
   redirectLoginSessionExpiration() {
     this.logout();
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth/login');
     localStorage.setItem('close_session', '1');
     localStorage.setItem('expired_session_message', 'true');
     localStorage.setItem(

@@ -11,16 +11,22 @@ import { MatCardModule } from '@angular/material/card';
 
 import { MaterialModule } from '../material/material.module';
 import { RegisterComponent } from './register/register.component';
-
+import { JwtModule } from '@auth0/angular-jwt';
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
-    FlexLayoutModule,
-    MatCardModule,
     MaterialModule,
     ReactiveFormsModule,
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter,
+    //   },
+    // }),
   ],
 })
 export class AuthModule {}

@@ -5,7 +5,7 @@ import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     children: [
       {
         path: 'login',
@@ -15,10 +15,10 @@ const routes: Routes = [
         path: 'registro',
         component: RegisterComponent,
       },
-      {
-        path: '**',
-        redirectTo: 'login',
-      },
+      // {
+      //   path: '**',
+      //   redirectTo: 'login',
+      // },
     ],
   },
 ];

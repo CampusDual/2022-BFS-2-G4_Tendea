@@ -14,6 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
+    pathMatch: 'full',
     loadChildren: () => import('./auth/auth.module').then((a) => a.AuthModule),
   },
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./main/contacts/contacts.module').then((x) => x.ContactsModule),
   },
-  //{ path: '**', redirectTo: '' },
+  //{ path: '**', redirectTo: ''},
 ];
 
 @NgModule({
