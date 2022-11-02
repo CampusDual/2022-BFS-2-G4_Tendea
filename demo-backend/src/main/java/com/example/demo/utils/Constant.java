@@ -53,6 +53,10 @@ public class Constant {
 	//Profile error
 	public static final String PROFILE_CONSTRAINT_VIOLATION ="PROFILE_CONSTRAINT_VIOLATION";
 	
+	// Shop error
+	public static final String SHOP_INCORRECT_SIZE = "INCORRECT_SIZE";
+	public static final String SHOP_NOT_EXISTS = "SHOP_NOT_EXISTS";
+	public static final String SHOP_NOT_CREATED = "SHOP_NOT_CREATED";
 	
 	//Common error
 	public static final String ID_NOT_EXISTS ="ID_NOT_EXISTS";
@@ -68,6 +72,9 @@ public class Constant {
 	public static final String RESPONSE_CODE = "responseCode";
 	public static final String ERROR = "errors";
 	public static final String PHONE_ERROR ="contacts_phone_key";
+    public static final String CITY_REQUIRED = "CITY_NAME REQUIRED";
+    
+    
 
 	
 	

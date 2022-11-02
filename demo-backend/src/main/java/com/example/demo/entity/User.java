@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -84,6 +85,9 @@ public class User implements Serializable {
     //@NotEmpty(message = Constant.USER_ACTIVE_STATUS_REQUIRED)
 	@Column(name = "active_status")
 	private Integer activeStatus;
+	
+	@OneToOne(mappedBy="user")
+	private Shop shop;
 
     // ------ PREPERSIST ------
     @PrePersist
