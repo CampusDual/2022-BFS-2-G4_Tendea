@@ -87,8 +87,12 @@ export class CreateProductComponent implements OnInit {
       this.productForm.value.bulk = 0;
     }
 
-    console.log(this.productForm.value.boolBulk);
-    console.log(this.product.bulk);
+    if(this.productForm.value.discount == null) {
+      this.productForm.value.discount = 0;
+    }
+
+    // console.log(this.productForm.value.boolBulk);
+    // console.log(this.product.bulk);
 
     const newProduct: Product = Object.assign({}, this.productForm.value );
       this.productService.createProduct(newProduct).subscribe((response) => {
@@ -97,7 +101,7 @@ export class CreateProductComponent implements OnInit {
 
       // this.productService.uploadProductImg(this.product.id , this.productForm["file"])
 
-      
+
   }
 
   // uploadImg() {

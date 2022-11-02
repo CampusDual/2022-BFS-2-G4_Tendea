@@ -99,6 +99,16 @@
         </mat-cell>
       </ng-container>
 
+      <!-- BULK -->
+      <ng-container matColumnDef="bulk">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "table.product.soldOnBulk" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="bulk">
+          {{ row.bulk }}
+        </mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onEdit(row)" class="row-link"
         [style.background]="
