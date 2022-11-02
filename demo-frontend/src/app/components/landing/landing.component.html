@@ -12,7 +12,7 @@
     <mat-nav-list>
       <mat-list role="list">
         <h4 class="m-3">{{ 'menu.categories' | translate }}</h4>
-        <mat-list-item role="listitem" *ngFor="let category of categories" [routerLink]="['/categoria', category.id]">
+        <mat-list-item role="listitem" *ngFor="let category of categories" [routerLink]="['/categoria', category.id]" (click)="obtenerCategoria()" >
           {{category.name}}</mat-list-item>
       </mat-list>
 
@@ -54,7 +54,7 @@
 
   <div class="container-fluid">
     <app-nav-search></app-nav-search>
-    <app-grid></app-grid>
+    <app-grid [idCategory]="idCategory"></app-grid>
     <app-footer></app-footer>
   </div>
 

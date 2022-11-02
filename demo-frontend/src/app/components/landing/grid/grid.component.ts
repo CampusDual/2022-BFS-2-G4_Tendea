@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
+  Input,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,9 +13,8 @@ import { ProductDataSource } from 'src/app/model/datasource/products.datasource'
 import { Product } from 'src/app/model/product';
 import { AnyField, AnyPageFilter, SortFilter } from 'src/app/model/rest/filter';
 import { ProductService } from 'src/app/services/product.service';
-import { merge, fromEvent, Observable } from 'rxjs';
-import { tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
+import { ActivatedRoute } from '@angular/router';
+import { Category } from '../../../model/category';
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
@@ -38,6 +38,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   products: Product[];
   sProducts: Product[] = [];
+  @Input() idCategory!: Number;
 
   pageIndex: number = 0;
   pageSize: number = 8;
@@ -48,8 +49,10 @@ export class GridComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('input') input: ElementRef;
 
-
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.dataSource = new ProductDataSource(this.productService);
@@ -62,18 +65,20 @@ export class GridComponent implements OnInit, AfterViewInit {
     );
     this.dataSource.getProducts(pageFilter);
 
-    this.productService.getProductsLanding(this.pageIndex, this.pageSize).subscribe(
-      (res) => (this.sProducts = res.data)
-    )
+    this.productService
+      .getProductsLanding(this.pageIndex, this.pageSize)
+      .subscribe((res) => (this.sProducts = res.data));
 
+    this.obtenerCategoria();
   }
 
   ngAfterViewInit(): void {
-
     this.paginator.pageIndex = 0;
     this.paginator.pageSize = 8;
-    this.productService.getProductsLanding(this.paginator.pageIndex,
-                                            this.paginator.pageSize);
+    this.productService.getProductsLanding(
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    );
 
     // fromEvent(this.input.nativeElement, 'keyup')
     //   .pipe(
@@ -99,8 +104,6 @@ export class GridComponent implements OnInit, AfterViewInit {
     //   )
     // .subscribe();
   }
-
-
 
   // onPageChange($event) {
 
@@ -136,14 +139,12 @@ export class GridComponent implements OnInit, AfterViewInit {
 
     this.paginator.pageIndex = this.pageEvent.pageIndex;
     this.paginator.pageSize = this.pageEvent.pageSize;
-    this.productService.getProductsLanding(this.paginator.pageIndex, this.paginator.pageSize).subscribe(
-      (res) => (this.sProducts = res.data)
-    )
+    this.productService
+      .getProductsLanding(this.paginator.pageIndex, this.paginator.pageSize)
+      .subscribe((res) => (this.sProducts = res.data));
 
     return event;
-
   }
-
 
   // loadProducts() {
   //   const pageFilter = new AnyPageFilter(
@@ -158,15 +159,18 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   // }
 
-  textTruncate(value: string ): string  {
+  textTruncate(value: string): string {
     const limit = 31;
     const trail = '...';
     return value.length > limit ? value.substring(0, limit) + trail : value;
   }
 
-
-
-
-
-
+  obtenerCategoria() {
+    this.idCategory = this.activatedRoute.snapshot.params['id'];
+    console.log(this.idCategory);
+    const products = this.sProducts.filter(
+      (p) => p.category.id === 4
+    );
+    console.log(products);
+  }
 }
