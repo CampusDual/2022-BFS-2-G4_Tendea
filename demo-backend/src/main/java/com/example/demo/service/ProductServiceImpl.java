@@ -76,6 +76,15 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		Product editProduct = productRepository.save(fromEditProductRequest(productFromDTO));
 		return editProduct.getId();
 	}
+
+	/**
+	 * Busqueda de productos por categoria
+	 */
+	@Override
+	public List<ProductDTO> findByCategory() {
+		
+		return ProductMapper.INSTANCE.productToProductDTOList(productRepository.findBy(Category category));
+	}
 	
 	
 	

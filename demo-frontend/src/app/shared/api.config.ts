@@ -23,5 +23,6 @@ export const API_CONFIG = {
   deleteProduct: environment.productsBaseUrl + '/deleteProduct',
 
   // Category API
-  getCategories: environment.categoriesBaseUrl + '/getCategories'
+  getCategories: environment.categoriesBaseUrl + '/getCategories',
+  getCategory: environment.categoriesBaseUrl + '/getCategory',
 };

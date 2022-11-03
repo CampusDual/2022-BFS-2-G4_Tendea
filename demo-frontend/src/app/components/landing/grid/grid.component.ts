@@ -6,6 +6,7 @@ import {
   ViewChild,
   AfterViewInit,
   Input,
+  Output,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,8 +14,10 @@ import { ProductDataSource } from 'src/app/model/datasource/products.datasource'
 import { Product } from 'src/app/model/product';
 import { AnyField, AnyPageFilter, SortFilter } from 'src/app/model/rest/filter';
 import { ProductService } from 'src/app/services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '../../../model/category';
+import { switchMap } from 'rxjs';
+import { CategoryService } from 'src/app/services/category.service';
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
@@ -38,7 +41,8 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   products: Product[];
   sProducts: Product[] = [];
-  @Input() idCategory!: Number;
+
+  result: Product[] = [];
 
   pageIndex: number = 0;
   pageSize: number = 8;
@@ -48,13 +52,17 @@ export class GridComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('input') input: ElementRef;
+  category: Category;
 
   constructor(
     private productService: ProductService,
-    private activatedRoute: ActivatedRoute
+    private categoryService: CategoryService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.category = this.activatedRoute.snapshot.params['id'];
     this.dataSource = new ProductDataSource(this.productService);
     const pageFilter = new AnyPageFilter(
       '',
@@ -68,8 +76,6 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.productService
       .getProductsLanding(this.pageIndex, this.pageSize)
       .subscribe((res) => (this.sProducts = res.data));
-
-    this.obtenerCategoria();
   }
 
   ngAfterViewInit(): void {
@@ -165,12 +171,13 @@ export class GridComponent implements OnInit, AfterViewInit {
     return value.length > limit ? value.substring(0, limit) + trail : value;
   }
 
-  obtenerCategoria() {
-    this.idCategory = this.activatedRoute.snapshot.params['id'];
-    console.log(this.idCategory);
-    const products = this.sProducts.filter(
-      (p) => p.category.id === 4
-    );
-    console.log(products);
+  onGetCategory() {
+    console.log('hola');
+    this.activatedRoute.params
+      .pipe(switchMap(({ id }) => this.categoryService.getCategory(id)))
+      .subscribe((res) => (this.category = res));
+
+    // this.category = this.activatedRoute.snapshot.params['id'];
+    // console.log(this.category);
   }
 }

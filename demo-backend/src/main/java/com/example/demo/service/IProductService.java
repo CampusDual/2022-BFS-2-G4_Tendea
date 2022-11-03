@@ -54,5 +54,11 @@ public interface IProductService {
 	 * @return
 	 */
 	Integer editProduct(ProductDTO editProductRequest);
+	
+	/**
+	 * Obtener productos por categoria
+	 */
+	List<ProductDTO> findByCategory();
+	
 
 }

@@ -42,7 +42,8 @@ public class SecurityBaseConfiguration extends ResourceServerConfigurerAdapter {
 		            "/oauth/token",
 		            "/users/createUser",
 		            "/products/getProducts",
-		            "/categories/getCategories")
+		            "/categories/getCategories",
+		            "/categories/getCategory")
 				.permitAll()
                 .anyRequest().authenticated();
     }

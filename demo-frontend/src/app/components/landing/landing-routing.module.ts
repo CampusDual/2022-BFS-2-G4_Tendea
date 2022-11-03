@@ -1,6 +1,8 @@
 import { NgModule, Output } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { GridComponent } from './grid/grid.component';
 
 
 const routes: Routes = [
@@ -10,12 +12,16 @@ const routes: Routes = [
     children: [
       {
         path: 'categoria/:id',
-        component: LandingComponent,
+        component: CategoriesComponent,
       },
-      // {
-      //   path: '**',
-      //   redirectTo: '',
-      // },
+      {
+        path: '',
+        component: GridComponent,
+      },
+      {
+        path: '**',
+        redirectTo: '',
+      },
     ],
   },
 ];
