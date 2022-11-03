@@ -74,7 +74,6 @@ public class User implements Serializable {
 
     @NotEmpty(message = Constant.USER_PASSWORD_REQUIRED)
     @Size(min = 6, max = 24, message = Constant.USER_INCORRECT_SIZE)
-    //@Pattern(regexp="[A-Za-z0-9]+$",message = Constant.USER_ALPHANUMERIC_ONLY)
     @Column(nullable=false)
 	private String password;
 	
@@ -82,12 +81,10 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	
-    //@NotEmpty(message = Constant.USER_ACTIVE_STATUS_REQUIRED)
+    
 	@Column(name = "active_status")
 	private Integer activeStatus;
 	
-	@OneToOne(mappedBy="user")
-	private Shop shop;
 
     // ------ PREPERSIST ------
     @PrePersist
@@ -112,12 +109,6 @@ public class User implements Serializable {
 		this.activeStatus = activeStatus;
 	}
 
-	/*
-	public User(Integer id, String email, String name, String surname1, String surname2, String login) {
-		this(email, name, surname1, surname2, login);
-		this.id = id;
-	}
-	*/
 
 	public Integer getId() {
 		return id;

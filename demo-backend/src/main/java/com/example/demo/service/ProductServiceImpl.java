@@ -62,8 +62,8 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 				.findAll(pageFilter); 
 		DataSourceRESTResponse<List<ProductDTO>> datares = new DataSourceRESTResponse<>();
 		datares.setTotalElements((int) products.getTotalElements());
-		List<ProductDTO> lContactDTO = ProductMapper.INSTANCE.productToProductDTOList(products.getContent());
-		datares.setData(lContactDTO);
+		List<ProductDTO> lProductDTO = ProductMapper.INSTANCE.productToProductDTOList(products.getContent());
+		datares.setData(lProductDTO);
 		return datares;
 	}
 

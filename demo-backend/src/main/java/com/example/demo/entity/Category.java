@@ -31,22 +31,18 @@ public class Category implements Serializable{
     @Column(nullable=false)
     private String name;    
     
-//    @JoinColumn(name = "category_id")
-//    @OneToMany(fetch = FetchType.LAZY)
-//    private List<Product> productList;
     
     // METHODS
     
     public Category() {
     	
-//    	this.productList = new ArrayList<>();
+
         
     }
     
     public Category(Integer id, String name, List<Product> productList) {
         this.id = id;
         this.name = name;
-//        this.productList = productList;
     }
 
     public Integer getId() {
@@ -65,14 +61,5 @@ public class Category implements Serializable{
         this.name = name;
     }
     
- 
-//    public List<Product> getProductList() {
-//        return productList;
-//    }
-//
-//    public void setProductList(List<Product> productList) {
-//        this.productList = productList;
-//    }
-
     private static final long serialVersionUID = 2L;
 }

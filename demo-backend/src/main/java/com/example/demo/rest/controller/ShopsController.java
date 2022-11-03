@@ -12,10 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +28,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
+import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.ShopDTO;
 import com.example.demo.dto.ShopGetDTO;
 import com.example.demo.entity.Shop;
 import com.example.demo.entity.enums.ResponseCodeEnum;
+import com.example.demo.exception.DemoException;
+import com.example.demo.rest.response.DataSourceRESTResponse;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.IShopService;
 import com.example.demo.utils.Constant;
@@ -45,26 +52,41 @@ public class ShopsController {
     private IShopService shopService;
     
     @GetMapping(path = "/getShops")
-    public @ResponseBody List<ShopGetDTO> findAll() {
+    public @ResponseBody List<ShopDTO> findAll() {
         LOGGER.info("findAll in progress...");
         return shopService.findAll();
+    }
+    
+   // GETALLSHOPS + PAGINATOR
+    @PostMapping(path = "/getShopsPag", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody DataSourceRESTResponse<List<ShopDTO>> getShopsPag(@RequestBody AnyPageFilter pageFilter) {
+        LOGGER.info("getShopsPag in progress...");
+        DataSourceRESTResponse<List<ShopDTO>> dres = new DataSourceRESTResponse<>();
+        try {
+            dres = shopService.getShops(pageFilter);
+        } catch (DemoException e) {
+            LOGGER.error(e.getMessage());
+            dres.setResponseMessage(e.getMessage());
+        }
+        LOGGER.info("getShopsPag is finished...");
+        return dres;
     }
     
     @GetMapping("/getShop")
     public ResponseEntity<?> getShops(@RequestParam(value = "id") Integer id) {
         LOGGER.info("getShop in progress...");
-        ShopGetDTO shop = null;
+        ShopDTO shop = null;
         Map<String, Object> response = new HashMap<>();
         ResponseEntity<?> re = null;
         try {
-            shop = shopService.getShop(id);
+            shop = shopService.getShopComplete(id);
             if (shop == null) {
                 response.put(Constant.MESSAGE, Constant.SHOP_NOT_EXISTS);
                 response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
                 re = new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
             } else {
                 response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
-                re = new ResponseEntity<ShopGetDTO>(shop, HttpStatus.OK);
+                re = new ResponseEntity<ShopDTO>(shop, HttpStatus.OK);
             }
         } catch (DataAccessException e) {
             LOGGER.error(e.getMessage());
@@ -110,6 +132,88 @@ public class ShopsController {
         response.put(Constant.MESSAGE, message); //Meter en todos los controller
         return new ResponseEntity<Map<String, Object>>(response, status);
     }
+    
+    // DELETE
+    
+    @DeleteMapping("/deleteShop")
+    //@PreAuthorize("hasAnyAuthority('CONTACTS')")
+    public ResponseEntity<?> deleteShop(@RequestParam(value = "id")Integer id) {
+        LOGGER.info("deleteShop in progress...");
+        Map<String, Object> response = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        String message = Constant.SHOP_DELETE_SUCCESS;
+        try {
+            shopService.deleteShop(id);
+            response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
+        } catch (DataAccessException e) {
+            response.put(Constant.MESSAGE, Constant.DATABASE_QUERY_ERROR);
+            response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+            status = HttpStatus.BAD_REQUEST;
+            message = Constant.SHOP_NOT_DELETE;
+        } 
+        response.put(Constant.MESSAGE, message);
+        LOGGER.info("deleteShop is finished...");
+        return new ResponseEntity<Map<String, Object>>(response,status);
+    }
+    
+    // EDIT
+    
+    @PostMapping(path = "/editShop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    // @PreAuthorize("hasAnyAuthority('CONTACTS')")
+    public ResponseEntity<?> editShop(@Valid @RequestBody ShopDTO editShopRequest, BindingResult result) {
+        LOGGER.info("editShop in progress...");
+        int id = 0;
+        ShopDTO shopOlder = shopService.getShopComplete(editShopRequest.getId());
+        
+        // Como la ID del usuario no se recibe por el formulario, se le pone directamente con el siguiente if
+        if (shopOlder.getUser() != null) {
+            editShopRequest.setUser(shopOlder.getUser());
+        }
+        Map<String, Object> response = new HashMap<>();
+        HttpStatus status = HttpStatus.CREATED;
+        String message = Constant.SHOP_EDIT_SUCCESS;
+        if(shopOlder!=null) {
+            if(!result.hasErrors()) {
+                try {
+                    id = shopService.editShop(editShopRequest);
+                    response.put("shopid", id);
+                    response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
+                }catch (DataAccessException e) {
+                    if(e.getMostSpecificCause().getMessage().contains(Constant.PHONE_ERROR)) {
+                        message = Constant.PHONE_ALREADY_EXISTS;
+                        status= HttpStatus.OK;
+                    }else {
+                        message = Constant.DATABASE_QUERY_ERROR;
+                        status= HttpStatus.BAD_REQUEST;
+                    }
+                    response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+                    response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+                }
+                
+            }else {
+                List<String> errors = new ArrayList<>();
+                for(FieldError error : result.getFieldErrors()) {
+                    errors.add(error.getDefaultMessage());
+                }
+                response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.WARNING.getValue());
+                message = Constant.SHOP_NOT_EDIT;
+                response.put(Constant.ERROR, errors);
+                status = HttpStatus.OK;
+            }
+        }else {
+            response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+            message = Constant.ID_NOT_EXISTS;
+            status = HttpStatus.BAD_REQUEST;
+        }
+            
+        response.put(Constant.MESSAGE, message);
+        LOGGER.info("editShop is finished...");
+        return new ResponseEntity<Map<String, Object>>(response, status);
+    
+    }
+    
+    
     
     
 }

@@ -58,6 +58,12 @@ public class Constant {
 	public static final String SHOP_NOT_EXISTS = "SHOP_NOT_EXISTS";
 	public static final String SHOP_NOT_CREATED = "SHOP_NOT_CREATED";
 	
+	// Shop message
+	public static final String SHOP_DELETE_SUCCESS = "SHOP_DELETE_SUCCESS";
+	public static final String SHOP_NOT_DELETE = "SHOP_NOT_DELETED";
+	public static final String SHOP_EDIT_SUCCESS = "SHOP_EDIT_SUCCESS";
+	public static final String SHOP_NOT_EDIT = "SHOP_NOT_EDIT";
+	
 	//Common error
 	public static final String ID_NOT_EXISTS ="ID_NOT_EXISTS";
 	public static final String UNAUTHORIZED_USER ="UNAUTHORIZED_USER";
@@ -73,6 +79,10 @@ public class Constant {
 	public static final String ERROR = "errors";
 	public static final String PHONE_ERROR ="contacts_phone_key";
     public static final String CITY_REQUIRED = "CITY_NAME REQUIRED";
+    
+    
+    
+    
     
     
 

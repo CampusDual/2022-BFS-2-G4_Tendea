@@ -81,11 +81,6 @@ public class Shop implements Serializable {
         super();
     }
 
-    
-
-
-    // --- GETTERS/SETTERS ---
-    
     public Shop(Integer id,
             String name,
             String description, String address, String city,
@@ -104,9 +99,33 @@ public class Shop implements Serializable {
         this.activeStatus = activeStatus;
         this.user = user;
     }
+    
+    public Shop(Integer id,
+            String name,
+            String description, String address, String city,
+            String phone,
+            String email,
+            Integer activeStatus,
+            User user,
+            Set<Category> categories,
+            Set<Product> products) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.city = city;
+        this.phone = phone;
+        this.email = email;
+        this.activeStatus = activeStatus;
+        this.user = user;
+        this.categories = categories;
+        this.products = products;
+    }
 
 
-
+    // --- GETTERS/SETTERS ---
+    
 
     public Integer getId() {
         return id;

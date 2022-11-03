@@ -51,7 +51,6 @@ public class ProductsController {
 	public static final String REQUEST_MAPPING = "products";
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
 	
-
 	@Autowired
 	private IProductService productService;
 
