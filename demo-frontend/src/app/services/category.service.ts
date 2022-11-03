@@ -26,7 +26,7 @@ export class CategoryService {
   }
 
   /**
-   * Obtiene todas la categoria seleccionada
+   * Obtiene la categoria seleccionada
    * @returns category
    */
 

@@ -35,26 +35,25 @@ export class ProductService {
     });
   }
 
+  public createProduct(product: Product): Observable<any> {
+    const url = API_CONFIG.createProduct;
+    // const body: CreateProductRequest = new CreateProductRequest(product);
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
 
-public createProduct(product: Product): Observable<any> {
-  const url = API_CONFIG.createProduct;
-  // const body: CreateProductRequest = new CreateProductRequest(product);
-  const headers = new HttpHeaders({
-    'Content-type': 'application/json; charset=utf-8',
-    Authorization:
-      'Basic ' +
-      Buffer.from(
-        `${environment.clientName}:${environment.clientSecret}`,
-        'utf8'
-      ).toString('base64'),
-  });
-
-  return this.http.post<Product>(url, product, { headers }).pipe(
-    catchError((e) => {
-      return throwError(() => e);
-    })
-  );
-}
+    return this.http.post<Product>(url, product, { headers }).pipe(
+      catchError((e) => {
+        return throwError(() => e);
+      })
+    );
+  }
 
   public getProductsLanding(pageNumber: number, pageSize: number) {
     // Le enviamos un objeto con esas dos propiedades.
@@ -71,14 +70,11 @@ public createProduct(product: Product): Observable<any> {
         ).toString('base64'),
     });
 
-
     //!Hay que ver que devuleve esta movida o si va aqui
     return this.http.post<DataSourceRESTResponse<Product[]>>(url, pageFilter, {
       headers,
     });
-
   }
-
 
   public deleteProduct(id: number): Observable<any> {
     const url = API_CONFIG.deleteProduct;
@@ -95,8 +91,6 @@ public createProduct(product: Product): Observable<any> {
     return this.http.delete<any>(url, { params, headers });
   }
 
-
-
   public uploadProductImg(product: any, img: File): Observable<any> {
     const url = API_CONFIG.uploadProductImg;
     // const body: CreateProductRequest = new CreateProductRequest(product);
@@ -110,9 +104,9 @@ public createProduct(product: Product): Observable<any> {
         ).toString('base64'),
     });
     let formData = new FormData();
-    console.log(product)
-    formData.append("file", img);
-    formData.append("id", product.id);
+    console.log(product);
+    formData.append('file', img);
+    formData.append('id', product.id);
 
     return this.http.post<Product>(url, formData, { headers }).pipe(
       catchError((e) => {
@@ -121,4 +115,17 @@ public createProduct(product: Product): Observable<any> {
     );
   }
 
+  /**
+   * Listado de productos por categoria
+   * @param category id
+   * @returns devulve un listado de productos por categoria
+   */
+  public getProductsByCategory(category: number): Observable<Product[]> {
+    const url = API_CONFIG.getProductsForCategory;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+    //const params = new HttpParams().set('id', category);
+    return this.http.get<Product[]>(`${url}/${category}`, {headers });
+  }
 }

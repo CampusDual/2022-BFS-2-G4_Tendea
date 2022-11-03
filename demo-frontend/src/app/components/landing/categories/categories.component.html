@@ -1,2 +1,13 @@
 <h1 class="text-center pt-4">{{category.name}}</h1>
-<app-grid></app-grid>
+
+
+
+
+<div *ngIf="sProducts.length > 0 else noProduct">
+  <app-grid [sProducts]="sProducts" [onCategory]="onCategory()"></app-grid>
+</div>
+
+
+<ng-template #noProduct>
+  <h1 class="text-center pt-4">No existen productos en esta categoria</h1>
+</ng-template>
