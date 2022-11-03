@@ -5,17 +5,26 @@ import { StoreRoutingModule } from './store-routing.module';
 import { ShowProductsComponent } from './products/show-products/show-products.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { CreateProductComponent } from './products/create-product/create-product.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShowShopsComponent } from './shops/show-shops/show-shops.component';
+import { CreateShopsComponent } from './shops/create-shops/create-shops.component';
 
 
 @NgModule({
   declarations: [
-    ShowProductsComponent
+    ShowProductsComponent,
+    CreateProductComponent,
+    ShowShopsComponent,
+    CreateShopsComponent
   ],
   imports: [
     CommonModule,
     StoreRoutingModule,
     MaterialModule,
-    TranslateModule
+    TranslateModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class StoreModule { }

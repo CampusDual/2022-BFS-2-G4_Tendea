@@ -25,7 +25,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'products',
+    path: '',
     loadChildren: () =>
       import('./store/store.module').then((m) => m.StoreModule),
     canActivate: [AuthGuard],
@@ -33,6 +33,15 @@ const routes: Routes = [
       allowedRoles: ['CLIENTS'],
     },
   },
+  // {
+  //   path: 'shops',
+  //   loadChildren: () =>
+  //     import('./store/store.module').then((m) => m.StoreModule),
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     allowedRoles: ['CLIENTS'],
+  //   },
+  // },
 ];
 
 @NgModule({
