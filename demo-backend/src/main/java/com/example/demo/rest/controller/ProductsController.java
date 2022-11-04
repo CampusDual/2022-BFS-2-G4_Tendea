@@ -51,7 +51,6 @@ import com.example.demo.utils.Constant;
 public class ProductsController {
 	public static final String REQUEST_MAPPING = "products";
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
-	
 
 	@Autowired
 	private IProductService productService;
@@ -143,7 +142,7 @@ public class ProductsController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 
-		response.put(Constant.MESSAGE, message); //Meter en todos los controller
+		response.put(Constant.MESSAGE, message); // Meter en todos los controller
 		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
 
@@ -177,7 +176,7 @@ public class ProductsController {
 	}
 
 	/**
-	 * TODO: verificar esto Listado de los productos son paginador
+	 * TODO: verificar esto Listado de los productos con paginador
 	 */
 	@GetMapping("/getAllProducts")
 	public List<ProductDTO> getAllProducts() {
@@ -230,11 +229,8 @@ public class ProductsController {
 
 	}
 
-	
-	
-	
-	//Post Product with images
-	
+	// Post Product with images
+
 //	@PostMapping(path = "createProduct")
 //	@ResponseStatus(HttpStatus.CREATED)
 ////	@PreAuthorize("hasAnyAuthority('CONTACTS')")
@@ -267,59 +263,56 @@ public class ProductsController {
 //
 //		return new ResponseEntity<Map<String, Object>>(response, status);
 //	}
-	
-	
-	
+
 	@PostMapping("/upload")
-	  public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, @RequestParam("id") Integer id) {
-	    Map<String, Object> response = new HashMap<>();
-	    ProductDTO product = productService.getProduct(id); 
+	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, @RequestParam("id") Integer id) {
+		Map<String, Object> response = new HashMap<>();
+		ProductDTO product = productService.getProduct(id);
 
-	    if (!file.isEmpty()) {
-	      String fileName = file.getOriginalFilename();
-	      Path fileRoute = Paths.get("uploads").resolve(fileName).toAbsolutePath();
-	      try {
-	        Files.copy(file.getInputStream(), fileRoute);
-	      } catch (IOException e) {
-	        response.put("message", "Error al subir el logo del cliente el actualizar en la base de datos"); //Acordarse constante TRANSLATE
-	        response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
-	        e.printStackTrace();
-	      }
-	      
-	      ProductImage productImg = new ProductImage();
-	      productImg.setName(fileName);
-	      productImg.setUrl(fileName);
+		if (!file.isEmpty()) {
+			String fileName = file.getOriginalFilename();
+			Path fileRoute = Paths.get("uploads").resolve(fileName).toAbsolutePath();
+			try {
+				Files.copy(file.getInputStream(), fileRoute);
+			} catch (IOException e) {
+				response.put("message", "Error al subir el logo del cliente el actualizar en la base de datos"); // Acordarse
+																													// constante
+																													// TRANSLATE
+				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
+				e.printStackTrace();
+			}
 
+			ProductImage productImg = new ProductImage();
+			productImg.setName(fileName);
+			productImg.setUrl(fileName);
 
-	      product.getImages().add(productImg);
-	      productService.createProduct(product); //editProduct <-?
-	      response.put("product", product);
-	      response.put("message", "Imagen subida correctamente");
-	    }
+			product.getImages().add(productImg);
+			productService.createProduct(product); // editProduct <-?
+			response.put("product", product);
+			response.put("message", "Imagen subida correctamente");
+		}
 
-	    return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 
-	  }
-	
-	
+	}
+
 	/**
-	 * TODO: verificar esto Listado de los productos son paginador
+	 * Busqueda de productos por la categoria
 	 */
 	@GetMapping("/getAllProductsByCategory/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<ProductDTO> getProductsByCategory(@PathVariable Integer id) {
 		return productService.findByCategory(id);
 	}
-	
-	
-	
-	
+
+	/**
+	 * Busqueda de productos por el nombre
+	 */
+	@GetMapping("/getProductsByName/{query}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<ProductDTO> getProductsByName(@PathVariable String query) {
+		LOGGER.info("search in progress...", query);
+		return productService.findByNameContainingIgnoreCase(query);
+	}
+
 }
-	
-
-
-
-
-
-
-

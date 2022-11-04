@@ -7,6 +7,7 @@ import { NavSearchComponent } from './nav-search/nav-search.component';
 import { GridComponent } from './grid/grid.component';
 import { MaterialModule } from '../../material/material.module';
 import { CategoriesComponent } from './categories/categories.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { CategoriesComponent } from './categories/categories.component';
     GridComponent,
     CategoriesComponent,
   ],
-  imports: [CommonModule, LandingRoutingModule, MaterialModule],
+  imports: [CommonModule, LandingRoutingModule, MaterialModule, FormsModule],
   exports: [],
 })
 export class LandingModule {}

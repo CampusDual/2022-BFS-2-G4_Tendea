@@ -55,6 +55,12 @@ export class ProductService {
     );
   }
 
+  /**
+   * Productos con paginador personalizado para el landing
+   * @param pageNumber Obtener todos los productos para el landing
+   * @param pageSize
+   * @returns products[]
+   */
   public getProductsLanding(pageNumber: number, pageSize: number) {
     // Le enviamos un objeto con esas dos propiedades.
     const pageFilter = { pageNumber, pageSize };
@@ -121,11 +127,24 @@ export class ProductService {
    * @returns devulve un listado de productos por categoria
    */
   public getProductsByCategory(category: number): Observable<Product[]> {
-    const url = API_CONFIG.getProductsForCategory;
+    const url = API_CONFIG.getProductsByCategory;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
     });
     //const params = new HttpParams().set('id', category);
-    return this.http.get<Product[]>(`${url}/${category}`, {headers });
+    return this.http.get<Product[]>(`${url}/${category}`, { headers });
+  }
+
+  /**
+   * Busqueda de productos por nombre
+   * @param query Listado de productos por el termino de busquedaa
+   * @returns product[]
+   */
+  public getProductByName(query: string): Observable<Product[]> {
+    const url = API_CONFIG.getProductsByName;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+    return this.http.get<Product[]>(`${url}/${query}`, { headers });
   }
 }

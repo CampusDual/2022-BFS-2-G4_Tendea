@@ -1,12 +1,11 @@
-<app-nav-search></app-nav-search>
 <div class="content" fxLayout="wrap">
   <h1 *ngIf="category" fxLayout="row">{{category.name}}</h1>
 
-  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="3% grid">
+  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="3% grid" class="animate__animated a animate__fadeIn">
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.md="30%" fxFlex.sm="100%" *ngFor="let product of sProducts">
-      <mat-card class="example-card">
+      <mat-card class="example-card" style="min-width: 18rem;">
 
-        <div class="container">
+        <div class="container ">
           <img mat-card-image src="./assets/images/ImgNoAvailable.png" alt="Image no available">
           <img *ngIf="product.discount != null && product.discount !=0" class="top-left"
             [src]="'../../../assets/images/DiscountLabel.png'" alt="Discount Label">

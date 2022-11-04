@@ -102,4 +102,38 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 
 	}
 
+	/**
+	 * Busqueda de productos por nombre
+	 */
+	@Override
+	public List<ProductDTO> findByName(String query) {
+		List<ProductDTO> products = new ArrayList<>();
+		List<ProductDTO> productName = new ArrayList<>();
+
+		products = ProductMapper.INSTANCE.productToProductDTOList(productRepository.findAll());
+
+		for (ProductDTO p : products) {
+
+			if (p.getName().toLowerCase().contains(query.toLowerCase())) {
+
+				productName.add(p);
+			}
+
+		}
+		return productName;
+	}
+
+	/**
+	 * Busqueda por nombre, inicio, fin y sin diferencias de may y min
+	 */
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<ProductDTO> findByNameContainingIgnoreCase(String query) {
+		List<ProductDTO> products = new ArrayList<>();
+		products = ProductMapper.INSTANCE
+				.productToProductDTOList(productRepository.findByNameContainingIgnoreCase(query));
+		return products;
+	}
+
 }
