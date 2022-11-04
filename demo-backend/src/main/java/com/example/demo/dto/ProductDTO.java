@@ -32,7 +32,7 @@ public class ProductDTO {
 	}
 
 	/**
-	 * Esto va sin las relaciones (Buble infinito)
+	 * Esto va sin las relaciones (Bucle infinito)
 	 */
 
 	@Id

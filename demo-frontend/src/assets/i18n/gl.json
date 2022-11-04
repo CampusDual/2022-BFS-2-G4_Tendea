@@ -42,6 +42,12 @@
       "shop": "Tenda",
       "namerequired": "O nome é un campo obligatorio",
       "pricerequired": "O prezo é un campo obligatorio"
+    },
+    "shop": {
+      "name" : "Nome",
+      "category": "Categorías",
+      "city": "Cidade",
+      "user": "Usuario"
     }
   },
   "form": {

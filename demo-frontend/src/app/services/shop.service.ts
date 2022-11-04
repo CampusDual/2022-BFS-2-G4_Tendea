@@ -1,11 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AnyPageFilter } from '../model/rest/filter';
 import { DataSourceRESTResponse } from '../model/rest/response';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Shop } from '../model/shop';
 import { Buffer } from 'buffer';
+import { API_CONFIG } from '../shared/api.config';
 
 
 @Injectable({
@@ -33,11 +34,43 @@ export class ShopService {
       headers,
     });
 
+  }
 
+  public deleteShop(id: number): Observable<any> {
+    const url = API_CONFIG.deleteShop;
+    const headers = new HttpHeaders({
+      'Content-type': 'charset=utf-8',
+    Authorization:
+      'Basic ' +
+      Buffer.from(
+        `${environment.clientName}:${environment.clientSecret}`,
+        'utf8'
+      ).toString('base64'),
+    });
+
+    const params = new HttpParams().set('id', id.toString());
+    return this.http.delete<any>(url, {params, headers});
   }
 
 
-
+  public createShop(shop: Shop): Observable<any> {
+    const url = API_CONFIG.createProduct;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+  
+    return this.http.post<Shop>(url, shop, { headers }).pipe(
+      catchError((e) => {
+        return throwError(() => e);
+      })
+    );
+  }
 
 
 
