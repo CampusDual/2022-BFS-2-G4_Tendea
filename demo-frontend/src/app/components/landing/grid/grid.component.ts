@@ -36,6 +36,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<Product>(true, []);
   error = false;
 
+  product: Product;
   products: Product[];
   @Input() sProducts: Product[];
   @Input() onCategory: boolean;

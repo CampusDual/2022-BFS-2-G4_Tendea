@@ -7,12 +7,20 @@ import { AnyPageFilter } from '../model/rest/filter';
 import { DataSourceRESTResponse } from '../model/rest/response';
 import { API_CONFIG } from '../shared/api.config';
 import { Buffer } from 'buffer';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  showMessageError(message: string) {
+    this._snackBar.open(`${message}`, 'CERRAR', {
+      duration: 4000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
+  }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {}
 
   // TODO: Es necesario hacer un PageFilter, comprobar funcionamiento en contacts.component.ts
 
@@ -145,6 +153,16 @@ export class ProductService {
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
     });
-    return this.http.get<Product[]>(`${url}/${query}`, { headers });
+    return this.http.get<Product[]>(`${url}/${query}`, { headers }).pipe(
+      catchError((e) => {
+        console.log(e.message);
+        if (e.message!.includes('failure')) {
+          this.showMessageError(
+            'No se encuentra ningun producto con este nombre'
+          );
+        }
+        return throwError(() => e);
+      })
+    );
   }
 }

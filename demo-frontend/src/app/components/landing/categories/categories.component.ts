@@ -1,7 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
-import { switchMap } from 'rxjs';
+import { switchMap, map } from 'rxjs';
 import { Category } from '../../../model/category';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from '../../../model/product';
@@ -21,6 +21,7 @@ export class CategoriesComponent implements OnInit {
 
   categoryId: number;
   category: Category;
+  spinner: boolean = true;
   @Output() sProducts: Product[] = [];
 
   ngOnInit(): void {
@@ -30,9 +31,9 @@ export class CategoriesComponent implements OnInit {
 
     this.activateRoute.params
       .pipe(
-        switchMap(({ id }) => this.productService.getProductsByCategory(id))
+        switchMap(({ id }) => this.productService.getProductsByCategory(id)),
       )
-      .subscribe((res) => (this.sProducts = res));
+      .subscribe((res) => ((this.sProducts = res), (this.spinner = false)));
   }
 
   onCategory(): boolean {

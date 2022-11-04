@@ -5,6 +5,15 @@
 </div>
 
 
+<div class="d-flex justify-content-center" *ngIf="spinner">
+  <div class="lds-ripple">
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+
+
 <ng-template #noProduct>
   <h1 class="text-center pt-4">No existen productos en esta categoria</h1>
 </ng-template>

@@ -308,11 +308,16 @@ public class ProductsController {
 	/**
 	 * Busqueda de productos por el nombre
 	 */
-	@GetMapping("/getProductsByName/{query}")
+	@GetMapping("/getProductsByName/{query}, /getProductsByName")
 	@ResponseStatus(HttpStatus.OK)
 	public List<ProductDTO> getProductsByName(@PathVariable String query) {
 		LOGGER.info("search in progress...", query);
-		return productService.findByNameContainingIgnoreCase(query);
+
+		if (!query.isBlank()) {
+			return productService.findByNameContainingIgnoreCase(query);
+		}
+		return productService.findAll();
+
 	}
 
 }

@@ -8,6 +8,7 @@ import { GridComponent } from './grid/grid.component';
 import { MaterialModule } from '../../material/material.module';
 import { CategoriesComponent } from './categories/categories.component';
 import { FormsModule } from '@angular/forms';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     GridComponent,
     CategoriesComponent,
+    ProductCardComponent,
   ],
   imports: [CommonModule, LandingRoutingModule, MaterialModule, FormsModule],
   exports: [],

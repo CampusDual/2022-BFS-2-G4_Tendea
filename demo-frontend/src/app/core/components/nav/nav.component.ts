@@ -64,7 +64,8 @@ export class NavComponent implements OnInit, OnDestroy {
     if (
       !this.authService.isLoggedIn() &&
       !(
-        this.router.url === `/categoria/${String}` ||
+        this.router.url === `/categoria/${Number}` ||
+        this.router.url === `/producto/${Number}` ||
         this.router.url === '/auth/login' ||
         this.router.url === '/auth/registro' ||
         this.router.url === '/'

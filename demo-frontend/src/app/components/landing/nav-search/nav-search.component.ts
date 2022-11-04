@@ -31,6 +31,14 @@ export class NavSearchComponent implements OnInit {
 
   opcionSeleccionada(event: MatAutocompleteSelectedEvent) {
     const product: Product = event.option.value;
+    if (!product) {
+      this.productSelected = undefined;
+      return;
+    }
+
+    if (this.termino.length < 3) {
+      this.termino = '';
+    }
     this.termino = product.name;
   }
 }
