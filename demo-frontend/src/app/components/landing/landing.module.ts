@@ -6,6 +6,7 @@ import { LandingComponent } from './landing.component';
 import { NavSearchComponent } from './nav-search/nav-search.component';
 import { GridComponent } from './grid/grid.component';
 import { MaterialModule } from '../../material/material.module';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { MaterialModule } from '../../material/material.module';
     NavSearchComponent,
     FooterComponent,
     GridComponent,
+    CarouselComponent,
   ],
   imports: [CommonModule, LandingRoutingModule, MaterialModule],
   exports: [],
