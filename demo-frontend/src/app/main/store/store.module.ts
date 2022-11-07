@@ -9,6 +9,7 @@ import { CreateProductComponent } from './products/create-product/create-product
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShowShopsComponent } from './shops/show-shops/show-shops.component';
 import { CreateShopsComponent } from './shops/create-shops/create-shops.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { CreateShopsComponent } from './shops/create-shops/create-shops.componen
     ShowProductsComponent,
     CreateProductComponent,
     ShowShopsComponent,
-    CreateShopsComponent
+    CreateShopsComponent,
+    AdminHomeComponent
   ],
   imports: [
     CommonModule,
