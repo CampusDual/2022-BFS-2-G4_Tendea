@@ -14,6 +14,11 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
+  # subida de imagenes  
+  servelet:
+        multipart:
+          max-file-size: 10MB
+          max-request-size: 10MB
 
 # oauth2 configuration  
 security:

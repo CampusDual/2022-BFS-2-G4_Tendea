@@ -1,6 +1,7 @@
 package com.example.demo.rest.controller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,13 +9,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -261,37 +266,90 @@ public class ProductsController {
 //		return new ResponseEntity<Map<String, Object>>(response, status);
 //	}
 
+	/**
+	 * Subir foto de producto, a la carpeta uploads, max 10MB
+	 * @param file
+	 * @param id
+	 * http://localhost:9999/products/upload
+	 */
 	@PostMapping("/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, @RequestParam("id") Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		ProductDTO product = productService.getProduct(id);
-
+		
+		if (product == null) {
+			response.put("message", "Error al subir la imagen del producto"); // Acordarse
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		}
+		/**
+		 * TODO: Validar que el producto exista
+		 */
+		
+		LOGGER.info("upload image in progress...", product);
 		if (!file.isEmpty()) {
-			String fileName = file.getOriginalFilename();
+			// Para que el nombre sea unico, agregamos un UUID al nombre de la imagen y quitamos los espacios en blanco
+			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replace(" ", "");
+			
+			// Ruta a la que se sube la imagen
 			Path fileRoute = Paths.get("uploads").resolve(fileName).toAbsolutePath();
+			
 			try {
 				Files.copy(file.getInputStream(), fileRoute);
 			} catch (IOException e) {
-				response.put("message", "Error al subir el logo del cliente el actualizar en la base de datos"); // Acordarse
-																													// constante
-																													// TRANSLATE
+				response.put("message", "Error al subir la imagen del producto"); // Acordarse																											// TRANSLATE
 				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
 				e.printStackTrace();
 			}
-
+			
 			ProductImage productImg = new ProductImage();
 			productImg.setName(fileName);
 			productImg.setUrl(fileName);
+			
+			try {
+				product.getImages().add(productImg);
+				productService.createProduct(product);
+				response.put("product", product);
+				response.put("message", "Imagen añadida correctamente");
+			} catch (Exception e) {
+				response.put("message", "Error al subir la imagen del producto"); // Acordarse																											// TRANSLATE
+				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
+				e.printStackTrace();
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			}
 
-			product.getImages().add(productImg);
-			productService.createProduct(product); // editProduct <-?
-			response.put("product", product);
-			response.put("message", "Imagen subida correctamente");
+			LOGGER.info("upload image is finished...");
+
 		}
-
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-
 	}
+	
+	
+	/**
+	 * Mostrar foto de producto
+	 */
+	@GetMapping("/uploads/img/{photo:.+}") // Indica que va a recobir un parametro .extencion .jpg
+	public ResponseEntity<Resource> showPhoto(@PathVariable String photo){
+		LOGGER.info("show image in progress...", photo);
+		Path fileRoute = Paths.get("uploads").resolve(photo).toAbsolutePath();
+		Resource recurso = null;
+		try {
+			recurso = new UrlResource(fileRoute.toUri());
+		} catch (MalformedURLException e) {
+
+			e.printStackTrace();
+		}
+		
+		if (!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("No se pudo cargar la imagen: " + photo);
+		}
+		
+		HttpHeaders header = new HttpHeaders();
+		header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"" );
+		LOGGER.info("show image finish...", photo);
+		return new ResponseEntity<Resource>(recurso, header, HttpStatus.OK);
+	}
+	
+	
 
 	/**
 	 * Busqueda de productos por la categoria

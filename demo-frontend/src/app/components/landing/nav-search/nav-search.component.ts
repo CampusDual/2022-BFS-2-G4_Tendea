@@ -27,12 +27,16 @@ export class NavSearchComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /** Buscando un producto */
   buscando() {
     this.productService
       .getProductByName(this.termino)
       .subscribe((res) => ((this.products = res), (this.sProducts = res)));
+
+    console.log(this.products);
   }
 
+  /** Al seleccionar un producto */
   opcionSeleccionada(event: MatAutocompleteSelectedEvent) {
     const product: Product = event.option.value;
     this.productSelected = product;

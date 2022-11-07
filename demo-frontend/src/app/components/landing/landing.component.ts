@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/services/category.service';
 
-
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -13,22 +12,21 @@ export class LandingComponent implements OnInit {
   @Output() category: Category;
   @Output() onGetCategory: EventEmitter<Category> = new EventEmitter();
 
-  constructor(
-    private categoryService: CategoryService,
-  ) {}
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
+    /** Carga inicial de las categorias */
     this.categoryService
       .getCategories()
       .subscribe((res) => (this.categories = res));
   }
 
+  /** Obtener productos por categorias */
   getProductForCategory(selected: any) {
     this.category = selected;
     console.log(selected);
     this.onGetCategory.emit(selected);
   }
-
 
   login() {}
 }

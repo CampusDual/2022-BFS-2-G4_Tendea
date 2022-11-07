@@ -1,8 +1,8 @@
 <mat-card class="example-card" style="min-width: 18rem;">
 
   <div class="container">
-    <img mat-card-image src="./assets/images/ImgNoAvailable.png" alt="Image no available">
-    <img *ngIf="product.discount != null && product.discount !=0" class="top-left"
+    <img mat-card-image [src]="product | imagen " alt="Image no available">
+    <img *ngIf="product.discount != null && product.discount != 0" class="top-left"
       [src]="'../../../assets/images/DiscountLabel.png'" alt="Discount Label">
     <p *ngIf="product.discount != null && product.discount !=0" class="centered-text"> {{ product.discount }}%
     <p>

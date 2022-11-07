@@ -30,7 +30,7 @@ import { CustomMatPaginatorIntl } from './model/custom-mat-paginator';
 import { InterceptService } from './services/intercept.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
-import { registerLocaleData } from '@angular/common';;
+import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { JwtModule } from '@auth0/angular-jwt';
 

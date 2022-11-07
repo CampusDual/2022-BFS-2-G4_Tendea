@@ -41,6 +41,9 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		return ProductMapper.INSTANCE.productToProductDTO(newProduct);
 	}
 
+	/**
+	 * Obtiene un producto por id
+	 */
 	@Override
 	public ProductDTO getProduct(Integer id) {
 		Product product = productRepository.findById(id).orElse(null);

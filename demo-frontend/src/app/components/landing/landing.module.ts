@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { NavSearchComponent } from './nav-search/nav-search.component';
+import { ImagenPipe } from '../../pipes/imagen.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NavSearchComponent } from './nav-search/nav-search.component';
     CategoriesComponent,
     ProductCardComponent,
     ProductDetailComponent,
+    ImagenPipe,
   ],
   imports: [CommonModule, LandingRoutingModule, MaterialModule, FormsModule],
   exports: [],
