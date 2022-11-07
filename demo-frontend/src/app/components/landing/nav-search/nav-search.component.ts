@@ -3,6 +3,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Product } from '../../../model/product';
 import { ProductService } from 'src/app/services/product.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-search',
@@ -14,12 +15,15 @@ export class NavSearchComponent implements OnInit {
 
   products: Product[] = [];
   termino: string = '';
-  productSelected: Product;
+
   pageIndex: number = 0;
   pageSize: number = 8;
-  @Output() sProducts: Product[] = [];
+  productSelected: Product;
 
-  constructor(private productService: ProductService) {}
+  @Output() sProducts: Product[] = [];
+  @Output() product: Product;
+
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -31,14 +35,20 @@ export class NavSearchComponent implements OnInit {
 
   opcionSeleccionada(event: MatAutocompleteSelectedEvent) {
     const product: Product = event.option.value;
+    this.productSelected = product;
+    this.termino = product.name;
     if (!product) {
       this.productSelected = undefined;
       return;
     }
 
-    if (this.termino.length < 3) {
-      this.termino = '';
-    }
-    this.termino = product.name;
+    this.productService
+      .getProductById(this.productSelected.id)
+      .subscribe(
+        (res) => (
+          (this.product = res),
+          this.router.navigate(['/producto', this.product.id])
+        )
+      );
   }
 }

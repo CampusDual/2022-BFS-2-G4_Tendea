@@ -2,9 +2,8 @@ import { NgModule, Output } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { GridComponent } from './grid/grid.component';
 import { NavSearchComponent } from './nav-search/nav-search.component';
-
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 const routes: Routes = [
   {
@@ -21,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: 'producto/:id',
-        component: CategoriesComponent
+        component: ProductDetailComponent,
       },
       {
         path: '**',

@@ -20,10 +20,13 @@
 </div>
 
 
-<div *ngIf="sProducts.length > 0 else noProduct">
+<div *ngIf="sProducts.length > 0  && !productSelected else noProduct">
   <app-grid [sProducts]="sProducts"></app-grid>
 </div>
 
+<div *ngIf="productSelected">
+  <app-product-card [product]="productSelected"></app-product-card>
+</div>
 
 <ng-template #noProduct>
   <app-grid></app-grid>

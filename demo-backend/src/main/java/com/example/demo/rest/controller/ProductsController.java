@@ -58,20 +58,17 @@ public class ProductsController {
 	/**
 	 * Obtiene un producto de BDD con el id indicado.
 	 * 
-	 * @param id el id del contacto de la BDD.
-	 * @return el contacto cuyo id sea el pasado por parámetros.
 	 */
-	@GetMapping("/getProduct")
-	@PreAuthorize("hasAnyAuthority('CLIENTS')") // TODO: Debemos poner los roles correctos
-	public ResponseEntity<?> getProducts(@RequestParam(value = "id") Integer id) {
-		LOGGER.info("getContact in progress...");
+	@GetMapping("/getProduct/{id}")
+	public ResponseEntity<?> getProducts(@PathVariable Integer id) {
+		LOGGER.info("getProduct in progress...", id);
 		ProductDTO product = null;
 		Map<String, Object> response = new HashMap<>();
 		ResponseEntity<?> re = null;
 		try {
 			product = productService.getProduct(id);
 			if (product == null) {
-				response.put(Constant.MESSAGE, Constant.CONTACT_NOT_EXISTS);
+				response.put(Constant.MESSAGE, Constant.PRODUCT_NOT_EXISTS);
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
 				re = new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 			} else {
@@ -85,7 +82,7 @@ public class ProductsController {
 			response.put(Constant.ERROR, e.getMessage());
 			re = new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		LOGGER.info("getProducts is finished...");
+		LOGGER.info("getProduct is finished...", product);
 		return re;
 	}
 
@@ -308,7 +305,7 @@ public class ProductsController {
 	/**
 	 * Busqueda de productos por el nombre
 	 */
-	@GetMapping("/getProductsByName/{query}, /getProductsByName")
+	@GetMapping("/getProductsByName/{query}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<ProductDTO> getProductsByName(@PathVariable String query) {
 		LOGGER.info("search in progress...", query);

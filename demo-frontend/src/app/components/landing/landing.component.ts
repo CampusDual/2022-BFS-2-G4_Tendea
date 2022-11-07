@@ -1,8 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/services/category.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+
 
 @Component({
   selector: 'app-landing',
@@ -16,8 +15,6 @@ export class LandingComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
   ) {}
 
   ngOnInit(): void {

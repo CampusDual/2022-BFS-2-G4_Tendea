@@ -165,4 +165,20 @@ export class ProductService {
       })
     );
   }
+
+  public getProductById(id: number): Observable<Product> {
+    const url = API_CONFIG.getProductById;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+    return this.http.get<Product>(`${url}/${id}`, { headers }).pipe(
+      catchError((e) => {
+        console.log(e.message);
+        if (e.message!.includes('failure')) {
+          this.showMessageError('No se encuentra ningun producto con este id');
+        }
+        return throwError(() => e);
+      })
+    );
+  }
 }
