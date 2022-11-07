@@ -13,6 +13,3 @@ export class ImagenPipe implements PipeTransform {
     }
   }
 }
-
-//
-// http://localhost:9999/products/uploads/img/

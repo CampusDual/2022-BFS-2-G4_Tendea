@@ -4,6 +4,7 @@ import { LandingComponent } from './landing.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { NavSearchComponent } from './nav-search/nav-search.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'producto/:id',
         component: ProductDetailComponent,
+      },
+      {
+        path: 'welcome',
+        component: WelcomeComponent,
       },
       {
         path: '**',
