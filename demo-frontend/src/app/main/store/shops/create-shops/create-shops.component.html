@@ -2,7 +2,7 @@
 <h1 class="color-green">Creación de Tienda</h1>
 <div fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="form-container">
-      <form [formGroup]="shopForm" (ngSubmit)="save()">
+      <form *ngIf="shopForm" [formGroup]="shopForm" (ngSubmit)="save()">
         <mat-card-title class="bottom-border"> Datos del usuario </mat-card-title>
       
         <mat-card-content>

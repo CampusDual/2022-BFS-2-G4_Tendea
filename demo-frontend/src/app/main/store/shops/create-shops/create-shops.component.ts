@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/model/category';
@@ -66,7 +66,7 @@ export class CreateShopsComponent implements OnInit {
     private categoryService: CategoryService,
     private router: Router,
     private location: Location
-  ) { }
+  ) {   }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(
@@ -84,8 +84,8 @@ export class CreateShopsComponent implements OnInit {
   createFormGroup() {
     this.shopForm = this.fb.group({
       id: [this.shop.id],
-      category: [this.shop.categories, Validators.required],
       shopName: [this.shop.name, Validators.required],
+      category: [this.shop.categories, Validators.required],
       userLogin: [this.user.login, Validators.required],
       userName: [this.user.name, Validators.required],
       userSurname1: [this.user.surname1, Validators.required],
