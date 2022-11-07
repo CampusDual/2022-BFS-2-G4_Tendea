@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import com.example.demo.dto.ShopGetDTO;
-import com.example.demo.entity.Product;
 import com.example.demo.entity.Shop;
 
 @Mapper
