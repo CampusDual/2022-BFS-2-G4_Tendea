@@ -54,7 +54,8 @@
   "form": {
     "contact": "Contacto",
     "product": "Producto",
-    "create_product" : "Crear producto"
+    "create_product" : "Crear producto",
+    "create_shop" : "Crear tienda"
   },
   "button": {
     "cancel": "Cancelar",

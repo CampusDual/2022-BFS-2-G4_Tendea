@@ -53,7 +53,8 @@
   "form": {
     "contact": "Contacto",
     "product": "Produto",
-    "create_product" : "Crear produto"
+    "create_product" : "Crear produto",
+    "create_shop" : "Crear tenda"
   },
   "button": {
     "cancel": "Cancelar",

@@ -53,7 +53,8 @@
   "form": {
     "contact": "Contact",
     "product": "Product",
-    "create_product" : "Create product"
+    "create_product" : "Create product",
+    "create_shop" : "Create shop"
   },
   "button": {
     "cancel": "Cancel",

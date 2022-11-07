@@ -1,0 +1,31 @@
+.full-width-form {
+    width: 100%
+}
+
+.form-container {
+    min-width: 500px;
+}
+
+.bottom-border {
+    border-bottom: 1px solid black ;
+
+}
+
+.double-container .mat-form-field + .mat-form-field {
+    margin-left: 20px;
+  }
+
+  .double-container-end .mat-form-field + .mat-form-field {
+    margin-left: 20px;
+    margin-bottom: 50px;
+  }
+
+.last-field {
+    margin-bottom: 20px;
+}
+
+.end-buttons {
+    display: flex;
+    justify-content: end;
+
+}
