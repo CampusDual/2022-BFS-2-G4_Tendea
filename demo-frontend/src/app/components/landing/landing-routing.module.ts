@@ -23,14 +23,14 @@ const routes: Routes = [
         path: 'producto/:id',
         component: ProductDetailComponent,
       },
-      {
-        path: 'welcome',
-        component: WelcomeComponent,
-      },
-      {
-        path: '**',
-        redirectTo: '',
-      },
+      // {
+      //   path: 'welcome',
+      //   component: WelcomeComponent,
+      // },
+      // {
+      //   path: '**',
+      //   redirectTo: '',
+      // },
     ],
   },
 ];
