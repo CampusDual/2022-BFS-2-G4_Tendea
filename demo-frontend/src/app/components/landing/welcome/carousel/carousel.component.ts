@@ -5,20 +5,19 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './carousel.component.html',
   styles: [
     `
-    .carousel-innerimg {
-​​​
-    width: 960px;
-    max-height: 625px;
-    }​​​​​​​​
-    .carousel-caption {​​​​​​​​
-    bottom: 12rem;  
-    }​​​​​​​​
-    h2 {​​​​​​​​
-    color: #00af91;
-    }​​​​​​​​
-    p{​​​​​​​​
-    color:white
-    }​​​​​​​​
+      .carousel-innerimg {
+        width: 960px;
+        max-height: 625px;
+      }
+      .carousel-caption {
+        bottom: 12rem;
+      }
+      h2 {
+        color: #00af91;
+      }
+      p {
+        color: white;
+      }
     `,
   ],
 })
