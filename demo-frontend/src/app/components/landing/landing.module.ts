@@ -11,6 +11,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { NavSearchComponent } from './nav-search/nav-search.component';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
+import { CarouselComponent } from './welcome/carousel/carousel.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { ImagenPipe } from '../../pipes/imagen.pipe';
     ProductCardComponent,
     ProductDetailComponent,
     ImagenPipe,
+    CarouselComponent,
+    WelcomeComponent
   ],
   imports: [CommonModule, LandingRoutingModule, MaterialModule, FormsModule],
   exports: [],

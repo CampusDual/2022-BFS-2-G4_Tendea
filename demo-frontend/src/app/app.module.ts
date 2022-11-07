@@ -33,6 +33,7 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { JwtModule } from '@auth0/angular-jwt';
+import { WelcomeComponent } from './components/landing/welcome/welcome.component';
 
 registerLocaleData(localeEs);
 export function tokenGetter() {
@@ -44,6 +45,7 @@ export function tokenGetter() {
     AppComponent,
     ConfirmationDialogComponent,
     MatSnackBarComponent,
+    WelcomeComponent,
   ],
   imports: [
     TranslateModule.forRoot({
