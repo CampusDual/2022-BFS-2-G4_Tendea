@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from '../model/category';
@@ -26,11 +26,16 @@ export class CategoryService {
   }
 
   /**
-   * Obtiene todas la categoria seleccionada
+   * Obtiene la categoria seleccionada
    * @returns category
    */
 
-  getCategory(category: Number) {
-    console.log(category);
+  getCategory(category: any): Observable<Category> {
+    const url = API_CONFIG.getCategory;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+    const params = new HttpParams().set('id', category);
+    return this.http.get<Category>(url, { params, headers });
   }
 }

@@ -1,7 +1,9 @@
 import { NgModule, Output } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing.component';
-
+import { CategoriesComponent } from './categories/categories.component';
+import { NavSearchComponent } from './nav-search/nav-search.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 const routes: Routes = [
   {
@@ -10,12 +12,20 @@ const routes: Routes = [
     children: [
       {
         path: 'categoria/:id',
-        component: LandingComponent,
+        component: CategoriesComponent,
       },
-      // {
-      //   path: '**',
-      //   redirectTo: '',
-      // },
+      {
+        path: '',
+        component: NavSearchComponent,
+      },
+      {
+        path: 'producto/:id',
+        component: ProductDetailComponent,
+      },
+      {
+        path: '**',
+        redirectTo: '',
+      },
     ],
   },
 ];

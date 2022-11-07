@@ -13,8 +13,8 @@ import { ProductDataSource } from 'src/app/model/datasource/products.datasource'
 import { Product } from 'src/app/model/product';
 import { AnyField, AnyPageFilter, SortFilter } from 'src/app/model/rest/filter';
 import { ProductService } from 'src/app/services/product.service';
-import { ActivatedRoute } from '@angular/router';
 import { Category } from '../../../model/category';
+
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
@@ -36,9 +36,14 @@ export class GridComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<Product>(true, []);
   error = false;
 
+  product: Product;
   products: Product[];
-  sProducts: Product[] = [];
-  @Input() idCategory!: Number;
+  @Input() sProducts: Product[];
+  @Input() onCategory: boolean;
+
+  productL: number;
+
+  result: Product[] = [];
 
   pageIndex: number = 0;
   pageSize: number = 8;
@@ -48,11 +53,9 @@ export class GridComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('input') input: ElementRef;
+  category: Category;
 
-  constructor(
-    private productService: ProductService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.dataSource = new ProductDataSource(this.productService);
@@ -63,13 +66,15 @@ export class GridComponent implements OnInit, AfterViewInit {
       8,
       'name'
     );
-    this.dataSource.getProducts(pageFilter);
+    if (!this.onCategory) {
+      this.dataSource.getProducts(pageFilter);
 
-    this.productService
-      .getProductsLanding(this.pageIndex, this.pageSize)
-      .subscribe((res) => (this.sProducts = res.data));
-
-    this.obtenerCategoria();
+      this.productService
+        .getProductsLanding(this.pageIndex, this.pageSize)
+        .subscribe((res) => (this.sProducts = res.data));
+    } else {
+      this.dataSource.totalElements = this.sProducts.length;
+    }
   }
 
   ngAfterViewInit(): void {
@@ -79,44 +84,7 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
-
-    // fromEvent(this.input.nativeElement, 'keyup')
-    //   .pipe(
-    //     debounceTime(150),
-    //     distinctUntilChanged(),
-    //     tap(() => {
-    //       this.paginator.pageIndex = 0;
-    //       this.loadProductsPage();
-    //     })
-    //   )
-    //   .subscribe();
-
-    // this.sort.sortChange.subscribe(() => {
-    //   this.paginator.pageIndex = 0;
-    //   this.selection.clear();
-    // });
-
-    // merge(this.sort.sortChange, this.paginator.page)
-    //   .pipe(
-    //     tap(() => {
-    //       this.loadProductsPage();
-    //     })
-    //   )
-    // .subscribe();
   }
-
-  // onPageChange($event) {
-
-  //   this.sProducts = this.products.slice(this.pageEvent.pageIndex*this.pageEvent.pageSize, this.pageEvent.pageIndex*this.pageEvent.pageSize + this.pageEvent.pageSize);
-  //   // this.sProducts =  this.products.slice($event.pageIndex*$event.pageSize,
-  //   // $event.pageIndex*$event.pageSize + $event.pageSize);
-  // }
-
-  // sliceProducts(products, pageEvent) : Product[] {
-
-  //   this.sProducts = products.slice(pageEvent.pageIndex*pageEvent.pageSize, pageEvent.pageIndex*pageEvent.pageSize + pageEvent.pageSize);
-  //   return this.sProducts;
-  // }
 
   loadProductsPage() {
     this.selection.clear();
@@ -131,7 +99,11 @@ export class GridComponent implements OnInit, AfterViewInit {
     pageFilter.order.push(
       new SortFilter(this.sort?.active, this.sort?.direction.toString())
     );
-    this.dataSource.getProducts(pageFilter);
+    if (!this.onCategory) {
+      this.dataSource.getProducts(pageFilter);
+    } else {
+      this.dataSource.totalElements = this.sProducts.length;
+    }
   }
 
   setPageSizeOptions(event?: PageEvent) {
@@ -139,38 +111,21 @@ export class GridComponent implements OnInit, AfterViewInit {
 
     this.paginator.pageIndex = this.pageEvent.pageIndex;
     this.paginator.pageSize = this.pageEvent.pageSize;
-    this.productService
-      .getProductsLanding(this.paginator.pageIndex, this.paginator.pageSize)
-      .subscribe((res) => (this.sProducts = res.data));
+    if (!this.onCategory) {
+      this.productService
+        .getProductsLanding(this.paginator.pageIndex, this.paginator.pageSize)
+        .subscribe((res) => (this.sProducts = res.data));
+    }
 
     return event;
   }
 
-  // loadProducts() {
-  //   const pageFilter = new AnyPageFilter(
-  //     this.input.nativeElement.value,
-  //     this.fields.map((field) => new AnyField(field)),
-  //     this.paginator.pageIndex,
-  //     this.paginator.pageSize
-  //   );
-
-  //   // this.sProducts = this.products.slice(this.paginator.pageIndex*this.paginator.pageSize, this.paginator.pageIndex*this.paginator.pageSize + this.paginator.pageSize)
-  //     this.sProducts = this.products.slice(1,8);
-
-  // }
-
+  /**
+   Corta el titulo del producto a los 31 caracteres
+   */
   textTruncate(value: string): string {
     const limit = 31;
     const trail = '...';
     return value.length > limit ? value.substring(0, limit) + trail : value;
-  }
-
-  obtenerCategoria() {
-    this.idCategory = this.activatedRoute.snapshot.params['id'];
-    console.log(this.idCategory);
-    const products = this.sProducts.filter(
-      (p) => p.category.id === 4
-    );
-    console.log(products);
   }
 }
