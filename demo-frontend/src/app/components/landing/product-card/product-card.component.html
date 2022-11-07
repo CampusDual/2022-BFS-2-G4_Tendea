@@ -1,0 +1,29 @@
+<mat-card class="example-card" style="min-width: 18rem;">
+
+  <div class="container">
+    <img mat-card-image [src]="product | imagen " alt="Image no available">
+    <img *ngIf="product.discount != null && product.discount != 0" class="top-left"
+      [src]="'../../../assets/images/DiscountLabel.png'" alt="Discount Label">
+    <p *ngIf="product.discount != null && product.discount !=0" class="centered-text"> {{ product.discount }}%
+    <p>
+  </div>
+
+  <div>
+    <mat-card-title> {{product.name }} </mat-card-title>
+    <mat-card-subtitle> <a> Vendor space </a> | {{product.category.name}}</mat-card-subtitle>
+  </div>
+  <mat-card-content>
+    <table style="width:100%">
+      <td align="center"> </td>
+      <td align="center">
+        <h2 class="discounted-price"> {{ product.price * (1-product.discount/100) | currency :
+          'EUR':'symbol':'.2-2':'es'}} </h2>
+      </td>
+      <td align="left" *ngIf="product.discount !== 0 && product.discount !== null">
+        <h4 class="original-price"> {{ product.price | currency : 'EUR':'symbol':'.2-2':'es' }} </h4>
+      </td>
+      <td align="center"> </td>
+    </table>
+
+  </mat-card-content>
+</mat-card>

@@ -48,6 +48,8 @@ public class Constant {
 	//Products error
 	public static final String PRODUCT_NOT_CREATED = "PRODUCT_NOT_CREATED";
 	public static final String PRODUCT_CREATED ="PRODUCT_CREATED";
+	public static final String PRODUCT_NOT_EXISTS ="PRODUCT_NOT_EXISTS";
+	public static final String PRODUCT_ALREADY_EXISTS ="PRODUCT_ALREADY_EXISTS";
 	
 	
 	//Profile error
@@ -68,6 +70,9 @@ public class Constant {
 	public static final String RESPONSE_CODE = "responseCode";
 	public static final String ERROR = "errors";
 	public static final String PHONE_ERROR ="contacts_phone_key";
+	
+	
+	
 
 	
 	

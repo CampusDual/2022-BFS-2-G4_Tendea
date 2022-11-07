@@ -21,51 +21,50 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "categories")
-public class Category implements Serializable{
+public class Category implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    
-    @NotEmpty(message = Constant.NAME_REQUIRED)
-    @Column(nullable=false)
-    private String name;    
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	@NotEmpty(message = Constant.NAME_REQUIRED)
+	@Column(nullable = false)
+	private String name;
+
 //    @JoinColumn(name = "category_id")
 //    @OneToMany(fetch = FetchType.LAZY)
 //    private List<Product> productList;
-    
-    // METHODS
-    
-    public Category() {
-    	
+
+	// METHODS
+
+	public Category() {
+
 //    	this.productList = new ArrayList<>();
-        
-    }
-    
-    public Category(Integer id, String name, List<Product> productList) {
-        this.id = id;
-        this.name = name;
+
+	}
+
+	public Category(Integer id, String name, List<Product> productList) {
+		this.id = id;
+		this.name = name;
 //        this.productList = productList;
-    }
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    
- 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 //    public List<Product> getProductList() {
 //        return productList;
 //    }
@@ -74,5 +73,5 @@ public class Category implements Serializable{
 //        this.productList = productList;
 //    }
 
-    private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 2L;
 }

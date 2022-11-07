@@ -1,0 +1,19 @@
+<h1 class="text-center pt-4">{{category.name}}</h1>
+
+<div *ngIf="sProducts.length > 0 else noProduct">
+  <app-grid [sProducts]="sProducts" [onCategory]="onCategory()"></app-grid>
+</div>
+
+
+<div class="d-flex justify-content-center" *ngIf="spinner">
+  <div class="lds-ripple">
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+
+
+<ng-template #noProduct>
+  <h1 class="text-center pt-4">No existen productos en esta categoria</h1>
+</ng-template>

@@ -1,7 +1,6 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/services/category.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -10,23 +9,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LandingComponent implements OnInit {
   categories: Category[];
-  @Output() idCategory: Number;
+  @Output() category: Category;
+  @Output() onGetCategory: EventEmitter<Category> = new EventEmitter();
 
-  constructor(
-    private categoryService: CategoryService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
+    /** Carga inicial de las categorias */
     this.categoryService
       .getCategories()
       .subscribe((res) => (this.categories = res));
   }
 
-  obtenerCategoria() {
-    this.idCategory = this.activatedRoute.snapshot.params['id'];
-    console.log('landing', this.idCategory)
-    return this.idCategory;
+  /** Obtener productos por categorias */
+  getProductForCategory(selected: any) {
+    this.category = selected;
+    console.log(selected);
+    this.onGetCategory.emit(selected);
   }
 
   login() {}

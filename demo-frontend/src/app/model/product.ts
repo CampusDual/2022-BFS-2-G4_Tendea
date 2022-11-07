@@ -1,4 +1,5 @@
-import { Category } from "./category";
+import { Category } from './category';
+import { ProductImages } from './product-images';
 
 export class Product {
   id: number;
@@ -9,6 +10,6 @@ export class Product {
   boolBulk: boolean;
   createAt: string;
   updateAt: string;
-  images: string[];
+  images: ProductImages[];
   bulk: number;
 }
