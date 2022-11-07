@@ -1,0 +1,86 @@
+
+<h1 class="color-green">Creación de Tienda</h1>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="form-container">
+      <form *ngIf="shopForm" [formGroup]="shopForm" (ngSubmit)="save()">
+        <mat-card-title class="bottom-border"> Datos del usuario </mat-card-title>
+      
+        <mat-card-content>
+          
+            <div>
+              <mat-form-field class="full-width-field" >
+                <mat-label> Login </mat-label>
+                <input matInput placeholder="Ex: Tendea101" formControlName="userLogin"/>
+              </mat-form-field>
+            </div>
+      
+            <div>
+              <mat-form-field>
+                <mat-label> Nombre de usuario </mat-label>
+                <input matInput formControlName="userName"/>
+              </mat-form-field>
+            </div>
+      
+            <div class="double-container">
+              <mat-form-field>
+                <mat-label> Primer apellido </mat-label>
+                <input matInput formControlName="userSurname1"/>
+              </mat-form-field>
+      
+              <mat-form-field>
+                <mat-label> Segundo apellido </mat-label>
+                <input matInput formControlName="userSurname2"/>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label> e-mail </mat-label>
+                <input matInput formControlName="userEmail"/>
+              </mat-form-field>
+            </div>
+      
+            <div >
+              <mat-form-field>
+                <mat-label> Contraseña </mat-label>
+                <input matInput formControlName="userPassword"/>
+              </mat-form-field>
+      
+              <!-- <mat-form-field>
+                <mat-label> Confirmar contraseña </mat-label>
+                <input matInput />
+              </mat-form-field> -->
+            </div>
+
+            <mat-card-title class="bottom-border"> Datos del negocio </mat-card-title>
+      
+            <div>
+              <mat-form-field>
+                <mat-label> Nombre del negocio </mat-label>
+                <input matInput formControlName="shopName"/>
+              </mat-form-field>
+            </div>
+      
+            <div>
+              <mat-form-field class="last-field" >
+                <mat-label> Categoría </mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let sCategory of categories" [value]="sCategory.name">
+                    {{ sCategory.name }}
+                  </mat-option>
+
+                </mat-select>
+                <input matInput formControlName="category"/>
+              </mat-form-field>
+            </div>
+          
+        </mat-card-content>
+        <mat-card-actions class="end-buttons">
+          <button mat-raised-button type="submit" color="primary" > {{ 'button.save' | translate }} </button>
+          <button mat-raised-button type="button" [formNoValidate]="true" (click)="back()"> {{ 'button.cancel' | translate }} </button>
+        </mat-card-actions>
+      </form>
+      </mat-card>
+
+</div>
+

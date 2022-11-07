@@ -21,37 +21,30 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "categories")
-public class Category implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+public class Category implements Serializable{
 
-	@NotEmpty(message = Constant.NAME_REQUIRED)
-	@Column(nullable = false)
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    
+    @NotEmpty(message = Constant.NAME_REQUIRED)
+    @Column(nullable=false)
+    private String name;    
+    
+    
+    // METHODS
+    
+    public Category() {
+    	
 
-//    @JoinColumn(name = "category_id")
-//    @OneToMany(fetch = FetchType.LAZY)
-//    private List<Product> productList;
-
-	// METHODS
-
-	public Category() {
-
-//    	this.productList = new ArrayList<>();
-
-	}
-
-	public Category(Integer id, String name, List<Product> productList) {
-		this.id = id;
-		this.name = name;
-//        this.productList = productList;
-	}
-
-	public Integer getId() {
-		return id;
-	}
+        
+    }
+    
+    public Category(Integer id, String name, List<Product> productList) {
+        this.id = id;
+        this.name = name;
+    }
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -65,13 +58,11 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-//    public List<Product> getProductList() {
-//        return productList;
-//    }
-//
-//    public void setProductList(List<Product> productList) {
-//        this.productList = productList;
-//    }
 
-	private static final long serialVersionUID = 2L;
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    private static final long serialVersionUID = 2L;
+
 }

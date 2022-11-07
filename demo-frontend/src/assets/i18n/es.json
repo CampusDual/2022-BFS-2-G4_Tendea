@@ -18,7 +18,8 @@
     "logout": "Cerrar sesión",
     "products": "Productos",
     "categories": "Categorías",
-    "latest_products": "Últimos productos"
+    "latest_products": "Últimos productos",
+    "shops": "Tiendas"
   },
   "language": {
     "spanish": "Español",
@@ -42,12 +43,19 @@
       "shop": "Tienda",
       "namerequired": "El nombre es un campo obligatorio",
       "pricerequired": "El precio es un campo obligatorio"
+    },
+    "shop": {
+      "name" : "Nombre",
+      "category": "Categorías",
+      "city": "Ciudad",
+      "user": "Usuario"
     }
   },
   "form": {
     "contact": "Contacto",
     "product": "Producto",
-    "create_product" : "Crear producto"
+    "create_product" : "Crear producto",
+    "create_shop" : "Crear tienda"
   },
   "button": {
     "cancel": "Cancelar",

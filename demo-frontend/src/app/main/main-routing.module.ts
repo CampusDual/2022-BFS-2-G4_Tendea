@@ -25,14 +25,14 @@ const routes: Routes = [
     },
   },
   {
-    path: 'products',
+    path: '',
     loadChildren: () =>
       import('./store/store.module').then((m) => m.StoreModule),
     canActivate: [AuthGuard],
     data: {
       allowedRoles: ['CLIENTS'],
     },
-  },
+  }
 ];
 
 @NgModule({

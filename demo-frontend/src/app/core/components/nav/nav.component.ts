@@ -26,7 +26,7 @@ export class NavComponent implements OnInit, OnDestroy {
   sidenavRoutes: ROUTE[] = [
     {
       icon: 'home',
-      route: '/',
+      route: '/home',
       title: 'menu.home',
       allowedRoles: ['CLIENTS'],
     },
@@ -42,6 +42,13 @@ export class NavComponent implements OnInit, OnDestroy {
       title: 'menu.products', // TODO añadir a translate GAL/ENG, decidir nombre
       allowedRoles: ['CLIENTS'],
     },
+    {
+      icon: 'store', //Buscar icono
+      route: 'shops',
+      title: 'menu.shops', // TODO añadir a translate GAL/ENG, decidir nombre
+      allowedRoles: ['CLIENTS'],
+    }
+
   ];
 
   protected subscription: Subscription;

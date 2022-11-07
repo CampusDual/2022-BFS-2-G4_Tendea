@@ -18,7 +18,8 @@
     "logout": "Logout",
     "products": "Products",
     "categories": "Categories",
-    "latest_products": "Latest products"
+    "latest_products": "Latest products",
+    "shops": "Shops"
   },
   "language": {
     "spanish": "Spanish",
@@ -41,12 +42,19 @@
       "shop": "Shop",
       "namerequired": "Name is a required field",
       "pricerequired": "Price is a required field"
+    },
+    "shop": {
+      "name" : "Name",
+      "category": "Categories",
+      "city": "City",
+      "user": "User"
     }
   },
   "form": {
     "contact": "Contact",
     "product": "Product",
-    "create_product" : "Create product"
+    "create_product" : "Create product",
+    "create_shop" : "Create shop"
   },
   "button": {
     "cancel": "Cancel",
