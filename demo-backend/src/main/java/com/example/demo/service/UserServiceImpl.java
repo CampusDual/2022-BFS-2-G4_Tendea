@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.ContactDTO;
+import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.dto.UserGetDTO;
 import com.example.demo.dto.mapper.ContactMapper;
+import com.example.demo.dto.mapper.ProductMapper;
 import com.example.demo.dto.mapper.UserGetMapper;
 import com.example.demo.dto.mapper.UserMapper;
 import com.example.demo.entity.Contact;
@@ -64,6 +67,16 @@ public class UserServiceImpl extends AbstractDemoService implements IUserService
 		User user = UserMapper.INSTANCE.userDTOtoUser(userDtoRequest);
 		User newUser = userRepository.save(user);
 		return UserMapper.INSTANCE.userToUserDTO(newUser);
+	}
+	
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<UserGetDTO> findByLoginContainingIgnoreCase(String query) {
+		List<UserGetDTO> users = new ArrayList<>();
+		users = UserGetMapper.INSTANCE
+				.usertToUserGetDtoList(userRepository.findByLoginContainingIgnoreCase(query));
+		return users;
 	}
 	
 	

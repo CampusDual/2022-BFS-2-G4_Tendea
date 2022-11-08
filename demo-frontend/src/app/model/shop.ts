@@ -16,7 +16,4 @@ export class Shop {
     activeStatus: number;
 
 
-
-
-
 }

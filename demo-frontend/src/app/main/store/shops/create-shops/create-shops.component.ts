@@ -7,6 +7,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { Location } from '@angular/common'
 import { User } from 'src/app/model/user';
+import { UserServicesService } from 'src/app/services/user-services.service';
 
 @Component({
   selector: 'app-create-shops',
@@ -18,35 +19,38 @@ export class CreateShopsComponent implements OnInit {
   shop: Shop;
   id: number;
   shopName: string;
+  category: Category;
   categories: Category[];
   user: User;
+  users: User[];
   shopForm: FormGroup;
+  userSearch: string = '';
 
-  // shopForm = this.fb.group({
+  // shopForm: FormGroup = this.fb.group({
 
   //   shopName: [
-  //     '', [Validators.required]
+  //     'Lanas', [Validators.required]
   //   ],
   //   category: [
   //     '', [Validators.required]
   //   ],
 
-  //   userLogin: ['',
+  //   userLogin: ['Tendea101',
   //   [Validators.required, Validators.minLength(2), Validators.maxLength(24)],  ],
   //   userName: [
-  //     '',
+  //     'Pablo',
   //     [Validators.required, Validators.minLength(2), Validators.maxLength(24)],
   //   ],
   //   userSurname1: [
-  //     '',
+  //     'Fuentes',
   //     [Validators.required, Validators.minLength(2), Validators.maxLength(24)],
   //   ],
   //   userSurname2: [
   //     '', [],
   //   ],
-  //   userEmail: ['', [Validators.required, Validators.email]],
+  //   userEmail: ['tendea101@tendea.com', [Validators.required, Validators.email]],
   //   userPassword: [
-  //     '',
+  //     'Camiseta16',
   //     {
   //       validators: [
   //         Validators.required,
@@ -64,42 +68,63 @@ export class CreateShopsComponent implements OnInit {
     private fb: FormBuilder,
     private shopService: ShopService,
     private categoryService: CategoryService,
+    private userService: UserServicesService,
     private router: Router,
     private location: Location
-  ) {   }
+  ) {  
+    this.shop = new Shop();
+    this.shop.user = new User();
+   }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(
       res => this.categories = res
     );
 
-    this.createFormGroup();
+    this.userService.getUsers().subscribe(
+      res => this.users = res
+    );
 
+    this.createFormGroup();
   }
 
   onFormChanges() {
     this.shopForm.valueChanges.subscribe((val) => {});
   }
 
+
   createFormGroup() {
     this.shopForm = this.fb.group({
-      id: [this.shop.id],
-      shopName: [this.shop.name, Validators.required],
+      name: [this.shop.name, Validators.required],
       category: [this.shop.categories, Validators.required],
-      userLogin: [this.user.login, Validators.required],
-      userName: [this.user.name, Validators.required],
-      userSurname1: [this.user.surname1, Validators.required],
-      userSurname2: [this.user.surname2],
-      userEmail: [this.user.email, Validators.required],
-      userPassword: [this.user.password, Validators.required]
+      city: [this.shop.city, Validators.required],
+      phone: [this.shop.phone, Validators.required],
+      email: [this.shop.email, Validators.required],
+      user: [this.shop.user, Validators.required],
     });
+
+    // this.shop.user = this.user;
+
   }
 
-  save() {
-    const newShop: Shop = Object.assign({}, this.shopForm.value );
-    this.shopService.createShop(newShop).subscribe(
-      response => {this.redirectList(response)}
+  findUsers() {
+    this.userService.getUserByLogin(this.userSearch).subscribe(
+      res => (this.users = res)
     );
+    console.log(this.users);
+  }
+  
+
+  save() {
+    console.log(this.shopForm.value);
+    const newShop: Shop = Object.assign({}, this.shopForm.value );
+    console.log(this.categories)
+
+    this.shopService.createShop(newShop).subscribe((response) => {
+      this.redirectList(response);
+    });
+
+    console.log(newShop);
   }
 
   redirectList(response: any) {

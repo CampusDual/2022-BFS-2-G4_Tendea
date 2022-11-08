@@ -1,76 +1,74 @@
 
-<h1 class="color-green">Creación de Tienda</h1>
+<h1 class="color-green" fxLayoutAlign="center">Creación de Tienda</h1>
 <div fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="form-container">
       <form *ngIf="shopForm" [formGroup]="shopForm" (ngSubmit)="save()">
-        <mat-card-title class="bottom-border"> Datos del usuario </mat-card-title>
+        <mat-card-title class="bottom-border"> Datos del negocio </mat-card-title>
       
         <mat-card-content>
+
+          <!-- <div>
+            <mat-label>Busqueda de usuarios</mat-label>
+            <input type="text" placeholder="Nombre del usuario" matInput
+              [(ngModel)]="userSearch" [matAutocomplete]="auto" (input)="findUsers()" />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="opcionSeleccionada($event)">
+              <mat-option *ngFor="let user of users" [value]="user">
+                {{ user.login }}
+              </mat-option>
+
+
+            </mat-autocomplete>
+            </div> -->
+
           
-            <div>
-              <mat-form-field class="full-width-field" >
-                <mat-label> Login </mat-label>
-                <input matInput placeholder="Ex: Tendea101" formControlName="userLogin"/>
-              </mat-form-field>
-            </div>
-      
-            <div>
-              <mat-form-field>
-                <mat-label> Nombre de usuario </mat-label>
-                <input matInput formControlName="userName"/>
-              </mat-form-field>
-            </div>
-      
-            <div class="double-container">
-              <mat-form-field>
-                <mat-label> Primer apellido </mat-label>
-                <input matInput formControlName="userSurname1"/>
-              </mat-form-field>
-      
-              <mat-form-field>
-                <mat-label> Segundo apellido </mat-label>
-                <input matInput formControlName="userSurname2"/>
-              </mat-form-field>
-            </div>
+          
+          <div>
+            <mat-form-field >
+              <mat-label> Login del usuario </mat-label>
+              <mat-select name="user" formControlName="user">
+                <mat-option *ngFor="let user of users" [value]="user">
+                  {{ user.login }}
+                </mat-option>
 
-            <div>
-              <mat-form-field>
-                <mat-label> e-mail </mat-label>
-                <input matInput formControlName="userEmail"/>
-              </mat-form-field>
-            </div>
-      
-            <div >
-              <mat-form-field>
-                <mat-label> Contraseña </mat-label>
-                <input matInput formControlName="userPassword"/>
-              </mat-form-field>
-      
-              <!-- <mat-form-field>
-                <mat-label> Confirmar contraseña </mat-label>
-                <input matInput />
-              </mat-form-field> -->
-            </div>
-
-            <mat-card-title class="bottom-border"> Datos del negocio </mat-card-title>
+              </mat-select>
+            </mat-form-field>
+          </div>
       
             <div>
               <mat-form-field>
                 <mat-label> Nombre del negocio </mat-label>
-                <input matInput formControlName="shopName"/>
+                <input matInput formControlName="name" />
+              </mat-form-field>
+            </div>
+
+            <div class="double-container">
+              <mat-form-field>
+                <mat-label> e-mail </mat-label>
+                <input matInput formControlName="email"/>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label> teléfono </mat-label>
+                <input matInput formControlName="phone"/>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label> ciudad </mat-label>
+                <input matInput formControlName="city"/>
               </mat-form-field>
             </div>
       
             <div>
               <mat-form-field class="last-field" >
                 <mat-label> Categoría </mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let sCategory of categories" [value]="sCategory.name">
+                <mat-select name="category" formControlName="category">
+                  <mat-option *ngFor="let sCategory of categories" [value]="{id: sCategory.id, name: sCategory.name}">
                     {{ sCategory.name }}
                   </mat-option>
 
                 </mat-select>
-                <input matInput formControlName="category"/>
               </mat-form-field>
             </div>
           

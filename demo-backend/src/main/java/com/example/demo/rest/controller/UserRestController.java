@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.ContactDTO;
+import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.dto.UserGetDTO;
 import com.example.demo.dto.mapper.UserMapper;
@@ -100,6 +102,18 @@ public class UserRestController {
 		
 		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
+	
+	
+	
+	@GetMapping("/getUserByLogin/{query}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<UserGetDTO> getUserByLogin(@PathVariable String query) {
+		LOGGER.info("search in progress...", query);
+
+		return userService.findByLoginContainingIgnoreCase(query);
+
+	}
+	
 		
 	
 	
