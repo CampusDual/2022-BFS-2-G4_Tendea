@@ -8,6 +8,7 @@ import { ShopService } from 'src/app/services/shop.service';
 import { Location } from '@angular/common'
 import { User } from 'src/app/model/user';
 import { UserServicesService } from 'src/app/services/user-services.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-create-shops',
@@ -20,7 +21,8 @@ export class CreateShopsComponent implements OnInit {
   id: number;
   shopName: string;
   category: Category;
-  categories: Category[];
+  categories: Category[] = [];
+  allCategories: Category[];
   user: User;
   users: User[];
   shopForm: FormGroup;
@@ -78,7 +80,7 @@ export class CreateShopsComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(
-      res => this.categories = res
+      res => this.allCategories = res
     );
 
     this.userService.getUsers().subscribe(
@@ -96,7 +98,7 @@ export class CreateShopsComponent implements OnInit {
   createFormGroup() {
     this.shopForm = this.fb.group({
       name: [this.shop.name, Validators.required],
-      category: [this.shop.categories, Validators.required],
+      // categories: [this.shop.categories, Validators.required],
       city: [this.shop.city, Validators.required],
       phone: [this.shop.phone, Validators.required],
       email: [this.shop.email, Validators.required],
@@ -113,18 +115,29 @@ export class CreateShopsComponent implements OnInit {
     );
     console.log(this.users);
   }
+
+  saveCategory(): Category[] {
+    console.log(this.category.name);
+    return this.categories = [{id: this.category.id, name: this.category.name}];
+
+  }
   
 
   save() {
+
+    console.log(this.category.name);
     console.log(this.shopForm.value);
     const newShop: Shop = Object.assign({}, this.shopForm.value );
-    console.log(this.categories)
 
-    this.shopService.createShop(newShop).subscribe((response) => {
+    // let categories = [{id:1, name: "Electronica"}];
+    let categories = this.saveCategory();
+    let nShop = {categories, ...newShop};
+    
+    this.shopService.createShop(nShop).subscribe((response) => {
       this.redirectList(response);
     });
 
-    console.log(newShop);
+    console.log(nShop);
   }
 
   redirectList(response: any) {

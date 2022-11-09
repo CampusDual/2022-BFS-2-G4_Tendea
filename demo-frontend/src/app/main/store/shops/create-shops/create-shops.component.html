@@ -63,8 +63,8 @@
             <div>
               <mat-form-field class="last-field" >
                 <mat-label> Categoría </mat-label>
-                <mat-select name="category" formControlName="category">
-                  <mat-option *ngFor="let sCategory of categories" [value]="{id: sCategory.id, name: sCategory.name}">
+                <mat-select  (selectionChange)="saveCategory()" [(value)]="category">
+                  <mat-option *ngFor="let sCategory of allCategories" [value]="sCategory">
                     {{ sCategory.name }}
                   </mat-option>
 
