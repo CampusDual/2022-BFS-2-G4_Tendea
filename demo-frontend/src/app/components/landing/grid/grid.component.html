@@ -1,4 +1,4 @@
-<div class="content py-5" fxLayout="wrap">
+<!-- <div class="content py-5" fxLayout="wrap">
   <h1 *ngIf="category" fxLayout="row">{{category.name}}</h1>
   <mat-divider></mat-divider>
   <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="3% grid" class="animate__animated a animate__fadeIn">
@@ -6,7 +6,22 @@
       <app-product-card [product]="product"></app-product-card>
     </div>
   </div>
+</div> -->
+
+
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-4" *ngFor="let product of sProducts">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
 
 <mat-paginator [length]="dataSource.totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
   aria-label="Select page" showFirstLastButtons (page)="pageEvent = setPageSizeOptions($event)">

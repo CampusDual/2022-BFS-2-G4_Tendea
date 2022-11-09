@@ -1,4 +1,4 @@
-<mat-card class="example-card" style="min-width: 18rem;">
+<!-- <mat-card class="example-card" style="min-width: 18rem;">
 
   <div class="container">
     <img mat-card-image [src]="product | imagen " alt="Image no available">
@@ -26,4 +26,26 @@
     </table>
 
   </mat-card-content>
-</mat-card>
+</mat-card> -->
+
+
+<div class="card mb-4 box-shadow">
+  <img class="card-img-top" alt="{{product.name}}" style="height: 225px; width: 100%; display: block;"
+    [src]="product | imagen " alt="Image no available" data-holder-rendered="true">
+  <div class="card-body">
+    <p class="card-text"> <strong>{{product.name }}</strong></p>
+    <p class="card-text"> <a> Vendor space </a> | {{product.category.name}}</p>
+    <p class="card-text"> {{ product.price * (1-product.discount/100) | currency : 'EUR':'symbol':'.2-2':'es'}}</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="btn-group">
+        <button type="button" class="btn btn-sm btn-outline-secondary">
+          <mat-icon mat-list-icon>info</mat-icon>
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">
+          <mat-icon mat-list-icon>shopping_cart</mat-icon>
+        </button>
+      </div>
+      <small class="text-muted">9 mins</small>
+    </div>
+  </div>
+</div>
