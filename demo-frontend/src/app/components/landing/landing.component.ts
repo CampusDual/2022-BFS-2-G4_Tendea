@@ -7,21 +7,11 @@ import {
 } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 
-interface FoodNode {
+interface CatNode {
+  id?: number
   name: string;
-  children?: FoodNode[];
+  children?: CatNode[];
 }
-
-const TREE_DATA = [
-  {
-    name: 'Categorias',
-    children: [
-      { id: 1, name: 'Electronica' },
-      { id: 1, name: 'Banana' },
-      { id: 1, name: 'Fruit loops' },
-    ],
-  },
-];
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
@@ -36,28 +26,27 @@ interface ExampleFlatNode {
   styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent implements OnInit {
-  catData: [] = [];
-  categories: Category[] = [];
+  catData: CatNode;
+  categories;
   TREE_DATA;
+
   @Output() category: Category;
   @Output() onGetCategory: EventEmitter<Category> = new EventEmitter();
 
   constructor(private categoryService: CategoryService) {
     console.log('Constructor');
-    this.dataSource.data = TREE_DATA;
   }
 
   ngOnInit(): void {
-    /** Carga inicial de las categorias */
-    // this.categoryService
-    //   .getCategories()
-    //   .subscribe((cat) => {this.catData.push(cat)});
-    this.categoryService
-      .getCategories()
-      .subscribe(res => (console.log(typeof(res))));
-    console.log(typeof(this.catData));
-    console.log(this.categories);
-    console.log(TREE_DATA);
+    this.categoryService.getCategories().subscribe((cat) => {
+      const TREE_DATA: CatNode[] = [
+        {
+          name: 'Categorias',
+          children: cat,
+        },
+      ];
+      this.dataSource.data = TREE_DATA;
+    });
   }
 
   /** Obtener productos por categorias */
@@ -67,10 +56,12 @@ export class LandingComponent implements OnInit {
     this.onGetCategory.emit(selected);
   }
 
-  private _transformer = (node: FoodNode, level: number) => {
+  private _transformer = (node: CatNode, level: number) => {
+    console.log('node', node.children);
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
+      id: node.id,
       level: level,
     };
   };
