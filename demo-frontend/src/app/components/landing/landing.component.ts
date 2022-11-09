@@ -6,9 +6,11 @@ import {
   MatTreeFlattener,
 } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../model/product';
 
 interface CatNode {
-  id?: number
+  id?: number;
   name: string;
   children?: CatNode[];
 }
@@ -26,6 +28,7 @@ interface ExampleFlatNode {
   styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent implements OnInit {
+  products: Product[];
   catData: CatNode;
   categories;
   TREE_DATA;
@@ -33,11 +36,16 @@ export class LandingComponent implements OnInit {
   @Output() category: Category;
   @Output() onGetCategory: EventEmitter<Category> = new EventEmitter();
 
-  constructor(private categoryService: CategoryService) {
-    console.log('Constructor');
-  }
+  constructor(
+    private categoryService: CategoryService,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
+    this.productService.getProductsLanding(1, 5).subscribe((res) => {
+      this.products = res.data
+    });
+
     this.categoryService.getCategories().subscribe((cat) => {
       const TREE_DATA: CatNode[] = [
         {
@@ -57,7 +65,6 @@ export class LandingComponent implements OnInit {
   }
 
   private _transformer = (node: CatNode, level: number) => {
-    console.log('node', node.children);
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,

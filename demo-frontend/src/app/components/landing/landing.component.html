@@ -34,9 +34,7 @@
 
       <mat-list role="list">
         <h4 class="m-3">{{ 'menu.latest_products' | translate }}</h4>
-        <mat-list-item role="listitem">Accesorios</mat-list-item>
-        <mat-list-item role="listitem">Hogar</mat-list-item>
-        <mat-list-item role="listitem">Electronica</mat-list-item>
+        <mat-list-item role="listitem" *ngFor="let product of products">{{product.name}}</mat-list-item>
       </mat-list>
 
       <mat-divider></mat-divider>
