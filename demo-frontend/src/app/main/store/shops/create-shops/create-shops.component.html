@@ -1,30 +1,15 @@
 
-<h1 class="color-green" fxLayoutAlign="center">Creación de Tienda</h1>
+<h1 class="color-green" fxLayoutAlign="center">{{ 'shopForm.title' | translate }}</h1>
 <div fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="form-container">
       <form *ngIf="shopForm" [formGroup]="shopForm" (ngSubmit)="save()">
-        <mat-card-title class="bottom-border"> Datos del negocio </mat-card-title>
+        <mat-card-title class="bottom-border"> {{ 'shopForm.data' | translate }} </mat-card-title>
       
         <mat-card-content>
 
-          <!-- <div>
-            <mat-label>Busqueda de usuarios</mat-label>
-            <input type="text" placeholder="Nombre del usuario" matInput
-              [(ngModel)]="userSearch" [matAutocomplete]="auto" (input)="findUsers()" />
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="opcionSeleccionada($event)">
-              <mat-option *ngFor="let user of users" [value]="user">
-                {{ user.login }}
-              </mat-option>
-
-
-            </mat-autocomplete>
-            </div> -->
-
-          
-          
           <div>
             <mat-form-field >
-              <mat-label> Login del usuario </mat-label>
+              <mat-label> {{ 'shopForm.login' | translate }} </mat-label>
               <mat-select name="user" formControlName="user">
                 <mat-option *ngFor="let user of users" [value]="user">
                   {{ user.login }}
@@ -36,7 +21,7 @@
       
             <div>
               <mat-form-field>
-                <mat-label> Nombre del negocio </mat-label>
+                <mat-label> {{ 'shopForm.shopName' | translate }} </mat-label>
                 <input matInput formControlName="name" />
               </mat-form-field>
             </div>
@@ -48,21 +33,21 @@
               </mat-form-field>
 
               <mat-form-field>
-                <mat-label> teléfono </mat-label>
+                <mat-label> {{ 'shopForm.phone' | translate }} </mat-label>
                 <input matInput formControlName="phone"/>
               </mat-form-field>
             </div>
 
             <div>
               <mat-form-field>
-                <mat-label> ciudad </mat-label>
+                <mat-label> {{ 'shopForm.city' | translate }} </mat-label>
                 <input matInput formControlName="city"/>
               </mat-form-field>
             </div>
       
             <div>
               <mat-form-field class="last-field" >
-                <mat-label> Categoría </mat-label>
+                <mat-label> {{ 'shopForm.category' | translate }} </mat-label>
                 <mat-select  (selectionChange)="saveCategory()" [(value)]="category">
                   <mat-option *ngFor="let sCategory of allCategories" [value]="sCategory">
                     {{ sCategory.name }}

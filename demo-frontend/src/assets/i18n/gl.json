@@ -56,6 +56,15 @@
     "create_product" : "Crear produto",
     "create_shop" : "Crear tenda"
   },
+  "shopForm": {
+    "title": "Rexistrar negocio",
+    "data" : "Datos do negocio",
+    "login" : "Login do usuario",
+    "shopName" : "Nome do negocio",
+    "phone" : "Teléfono",
+    "city" : "Cidade",
+    "category" : "Categoría"
+  },
   "button": {
     "cancel": "Cancelar",
     "save": "Gardar"

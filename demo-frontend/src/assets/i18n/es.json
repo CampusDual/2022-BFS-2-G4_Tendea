@@ -57,6 +57,15 @@
     "create_product" : "Crear producto",
     "create_shop" : "Crear tienda"
   },
+  "shopForm": {
+    "title": "Registrar negocio",
+    "data" : "Datos del negocio",
+    "login" : "Login del usuario",
+    "shopName" : "Nombre del negocio",
+    "phone" : "Teléfono",
+    "city" : "Ciudad",
+    "category" : "Categoría"
+  },
   "button": {
     "cancel": "Cancelar",
     "save": "Guardar"
