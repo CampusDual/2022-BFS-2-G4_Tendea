@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -103,7 +104,9 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 	@Override
 	@Transactional(readOnly=true)
 	public List<ShopDTO> lastStores() {
-		return ShopMapper.INSTANCE.shopToShopDTOList(shopRepository.findAll(Sort.by(Sort.Direction.ASC, "id")));
+		List<ShopDTO> lShop = ShopMapper.INSTANCE.shopToShopDTOList(shopRepository.findAll(Sort.by(Sort.Direction.DESC, "id")));		
+		return lShop.subList(0, 3);
+		
 	}
     
 }

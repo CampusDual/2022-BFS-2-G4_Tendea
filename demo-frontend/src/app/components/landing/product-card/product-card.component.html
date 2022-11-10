@@ -33,9 +33,18 @@
   <img class="card-img-top img-responsive img-thumbnail" alt="{{product.name}}" style="width: 100%; display: block;"
     [src]="product | imagen " alt="Image not available" data-holder-rendered="true">
   <div class="card-body">
-    <p class="card-text"> <strong>{{product.name }}</strong></p>
+
+    <h5 class="card-title">{{product.name }}</h5>
     <p class="card-text"> <a> Vendor space </a> | {{product.category.name}}</p>
-    <p class="card-text"> {{ product.price * (1-product.discount/100) | currency : 'EUR':'symbol':'.2-2':'es'}}</p>
+    <p class="card-text" *ngIf="product.discount !== 0 && product.discount !== null else noDiscount"> {{ product.price |
+      currency : 'EUR':'symbol':'.2-2':'es'}}</p>
+      
+    <ng-template #noDiscount>
+      <p><del> {{ product.price | currency : 'EUR':'symbol':'.2-2':'es'}} </del> | {{ product.price *
+        (1-product.discount/100) | currency :
+        'EUR':'symbol':'.2-2':'es'}} </p>
+    </ng-template>
+
     <div class="d-flex justify-content-between align-items-center">
       <div class="btn-group">
         <button type="button" class="btn btn-sm btn-outline-secondary">

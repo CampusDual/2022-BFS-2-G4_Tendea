@@ -71,11 +71,15 @@ export class ShopService {
   /**
    * Get last 5 shops
    */
-  public getLastShop(): Observable<Shop[]> {
+  getLastShop(): Observable<Shop[]> {
     const url = API_CONFIG.getLastShops;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
     });
-    return this.http.get<Shop[]>(url, { headers });
+    return this.http.get<Shop[]>(url, { headers }).pipe(
+      catchError((e) => {
+        return throwError(() => console.log(e));
+      })
+    );
   }
 }

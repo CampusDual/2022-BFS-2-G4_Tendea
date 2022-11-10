@@ -9,6 +9,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../model/product';
 import { ShopService } from 'src/app/services/shop.service';
+import { Shop } from '../../model/shop';
 
 interface CatNode {
   id?: number;
@@ -29,6 +30,7 @@ interface CategoryFlatNode {
   styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent implements OnInit {
+  shops: Shop[];
   products: Product[];
   catData: CatNode;
   categories;
@@ -45,7 +47,9 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     /** Llamda a la bbd ultimas tiendas registradas */
-    //this.shopService.getShopsPag().subscribe
+    this.shopService.getLastShop().subscribe((res) => {
+      this.shops = res;
+    });
 
     /** LLamada a la bd de productos, obtenemos los ultimos 5 */
     this.productService.getProductsLanding(1, 5).subscribe((res) => {

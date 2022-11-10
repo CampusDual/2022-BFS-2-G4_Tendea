@@ -32,5 +32,5 @@ export const API_CONFIG = {
 
   // Shop API
   deleteShop: environment.shopsBaseUrl,
-  getLastShops: environment.shopsBaseUrl + '/getShops',
+  getLastShops: environment.shopsBaseUrl + '/getShopsLastShop',
 };
