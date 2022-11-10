@@ -5,13 +5,15 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VendorComponent } from './vendor.component';
 import { VendorRoutingModule } from './vendor-routing.module';
+import { ProductComponent } from './shop/product/product.component';
 
 
 
 @NgModule({
   declarations: [
     ShopComponent,
-    VendorComponent
+    VendorComponent,
+    ProductComponent
   ],
   imports: [
     CommonModule,
