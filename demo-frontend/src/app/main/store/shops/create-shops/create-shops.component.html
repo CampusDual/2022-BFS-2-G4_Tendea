@@ -1,76 +1,59 @@
 
-<h1 class="color-green">Creación de Tienda</h1>
+<h1 class="color-green" fxLayoutAlign="center">{{ 'shopForm.title' | translate }}</h1>
 <div fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="form-container">
       <form *ngIf="shopForm" [formGroup]="shopForm" (ngSubmit)="save()">
-        <mat-card-title class="bottom-border"> Datos del usuario </mat-card-title>
+        <mat-card-title class="bottom-border"> {{ 'shopForm.data' | translate }} </mat-card-title>
       
         <mat-card-content>
-          
-            <div>
-              <mat-form-field class="full-width-field" >
-                <mat-label> Login </mat-label>
-                <input matInput placeholder="Ex: Tendea101" formControlName="userLogin"/>
-              </mat-form-field>
-            </div>
+
+          <div>
+            <mat-form-field >
+              <mat-label> {{ 'shopForm.login' | translate }} </mat-label>
+              <mat-select name="user" formControlName="user">
+                <mat-option *ngFor="let user of users" [value]="user">
+                  {{ user.login }}
+                </mat-option>
+
+              </mat-select>
+            </mat-form-field>
+          </div>
       
             <div>
               <mat-form-field>
-                <mat-label> Nombre de usuario </mat-label>
-                <input matInput formControlName="userName"/>
+                <mat-label> {{ 'shopForm.shopName' | translate }} </mat-label>
+                <input matInput formControlName="name" />
               </mat-form-field>
             </div>
-      
+
             <div class="double-container">
               <mat-form-field>
-                <mat-label> Primer apellido </mat-label>
-                <input matInput formControlName="userSurname1"/>
-              </mat-form-field>
-      
-              <mat-form-field>
-                <mat-label> Segundo apellido </mat-label>
-                <input matInput formControlName="userSurname2"/>
-              </mat-form-field>
-            </div>
-
-            <div>
-              <mat-form-field>
                 <mat-label> e-mail </mat-label>
-                <input matInput formControlName="userEmail"/>
+                <input matInput formControlName="email"/>
               </mat-form-field>
-            </div>
-      
-            <div >
+
               <mat-form-field>
-                <mat-label> Contraseña </mat-label>
-                <input matInput formControlName="userPassword"/>
+                <mat-label> {{ 'shopForm.phone' | translate }} </mat-label>
+                <input matInput formControlName="phone"/>
               </mat-form-field>
-      
-              <!-- <mat-form-field>
-                <mat-label> Confirmar contraseña </mat-label>
-                <input matInput />
-              </mat-form-field> -->
             </div>
 
-            <mat-card-title class="bottom-border"> Datos del negocio </mat-card-title>
-      
             <div>
               <mat-form-field>
-                <mat-label> Nombre del negocio </mat-label>
-                <input matInput formControlName="shopName"/>
+                <mat-label> {{ 'shopForm.city' | translate }} </mat-label>
+                <input matInput formControlName="city"/>
               </mat-form-field>
             </div>
       
             <div>
               <mat-form-field class="last-field" >
-                <mat-label> Categoría </mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let sCategory of categories" [value]="sCategory.name">
+                <mat-label> {{ 'shopForm.category' | translate }} </mat-label>
+                <mat-select  (selectionChange)="saveCategory()" [(value)]="category">
+                  <mat-option *ngFor="let sCategory of allCategories" [value]="sCategory">
                     {{ sCategory.name }}
                   </mat-option>
 
                 </mat-select>
-                <input matInput formControlName="category"/>
               </mat-form-field>
             </div>
           

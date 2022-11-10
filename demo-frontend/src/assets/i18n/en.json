@@ -56,6 +56,15 @@
     "create_product" : "Create product",
     "create_shop" : "Create shop"
   },
+  "shopForm": {
+    "title": "Bussines registration",
+    "data" : "Bussiness information",
+    "login" : "User login",
+    "shopName" : "Bussines name",
+    "phone" : "Phone",
+    "city" : "City",
+    "category" : "Category"
+  },
   "button": {
     "cancel": "Cancel",
     "save": "Save"
