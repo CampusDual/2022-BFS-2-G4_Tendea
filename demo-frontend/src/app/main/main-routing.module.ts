@@ -6,6 +6,8 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { StoreComponent } from './store/store.component';
 import { RegisterComponent } from '../auth/register/register.component';
 import { LandingComponent } from '../components/landing/landing.component';
+import { ShopComponent } from './vendor/shop/shop.component';
+import { VendorComponent } from './vendor/vendor.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,16 @@ const routes: Routes = [
   {
     path: 'contacts',
     component: ContactsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      allowedRoles: ['CONTACTS'],
+    },
+  },
+  {
+    path: 'vendors',
+    // component: VendorComponent,
+    loadChildren: () =>
+      import('././vendor/vendor.module').then(m => m.VendorModule),
     canActivate: [AuthGuard],
     data: {
       allowedRoles: ['CONTACTS'],
