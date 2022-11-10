@@ -22,7 +22,8 @@ export const API_CONFIG = {
   uploadProductImg: environment.productsBaseUrl + '/upload',
   deleteProduct: environment.productsBaseUrl + '/deleteProduct',
   getProductById: environment.productsBaseUrl + '/getProduct',
-  getProductsByCategory: environment.productsBaseUrl + '/getAllProductsByCategory',
+  getProductsByCategory:
+    environment.productsBaseUrl + '/getAllProductsByCategory',
   getProductsByName: environment.productsBaseUrl + '/getProductsByName',
 
   // Category API
@@ -30,7 +31,6 @@ export const API_CONFIG = {
   getCategory: environment.categoriesBaseUrl + '/getCategory',
 
   // Shop API
-  deleteShop: environment.shopsBaseUrl
-  
-
+  deleteShop: environment.shopsBaseUrl,
+  getLastShops: environment.shopsBaseUrl + '/getShops',
 };

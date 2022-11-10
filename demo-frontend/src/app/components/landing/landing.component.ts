@@ -8,6 +8,7 @@ import {
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../model/product';
+import { ShopService } from 'src/app/services/shop.service';
 
 interface CatNode {
   id?: number;
@@ -16,7 +17,7 @@ interface CatNode {
 }
 
 /** Flat node with expandable and level information */
-interface ExampleFlatNode {
+interface CategoryFlatNode {
   expandable: boolean;
   name: string;
   level: number;
@@ -38,14 +39,20 @@ export class LandingComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private shopService: ShopService
   ) {}
 
   ngOnInit(): void {
+    /** Llamda a la bbd ultimas tiendas registradas */
+    //this.shopService.getShopsPag().subscribe
+
+    /** LLamada a la bd de productos, obtenemos los ultimos 5 */
     this.productService.getProductsLanding(1, 5).subscribe((res) => {
-      this.products = res.data
+      this.products = res.data;
     });
 
+    /** LLamada a la bd de categorias, obtenemos los ultimos 5 */
     this.categoryService.getCategories().subscribe((cat) => {
       const TREE_DATA: CatNode[] = [
         {
@@ -73,7 +80,8 @@ export class LandingComponent implements OnInit {
     };
   };
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
+  /** Angular material tree de categorias  */
+  treeControl = new FlatTreeControl<CategoryFlatNode>(
     (node) => node.level,
     (node) => node.expandable
   );
@@ -87,7 +95,7 @@ export class LandingComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  hasChild = (_: number, node: CategoryFlatNode) => node.expandable;
 
   login() {}
 }

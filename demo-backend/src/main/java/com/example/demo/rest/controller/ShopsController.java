@@ -54,7 +54,7 @@ public class ShopsController {
     @GetMapping(path = "/getShops")
     public @ResponseBody List<ShopDTO> findAll() {
         LOGGER.info("findAll in progress...");
-        return shopService.findAll();
+        return shopService.lastStores();
     }
     
    // GETALLSHOPS + PAGINATOR

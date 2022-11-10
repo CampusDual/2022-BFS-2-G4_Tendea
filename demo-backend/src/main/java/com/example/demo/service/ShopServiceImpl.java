@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -95,5 +96,14 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
         datares.setData(lShopDTO);
         return datares;
     }
+
+    /**
+     * Obtiene las ultimas tiendas registradas, ordenada por el id
+     */
+	@Override
+	@Transactional(readOnly=true)
+	public List<ShopDTO> lastStores() {
+		return ShopMapper.INSTANCE.shopToShopDTOList(shopRepository.findAll(Sort.by(Sort.Direction.ASC, "id")));
+	}
     
 }
