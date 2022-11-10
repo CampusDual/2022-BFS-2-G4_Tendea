@@ -33,7 +33,7 @@ export const API_CONFIG = {
   getCategory: environment.categoriesBaseUrl + '/getCategory',
 
   // Shop API
- createShop: environment.shopsBaseUrl + '/createShop'
+  createShop: environment.shopsBaseUrl + '/createShop',
   deleteShop: environment.shopsBaseUrl + '/deleteShop',
   getLastShops: environment.shopsBaseUrl + '/getShopsLastShop',
 };

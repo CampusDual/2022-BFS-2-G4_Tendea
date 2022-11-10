@@ -60,11 +60,11 @@ public class ShopsController {
      * Devuelve las ultimas 5 tiendas registradas ordenadas por id
      * @return
      */
-    @GetMapping(path = "/getShopsLastShop")
+
     @Autowired
     private IUserService userService;
     
-    @GetMapping(path = "/getShops")
+    @GetMapping(path = "/getShopsLastShop")
     public @ResponseBody List<ShopDTO> findAll() {
         LOGGER.info("find stores in progress...");
         return shopService.lastStores();
