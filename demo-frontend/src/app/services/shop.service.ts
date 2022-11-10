@@ -50,7 +50,7 @@ export class ShopService {
   }
 
   public createShop(shop: Shop): Observable<any> {
-    const url = API_CONFIG.createProduct;
+    const url = API_CONFIG.createShop;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
       Authorization:

@@ -15,4 +15,6 @@ public interface IUserService {
 	
 	UserDTO createUser(UserDTO createUserRequest);
 	
+	List<UserGetDTO> findByLoginContainingIgnoreCase(String query);
+	
 }

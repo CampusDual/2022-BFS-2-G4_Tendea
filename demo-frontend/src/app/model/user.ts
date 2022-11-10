@@ -1,4 +1,5 @@
-export interface User {
+export class User {
+  id: number;
   login: string;
   name: string;
   surname1: string;
@@ -6,4 +7,5 @@ export interface User {
   email: string;
   password: string;
   profiles: string[];
+  activeStatus: number;
 }

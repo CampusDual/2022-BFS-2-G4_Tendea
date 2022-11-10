@@ -33,12 +33,17 @@ import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.ShopDTO;
 import com.example.demo.dto.ShopGetDTO;
+import com.example.demo.dto.UserDTO;
+import com.example.demo.dto.mapper.UserMapper;
+import com.example.demo.entity.Profile;
 import com.example.demo.entity.Shop;
+import com.example.demo.entity.User;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.IShopService;
+import com.example.demo.service.IUserService;
 import com.example.demo.utils.Constant;
 
 @CrossOrigin(origins = { "http://localhost:4201" })
@@ -56,6 +61,10 @@ public class ShopsController {
      * @return
      */
     @GetMapping(path = "/getShopsLastShop")
+    @Autowired
+    private IUserService userService;
+    
+    @GetMapping(path = "/getShops")
     public @ResponseBody List<ShopDTO> findAll() {
         LOGGER.info("find stores in progress...");
         return shopService.lastStores();
@@ -113,7 +122,14 @@ public class ShopsController {
         String message = Constant.PRODUCT_CREATED;
         if (!result.hasErrors()) {
             try {
+            	User newUser = createShopRequest.getUser();
+            	UserDTO newUserDTO = UserMapper.INSTANCE.userToUserDTO(newUser);
+            	Profile newProfile = new Profile(3);
+            	newUserDTO.getProfiles().clear();
+            	newUserDTO.getProfiles().add(newProfile);
+            	newUserDTO = userService.createUser(newUserDTO);
                 shopNew = shopService.createShop(createShopRequest);
+//                shopNew.setUser(newUser);
                 response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
 
             } catch (DataAccessException e) {
@@ -136,6 +152,8 @@ public class ShopsController {
         response.put(Constant.MESSAGE, message); //Meter en todos los controller
         return new ResponseEntity<Map<String, Object>>(response, status);
     }
+    
+  
     
     // DELETE
     
@@ -216,6 +234,8 @@ public class ShopsController {
         return new ResponseEntity<Map<String, Object>>(response, status);
     
     }
+    
+    
     
     
     
