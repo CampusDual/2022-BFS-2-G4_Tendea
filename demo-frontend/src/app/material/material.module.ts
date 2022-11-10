@@ -25,6 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatTreeModule} from '@angular/material/tree';
 
 
 
@@ -56,7 +57,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatPaginatorModule,
     MatAutocompleteModule,
     TranslateModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTreeModule
   ],
 })
 export class MaterialModule {}

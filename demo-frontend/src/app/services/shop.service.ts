@@ -8,17 +8,15 @@ import { Shop } from '../model/shop';
 import { Buffer } from 'buffer';
 import { API_CONFIG } from '../shared/api.config';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShopService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  public getShopsPag(pageFilter: AnyPageFilter):
-   Observable<DataSourceRESTResponse<Shop[]>> {
-
+  public getShopsPag(
+    pageFilter: AnyPageFilter
+  ): Observable<DataSourceRESTResponse<Shop[]>> {
     const url = `${environment.apiBaseUrl}/shops/getShopsPag`;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
@@ -33,25 +31,23 @@ export class ShopService {
     return this.http.post<DataSourceRESTResponse<Shop[]>>(url, pageFilter, {
       headers,
     });
-
   }
 
   public deleteShop(id: number): Observable<any> {
     const url = API_CONFIG.deleteShop;
     const headers = new HttpHeaders({
       'Content-type': 'charset=utf-8',
-    Authorization:
-      'Basic ' +
-      Buffer.from(
-        `${environment.clientName}:${environment.clientSecret}`,
-        'utf8'
-      ).toString('base64'),
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
     });
 
     const params = new HttpParams().set('id', id.toString());
-    return this.http.delete<any>(url, {params, headers});
+    return this.http.delete<any>(url, { params, headers });
   }
-
 
   public createShop(shop: Shop): Observable<any> {
     const url = API_CONFIG.createShop;
@@ -64,7 +60,7 @@ export class ShopService {
           'utf8'
         ).toString('base64'),
     });
-  
+
     return this.http.post<Shop>(url, shop, { headers }).pipe(
       catchError((e) => {
         return throwError(() => e);
@@ -72,9 +68,18 @@ export class ShopService {
     );
   }
 
-
-
-
-
-
+  /**
+   * Get last 5 shops
+   */
+  getLastShop(): Observable<Shop[]> {
+    const url = API_CONFIG.getLastShops;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+    return this.http.get<Shop[]>(url, { headers }).pipe(
+      catchError((e) => {
+        return throwError(() => console.log(e));
+      })
+    );
+  }
 }
