@@ -103,7 +103,7 @@ export class ShopService {
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
     });
-    return this.http.post<Product>(url, product, { headers }).pipe(
+    return this.http.post<Product>(url, { product, login }, { headers }).pipe(
       catchError((e) => {
         return throwError(() => e);
       })

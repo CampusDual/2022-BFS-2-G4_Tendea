@@ -15,6 +15,7 @@ import com.example.demo.dto.ShopGetDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.dto.mapper.ShopGetMapper;
 import com.example.demo.dto.mapper.ShopMapper;
+import com.example.demo.dto.mapper.UserMapper;
 import com.example.demo.entity.Shop;
 import com.example.demo.entity.User;
 import com.example.demo.repository.ShopRepository;
@@ -58,12 +59,6 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 		return ShopMapper.INSTANCE.shopToShopDTO(newShop);
 	}
 
-//    @Override
-//    public ShopDTO createShop(ShopDTO createShopRequest) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-
 	@Override
 	@Transactional
 	public Integer deleteShop(Integer id) {
@@ -92,8 +87,7 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 	}
 
 	@Override
-	public List<ShopDTO> lastStores() {
-		// TODO Auto-generated method stub
+	public List<ShopDTO> getShopsByUser(User user) {
 		return null;
 	}
 
@@ -101,11 +95,17 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 	 * Busca la tiendas por usuario
 	 */
 	@Override
-	public ShopDTO getShopByUser(User user) {
+	public ShopDTO getShopByUser(UserDTO userDTO) {
+		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
 		Shop shop =  shopRepository.findByUser(user);
 		ShopDTO shopDTO = ShopMapper.INSTANCE.shopToShopDTO(shop);
 		return shopDTO;
 	}
 
+	@Override
+	public List<ShopDTO> lastStores() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

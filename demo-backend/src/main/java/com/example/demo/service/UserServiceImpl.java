@@ -83,10 +83,10 @@ public class UserServiceImpl extends AbstractDemoService implements IUserService
 	 * Usauario por login
 	 */
 	@Override
-	public User findByLogin(String login) {
+	public UserDTO findByLogin(String login) {
 		User user = userRepository.findByLogin(login).orElse(null);
 		UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
-		return user;
+		return userDTO;
 	}
 	
 	

@@ -250,14 +250,15 @@ public class ShopsController {
 	public ResponseEntity<?> createProduct(@RequestBody Product product, String login) {
 
 		ProductDTO newProduct = null;
-		User user = null;
+		UserDTO user = null;
 		ShopDTO shop = null;
 		Map<String, Object> response = new HashMap<>();
 		LOGGER.info("Create Product in progress...", product);
 		try {
 			user = userService.findByLogin("demoadmin");
 			shop = shopService.getShopByUser(user);
-			//newProduct = productService.createProduct(newProduct);
+			newProduct.setShop(shop);
+			newProduct = productService.createProduct(newProduct);
 			LOGGER.info("Create Product in progress...", shop.getName());
 		} catch (DataAccessException e) {
 			response.put("message", "Error al realizar el insert en la base de datos");
