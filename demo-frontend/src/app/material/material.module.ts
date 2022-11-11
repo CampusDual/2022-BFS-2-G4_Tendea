@@ -25,10 +25,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatTreeModule} from '@angular/material/tree';
-import {MatRadioModule} from '@angular/material/radio';
-
-
+import { MatTreeModule } from '@angular/material/tree';
+import { MatRadioModule } from '@angular/material/radio';
+import { ImagenPipe } from '../pipes/imagen.pipe';
 
 @NgModule({
   declarations: [],
@@ -60,7 +59,7 @@ import {MatRadioModule} from '@angular/material/radio';
     TranslateModule,
     FlexLayoutModule,
     MatTreeModule,
-    MatRadioModule
+    MatRadioModule,
   ],
 })
 export class MaterialModule {}

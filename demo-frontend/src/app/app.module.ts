@@ -45,6 +45,7 @@ export function tokenGetter() {
     AppComponent,
     ConfirmationDialogComponent,
     MatSnackBarComponent,
+    ImagenPipe,
   ],
   imports: [
     TranslateModule.forRoot({
