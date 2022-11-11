@@ -25,7 +25,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ProductDetailComponent,
     CarouselComponent,
     WelcomeComponent,
-    ImagenPipe,
   ],
   imports: [CommonModule, LandingRoutingModule, MaterialModule, FormsModule],
   exports: [],

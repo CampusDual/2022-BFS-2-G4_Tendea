@@ -6,10 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VendorComponent } from './vendor.component';
 import { VendorRoutingModule } from './vendor-routing.module';
 import { ProductComponent } from './shop/product/product.component';
-import { ImagenPipe } from '../../pipes/imagen.pipe';
 
 @NgModule({
-  declarations: [ShopComponent, VendorComponent, ProductComponent, ImagenPipe],
+  declarations: [ShopComponent, VendorComponent, ProductComponent],
   imports: [
     CommonModule,
     VendorRoutingModule,

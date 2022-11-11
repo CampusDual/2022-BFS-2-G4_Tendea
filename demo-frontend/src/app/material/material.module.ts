@@ -30,7 +30,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ImagenPipe } from '../pipes/imagen.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [ImagenPipe],
   exports: [
     MatDividerModule,
     MatIconModule,
@@ -60,6 +60,7 @@ import { ImagenPipe } from '../pipes/imagen.pipe';
     FlexLayoutModule,
     MatTreeModule,
     MatRadioModule,
+    ImagenPipe,
   ],
 })
 export class MaterialModule {}
