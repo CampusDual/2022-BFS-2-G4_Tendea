@@ -27,7 +27,9 @@ public class ShopDTO {
     private String city;
     private String email;
     private String phone;
+    
     private User user;
+    
     private Integer activeStatus;
     
     

@@ -7,12 +7,14 @@ import { environment } from 'src/environments/environment';
 import { Shop } from '../model/shop';
 import { Buffer } from 'buffer';
 import { API_CONFIG } from '../shared/api.config';
+import { Product } from '../model/product';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShopService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   public getShopsPag(
     pageFilter: AnyPageFilter
@@ -75,10 +77,35 @@ export class ShopService {
     const url = API_CONFIG.getLastShops;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
     });
     return this.http.get<Shop[]>(url, { headers }).pipe(
       catchError((e) => {
         return throwError(() => console.log(e));
+      })
+    );
+  }
+
+  /**
+   * Registro del producto de una tienda
+   * @param product Creacion de producto de una tienda
+   * @returns
+   */
+  createProduct(product: Product): Observable<Product> {
+    const login = this.authService.getUserName();
+    console.log(login);
+    const url = API_CONFIG.createShopProduct;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+    return this.http.post<Product>(url, product, { headers }).pipe(
+      catchError((e) => {
+        return throwError(() => e);
       })
     );
   }

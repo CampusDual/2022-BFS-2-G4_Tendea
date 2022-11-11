@@ -65,6 +65,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         	.authorizedGrantTypes("password", "refresh_token")
         	// "read", "write", "trust"
         	.scopes("read", "write", "trust")
+        	.scopes("read", "write", "trust")
 			.accessTokenValiditySeconds(accessTokenValiditySeconds)
 			.refreshTokenValiditySeconds(refreshTokenValiditySeconds);    
     }

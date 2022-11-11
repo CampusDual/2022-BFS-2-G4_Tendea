@@ -24,8 +24,8 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
-	
-	//: TODO: Quedan pendientes las categorias y la relacion OneToMany
+
+	// : TODO: Quedan pendientes las categorias y la relacion OneToMany
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,48 +41,61 @@ public class Product implements Serializable {
 
 	@Column(nullable = false)
 	private Double price;
-	
+
 	private Double discount;
-	
+
 	@Column(nullable = false)
 	private Integer bulk;
-	
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "category_id")
+
 	@ManyToOne
 	private Category category;
-	
+
+	@ManyToOne
+	private Shop shop;
+
 	public void setBulk(Integer bulk) {
 		this.bulk = bulk;
 	}
 
 	@Column()
 	private String description;
-	
 
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
-	
+
 //	@Column(name = "updated_at")
 //	@Temporal(TemporalType.DATE)
 //	private Date updateAt;
-	
-	
+
 	public Product() {
 		this.images = new ArrayList<>();
 	}
-
-	public Product(Integer id2, String name2, Double price2, Date createAt2, List<ProductImage> images2,
-			Double discount2, Integer bulk2, Category category) {
-		this.id = id2;
-		this.name = name2;
-		this.price = price2;
-		this.createAt = createAt2;
-		this.images = images2;
-		this.discount = discount2;
-		this.bulk = bulk2;
+	
+	public Product(Integer id, String name, Double price, Date createAt, List<ProductImage> images,
+			Double discount, Integer bulk, Category category) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.createAt = createAt;
+		this.images = images;
+		this.discount = discount;
+		this.bulk = bulk;
 		this.category = category;
+	}
+
+	/** Constructor con tienda **/
+	public Product(Integer id, String name, Double price, Date createAt, List<ProductImage> images,
+			Double discount, Integer bulk, Category category, Shop shop) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.createAt = createAt;
+		this.images = images;
+		this.discount = discount;
+		this.bulk = bulk;
+		this.category = category;
+		this.shop = shop;
 	}
 
 	@PrePersist
@@ -140,7 +153,6 @@ public class Product implements Serializable {
 		this.discount = discount;
 	}
 
-
 	public String getDescription() {
 		return this.description;
 	}
@@ -149,26 +161,26 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 
-//	public Date getUpdateAt() {
-//		return this.updateAt;
-//	}
-//
-//	public void setUpdateAt(Date updateAt) {
-//		this.updateAt = updateAt;
-//	}
-
 	public Integer getBulk() {
 		return this.bulk;
 	}
 
-    public Category getCategory() {
-        return category;
-    }
+	public Category getCategory() {
+		return category;
+	}
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-	
-    private static final long serialVersionUID = 4L;
-	
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Shop getShop() {
+		return this.shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+	private static final long serialVersionUID = 4L;
+
 }

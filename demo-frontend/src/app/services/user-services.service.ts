@@ -4,9 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { API_CONFIG } from '../shared/api.config';
 import { catchError, throwError, Observable } from 'rxjs';
 import { User } from '../model/user';
-import { AnyPageFilter } from '../model/rest/filter';
-import { DataSourceRESTResponse } from '../model/rest/response';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +57,6 @@ export class UserServicesService {
     return this.http.get<User[]>(url, { headers });
   }
 
-
   public getUserByLogin(query: string): Observable<User[]> {
     const url = API_CONFIG.getUsersByLogin;
     const headers = new HttpHeaders({
@@ -78,6 +74,4 @@ export class UserServicesService {
       })
     );
   }
-
-
 }

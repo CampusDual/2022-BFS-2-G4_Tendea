@@ -17,4 +17,6 @@ public interface IUserService {
 	
 	List<UserGetDTO> findByLoginContainingIgnoreCase(String query);
 	
+	User findByLogin(String login);
+	
 }

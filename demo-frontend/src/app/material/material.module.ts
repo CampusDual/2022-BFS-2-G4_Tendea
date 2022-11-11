@@ -26,6 +26,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -58,7 +59,8 @@ import {MatTreeModule} from '@angular/material/tree';
     MatAutocompleteModule,
     TranslateModule,
     FlexLayoutModule,
-    MatTreeModule
+    MatTreeModule,
+    MatRadioModule
   ],
 })
 export class MaterialModule {}

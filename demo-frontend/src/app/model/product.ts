@@ -2,7 +2,7 @@ import { Category } from './category';
 import { ProductImages } from './product-images';
 
 export class Product {
-  id: number;
+  id?: number;
   name: string;
   price: number;
   discount: number;
@@ -12,4 +12,7 @@ export class Product {
   updateAt: string;
   images: ProductImages[];
   bulk: number;
+  login?: string;
 }
+
+

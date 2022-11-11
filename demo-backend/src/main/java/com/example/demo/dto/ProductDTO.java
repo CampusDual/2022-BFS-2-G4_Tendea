@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +22,7 @@ import javax.validation.constraints.NotEmpty;
 
 import com.example.demo.entity.Category;
 import com.example.demo.entity.ProductImage;
+import com.example.demo.entity.Shop;
 import com.example.demo.utils.Constant;
 import com.google.gson.annotations.Since;
 
@@ -54,6 +56,8 @@ public class ProductDTO {
 	private Date createAt;
 
 	private Category category;
+
+	private Shop shop;
 
 //	private Date updateAt;
 
@@ -125,6 +129,14 @@ public class ProductDTO {
 		this.category = category;
 	}
 
+	public Shop getShop() {
+		return this.shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+	
 //	public Date getUpdateAt() {
 //		return this.updateAt;
 //	}

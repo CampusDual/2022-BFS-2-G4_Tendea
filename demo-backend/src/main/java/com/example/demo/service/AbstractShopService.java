@@ -26,4 +26,6 @@ public class AbstractShopService {
                 shopRequest.getUser(), shopRequest.getCategories(), shopRequest.getProducts());
     }
 
+	/** Devuelve una tienda por usuario **/
+
 }
