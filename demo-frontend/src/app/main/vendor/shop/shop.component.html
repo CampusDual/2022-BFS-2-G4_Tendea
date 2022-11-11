@@ -47,7 +47,7 @@
           <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef>Imagen</th>
             <td mat-cell *matCellDef="let product">
-              {{ product.images[0].url }}
+              <!-- <img [src]="product | imagen"> -->
             </td>
           </ng-container>
 
@@ -58,7 +58,7 @@
 
           <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef>Precio</th>
-            <td mat-cell *matCellDef="let product">{{ product.price | currency}}</td>
+            <td mat-cell *matCellDef="let product">{{ product.price | currency : 'EUR':'symbol':'.2-2':'es'}}</td>
           </ng-container>
 
           <ng-container matColumnDef="discount">
@@ -105,9 +105,9 @@
         </div>
         <div>
           <p>Contacta con nosotros:</p>
-          <p> <mat-icon> place </mat-icon> Dirección </p>
-          <p> <mat-icon> email </mat-icon> Correo electrónico </p>
-          <p> <mat-icon> phone </mat-icon> Teléfono </p>
+          <p> <mat-icon> place </mat-icon>  {{shop.address}} </p>
+          <p> <mat-icon> email </mat-icon>  {{shop.email}} </p>
+          <p> <mat-icon> phone </mat-icon>  {{shop.phone}} </p>
         </div>
       </div>
     </div>

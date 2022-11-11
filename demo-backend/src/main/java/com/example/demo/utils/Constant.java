@@ -65,6 +65,7 @@ public class Constant {
 	public static final String SHOP_NOT_DELETE = "SHOP_NOT_DELETED";
 	public static final String SHOP_EDIT_SUCCESS = "SHOP_EDIT_SUCCESS";
 	public static final String SHOP_NOT_EDIT = "SHOP_NOT_EDIT";
+	public static final String SHOP_CREATED = "SHOP_CREATED";
 	
 	//Common error
 	public static final String ID_NOT_EXISTS ="ID_NOT_EXISTS";

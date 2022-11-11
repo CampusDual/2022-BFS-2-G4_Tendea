@@ -121,7 +121,7 @@ public class ShopsController {
         ShopDTO shopNew = null;
         Map<String, Object> response = new HashMap<>();
         HttpStatus status = HttpStatus.CREATED;
-        String message = Constant.PRODUCT_CREATED;
+        String message = Constant.SHOP_CREATED;
         if (!result.hasErrors()) {
             try {
             	User newUser = createShopRequest.getUser();

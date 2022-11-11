@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -58,6 +58,8 @@ export class ShopComponent implements OnInit {
   @ViewChild('input') input: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
 
+  @Input() product: Product;
+
   constructor(
     private productService: ProductService,
     private authService: AuthService,
@@ -82,14 +84,10 @@ export class ShopComponent implements OnInit {
       10,
       'name'
     );
-    // this.login = 'Tabi';
 
     this.dataSource.getProducts(pageFilter);
     this.getUserAndShop(this.login);
 
-    // this.shopService.getShopById(32).subscribe(
-    //   shop => this.shop = shop
-    // );
   }
 
   ngAfterViewInit(): void {
