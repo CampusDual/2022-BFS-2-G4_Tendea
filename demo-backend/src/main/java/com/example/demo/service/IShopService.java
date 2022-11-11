@@ -24,12 +24,12 @@ public interface IShopService {
 
     ShopDTO createShop(ShopDTO createShopRequest);
     
-    // ShopDTO createShop(ShopDTO createShopRequest);
-    
     Integer deleteShop(Integer id);
     
     Integer editShop(ShopDTO editShopRequest);
     
     DataSourceRESTResponse<List<ShopDTO>> getShops(AnyPageFilter pageFilter);
+    
+    List<ShopDTO> findByUserId(Integer id);
 
 }

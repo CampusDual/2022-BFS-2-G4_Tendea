@@ -36,4 +36,6 @@ export const API_CONFIG = {
   createShop: environment.shopsBaseUrl + '/createShop',
   deleteShop: environment.shopsBaseUrl + '/deleteShop',
   getLastShops: environment.shopsBaseUrl + '/getShopsLastShop',
+  getShopById: environment.shopsBaseUrl + '/getShop',
+  getShopsByUserId: environment.shopsBaseUrl + '/getShopByUser'
 };
