@@ -7,12 +7,22 @@ import { environment } from 'src/environments/environment';
 import { Shop } from '../model/shop';
 import { Buffer } from 'buffer';
 import { API_CONFIG } from '../shared/api.config';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShopService {
-  constructor(private http: HttpClient) {}
+  
+  showMessageError(message: string) {
+    this._snackBar.open(`${message}`, 'CERRAR', {
+      duration: 4000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
+  }
+
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {}
 
   public getShopsPag(
     pageFilter: AnyPageFilter
@@ -82,4 +92,54 @@ export class ShopService {
       })
     );
   }
+
+
+  public getShopById(id: number): Observable<Shop> {
+    const url = API_CONFIG.getShopById;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+    return this.http.get<Shop>(`${url}/${id}`, { headers }).pipe(
+      catchError((e) => {
+        console.log(e.message);
+        if (e.message!.includes('failure')) {
+          this.showMessageError('No se encuentra ninguna tienda con este id');
+        }
+        return throwError(() => e);
+      })
+    );
+  }
+
+  public getShopByUserId(query: number): Observable<Shop[]> {
+    const url = API_CONFIG.getShopsByUserId;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+    return this.http.get<Shop[]>(`${url}/${query}`, { headers }).pipe(
+      catchError((e) => {
+        console.log(e.message);
+        if (e.message!.includes('failure')) {
+          this.showMessageError(
+            'No se encuentra ninguna tienda perteneciente al usuario.'
+          );
+        }
+        return throwError(() => e);
+      })
+    );
+  }
+
+
+  
+
+
+
+
+
 }
+
+
+
+
+
+
+

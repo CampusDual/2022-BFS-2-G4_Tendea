@@ -28,44 +28,6 @@ export class CreateShopsComponent implements OnInit {
   shopForm: FormGroup;
   userSearch: string = '';
 
-  // shopForm: FormGroup = this.fb.group({
-
-  //   shopName: [
-  //     'Lanas', [Validators.required]
-  //   ],
-  //   category: [
-  //     '', [Validators.required]
-  //   ],
-
-  //   userLogin: ['Tendea101',
-  //   [Validators.required, Validators.minLength(2), Validators.maxLength(24)],  ],
-  //   userName: [
-  //     'Pablo',
-  //     [Validators.required, Validators.minLength(2), Validators.maxLength(24)],
-  //   ],
-  //   userSurname1: [
-  //     'Fuentes',
-  //     [Validators.required, Validators.minLength(2), Validators.maxLength(24)],
-  //   ],
-  //   userSurname2: [
-  //     '', [],
-  //   ],
-  //   userEmail: ['tendea101@tendea.com', [Validators.required, Validators.email]],
-  //   userPassword: [
-  //     'Camiseta16',
-  //     {
-  //       validators: [
-  //         Validators.required,
-  //         Validators.minLength(8),
-  //         Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,24}$'),
-  //       ],
-  //       updateOn: 'blur',
-  //     },
-  //   ],
-
-
-  // });
-
   constructor(
     private fb: FormBuilder,
     private shopService: ShopService,
@@ -98,14 +60,12 @@ export class CreateShopsComponent implements OnInit {
   createFormGroup() {
     this.shopForm = this.fb.group({
       name: [this.shop.name, Validators.required],
-      // categories: [this.shop.categories, Validators.required],
       city: [this.shop.city, Validators.required],
       phone: [this.shop.phone, Validators.required],
       email: [this.shop.email, Validators.required],
       user: [this.shop.user, Validators.required],
     });
 
-    // this.shop.user = this.user;
 
   }
 
@@ -129,7 +89,6 @@ export class CreateShopsComponent implements OnInit {
     console.log(this.shopForm.value);
     const newShop: Shop = Object.assign({}, this.shopForm.value );
 
-    // let categories = [{id:1, name: "Electronica"}];
     let categories = this.saveCategory();
     let nShop = {categories, ...newShop};
     

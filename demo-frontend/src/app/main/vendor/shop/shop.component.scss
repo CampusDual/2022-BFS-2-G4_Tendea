@@ -22,3 +22,90 @@
     left: 4%;
     color: rgb(61, 33, 1);
 }
+
+.table-container {
+    width: 75%;
+    position: relative;
+    object-position: center;
+}
+
+
+
+
+// Estilos personalizados tabla de productos
+
+.custom-table {
+    width: 100%;
+    border: 1px solid black;
+}
+
+// .mat-table {
+//     font-size: large;
+// }
+
+td.mat-cell {
+    // padding: 16px 0 16px 0;
+    // border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+   }
+
+th.mat-cell {
+    border: 1px solid black;
+
+   }
+
+th.mat-header-cell {
+    text-align: center;
+    font-size: large;
+    // color: white;
+
+}
+
+th.mat-header-cell:first-child {
+    border-right: 1px solid black;
+}
+
+.mat-cell {
+    font-size: large;
+    text-align: center;
+    margin-left: 1%;
+}
+
+th {
+    text-align: center;
+    font-size: large;
+    color: white;
+    
+    background-color: #00af91;
+    
+    height: 30px;
+}
+
+td.mat-cell:first-child {
+    border-right: 1px solid black;
+}
+
+tr.mat-row {
+    height: 150px;
+}
+
+  
+//   td.mat-cell:last-child {
+//     border-right: 2px solid #ffa600;
+//   }
+
+
+// Footer
+.vendor-footer {
+    margin-top: 20px;
+
+    min-height: 50px;
+    background-color: #00af91;
+
+    color: white;
+    font-size: large;
+}
+
+.icons-container img + img {
+    margin-left: 20px;
+  }

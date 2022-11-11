@@ -17,7 +17,7 @@ export const API_CONFIG = {
   // Users API
   createUser: environment.usersBaseUrl + '/createUser',
   getUsers: environment.usersBaseUrl + '/getUsers',
-  getUsersByLogin: environment.usersBaseUrl + '/getUsersByLogin',
+  getUsersByLogin: environment.usersBaseUrl + '/getUserByLogin',
 
   // Product API
   createProduct: environment.productsBaseUrl + '/createProduct',
@@ -36,4 +36,6 @@ export const API_CONFIG = {
   createShop: environment.shopsBaseUrl + '/createShop',
   deleteShop: environment.shopsBaseUrl + '/deleteShop',
   getLastShops: environment.shopsBaseUrl + '/getShopsLastShop',
+  getShopById: environment.shopsBaseUrl + '/getShop',
+  getShopsByUserId: environment.shopsBaseUrl + '/getShopByUser'
 };

@@ -108,5 +108,20 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 		return lShop.subList(0, 3);
 		
 	}
+	
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<ShopDTO> findByUserId(Integer id) {
+		List<ShopDTO> shops = new ArrayList<>();
+		shops = ShopMapper.INSTANCE.shopToShopDTOList(shopRepository.findByUserId(id));
+		return shops;
+	}
+	
+	
+	
+	
+	
+	
     
 }

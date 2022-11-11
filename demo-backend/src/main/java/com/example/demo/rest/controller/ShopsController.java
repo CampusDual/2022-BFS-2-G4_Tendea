@@ -20,6 +20,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.ShopDTO;
 import com.example.demo.dto.ShopGetDTO;
 import com.example.demo.dto.UserDTO;
+import com.example.demo.dto.UserGetDTO;
 import com.example.demo.dto.mapper.UserMapper;
 import com.example.demo.entity.Profile;
 import com.example.demo.entity.Shop;
@@ -56,13 +58,13 @@ public class ShopsController {
     @Autowired
     private IShopService shopService;
     
+    @Autowired
+    private IUserService userService;
+    
     /**
      * Devuelve las ultimas 5 tiendas registradas ordenadas por id
      * @return
      */
-
-    @Autowired
-    private IUserService userService;
     
     @GetMapping(path = "/getShopsLastShop")
     public @ResponseBody List<ShopDTO> findAll() {
@@ -119,7 +121,7 @@ public class ShopsController {
         ShopDTO shopNew = null;
         Map<String, Object> response = new HashMap<>();
         HttpStatus status = HttpStatus.CREATED;
-        String message = Constant.PRODUCT_CREATED;
+        String message = Constant.SHOP_CREATED;
         if (!result.hasErrors()) {
             try {
             	User newUser = createShopRequest.getUser();
@@ -234,6 +236,18 @@ public class ShopsController {
         return new ResponseEntity<Map<String, Object>>(response, status);
     
     }
+    
+    
+    @GetMapping("/getShopByUser/{query}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ShopDTO> findByUser(@PathVariable Integer query) {
+    	LOGGER.info("search in progress...", query);
+ 
+    	return shopService.findByUserId(query);
+    	
+    }
+    
+    
     
     
     
