@@ -16,11 +16,12 @@ import { FilterItemDirective } from './directives/filter-item.directive';
 import { MaterialModule } from '../material/material.module';
 import { StoreComponent } from './store/store.component';
 // import { CreateProductComponent } from './store/products/create-product/create-product.component';
+import { ImagenPipe } from '../pipes/imagen.pipe';
 
 @NgModule({
   declarations: [MainHomeComponent, 
     FilterItemDirective,
-     StoreComponent
+     StoreComponent,
     ],
   imports: [
     TranslateModule,

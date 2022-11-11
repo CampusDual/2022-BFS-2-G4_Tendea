@@ -15,9 +15,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class ShopService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
+  ) {}
 
-  
   showMessageError(message: string) {
     this._snackBar.open(`${message}`, 'CERRAR', {
       duration: 4000,
@@ -25,8 +28,6 @@ export class ShopService {
       verticalPosition: 'top',
     });
   }
-
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {}
 
   public getShopsPag(
     pageFilter: AnyPageFilter
@@ -117,6 +118,10 @@ export class ShopService {
     });
     return this.http.post<Product>(url, { product, login }, { headers }).pipe(
       catchError((e) => {
+        return throwError(() => e);
+      })
+    );
+  }
 
   public getShopById(id: number): Observable<Shop> {
     const url = API_CONFIG.getShopById;
@@ -135,7 +140,6 @@ export class ShopService {
     );
   }
 
-
   public getShopByUserId(query: number): Observable<Shop[]> {
     const url = API_CONFIG.getShopsByUserId;
     const headers = new HttpHeaders({
@@ -153,12 +157,4 @@ export class ShopService {
       })
     );
   }
-
 }
-
-
-
-
-
-
-

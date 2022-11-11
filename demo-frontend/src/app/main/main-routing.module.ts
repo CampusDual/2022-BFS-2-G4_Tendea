@@ -30,10 +30,10 @@ const routes: Routes = [
     path: 'vendors',
     // component: VendorComponent,
     loadChildren: () =>
-      import('././vendor/vendor.module').then(m => m.VendorModule),
+      import('././vendor/vendor.module').then((m) => m.VendorModule),
     canActivate: [AuthGuard],
     data: {
-      allowedRoles: ['CONTACTS'],
+      allowedRoles: ['SHOPS'],
     },
   },
   {
@@ -42,9 +42,9 @@ const routes: Routes = [
       import('./store/store.module').then((m) => m.StoreModule),
     canActivate: [AuthGuard],
     data: {
-      allowedRoles: ['CLIENTS'],
+      allowedRoles: ['ADMIN'],
     },
-  }
+  },
 ];
 
 @NgModule({

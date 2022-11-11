@@ -35,19 +35,19 @@ export class NavComponent implements OnInit, OnDestroy {
       icon: 'people',
       route: 'shops/products/add',
       title: 'menu.products.store',
-      allowedRoles: ['CLIENTS'],
+      allowedRoles: ['SHOPS'],
     },
     {
       icon: 'people',
       route: 'products',
       title: 'menu.products', // TODO añadir a translate GAL/ENG, decidir nombre
-      allowedRoles: ['CLIENTS'],
+      allowedRoles: ['SHOPS'],
     },
     {
       icon: 'store', //Buscar icono
       route: 'shops',
       title: 'menu.shops', // TODO añadir a translate GAL/ENG, decidir nombre
-      allowedRoles: ['CLIENTS'],
+      allowedRoles: ['ADMIN'],
     },
   ];
 
