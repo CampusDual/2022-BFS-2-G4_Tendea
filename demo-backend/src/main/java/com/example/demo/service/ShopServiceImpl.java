@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,10 +87,6 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 		return datares;
 	}
 
-	@Override
-	public List<ShopDTO> getShopsByUser(User user) {
-		return null;
-	}
 
 	/**
 	 * Busca la tiendas por usuario

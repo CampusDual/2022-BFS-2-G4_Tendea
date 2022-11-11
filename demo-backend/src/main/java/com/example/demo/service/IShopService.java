@@ -46,7 +46,7 @@ public interface IShopService {
      * @param user
      * @return
      */
-    List<ShopDTO> getShopsByUser(User user);
+    ShopDTO getShopsByUser(User user);
     
       /**
      * Busqueda de tienda por id
