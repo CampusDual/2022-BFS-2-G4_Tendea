@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -33,6 +34,10 @@ public class Shop implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "shop_id") // crea la llave foranea en la otra tabla
+	private List<ShopImage> images;
     
     @NotEmpty(message = Constant.NAME_REQUIRED)
     @Size(min = 2, max = 24, message = Constant.SHOP_INCORRECT_SIZE)
@@ -73,6 +78,12 @@ public class Shop implements Serializable {
     //@NotEmpty(message = Constant.USER_ACTIVE_STATUS_REQUIRED)
     @Column(name = "active_status")
     private Integer activeStatus;
+    
+    @Column()
+    private String urlFb;
+    
+    @Column()
+    private String urlInsta;
     
     
     // --- CONSTRUCTORS ---
@@ -215,10 +226,39 @@ public class Shop implements Serializable {
         this.activeStatus = activeStatus;
     }
     
-    
+    public List<ShopImage> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ShopImage> images) {
+		this.images = images;
+	}
+
+	public String getUrlFb() {
+		return urlFb;
+	}
+
+	public void setUrlFb(String urlFb) {
+		this.urlFb = urlFb;
+	}
+
+	public String getUrlInsta() {
+		return urlInsta;
+	}
+
+	public void setUrlInsta(String urlInsta) {
+		this.urlInsta = urlInsta;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 
-    private static final long serialVersionUID = 274688743L;
+
+
+
+	private static final long serialVersionUID = 274688743L;
     
     
 }

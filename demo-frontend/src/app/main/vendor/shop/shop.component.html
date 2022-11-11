@@ -1,11 +1,19 @@
 <!-- <h1 class="color-green"> Tienda </h1> -->
 
-<div> </div>
+<div >
+  <mat-icon>edit</mat-icon>
+  <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-fab disabled aria-label="Example icon button with a heart icon">
+    <mat-icon>open_in_new</mat-icon>
+  </button>
+</div>
 
 <div fxLayout="column" fxLayoutAlign="center strech">
   <div class="main-container">
     <div>
-      <img class="main-img" src="./././assets/images/bakery.jpg" />
+      <img class="main-img" [src]="shop | shopImagen" />
       <h1 class="shop-name"> {{ shop.name }}</h1>
     </div>
 
@@ -78,7 +86,7 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let product">
-              <mat-icon > delete </mat-icon>
+              <mat-icon > delete_outline </mat-icon>
             </td>
           </ng-container>
 

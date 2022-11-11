@@ -9,6 +9,7 @@ import javax.persistence.Id;
 
 import com.example.demo.entity.Category;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.ShopImage;
 import com.example.demo.entity.User;
 
 public class ShopDTO {
@@ -22,11 +23,14 @@ public class ShopDTO {
     
     private Set<Category> categories = new HashSet<>(); 
     private Set<Product> products = new HashSet<>(); 
+    private Set<ShopImage> images = new HashSet<>();
     
     private String address;
     private String city;
     private String email;
     private String phone;
+    private String urlFB;
+    private String urlInsta;
     
     private User user;
     
@@ -102,6 +106,24 @@ public class ShopDTO {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+	public Set<ShopImage> getImages() {
+		return images;
+	}
+	public void setImages(Set<ShopImage> images) {
+		this.images = images;
+	}
+	public String getUrlFB() {
+		return urlFB;
+	}
+	public void setUrlFB(String urlFB) {
+		this.urlFB = urlFB;
+	}
+	public String getUrlInsta() {
+		return urlInsta;
+	}
+	public void setUrlInsta(String urlInsta) {
+		this.urlInsta = urlInsta;
+	}
     
    
     

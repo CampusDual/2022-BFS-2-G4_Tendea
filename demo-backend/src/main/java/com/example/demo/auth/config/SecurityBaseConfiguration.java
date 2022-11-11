@@ -48,6 +48,7 @@ public class SecurityBaseConfiguration extends ResourceServerConfigurerAdapter {
 		            "/products/getProduct/**",
 		            "/products/getProductsByName/**",
 		            "/products/uploads/img/**",
+		            "/shops/uploads/img/**",
 		            "/shops/getShopsLastShop",
 		            "/products/getAllProductsByCategory/**")
 				.permitAll()
