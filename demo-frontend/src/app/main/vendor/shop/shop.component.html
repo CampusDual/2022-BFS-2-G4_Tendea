@@ -1,15 +1,13 @@
 <!-- <h1 class="color-green"> Tienda </h1> -->
 
-<h1> {{shop.name}} </h1>
-
 <div fxLayout="column" fxLayoutAlign="center strech">
   <div class="main-container">
     <div>
       <img class="main-img" src="./././assets/images/bakery.jpg" />
-      <h1 class="shop-name">Panadería Miolo</h1>
+      <h1 class="shop-name"> {{ shop.name }}</h1>
     </div>
 
-    <h3>{{ description }}</h3>
+    <h3>{{ shop.description }}</h3>
 
     <div fxLayout="row" fxLayoutAlign="center center">
       <div class="mat-elevation-z8 table-container">

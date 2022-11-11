@@ -3,7 +3,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, fromEvent, merge, Observable, Observer } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  fromEvent,
+  merge,
+  Observable,
+  Observer,
+} from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ProductDataSource } from 'src/app/model/datasource/products.datasource';
@@ -19,14 +26,10 @@ import { UserServicesService } from 'src/app/services/user-services.service';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.scss']
+  styleUrls: ['./shop.component.scss'],
 })
-
-
-
 export class ShopComponent implements OnInit {
-
-  dataSource: ProductDataSource; 
+  dataSource: ProductDataSource;
   products: Product[];
 
   length = 100;
@@ -36,20 +39,24 @@ export class ShopComponent implements OnInit {
 
   selection = new SelectionModel<Product>(true, []);
   error = false;
-  displayedColumns: string[] = [ 'image', 'name', 'price', 'discount', 'actions'];
+  displayedColumns: string[] = [
+    'image',
+    'name',
+    'price',
+    'discount',
+    'actions',
+  ];
   fields = ['name', 'category.name', 'price', 'discount', 'images.url'];
-  
+
   shop: Shop;
   shops: Shop[];
   user: User;
   users: User[];
   login: String;
 
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('input') input: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
-
 
   constructor(
     private productService: ProductService,
@@ -57,12 +64,14 @@ export class ShopComponent implements OnInit {
     private router: Router,
     private shopService: ShopService,
     private userService: UserServicesService
-    ) {
-      // this.login = authService.getUserName();
-      this.login = "Tabi";
-     }
+  ) {
+    this.login = authService.getUserName();
+    this.shop = new Shop();
+    this.user = new User();
+  }
 
-  description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+  description: string =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
   ngOnInit(): void {
     this.dataSource = new ProductDataSource(this.productService);
@@ -73,6 +82,7 @@ export class ShopComponent implements OnInit {
       10,
       'name'
     );
+    // this.login = 'Tabi';
 
     this.dataSource.getProducts(pageFilter);
     this.getUserAndShop(this.login);
@@ -80,7 +90,6 @@ export class ShopComponent implements OnInit {
     // this.shopService.getShopById(32).subscribe(
     //   shop => this.shop = shop
     // );
-
   }
 
   ngAfterViewInit(): void {
@@ -111,8 +120,6 @@ export class ShopComponent implements OnInit {
       )
       .subscribe();
   }
-
-
 
   loadProductsPage() {
     this.selection.clear();
@@ -154,22 +161,26 @@ export class ShopComponent implements OnInit {
   }
 
   getUserAndShop(login) {
-     this.userService.getUserByLogin(login).subscribe(
-      res => this.users = res
-     );
+    this.userService.getUserByLogin(login).subscribe((res) => {
+      this.users = res;
+      console.log(this.users[0].login);
+      this.user = this.users[0];
+      this.shopService.getShopByUserId(this.users[0].id).subscribe((res2) => {
+        this.shops = res2;
+        console.log(this.shops[0].name);
+        this.shop = this.shops[0];
+      });
+    });
 
+    //Ejecuta el código antes de terminar de llenar users
     //  this.user = this.users[0];
-     console.log("Usuario: " + this.users);
+    //  console.log("Usuario: " + this.user.login);
 
-     this.shopService.getShopByUserId(this.users[0].id).subscribe(
-      res => this.shops = res
-     );
+    //  this.shopService.getShopByUserId(this.users[0].id).subscribe(
+    //   res => this.shops = res
+    //  );
 
     //  this.shop = this.shops[0];
-     console.log("Tienda: " + this.shops.values());
-
-
+    //  console.log("Tienda: " + this.shops.values());
   }
-
-
 }
