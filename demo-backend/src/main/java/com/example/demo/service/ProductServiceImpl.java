@@ -33,6 +33,9 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		return ProductMapper.INSTANCE.productToProductDTOList(productRepository.findAll());
 	}
 
+	/**
+	 * Crea un producto
+	 */
 	@Override
 	@Transactional
 	public ProductDTO createProduct(ProductDTO productDTORequest) {
@@ -137,6 +140,16 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		products = ProductMapper.INSTANCE
 				.productToProductDTOList(productRepository.findByNameContainingIgnoreCase(query));
 		return products;
+	}
+
+	/**
+	 * Crea el producto de una tienda
+	 */
+	@Override
+	public ProductDTO createProductStore(ProductDTO productDTORequest) {
+		Product product = ProductMapper.INSTANCE.productDTOtoProduct(productDTORequest);
+		Product newProduct = productRepository.save(product);
+		return ProductMapper.INSTANCE.productToProductDTO(newProduct);
 	}
 
 }

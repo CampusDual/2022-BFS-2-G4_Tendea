@@ -6,17 +6,25 @@ import { ShowProductsComponent } from './products/show-products/show-products.co
 import { CreateShopsComponent } from './shops/create-shops/create-shops.component';
 import { ShowShopsComponent } from './shops/show-shops/show-shops.component';
 import { StoreComponent } from './store.component';
+import { ProductComponent } from '../vendor/shop/product/product.component';
 
 const routes: Routes = [
   {
     path: '',
     component: StoreComponent,
     children: [
-      { path: "products", component: ShowProductsComponent, },
-      { path: "products/add", component: CreateProductComponent },
-      { path: "shops", component: ShowShopsComponent },
-      { path: "shops/add", component: CreateShopsComponent },
-      { path: "home", component: AdminHomeComponent },
+      { path: 'products', component: ShowProductsComponent },
+      { path: 'products/add', component: CreateProductComponent },
+      { path: 'shops', component: ShowShopsComponent },
+      { path: 'shops/add', component: CreateShopsComponent },
+      { path: 'home', component: AdminHomeComponent },
+
+      /** Productos */
+      {
+        path: 'shops/products/add',
+        component: ProductComponent,
+      },
+
       //{ path: 'edit/:id', component: EditContactComponent },
     ],
   },
@@ -24,8 +32,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class StoreRoutingModule {
-
-}
+export class StoreRoutingModule {}

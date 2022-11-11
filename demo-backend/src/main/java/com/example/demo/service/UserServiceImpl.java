@@ -78,6 +78,16 @@ public class UserServiceImpl extends AbstractDemoService implements IUserService
 				.usertToUserGetDtoList(userRepository.findByLoginContainingIgnoreCase(query));
 		return users;
 	}
+
+	/**
+	 * Usauario por login
+	 */
+	@Override
+	public UserDTO findByLogin(String login) {
+		User user = userRepository.findByLogin(login).orElse(null);
+		UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
+		return userDTO;
+	}
 	
 	
 	

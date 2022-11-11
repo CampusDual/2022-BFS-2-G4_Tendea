@@ -40,5 +40,11 @@ public class AbstractProductService {
 				productRequest.getCreateAt(), productRequest.getImages(), productRequest.getDiscount(),
 				productRequest.getBulk(), productRequest.getCategory());
 	}
+	
+	public Product fromCreateProductStoreRequest(ProductDTO productRequest) {
+		return new Product(productRequest.getId(), productRequest.getName(), productRequest.getPrice(),
+				productRequest.getCreateAt(), productRequest.getImages(), productRequest.getDiscount(),
+				productRequest.getBulk(), productRequest.getCategory(), productRequest.getShop());
+	}
 
 }

@@ -83,6 +83,10 @@ export class AuthService {
     return this.jwtHelper.decodeToken(this.getToken()).user_name;
   }
 
+  getStore() {
+    return this.jwtHelper.decodeToken(this.getToken());
+  }
+
   getRoles() {
     return this.jwtHelper.decodeToken(this.getToken()).authorities;
   }

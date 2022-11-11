@@ -37,6 +37,7 @@ import com.example.demo.dto.ShopGetDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.dto.UserGetDTO;
 import com.example.demo.dto.mapper.UserMapper;
+import com.example.demo.entity.Product;
 import com.example.demo.entity.Profile;
 import com.example.demo.entity.Shop;
 import com.example.demo.entity.User;
@@ -237,6 +238,30 @@ public class ShopsController {
     
     }
     
+    	@PostMapping(path = "/createProduct")
+	public ResponseEntity<?> createProduct(@RequestBody Product product, String login) {
+
+		ProductDTO newProduct = null;
+		UserDTO user = null;
+		ShopDTO shop = null;
+		Map<String, Object> response = new HashMap<>();
+		LOGGER.info("Create Product in progress...", product);
+		try {
+			user = userService.findByLogin("demoadmin");
+			shop = shopService.getShopByUser(user);
+			newProduct.setShop(shop);
+			newProduct = productService.createProduct(newProduct);
+			LOGGER.info("Create Product in progress...", shop.getName());
+		} catch (DataAccessException e) {
+			response.put("message", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(" :").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("message", "Se registro correctamente el producto");
+		response.put("product", newProduct);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+    
     
     @GetMapping("/getShopByUser/{query}")
     @ResponseStatus(HttpStatus.OK)
@@ -248,10 +273,5 @@ public class ShopsController {
     }
     
     
-    
-    
-    
-    
-    
-    
+ 
 }
