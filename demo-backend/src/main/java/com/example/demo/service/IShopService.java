@@ -27,14 +27,13 @@ public interface IShopService {
 
     ShopDTO createShop(ShopDTO createShopRequest);
     
-    // ShopDTO createShop(ShopDTO createShopRequest);
-    
     Integer deleteShop(Integer id);
     
     Integer editShop(ShopDTO editShopRequest);
     
     DataSourceRESTResponse<List<ShopDTO>> getShops(AnyPageFilter pageFilter);
     
+
     /**
      * Busqueda de tienda por usuario
      * @param user
@@ -48,6 +47,14 @@ public interface IShopService {
      * @return
      */
     List<ShopDTO> getShopsByUser(User user);
-   
-  
+    
+      /**
+     * Busqueda de tienda por id
+     * @param user
+     * @return
+     */
+     
+    List<ShopDTO> findByUserId(Integer id);
+
+
 }

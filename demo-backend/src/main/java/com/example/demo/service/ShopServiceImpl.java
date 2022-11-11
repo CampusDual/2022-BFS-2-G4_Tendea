@@ -107,5 +107,13 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+  
+	@Override
+	@Transactional(readOnly = true)
+	public List<ShopDTO> findByUserId(Integer id) {
+		List<ShopDTO> shops = new ArrayList<>();
+		shops = ShopMapper.INSTANCE.shopToShopDTOList(shopRepository.findByUserId(id));
+		return shops;
+	}
+	
 }

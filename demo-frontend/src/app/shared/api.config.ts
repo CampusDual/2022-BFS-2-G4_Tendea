@@ -17,7 +17,7 @@ export const API_CONFIG = {
   // Users API
   createUser: environment.usersBaseUrl + '/createUser',
   getUsers: environment.usersBaseUrl + '/getUsers',
-  getUsersByLogin: environment.usersBaseUrl + '/getUsersByLogin',
+  getUsersByLogin: environment.usersBaseUrl + '/getUserByLogin',
 
   // Product API
   createProduct: environment.productsBaseUrl + '/createProduct',
@@ -40,4 +40,6 @@ export const API_CONFIG = {
 
   // Upload product image
   uploadProductImage: environment.shopsBaseUrl + 'products/upload',
+  getShopById: environment.shopsBaseUrl + '/getShop',
+  getShopsByUserId: environment.shopsBaseUrl + '/getShopByUser'
 };
