@@ -91,13 +91,13 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 	/**
 	 * Busca la tiendas por usuario
 	 */
-	@Override
-	public ShopDTO getShopByUser(UserDTO userDTO) {
-		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
-		Shop shop =  shopRepository.findByUser(user);
-		ShopDTO shopDTO = ShopMapper.INSTANCE.shopToShopDTO(shop);
-		return shopDTO;
-	}
+//	@Override
+//	public List<ShopDTO> getShopByUser(UserDTO userDTO) {
+//		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
+//		List<Shop> shop =  shopRepository.findByUser(user);
+//		ShopDTO shopDTO = ShopMapper.INSTANCE.shopToShopDTO(shop);
+//		return shopDTO;
+//	}
 
 	@Override
 	public List<ShopDTO> lastStores() {
