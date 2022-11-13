@@ -1,19 +1,24 @@
 <!-- <h1 class="color-green"> Tienda </h1> -->
 
 <div >
-  <button mat-fab color="primary" (click)="editPhone()">
-    <mat-icon>edit</mat-icon>
-  </button>
-
-    <div *ngIf="editShopField['phone']" >
-      <input mat-input [placeholder]="shop.phone" matInput [formControl]="phoneFormControl">
-      <button mat-flat-button color="primary" (click)="changePhone()">
-         <mat-icon> done </mat-icon>
-      </button>
-      <button mat-flat-button (click)="editPhone()">
-        <mat-icon> cancel </mat-icon>
-      </button>
-    </div>
+  <div class="contactButton">
+    <button mat-fab color="primary" (click)="editPhone()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+  
+<div>
+  <div *ngIf="editShopField['phone']" >
+    <input mat-input [placeholder]="shop.phone" matInput [formControl]="phoneFormControl">
+    <button mat-flat-button color="primary" (click)="changePhone()">
+       <mat-icon> done </mat-icon>
+    </button>
+    <button mat-flat-button (click)="editPhone()">
+      <mat-icon> cancel </mat-icon>
+    </button>
+  </div>
+</div>
+    
 </div>
 
 <div >
@@ -86,7 +91,7 @@
   </button>
 
     <div *ngIf="editShopField['urlFB']" >
-      <input mat-input [placeholder]="shop.urlFB" matInput [formControl]="urlFBFormControl">
+      <input mat-input [placeholder]="shop.urlFb" matInput [formControl]="urlFBFormControl">
       <button mat-flat-button color="primary" (click)="changeUrlFB()">
          <mat-icon> done </mat-icon>
       </button>
@@ -143,9 +148,53 @@
           </div>
 
         </div>
+
+        <table>
+          <td><mat-icon> place </mat-icon>  {{shop.address}}</td>
+          <td><div >
+            <div class="contactButton">
+              <button mat-fab color="primary" (click)="editPhone()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+            
+          <div>
+            <div *ngIf="editShopField['phone']" >
+              <input mat-input [placeholder]="shop.phone" matInput [formControl]="phoneFormControl">
+              <button mat-flat-button color="primary" (click)="changePhone()">
+                 <mat-icon> done </mat-icon>
+              </button>
+              <button mat-flat-button (click)="editPhone()">
+                <mat-icon> cancel </mat-icon>
+              </button>
+            </div>
+          </div>
+              
+          </div></td>
+        </table>
         <div>
           <p class="detailTitle">Contacta con nosotros:</p>
           <p> <mat-icon> place </mat-icon>  {{shop.address}} </p>
+          <div >
+            <div class="contactButton">
+              <button mat-fab color="primary" (click)="editPhone()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+            
+          <div>
+            <div *ngIf="editShopField['phone']" >
+              <input mat-input [placeholder]="shop.phone" matInput [formControl]="phoneFormControl">
+              <button mat-flat-button color="primary" (click)="changePhone()">
+                 <mat-icon> done </mat-icon>
+              </button>
+              <button mat-flat-button (click)="editPhone()">
+                <mat-icon> cancel </mat-icon>
+              </button>
+            </div>
+          </div>
+              
+          </div>
           <p> <mat-icon> email </mat-icon>  {{shop.email}} </p>
           <p> <mat-icon> phone </mat-icon>  {{shop.phone}} </p>
         </div>

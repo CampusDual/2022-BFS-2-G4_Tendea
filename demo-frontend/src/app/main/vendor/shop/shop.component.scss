@@ -62,6 +62,10 @@
 //     font-size: large;
 // }
 
+.contactButton > * {
+    transform: scale(0.5);
+}
+
 td.mat-cell {
     // padding: 16px 0 16px 0;
     // border-bottom: 1px solid gray;
