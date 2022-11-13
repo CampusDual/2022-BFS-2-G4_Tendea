@@ -16,7 +16,7 @@ export class Shop {
     email: string;
     user: User;
     activeStatus: number;
-    urlFB: string;
+    urlFb: string;
     urlInsta: string;
 
 

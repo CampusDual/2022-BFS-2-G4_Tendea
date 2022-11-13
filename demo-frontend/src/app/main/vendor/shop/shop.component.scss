@@ -20,9 +20,9 @@
 }
 
 .description {
-    width: 75%;
-    margin-bottom: 60px;
-    background-color: #00897b;
+    width: 100%;
+
+    margin-top: 50px;
 }
 
 .title {
@@ -33,13 +33,9 @@
 }
 
 .shop-name {
-    z-index: 3;
     position: absolute;
-    top: 250px;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
-    background: #1818181e;
 
 }
 
@@ -47,6 +43,7 @@
     width: 100%;
     position: relative;
     object-position: center;
+    font-size: large;
 }
 
 .text-center {
@@ -117,18 +114,23 @@ tr.mat-row {
 //     border-right: 2px solid #ffa600;
 //   }
 
-
-// Footer
-.vendor-footer {
+.vendor-details {
     margin-top: 20px;
-
+    background-color:  #00af9294;
     min-height: 50px;
-    background-color: #00897b;
 
-    color: white;
     font-size: large;
+}
+
+.vendor-details .detailTitle {
+    font-weight: bold;
 }
 
 .icons-container img + img {
     margin-left: 20px;
   }
+
+.social_media_icon {
+max-width: 50px;
+max-height: 50px;
+}
