@@ -4,10 +4,10 @@
   <div class="card-body">
 
     <h5 class="card-title">{{product.name }}</h5>
-    <p class="card-text"> <a> {{product.shop.name}} </a> | {{product.category.name}}</p>
+    <p class="card-text"> <a> Vendor space </a> | {{product.category.name}}</p>
     <p class="card-text" *ngIf="product.discount !== 0 && product.discount !== null else noDiscount"> {{ product.price |
       currency : 'EUR':'symbol':'.2-2':'es'}}</p>
-
+      
     <ng-template #noDiscount>
       <p><del> {{ product.price | currency : 'EUR':'symbol':'.2-2':'es'}} </del> | {{ product.price *
         (1-product.discount/100) | currency :
