@@ -2,9 +2,9 @@
 // Verde #00af91
 
 .main-container {
-    width: 100%;
+    width: 75%;
     background-color: white;
-    
+    margin: auto;
 }
 
 .main-img {
@@ -25,20 +25,33 @@
     background-color: #00897b;
 }
 
+.title {
+
+  padding: 20px;
+  width: 200px;
+  height: 150px;
+}
+
 .shop-name {
+    z-index: 3;
     position: absolute;
-    top: 10%;
-    left: 4%;
-    color: rgb(61, 33, 1);
+    top: 250px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: #1818181e;
+
 }
 
 .table-container {
-    width: 75%;
+    width: 100%;
     position: relative;
     object-position: center;
 }
 
-
+.text-center {
+  text-align: center!important;
+}
 
 
 // Estilos personalizados tabla de productos
@@ -85,9 +98,9 @@ th {
     text-align: center;
     font-size: large;
     color: white;
-    
+
     background-color: #00af91;
-    
+
     height: 30px;
 }
 
@@ -99,7 +112,7 @@ tr.mat-row {
     height: 150px;
 }
 
-  
+
 //   td.mat-cell:last-child {
 //     border-right: 2px solid #ffa600;
 //   }
