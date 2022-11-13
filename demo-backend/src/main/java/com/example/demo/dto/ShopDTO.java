@@ -22,7 +22,7 @@ public class ShopDTO {
     private String description;
     
     private Set<Category> categories = new HashSet<>(); 
-    private Set<Product> products = new HashSet<>(); 
+//    private Set<Product> products = new HashSet<>(); 
     private Set<ShopImage> images = new HashSet<>();
     
     private String address;
@@ -64,12 +64,12 @@ public class ShopDTO {
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
-    public Set<Product> getProducts() {
-        return products;
-    }
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
+//    public Set<Product> getProducts() {
+//        return products;
+//    }
+//    public void setProducts(Set<Product> products) {
+//        this.products = products;
+//    }
     public String getAddress() {
         return address;
     }

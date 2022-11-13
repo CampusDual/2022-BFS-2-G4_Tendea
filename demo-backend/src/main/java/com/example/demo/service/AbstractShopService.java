@@ -23,7 +23,9 @@ public class AbstractShopService {
                 shopRequest.getDescription(), shopRequest.getAddress(),
                 shopRequest.getCity(), shopRequest.getPhone(),
                 shopRequest.getEmail(), shopRequest.getActiveStatus(),
-                shopRequest.getUser(), shopRequest.getCategories(), shopRequest.getProducts());
+                shopRequest.getUser(), shopRequest.getCategories()
+//                , shopRequest.getProducts()
+                );
     }
 
 }

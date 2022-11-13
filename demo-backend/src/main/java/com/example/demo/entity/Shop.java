@@ -52,9 +52,9 @@ public class Shop implements Serializable {
             @JoinColumn(name = "category_id") })
     private Set<Category> categories = new HashSet<>(); 
     
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "shop_id")
-    private Set<Product> products = new HashSet<>(); 
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "shop_id")
+//    private Set<Product> products = new HashSet<>(); 
 
     private String address;
     
@@ -118,8 +118,9 @@ public class Shop implements Serializable {
             String email,
             Integer activeStatus,
             User user,
-            Set<Category> categories,
-            Set<Product> products) {
+            Set<Category> categories
+//            ,Set<Product> products
+            ) {
         super();
         this.id = id;
         this.name = name;
@@ -131,7 +132,7 @@ public class Shop implements Serializable {
         this.activeStatus = activeStatus;
         this.user = user;
         this.categories = categories;
-        this.products = products;
+//        this.products = products;
     }
 
 
@@ -170,13 +171,13 @@ public class Shop implements Serializable {
         this.description = description;
     }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
+//    public Set<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(Set<Product> products) {
+//        this.products = products;
+//    }
 
     public String getAddress() {
         return address;
