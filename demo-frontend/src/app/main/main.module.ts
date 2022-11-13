@@ -19,10 +19,7 @@ import { StoreComponent } from './store/store.component';
 import { ImagenPipe } from '../pipes/imagen.pipe';
 
 @NgModule({
-  declarations: [MainHomeComponent, 
-    FilterItemDirective,
-     StoreComponent,
-    ],
+  declarations: [MainHomeComponent, FilterItemDirective, StoreComponent],
   imports: [
     TranslateModule,
     CommonModule,

@@ -48,6 +48,11 @@
           </mat-select>
         </mat-form-field>
 
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput></textarea>
+        </mat-form-field>
+
       </div>
 
       <div>
@@ -55,8 +60,6 @@
         <button mat-flat-button color="primary" (click)="csvInput.click()">Cargar imagen</button>
 
       </div>
-
-
 
       <button mat-raised-button color="primary" class="mt-4" type="submit">Guardar</button>
 

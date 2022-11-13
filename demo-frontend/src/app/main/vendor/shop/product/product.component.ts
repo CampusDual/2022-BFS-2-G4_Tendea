@@ -30,7 +30,7 @@ export class ProductComponent implements OnInit {
     discount: [20],
     category: [],
     bulk: [],
-    login: [],
+    description: ['Esta es una descipcion'],
   });
   ngOnInit(): void {
     this.userName = this.authService.getUserName();
@@ -40,15 +40,17 @@ export class ProductComponent implements OnInit {
   }
 
   save() {
+    /** Cambio de bult to integer */
     this.productForm.controls['bulk'].value
       ? this.productForm.get('bulk').setValue(1)
       : this.productForm.get('bulk').setValue(0);
 
-    this.productForm.get('login').setValue(this.userName);
-
+    /** Send product to backend */
     console.log(this.productForm.value);
-    this.shopService
-      .createProduct(this.productForm.value)
-      .subscribe((res) => console.log(res));
+
+    // console.log(this.productForm.value);
+    // this.shopService
+    //   .createProduct(this.productForm.value)
+    //   .subscribe((res) => console.log(res));
   }
 }
