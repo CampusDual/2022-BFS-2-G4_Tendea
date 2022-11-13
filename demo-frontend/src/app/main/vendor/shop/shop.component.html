@@ -19,7 +19,25 @@
 
     <div fxLayout="column" fxLayoutAlign="center center">
       <div class="description">
-        <h3>{{ shop.description }}</h3>
+        <p>{{ shop.description }}</p>
+      </div>
+    </div>
+
+    <div class="vendor-details">
+      <div fxLayout="row" fxLayoutAlign="space-around start" >
+        <div><p class="detailTitle">Redes sociales</p>
+          <div class="icons-container">
+            <a href="{{shop.urlFb}}"><img class="social_media_icon" src="./assets/images/social_media_icons/facebook.png"></a>
+            <a href="{{shop.urlInsta}}"><img class="social_media_icon" src="./assets/images/social_media_icons/instagram.png"></a>
+          </div>
+
+        </div>
+        <div>
+          <p class="detailTitle">Contacta con nosotros:</p>
+          <p> <mat-icon> place </mat-icon>  {{shop.address}} </p>
+          <p> <mat-icon> email </mat-icon>  {{shop.email}} </p>
+          <p> <mat-icon> phone </mat-icon>  {{shop.phone}} </p>
+        </div>
       </div>
     </div>
 
@@ -34,8 +52,6 @@
         </div>
 
         <mat-divider></mat-divider>
-
-
 
         <table class="custom-table" mat-table [dataSource]="dataSource"
                matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
@@ -78,15 +94,17 @@
 
           <ng-container matColumnDef="discount">
             <th mat-header-cell *matHeaderCellDef> Descuento </th>
-            <td mat-cell *matCellDef="let product">{{ product.discount }}
-              <span *ngIf="product.discount">%</span>
+            <td mat-cell *matCellDef="let product" >
+              <span *ngIf="product.discount">{{ product.discount }}%</span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef></th>
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let product">
-              <mat-icon > delete_outline </mat-icon>
+              <button mat-raised-button (click)="onDelete()">
+                <mat-icon>delete</mat-icon> {{ "delete" | translate }}
+              </button>
             </td>
           </ng-container>
 
@@ -105,25 +123,6 @@
           (page)="pageEvent = setPageSizeOptions($event)"
         >
         </mat-paginator>
-      </div>
-    </div>
-
-    <div class="vendor-footer" fxFlexAlign="end">
-      <div fxLayout="row" fxLayoutAlign="space-around start" >
-        <div>Logo y tienda</div>
-        <div>Redes sociales
-          <div class="icons-container">
-            <img src="https://scontent.fmad7-1.fna.fbcdn.net/v/t39.2365-6/89126182_222315695571651_4936319991919149056_n.svg?_nc_cat=1&amp;ccb=1-7&amp;_nc_sid=ad8a9d&amp;_nc_ohc=6BJo9MJXCSoAX_R89zx&amp;_nc_ht=scontent.fmad7-1.fna&amp;oh=00_AfCdVdl1rrJ2yRgXpqJ-J_cB6l5pbePT8JcPGOIZJaDMvA&amp;oe=6371976F">
-            <img src="https://scontent.fmad7-1.fna.fbcdn.net/v/t39.2365-6/89319900_506382610280628_2520212398984396800_n.svg?_nc_cat=1&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=MHeK3G0YcMcAX-I9fF0&_nc_ht=scontent.fmad7-1.fna&oh=00_AfAYYqs0t7375aSdhqoqy2DGVByeIfXUFjVCFagPZzoO0A&oe=63716AB5">
-          </div>
-
-        </div>
-        <div>
-          <p>Contacta con nosotros:</p>
-          <p> <mat-icon> place </mat-icon>  {{shop.address}} </p>
-          <p> <mat-icon> email </mat-icon>  {{shop.email}} </p>
-          <p> <mat-icon> phone </mat-icon>  {{shop.phone}} </p>
-        </div>
       </div>
     </div>
 

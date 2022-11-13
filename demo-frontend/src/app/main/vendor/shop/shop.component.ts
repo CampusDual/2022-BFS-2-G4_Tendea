@@ -1,8 +1,10 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -22,6 +24,7 @@ import { User } from 'src/app/model/user';
 import { ProductService } from 'src/app/services/product.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { UserServicesService } from 'src/app/services/user-services.service';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-shop',
@@ -41,12 +44,13 @@ export class ShopComponent implements OnInit {
   error = false;
   displayedColumns: string[] = [
     'image',
+    'select',
     'name',
     'price',
     'discount',
     'actions',
   ];
-  fields = ['name', 'category.name', 'price', 'discount', 'images.url'];
+  fields = ['name', 'select', 'category.name', 'price', 'discount', 'images.url'];
 
   shop: Shop;
   shops: Shop[];
@@ -65,7 +69,9 @@ export class ShopComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private shopService: ShopService,
-    private userService: UserServicesService
+    private userService: UserServicesService,
+    private dialog: MatDialog,
+    private translate: TranslateService
   ) {
     this.login = authService.getUserName();
     this.shop = new Shop();
@@ -181,4 +187,49 @@ export class ShopComponent implements OnInit {
     //  this.shop = this.shops[0];
     //  console.log("Tienda: " + this.shops.values());
   }
+
+  delete() {
+    const product = this.selection.selected[0];
+    this.selection.deselect(product);
+    if (this.selection.selected && this.selection.selected.length === 0) {
+      this.productService.deleteProduct(product.id).subscribe((response) => {
+        console.log(response)
+        if (response.responseCode !== 'OK') {
+           this.error = true;
+         } else {
+          this.loadProductsPage();
+         }
+      });
+    } else {
+      this.productService.deleteProduct(product.id).subscribe((response) => {
+        console.log(response);
+        if (response.responseCode !== 'OK') {
+           this.error = true;
+        }
+        this.delete();
+      });
+    }
+  }
+
+  onDelete() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: this.translate.instant('delete-element-confirmation'),
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.delete();
+        return new Observable((observer: Observer<boolean>) =>
+          observer.next(true)
+        );
+      } else {
+        return new Observable((observer: Observer<boolean>) =>
+          observer.next(false)
+        );
+      }
+    });
+  }
+
+
 }
+
