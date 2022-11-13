@@ -65,7 +65,7 @@ export class ProductComponent implements OnInit {
   uploadImage() {
     console.log(this.imageUpload);
     this.fileUpload
-      .uploadImage(this.imageUpload, 236, 'products')
+      .uploadImage(236, this.imageUpload)
       .subscribe((res) => console.log(res));
   }
 }
