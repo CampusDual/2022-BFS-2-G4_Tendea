@@ -6,6 +6,7 @@ import { AuthService } from '../../../../auth/auth.service';
 import { CategoryService } from '../../../../services/category.service';
 import { Category } from '../../../../model/category';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { ProductImages } from '../../../../model/product-images';
 
 @Component({
   selector: 'app-product',
@@ -18,6 +19,8 @@ export class ProductComponent implements OnInit {
   userName: string;
   categories: Category[];
   imageUpload: File; // Imagen a subir
+  imagen: ProductImages;
+  imgTemp: any;
 
   constructor(
     private fb: FormBuilder,
@@ -28,12 +31,12 @@ export class ProductComponent implements OnInit {
   ) {}
 
   productForm: FormGroup = this.fb.group({
-    name: ['Un Producto'],
-    price: [100],
-    discount: [20],
+    name: ['', Validators.required],
+    price: [, Validators.required],
+    discount: [],
     category: [, Validators.required],
-    bulk: [],
-    description: ['Esta es una descipcion'],
+    bulk: [false],
+    description: [],
   });
   ngOnInit(): void {
     this.userName = this.authService.getUserName();
@@ -49,9 +52,9 @@ export class ProductComponent implements OnInit {
       : this.productForm.get('bulk').setValue(0);
 
     /** Send product to backend */
-    // this.shopService
-    //   .createProduct(this.productForm.value)
-    //   .subscribe((res) => console.log(res));
+    this.shopService.createProduct(this.productForm.value).subscribe((res) => {
+      this.uploadImage(res.id);
+    });
   }
 
   /**
@@ -60,12 +63,22 @@ export class ProductComponent implements OnInit {
   changeImage(event) {
     const file = event.target.files[0];
     this.imageUpload = file;
+    if (!file) {
+      this.imgTemp = '';
+      return;
+    }
+
+    /** Si tenemos imagen */
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      this.imgTemp = reader.result;
+    };
   }
 
-  uploadImage() {
-    console.log(this.imageUpload);
+  uploadImage(productId: number) {
     this.fileUpload
-      .uploadImage(this.imageUpload, 236, 'products')
+      .uploadImage(this.imageUpload, productId, 'products')
       .subscribe((res) => console.log(res));
   }
 }

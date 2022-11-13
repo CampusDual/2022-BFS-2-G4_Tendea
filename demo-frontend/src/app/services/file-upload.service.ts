@@ -26,9 +26,20 @@ export class FileUploadService {
     });
     let formData = new FormData();
     formData.append('file', file);
-    formData.append('id', '236');
+    formData.append('id', id);
 
-    return this.http
-      .post<any>(url, formData, { headers })
+    return this.http.post<any>(url, formData, { headers }).pipe(
+      catchError((e) => {
+        console.log(e.message);
+        return throwError(() => e);
+      })
+    );
   }
+
+  uploadNewImage() {
+
+  }
+
+
+
 }

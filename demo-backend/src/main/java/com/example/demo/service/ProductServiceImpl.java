@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.borjaglez.springify.repository.specification.SpecificationBuilder;
+import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.ProductGetDTO;
+import com.example.demo.dto.mapper.CategoryMapper;
 import com.example.demo.dto.mapper.ContactMapper;
 import com.example.demo.dto.mapper.ProductGetMapper;
 import com.example.demo.dto.mapper.ProductMapper;
@@ -86,27 +88,30 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		return editProduct.getId();
 	}
 
-	@Override
-	public List<ProductDTO> findByCategory(Integer categoryId) {
-
-		List<ProductDTO> products = new ArrayList<>();
-
-		List<ProductDTO> productCategory = new ArrayList<>();
-
-		products = ProductMapper.INSTANCE.productToProductDTOList(productRepository.findAll());
-
-		for (ProductDTO p : products) {
-
-			if (p.getCategory().getId() == categoryId) {
-
-				productCategory.add(p);
-			}
-
-		}
-
-		return productCategory;
-
-	}
+//	/**
+//	 * Obtiene los productos por una categoria
+//	 */
+//	@Override
+//	public List<ProductDTO> findByCategory(Integer categoryId) {
+//
+//		List<ProductDTO> products = new ArrayList<>();
+//
+//		List<ProductDTO> productCategory = new ArrayList<>();
+//
+//		products = ProductMapper.INSTANCE.productToProductDTOList(productRepository.findAll());
+//
+//		for (ProductDTO p : products) {
+//
+//			if (p.getCategory().getId() == categoryId) {
+//
+//				productCategory.add(p);
+//			}
+//
+//		}
+//
+//		return productCategory;
+//
+//	}
 
 	/**
 	 * Busqueda de productos por nombre
@@ -152,5 +157,17 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		Product newProduct = productRepository.save(product);
 		return ProductMapper.INSTANCE.productToProductDTO(newProduct);
 	}
+
+	/**
+	 * Obtiene los productos por categorias
+	 */
+	@Override
+	public List<ProductDTO> findByCategory(CategoryDTO category) {
+		Category cat = CategoryMapper.INSTANCE.categoryDTOtoCategory(category);
+		List<Product> products = productRepository.findByCategory(cat);
+		return ProductMapper.INSTANCE.productToProductDTOList(products);
+	}
+
+
 
 }

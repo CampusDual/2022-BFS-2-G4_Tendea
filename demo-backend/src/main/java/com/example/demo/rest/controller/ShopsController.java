@@ -278,7 +278,7 @@ public class ShopsController {
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
 				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			}
-			response.put("product", newProduct);
+			response.put("id", newProduct.getId());
 		} else {
 			List<String> errors = new ArrayList<>();
 			for(FieldError error : result.getFieldErrors()) {

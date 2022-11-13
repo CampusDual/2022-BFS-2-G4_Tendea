@@ -41,12 +41,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
+import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.mapper.ProductMapper;
+import com.example.demo.entity.Category;
 import com.example.demo.entity.ProductImage;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
 import com.example.demo.rest.response.DataSourceRESTResponse;
+import com.example.demo.service.ICategoryService;
 import com.example.demo.service.IProductService;
 import com.example.demo.utils.Constant;
 
@@ -59,6 +62,9 @@ public class ProductsController {
 
 	@Autowired
 	private IProductService productService;
+	
+	@Autowired
+	private ICategoryService categoryService;
 
 	/**
 	 * Obtiene un producto de BDD con el id indicado.
@@ -332,6 +338,7 @@ public class ProductsController {
 			LOGGER.info("upload image is finished...");
 
 		}
+		response.put("product", product);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
@@ -369,7 +376,8 @@ public class ProductsController {
 	@GetMapping("/getAllProductsByCategory/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<ProductDTO> getProductsByCategory(@PathVariable Integer id) {
-		return productService.findByCategory(id);
+		CategoryDTO cat = categoryService.getCategory(id);
+		return productService.findByCategory(cat);
 	}
 
 	/**

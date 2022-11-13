@@ -42,5 +42,5 @@ export const API_CONFIG = {
   uploadProductImage: environment.shopsBaseUrl + 'products/upload',
   getShopById: environment.shopsBaseUrl + '/getShop',
   getShopsByUserId: environment.shopsBaseUrl + '/getShopByUser',
-  uploadShopImg: environment.shopsBaseUrl + '/upload'
+  uploadShopImg: environment.shopsBaseUrl + '/upload',
 };

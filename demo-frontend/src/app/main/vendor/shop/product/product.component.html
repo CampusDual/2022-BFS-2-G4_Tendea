@@ -55,6 +55,8 @@
               <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
 
+            <input type="file" accept="" (change)="changeImage($event)" />
+
           </div>
 
 
@@ -62,19 +64,16 @@
 
         </form>
         <div class="col">
-          <input type="file" accept="" (change)="changeImage($event)" />
-          <button mat-raised-button color="primary" class="mt-4" [disabled]="!imageUpload"
-            (click)="uploadImage()">Guardar</button>
+
+          <!-- <button mat-raised-button color="primary" class="mt-4" [disabled]="!imageUpload"
+            (click)="uploadImage()">Guardar</button> -->
         </div>
       </mat-card>
     </div>
     <div class="col-3 mx-auto">
-      <mat-card class="example-card">
-        <img mat-card-image src="../../../../../assets/images/ImgNoAvailable.png" alt="Photo of a Shiba Inu">
-        <mat-card-actions class="text-center">
-          <button mat-raised-button color="primary">Eliminar</button>
-          <button mat-raised-button color="warn">Cambiar</button>
-        </mat-card-actions>
+      <mat-card class="example-card animate__animated animate__fadeIn" *ngIf="imgTemp">
+        <img mat-card-image *ngIf="imgTemp" [src]="imgTemp">
+        <img mat-card-image *ngIf="!imgTemp" [src]="imgTemp">
       </mat-card>
     </div>
   </div>
