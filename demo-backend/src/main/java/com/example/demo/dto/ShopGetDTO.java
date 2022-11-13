@@ -1,15 +1,7 @@
 package com.example.demo.dto;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.example.demo.entity.Category;
-import com.example.demo.entity.Product;
-import com.example.demo.entity.User;
 
 public class ShopGetDTO {
 
