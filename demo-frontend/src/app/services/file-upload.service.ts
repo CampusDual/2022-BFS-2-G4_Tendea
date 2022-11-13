@@ -15,26 +15,20 @@ export class FileUploadService {
   /**
    * Actualizar Imagen
    */
-  public uploadImage(id: any, img: File): Observable<any> {
-    const url = API_CONFIG.uploadProductImage;
+  public uploadImage(
+    file: File,
+    id,
+    type: 'shops' | 'products'
+  ): Observable<any> {
+    const url = 'http://localhost:9999/products/upload';
     const headers = new HttpHeaders({
-      'Content-type': 'multipart/form-data; charset=utf-8',
-      Authorization:
-        'Basic ' +
-        Buffer.from(
-          `${environment.clientName}:${environment.clientSecret}`,
-          'utf8'
-        ).toString('base64'),
+      Authorization: 'Bearer ' + this.authServices.getToken(),
     });
     let formData = new FormData();
-    console.log(id);
-    formData.append('file', img);
-    formData.append('id', id);
+    formData.append('file', file);
+    formData.append('id', '236');
 
-    return this.http.post<any>(url, formData, { headers }).pipe(
-      catchError((e) => {
-        return throwError(() => e);
-      })
-    );
+    return this.http
+      .post<any>(url, formData, { headers })
   }
 }

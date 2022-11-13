@@ -96,7 +96,22 @@ public class ProductsController {
 	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProducts(@RequestBody AnyPageFilter pageFilter) {
 		LOGGER.info("getProducts in progress...");
 		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
-		try {
+		try {         
+			dres = productService.getProducts(pageFilter);
+		} catch (DemoException e) {
+			LOGGER.error(e.getMessage());
+			dres.setResponseMessage(e.getMessage());
+		}
+		LOGGER.info("getProducts is finished...");
+		return dres;
+	}
+	
+	@PostMapping(path = "/getProductsByShops", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	@PreAuthorize("hasAnyAuthority('CLIENTS')")
+	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProductsByShop(@RequestBody AnyPageFilter pageFilter) {
+		LOGGER.info("getProducts in progress...");
+		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
+		try {         
 			dres = productService.getProducts(pageFilter);
 		} catch (DemoException e) {
 			LOGGER.error(e.getMessage());
@@ -278,12 +293,9 @@ public class ProductsController {
 		ProductDTO product = productService.getProduct(id);
 		
 		if (product == null) {
-			response.put("message", "Error al subir la imagen del producto"); // Acordarse
+			response.put("message", Constant.PRODUCT_NOT_EXISTS); // Acordarse
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		}
-		/**
-		 * TODO: Validar que el producto exista
-		 */
 		
 		LOGGER.info("upload image in progress...", product);
 		if (!file.isEmpty()) {
@@ -309,9 +321,9 @@ public class ProductsController {
 				product.getImages().add(productImg);
 				productService.createProduct(product);
 				response.put("product", product);
-				response.put("message", "Imagen añadida correctamente");
+				response.put("message", Constant.IMAGE_UPLOADED);
 			} catch (Exception e) {
-				response.put("message", "Error al subir la imagen del producto"); // Acordarse																											// TRANSLATE
+				response.put("message", Constant.IMAGE_UPLOAD_ERROR); // TRANSLATE																									// TRANSLATE
 				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
 				e.printStackTrace();
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
