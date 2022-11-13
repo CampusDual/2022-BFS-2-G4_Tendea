@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -34,6 +35,10 @@ public class Shop implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "shop_id") // crea la llave foranea en la otra tabla
+	private List<ShopImage> images;
+    
     @NotEmpty(message = Constant.NAME_REQUIRED)
     @Size(min = 2, max = 24, message = Constant.SHOP_INCORRECT_SIZE)
     @Column(nullable=false)
@@ -47,9 +52,9 @@ public class Shop implements Serializable {
             @JoinColumn(name = "category_id") })
     private Set<Category> categories = new HashSet<>(); 
     
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "shop_id")
-    private Set<Product> products = new HashSet<>(); 
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "shop_id")
+//    private Set<Product> products = new HashSet<>(); 
 
     private String address;
     
@@ -73,6 +78,12 @@ public class Shop implements Serializable {
     //@NotEmpty(message = Constant.USER_ACTIVE_STATUS_REQUIRED)
     @Column(name = "active_status")
     private Integer activeStatus;
+    
+    @Column()
+    private String urlFb;
+    
+    @Column()
+    private String urlInsta;
     
     
     // --- CONSTRUCTORS ---
@@ -107,8 +118,9 @@ public class Shop implements Serializable {
             String email,
             Integer activeStatus,
             User user,
-            Set<Category> categories,
-            Set<Product> products) {
+            Set<Category> categories
+//            ,Set<Product> products
+            ) {
         super();
         this.id = id;
         this.name = name;
@@ -120,7 +132,7 @@ public class Shop implements Serializable {
         this.activeStatus = activeStatus;
         this.user = user;
         this.categories = categories;
-        this.products = products;
+//        this.products = products;
     }
 
 
@@ -159,13 +171,13 @@ public class Shop implements Serializable {
         this.description = description;
     }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
+//    public Set<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(Set<Product> products) {
+//        this.products = products;
+//    }
 
     public String getAddress() {
         return address;
@@ -215,10 +227,39 @@ public class Shop implements Serializable {
         this.activeStatus = activeStatus;
     }
     
-    
+    public List<ShopImage> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ShopImage> images) {
+		this.images = images;
+	}
+
+	public String getUrlFb() {
+		return urlFb;
+	}
+
+	public void setUrlFb(String urlFb) {
+		this.urlFb = urlFb;
+	}
+
+	public String getUrlInsta() {
+		return urlInsta;
+	}
+
+	public void setUrlInsta(String urlInsta) {
+		this.urlInsta = urlInsta;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 
-    private static final long serialVersionUID = 274688743L;
+
+
+
+	private static final long serialVersionUID = 274688743L;
     
     
 }

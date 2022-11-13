@@ -1,3 +1,6 @@
+// Verde oscuro #00897b
+// Verde #00af91
+
 .main-container {
     width: 100%;
     background-color: white;
@@ -14,6 +17,12 @@
     background-position: center center;
     margin-bottom: 40px;
 
+}
+
+.description {
+    width: 75%;
+    margin-bottom: 60px;
+    background-color: #00897b;
 }
 
 .shop-name {
@@ -63,6 +72,7 @@ th.mat-header-cell {
 
 th.mat-header-cell:first-child {
     border-right: 1px solid black;
+    width: 12%;
 }
 
 .mat-cell {
@@ -100,7 +110,7 @@ tr.mat-row {
     margin-top: 20px;
 
     min-height: 50px;
-    background-color: #00af91;
+    background-color: #00897b;
 
     color: white;
     font-size: large;

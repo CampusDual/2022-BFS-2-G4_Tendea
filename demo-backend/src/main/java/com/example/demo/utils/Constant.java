@@ -59,6 +59,7 @@ public class Constant {
 	public static final String SHOP_INCORRECT_SIZE = "INCORRECT_SIZE";
 	public static final String SHOP_NOT_EXISTS = "SHOP_NOT_EXISTS";
 	public static final String SHOP_NOT_CREATED = "SHOP_NOT_CREATED";
+	public static final String IMAGE_NOT_EXISTS = "IMAGE_NOT_EXISTS";
 	
 	// Shop message
 	public static final String SHOP_DELETE_SUCCESS = "SHOP_DELETE_SUCCESS";
@@ -81,7 +82,11 @@ public class Constant {
 	public static final String RESPONSE_CODE = "responseCode";
 	public static final String ERROR = "errors";
 	public static final String PHONE_ERROR ="contacts_phone_key";
-  public static final String CITY_REQUIRED = "CITY_NAME REQUIRED";
-	
+    public static final String CITY_REQUIRED = "CITY_NAME REQUIRED";
+    
+    //Image message
+    public static final String IMAGE_UPLOADED = "IMAGE_UPLOADED";
+    //Image error
+    public static final String IMAGE_UPLOAD_ERROR = "IMAGE_UPLOAD_ERROR";
 
 }

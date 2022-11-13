@@ -1,5 +1,6 @@
 import { Category } from "./category";
 import { Product } from "./product";
+import { ShopImages } from "./shop-images";
 import { User } from "./user";
 
 export class Shop {
@@ -8,6 +9,7 @@ export class Shop {
     description: string;
     categories: Category[];
     products: Product[];
+    images: ShopImages[];
     address: string;
     city: string;
     phone: string;
