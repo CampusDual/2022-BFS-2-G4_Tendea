@@ -4,10 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import com.example.demo.dto.UserDTO;
 import com.example.demo.entity.Shop;
 import com.example.demo.entity.User;
 
@@ -21,7 +17,12 @@ public interface ShopRepository extends JpaRepository<Shop, Integer>, JpaSpecifi
 	 * @param user
 	 * @return
 	 */
+	public Shop findByUser(User user);
 	
-	//@Query("SELECT s FROM Shop s WHERE user = ?1")
-	public List<Shop> findByUser(User user);
+	/**
+	 * Listadod de tiendas por usuario
+	 * @param user
+	 * @return
+	 */
+	public List<Shop> findAllByUser(User user);
 }

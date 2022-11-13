@@ -73,6 +73,9 @@ public class ShopsController {
 
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IProductService productService;
 
 	/**
 	 * Devuelve las ultimas 5 tiendas registradas ordenadas por id

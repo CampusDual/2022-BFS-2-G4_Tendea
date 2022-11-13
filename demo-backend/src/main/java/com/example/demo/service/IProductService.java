@@ -24,11 +24,12 @@ public interface IProductService {
 	ProductDTO createProduct(ProductDTO createProductRequest);
 	
 	/**
-	 * Crea el producto de una tienda
-	 * @param createProductRequest
+	 * Crea el producto con una tienda.
+	 * @param product
 	 * @return
 	 */
-	ProductDTO createProductStore(ProductDTO createProductRequest);
+	ProductDTO createProductStore(Product product);
+
 	
 	/**
 	 * Obtiene un producto

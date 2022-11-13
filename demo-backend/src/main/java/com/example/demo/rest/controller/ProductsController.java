@@ -131,8 +131,8 @@ public class ProductsController {
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
 				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			}
-
 			response.put("product", productNew);
+			
 		} else {
 			List<String> errors = new ArrayList<>();
 			for (FieldError error : result.getFieldErrors()) {

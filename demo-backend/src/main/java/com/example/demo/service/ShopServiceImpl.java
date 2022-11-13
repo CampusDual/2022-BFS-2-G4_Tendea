@@ -87,7 +87,6 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 		return datares;
 	}
 
-
 	/**
 	 * Busca la tiendas por usuario
 	 */
@@ -104,7 +103,10 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 		// TODO Auto-generated method stub
 		return null;
 	}
-  
+
+	/**
+	 * Busca de tiendas por usuario
+	 */
 	@Override
 	@Transactional(readOnly = true)
 	public List<ShopDTO> findByUserId(Integer id) {
@@ -112,5 +114,24 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 		shops = ShopMapper.INSTANCE.shopToShopDTOList(shopRepository.findByUserId(id));
 		return shops;
 	}
-	
+
+	/**
+	 * Busca una tienda por usuario
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Shop getShopByUser(UserDTO userDTO) {
+		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
+		Shop shop = shopRepository.findByUser(user);
+		return shop;
+	}
+
+	public List<ShopDTO> getShopsByUser(UserDTO userDTO) {
+		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
+		List<Shop> shops =  shopRepository.findAllByUser(user);
+		List<ShopDTO> lShops =  ShopMapper.INSTANCE.shopToShopDTOList(shops);
+		return lShops;
+	}
+
+
 }

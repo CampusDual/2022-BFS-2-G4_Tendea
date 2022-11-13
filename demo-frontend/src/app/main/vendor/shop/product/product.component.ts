@@ -28,7 +28,7 @@ export class ProductComponent implements OnInit {
     name: ['Un Producto'],
     price: [100],
     discount: [20],
-    category: [],
+    category: [, Validators.required],
     bulk: [],
     description: ['Esta es una descipcion'],
   });
@@ -48,9 +48,9 @@ export class ProductComponent implements OnInit {
     /** Send product to backend */
     console.log(this.productForm.value);
 
-    // console.log(this.productForm.value);
-    // this.shopService
-    //   .createProduct(this.productForm.value)
-    //   .subscribe((res) => console.log(res));
+    console.log(this.productForm.value);
+    this.shopService
+      .createProduct(this.productForm.value)
+      .subscribe((res) => console.log(res));
   }
 }
