@@ -290,7 +290,7 @@ public class ShopsController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 		LOGGER.info("Create Product is finish...");
-		response.put(Constant.MESSAGE, message);
+		response.put(Constant.MESSAGE, "Producto registrado correctamente");
 		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
 

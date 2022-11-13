@@ -181,6 +181,7 @@ export class ShopService {
     formData.append('id', shop.id);
 
     return this.http.post<Product>(url, formData, { headers }).pipe(
+      
       catchError((e) => {
         return throwError(() => e);
       })

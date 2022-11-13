@@ -5,6 +5,7 @@ import { ShopService } from '../../../../services/shop.service';
 import { AuthService } from '../../../../auth/auth.service';
 import { CategoryService } from '../../../../services/category.service';
 import { Category } from '../../../../model/category';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
   selector: 'app-product',
@@ -16,12 +17,14 @@ export class ProductComponent implements OnInit {
   category: Category;
   userName: string;
   categories: Category[];
+  imageUpload: File; // Imagen a subir
 
   constructor(
     private fb: FormBuilder,
     private shopService: ShopService,
     private authService: AuthService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private fileUpload: FileUploadService
   ) {}
 
   productForm: FormGroup = this.fb.group({
@@ -46,11 +49,23 @@ export class ProductComponent implements OnInit {
       : this.productForm.get('bulk').setValue(0);
 
     /** Send product to backend */
-    console.log(this.productForm.value);
+    // this.shopService
+    //   .createProduct(this.productForm.value)
+    //   .subscribe((res) => console.log(res));
+  }
 
-    console.log(this.productForm.value);
-    this.shopService
-      .createProduct(this.productForm.value)
+  /**
+   * Subir o actualizar la imagen del producto
+   */
+  changeImage(event) {
+    const file = event.target.files[0];
+    this.imageUpload = file;
+  }
+
+  uploadImage() {
+    console.log(this.imageUpload);
+    this.fileUpload
+      .uploadImage(this.imageUpload, 236, 'products')
       .subscribe((res) => console.log(res));
   }
 }

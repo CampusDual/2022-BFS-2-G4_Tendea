@@ -1,17 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { AuthService } from '../auth/auth.service';
+import { catchError, throwError, Observable } from 'rxjs';
+import { Buffer } from 'buffer';
+import { API_CONFIG } from '../shared/api.config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FileUploadService {
+  constructor(private http: HttpClient, private authServices: AuthService) {}
 
-  constructor(private http: HttpClient) { }
+  /**
+   * Actualizar Imagen
+   */
+  public uploadImg(shop: any, img: File): Observable<any> {
+    const url = API_CONFIG.uploadShopImg;
+    const headers = new HttpHeaders({
+      'Content-type': 'multipart/form-data; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+    let formData = new FormData();
+    console.log(shop);
+    formData.append('file', img);
+    formData.append('id', shop.id);
 
-
-
-
-
-
-
+    return this.http.post<Product>(url, formData, { headers }).pipe(
+      
+      catchError((e) => {
+        return throwError(() => e);
+      })
+    );
+  }
 }

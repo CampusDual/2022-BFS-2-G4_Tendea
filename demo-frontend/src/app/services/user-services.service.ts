@@ -74,4 +74,16 @@ export class UserServicesService {
       })
     );
   }
+
+  getToken() {
+    const token = localStorage.getItem('token');
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    if (token === null) {
+      console.log('Token es nulo o invalido');
+    }
+    return httpHeaders;
+  }
 }
