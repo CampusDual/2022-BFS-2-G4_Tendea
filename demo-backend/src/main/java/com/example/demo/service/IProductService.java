@@ -28,7 +28,7 @@ public interface IProductService {
 	 * @param product
 	 * @return
 	 */
-	ProductDTO createProductStore(Product product);
+	ProductDTO createProductStore(ProductDTO Cre);
 
 	
 	/**

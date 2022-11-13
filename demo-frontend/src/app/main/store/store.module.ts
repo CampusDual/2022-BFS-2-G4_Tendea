@@ -27,7 +27,6 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
   ]
 })
 export class StoreModule { }

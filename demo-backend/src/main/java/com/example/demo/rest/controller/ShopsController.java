@@ -261,29 +261,37 @@ public class ShopsController {
 	 * @return
 	 */
 	@PostMapping(path = "/createProduct")
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> createProduct(@RequestBody Product product, String login) {
-
+	//@PreAuthorize("hasAnyAuthority('SHOPS')")
+	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO createProductRequest, String login, BindingResult result) {
+		LOGGER.info("createProduct in progress...");
 		ProductDTO newProduct = null;
-		UserDTO user = null;
 		Shop shop = null;
 		Map<String, Object> response = new HashMap<>();
-		LOGGER.info("Create Product in progress...");
-		try {
-			user = userService.findByLogin("demoadmin");
-			shop = shopService.getShopByUser(user);
-			product.setShop(shop);
-			newProduct = productService.createProductStore(product);
-		} catch (DataAccessException e) {
-			response.put("message", "Error al realizar el insert en la base de datos");
-			response.put("error", e.getMessage().concat(" :").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		HttpStatus status = HttpStatus.CREATED;
+		String message = Constant.PRODUCT_CREATE_SUCCESS;
+		
+		if (!result.hasErrors()) {
+			try {
+				newProduct = productService.createProductStore(createProductRequest);
+				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
+			} catch (DataAccessException e) {
+				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			}
+			response.put("product", newProduct);
+		} else {
+			List<String> errors = new ArrayList<>();
+			for(FieldError error : result.getFieldErrors()) {
+				errors.add(error.getDefaultMessage());
+			}
+			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.WARNING.getValue());
+			message = Constant.PRODUCT_NOT_CREATED;
+			response.put(Constant.ERROR, errors);
+			status = HttpStatus.BAD_REQUEST;
 		}
-		response.put("message", "Se registro correctamente al cliente");
-		response.put("productId", newProduct.getId());
-		response.put("storeId", newProduct.getShop().getId());
 		LOGGER.info("Create Product is finish...");
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		response.put(Constant.MESSAGE, message);
+		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
 
 	@GetMapping("/getShopByUser/{query}")
