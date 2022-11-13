@@ -111,16 +111,17 @@ export class ShopService {
    */
   createProduct(product: Product): Observable<Product> {
     const login = this.authService.getUserName();
-    console.log(login);
     const url = API_CONFIG.createShopProduct;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
     });
-    return this.http.post<Product>(url, { product, login }, { headers }).pipe(
-      catchError((e) => {
-        return throwError(() => e);
-      })
-    );
+    return this.http.post<Product>(url, product, { headers });
   }
 
   public getShopById(id: number): Observable<Shop> {

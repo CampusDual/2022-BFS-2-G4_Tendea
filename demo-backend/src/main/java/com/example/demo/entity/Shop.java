@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.demo.utils.Constant;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table (name = "shops")
@@ -45,10 +46,12 @@ public class Shop implements Serializable {
     @ManyToMany
     @JoinTable(name = "shops_categories_map", joinColumns = { @JoinColumn(name = "shop_id") }, inverseJoinColumns = {
             @JoinColumn(name = "category_id") })
+	@JsonIgnoreProperties({ "category", "hibernateLazyInitializer", "handler" })
     private Set<Category> categories = new HashSet<>(); 
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")
+	@JsonIgnoreProperties({ "product", "hibernateLazyInitializer", "handler" })
     private Set<Product> products = new HashSet<>(); 
 
     private String address;

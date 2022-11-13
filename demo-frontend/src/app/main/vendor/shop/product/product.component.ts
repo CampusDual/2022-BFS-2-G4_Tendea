@@ -29,8 +29,8 @@ export class ProductComponent implements OnInit {
     price: [100],
     discount: [20],
     category: [],
+    description: [],
     bulk: [],
-    login: [],
   });
   ngOnInit(): void {
     this.userName = this.authService.getUserName();
@@ -44,11 +44,9 @@ export class ProductComponent implements OnInit {
       ? this.productForm.get('bulk').setValue(1)
       : this.productForm.get('bulk').setValue(0);
 
-    this.productForm.get('login').setValue(this.userName);
-
     console.log(this.productForm.value);
     this.shopService
       .createProduct(this.productForm.value)
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => console.log('se creo correctamente'));
   }
 }

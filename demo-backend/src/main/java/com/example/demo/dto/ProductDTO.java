@@ -24,6 +24,7 @@ import com.example.demo.entity.Category;
 import com.example.demo.entity.ProductImage;
 import com.example.demo.entity.Shop;
 import com.example.demo.utils.Constant;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Since;
 
 import com.example.demo.entity.ProductImage;

@@ -23,5 +23,7 @@ public interface ShopRepository extends JpaRepository<Shop, Integer>, JpaSpecifi
 	 */
 	
 	//@Query("SELECT s FROM Shop s WHERE user = ?1")
-	public List<Shop> findByUser(User user);
+	public Shop findByUser(User user);
+	
+	public List<Shop> findAllByUser(User user);
 }

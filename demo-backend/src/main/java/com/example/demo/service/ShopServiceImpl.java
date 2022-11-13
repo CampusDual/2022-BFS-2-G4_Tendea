@@ -1,11 +1,9 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,30 +85,38 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 		return datares;
 	}
 
-
-	/**
-	 * Busca la tiendas por usuario
-	 */
-//	@Override
-//	public List<ShopDTO> getShopByUser(UserDTO userDTO) {
-//		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
-//		List<Shop> shop =  shopRepository.findByUser(user);
-//		ShopDTO shopDTO = ShopMapper.INSTANCE.shopToShopDTO(shop);
-//		return shopDTO;
-//	}
-
 	@Override
 	public List<ShopDTO> lastStores() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-  
-	@Override
-	@Transactional(readOnly = true)
-	public List<ShopDTO> findByUserId(Integer id) {
-		List<ShopDTO> shops = new ArrayList<>();
-		shops = ShopMapper.INSTANCE.shopToShopDTOList(shopRepository.findByUserId(id));
-		return shops;
-	}
 	
+	/**
+	 * Busca las tiendas por usuario
+	 */
+	@Override
+	public List<ShopDTO> getShopsByUser(UserDTO userDTO) {
+		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
+		List<Shop> shops =  shopRepository.findAllByUser(user);
+		List<ShopDTO> lShops =  ShopMapper.INSTANCE.shopToShopDTOList(shops);
+		return lShops;
+	}
+
+	/**
+	 * Busca una tienda por usuario
+	 */
+	@Override
+	public Shop getShopByUser(UserDTO userDTO) {
+		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
+		Shop shop = shopRepository.findByUser(user);
+		return shop;
+	}
+
+
+	@Override
+	public List<ShopDTO> findByUserId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -10,14 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.borjaglez.springify.repository.specification.SpecificationBuilder;
-import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
-import com.example.demo.dto.ProductGetDTO;
-import com.example.demo.dto.mapper.ContactMapper;
-import com.example.demo.dto.mapper.ProductGetMapper;
 import com.example.demo.dto.mapper.ProductMapper;
-import com.example.demo.entity.Category;
-import com.example.demo.entity.Contact;
+
 import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.rest.response.DataSourceRESTResponse;
@@ -27,6 +22,10 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	/**
+	 * Devuelve todos los productos de la bd
+	 */
 
 	@Override
 	public List<ProductDTO> findAll() {
@@ -53,6 +52,9 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		return ProductMapper.INSTANCE.productToProductDTO(product);
 	}
 
+	/**
+	 * Elimina un producto
+	 */
 	@Override
 	public Integer deleteProduct(Integer id) {
 		productRepository.deleteById(id);
@@ -86,26 +88,22 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		return editProduct.getId();
 	}
 
+	/**
+	 * Devuelve una lista de los productos por categoria
+	 */
 	@Override
 	public List<ProductDTO> findByCategory(Integer categoryId) {
-
 		List<ProductDTO> products = new ArrayList<>();
-
 		List<ProductDTO> productCategory = new ArrayList<>();
-
 		products = ProductMapper.INSTANCE.productToProductDTOList(productRepository.findAll());
-
 		for (ProductDTO p : products) {
 
 			if (p.getCategory().getId() == categoryId) {
 
 				productCategory.add(p);
 			}
-
 		}
-
 		return productCategory;
-
 	}
 
 	/**
@@ -146,9 +144,9 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 	 * Crea el producto de una tienda
 	 */
 	@Override
-	public ProductDTO createProductStore(ProductDTO productDTORequest) {
-		Product product = ProductMapper.INSTANCE.productDTOtoProduct(productDTORequest);
-		Product newProduct = productRepository.save(product);
+	public ProductDTO createProductStore(Product createProductRequest) {
+		ProductDTO productDTO = ProductMapper.INSTANCE.productToProductDTO(createProductRequest);
+		Product newProduct = productRepository.save(fromCreateProductStoreRequest(productDTO));
 		return ProductMapper.INSTANCE.productToProductDTO(newProduct);
 	}
 

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import com.example.demo.entity.Category;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class ShopDTO {
 
@@ -19,10 +20,8 @@ public class ShopDTO {
     
     private String name;
     private String description;
-    
-    private Set<Category> categories = new HashSet<>(); 
+    private Set<Category> categories = new HashSet<>();
     private Set<Product> products = new HashSet<>(); 
-    
     private String address;
     private String city;
     private String email;
