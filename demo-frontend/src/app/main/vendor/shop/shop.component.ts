@@ -37,6 +37,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/
 export class ShopComponent implements OnInit {
   dataSource: ProductDataSource;
   products: Product[];
+  sProducts: Product[] = [];
 
   length = 100;
   pageSize = 10;
@@ -53,7 +54,7 @@ export class ShopComponent implements OnInit {
     'discount',
     'actions',
   ];
-  fields = ['name', 'select', 'category.name', 'price', 'discount', 'images.url'];
+  fields = ['name', 'category.name', 'price', 'discount', 'images.url'];
 
 
   shop: Shop;
@@ -134,6 +135,7 @@ export class ShopComponent implements OnInit {
         tap(() => {
           this.paginator.pageIndex = 0;
           this.loadProductsPage();
+          this.sProducts = this.shop.products;
         })
       )
       .subscribe();
@@ -196,11 +198,9 @@ export class ShopComponent implements OnInit {
   getUserAndShop(login) {
     this.userService.getUserByLogin(login).subscribe((res) => {
       this.users = res;
-      console.log(this.users[0].login);
       this.user = this.users[0];
       this.shopService.getShopByUserId(this.users[0].id).subscribe((res2) => {
         this.shops = res2;
-        console.log(this.shops[0].name);
         this.shop = this.shops[0];
       });
     });
