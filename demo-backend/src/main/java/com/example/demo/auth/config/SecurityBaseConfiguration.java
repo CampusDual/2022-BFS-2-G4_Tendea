@@ -45,6 +45,7 @@ public class SecurityBaseConfiguration extends ResourceServerConfigurerAdapter {
 		            "/categories/getCategories",
 		            "/categories/getCategory",
 		            "/products/getAllProducts",
+		            "/products/getProducts",
 		            "/products/getProduct/**",
 		            "/products/getProductsByName/**",
 		            "/products/uploads/img/**",

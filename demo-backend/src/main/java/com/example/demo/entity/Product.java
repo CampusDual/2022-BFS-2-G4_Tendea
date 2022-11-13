@@ -49,10 +49,12 @@ public class Product implements Serializable {
 	@Column(nullable = false)
 	private Integer bulk;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler" })
 	private Category category;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler" })
 	private Shop shop;
 
 	public void setBulk(Integer bulk) {

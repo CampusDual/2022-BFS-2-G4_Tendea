@@ -1,45 +1,13 @@
-<!-- <mat-card class="example-card" style="min-width: 18rem;">
-
-  <div class="container">
-    <img mat-card-image [src]="product | imagen " alt="Image no available">
-    <img *ngIf="product.discount != null && product.discount != 0" class="top-left"
-      [src]="'../../../assets/images/DiscountLabel.png'" alt="Discount Label">
-    <p *ngIf="product.discount != null && product.discount !=0" class="centered-text"> {{ product.discount }}%
-    <p>
-  </div>
-
-  <div>
-    <mat-card-title> {{product.name }} </mat-card-title>
-    <mat-card-subtitle> <a> Vendor space </a> | {{product.category.name}}</mat-card-subtitle>
-  </div>
-  <mat-card-content>
-    <table style="width:100%">
-      <td align="center"> </td>
-      <td align="center">
-        <h2 class="discounted-price"> {{ product.price * (1-product.discount/100) | currency :
-          'EUR':'symbol':'.2-2':'es'}} </h2>
-      </td>
-      <td align="left" *ngIf="product.discount !== 0 && product.discount !== null">
-        <h4 class="original-price"> {{ product.price | currency : 'EUR':'symbol':'.2-2':'es' }} </h4>
-      </td>
-      <td align="center"> </td>
-    </table>
-
-
-  </mat-card-content>
-</mat-card> -->
-
-
 <div class="card mb-4 box-shadow">
   <img class="card-img-top img-responsive img-thumbnail" alt="{{product.name}}" style="width: 100%; display: block;"
     [src]="product | imagen " alt="Image not available" data-holder-rendered="true">
   <div class="card-body">
 
     <h5 class="card-title">{{product.name }}</h5>
-    <p class="card-text"> <a> Vendor space </a> | {{product.category.name}}</p>
+    <p class="card-text"> <a> {{product.shop.name}} </a> | {{product.category.name}}</p>
     <p class="card-text" *ngIf="product.discount !== 0 && product.discount !== null else noDiscount"> {{ product.price |
       currency : 'EUR':'symbol':'.2-2':'es'}}</p>
-      
+
     <ng-template #noDiscount>
       <p><del> {{ product.price | currency : 'EUR':'symbol':'.2-2':'es'}} </del> | {{ product.price *
         (1-product.discount/100) | currency :
