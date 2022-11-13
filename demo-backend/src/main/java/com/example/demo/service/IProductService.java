@@ -77,6 +77,9 @@ public interface IProductService {
 
 	List<ProductDTO> findByNameContainingIgnoreCase(String query);
 	
+	List<ProductDTO> findByShopId(Integer id);
+	
+	
 	
 
 }

@@ -1,14 +1,125 @@
 <!-- <h1 class="color-green"> Tienda </h1> -->
 
 <div >
-  <mat-icon>edit</mat-icon>
-  <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-    <mat-icon>home</mat-icon>
+  <button mat-fab color="primary" (click)="editPhone()">
+    <mat-icon>edit</mat-icon>
   </button>
-  <button mat-fab disabled aria-label="Example icon button with a heart icon">
-    <mat-icon>open_in_new</mat-icon>
-  </button>
+
+    <div *ngIf="editShopField['phone']" >
+      <input mat-input [placeholder]="shop.phone" matInput [formControl]="phoneFormControl">
+      <button mat-flat-button color="primary" (click)="changePhone()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editPhone()">
+        <mat-icon> cancel </mat-icon>
+      </button>
+    </div>
 </div>
+
+<div >
+  <button mat-fab color="primary" (click)="editName()">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+    <div *ngIf="editShopField['name']" >
+      <input mat-input [placeholder]="shop.name" matInput [formControl]="nameFormControl">
+      <button mat-flat-button color="primary" (click)="changeName()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editName()">
+        <mat-icon> cancel </mat-icon>
+      </button>
+    </div>
+</div>
+
+<div >
+  <button mat-fab color="primary" (click)="editDescription()">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+    <div *ngIf="editShopField['description']" >
+      <input mat-input [placeholder]="shop.description" matInput [formControl]="descriptionFormControl">
+      <button mat-flat-button color="primary" (click)="changeDescription()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editDescription()">
+        <mat-icon> cancel </mat-icon>
+      </button>
+    </div>
+</div>
+
+<div >
+  <button mat-fab color="primary" (click)="editAddress()">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+    <div *ngIf="editShopField['address']" >
+      <input mat-input [placeholder]="shop.address" matInput [formControl]="addressFormControl">
+      <button mat-flat-button color="primary" (click)="changeAddress()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editAddress()">
+        <mat-icon> cancel </mat-icon>
+      </button>
+    </div>
+</div>
+
+<div >
+  <button mat-fab color="primary" (click)="editEmail()">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+    <div *ngIf="editShopField['email']" >
+      <input mat-input [placeholder]="shop.email" matInput [formControl]="emailFormControl">
+      <button mat-flat-button color="primary" (click)="changeEmail()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editEmail()">
+        <mat-icon> cancel </mat-icon>
+      </button>
+    </div>
+</div>
+
+<div >
+  <button mat-fab color="primary" (click)="editUrlFB()">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+    <div *ngIf="editShopField['urlFB']" >
+      <input mat-input [placeholder]="shop.urlFB" matInput [formControl]="urlFBFormControl">
+      <button mat-flat-button color="primary" (click)="changeUrlFB()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editUrlFB()">
+        <mat-icon> cancel </mat-icon>
+      </button>
+    </div>
+</div>
+
+<div >
+  <button mat-fab color="primary" (click)="editUrlInsta()">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+    <div *ngIf="editShopField['urlInsta']" >
+      <input mat-input [placeholder]="shop.urlInsta" matInput [formControl]="urlInstaFormControl">
+      <button mat-flat-button color="primary" (click)="changeUrlInsta()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editUrlInsta()">
+        <mat-icon> cancel </mat-icon>
+      </button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 
 <div fxLayout="column" fxLayoutAlign="center strech">
   <div class="main-container" >
