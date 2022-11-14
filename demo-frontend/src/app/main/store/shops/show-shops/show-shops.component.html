@@ -44,22 +44,24 @@
     >
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
-        <th id="header" mat-header-cell *matHeaderCellDef>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "table.shop.name" | translate }}
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()"
           >
           </mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row" data-label="name">
           <mat-checkbox
             (click)="$event.stopPropagation()"
             (change)="$event ? selection.toggle(row) : null"
             [checked]="selection.isSelected(row)"
           >
           </mat-checkbox>
-        </td>
+        </mat-cell>
       </ng-container>
 
       <!-- NAME -->
@@ -117,7 +119,7 @@
     <mat-card *ngIf="dataSource.loading$| async" style="display: flex; justify-content: center; align-items: center">
       <mat-spinner></mat-spinner>
     </mat-card>
-  
+
     <mat-paginator [length]="dataSource.totalElements"
                    [pageSize]="pageSize"
                    [pageSizeOptions]="pageSizeOptions"

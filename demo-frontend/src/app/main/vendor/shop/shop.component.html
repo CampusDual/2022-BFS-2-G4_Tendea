@@ -1,28 +1,229 @@
 <!-- <h1 class="color-green"> Tienda </h1> -->
 
+
+
 <div >
-  <mat-icon>edit</mat-icon>
-  <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-    <mat-icon>home</mat-icon>
+  <button mat-fab color="primary" (click)="editName()">
+    <mat-icon>edit</mat-icon>
   </button>
-  <button mat-fab disabled aria-label="Example icon button with a heart icon">
-    <mat-icon>open_in_new</mat-icon>
-  </button>
+
+    <div *ngIf="editShopField['name']" >
+      <input mat-input [placeholder]="shop.name" matInput [formControl]="nameFormControl">
+      <button mat-flat-button color="primary" (click)="changeName()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editName()">
+        <mat-icon> cancel </mat-icon>
+      </button>
+    </div>
 </div>
 
-<div fxLayout="column" fxLayoutAlign="center strech">
-  <div class="main-container">
-    <div>
-      <img class="main-img" [src]="shop | shopImagen" />
-      <h1 class="shop-name"> {{ shop.name }}</h1>
+
+
+<div >
+  <button mat-fab color="primary" (click)="editAddress()">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+    <div *ngIf="editShopField['address']" >
+      <input mat-input [placeholder]="shop.address" matInput [formControl]="addressFormControl">
+      <button mat-flat-button color="primary" (click)="changeAddress()">
+         <mat-icon> done </mat-icon>
+      </button>
+      <button mat-flat-button (click)="editAddress()">
+        <mat-icon> cancel </mat-icon>
+      </button>
     </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div fxLayout="column" fxLayoutAlign="center strech">
+  <div class="main-container" >
+      <img class="main-img" [src]="shop | shopImagen" />
+      <h1 class="shop-name text-center"> {{ shop.name }}</h1>
+
+      <div class="contactButton">
+        <button mat-fab color="primary" (click)="editName()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="editShopField['name']" >
+        <input mat-input [placeholder]="shop.name" matInput [formControl]="nameFormControl">
+        <button mat-flat-button color="primary" (click)="changeName()">
+            <mat-icon> done </mat-icon>
+        </button>
+        <button mat-flat-button (click)="editName()">
+          <mat-icon> cancel </mat-icon>
+        </button>
+      </div>
 
     <div fxLayout="column" fxLayoutAlign="center center">
       <div class="description">
-        <h3>{{ shop.description }}</h3>
+        <p>{{ shop.description }}</p>
+        <div class="contactButton">
+          <button mat-fab color="primary" (click)="editDescription()">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+        </div>
+
+            <div *ngIf="editShopField['description']" >
+              <input mat-input [placeholder]="shop.description" matInput [formControl]="descriptionFormControl">
+              <button mat-flat-button color="primary" (click)="changeDescription()">
+                 <mat-icon> done </mat-icon>
+              </button>
+              <button mat-flat-button (click)="editDescription()">
+                <mat-icon> cancel </mat-icon>
+              </button>
+            </div>
       </div>
     </div>
-    
+
+    <div class="vendor-details">
+      <div fxLayout="row" fxLayoutAlign="space-around start" >
+        <div><p class="detailTitle">Redes sociales</p>
+          <div class="icons-container">
+            <a href="{{shop.urlFb}}"><img class="social_media_icon" src="./assets/images/social_media_icons/facebook.png"></a>
+            <a href="{{shop.urlInsta}}"><img class="social_media_icon" src="./assets/images/social_media_icons/instagram.png"></a>
+
+            <div class="contactButton">
+              <button mat-fab color="primary" (click)="editUrlFB()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+            <div>
+                <div *ngIf="editShopField['urlFB']" >
+                  <input mat-input [placeholder]="shop.urlFb" matInput [formControl]="urlFBFormControl">
+                  <button mat-flat-button color="primary" (click)="changeUrlFB()">
+                     <mat-icon> done </mat-icon>
+                  </button>
+                  <button mat-flat-button (click)="editUrlFB()">
+                    <mat-icon> cancel </mat-icon>
+                  </button>
+                </div>
+            </div>
+
+            <div class="contactButton">
+              <button mat-fab color="primary" (click)="editUrlInsta()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+            <div>
+                <div *ngIf="editShopField['urlInsta']" >
+                  <input mat-input [placeholder]="shop.urlInsta" matInput [formControl]="urlInstaFormControl">
+                  <button mat-flat-button color="primary" (click)="changeUrlInsta()">
+                     <mat-icon> done </mat-icon>
+                  </button>
+                  <button mat-flat-button (click)="editUrlInsta()">
+                    <mat-icon> cancel </mat-icon>
+                  </button>
+                </div>
+            </div>
+
+
+          </div>
+
+        </div>
+
+        <table>
+          <tr>
+
+            <th colspan="2" class="text-center">
+              <p class="detailTitle">Contacta con nosotros:</p>
+            </th>
+          </tr>
+          <tr>
+            <td><mat-icon> place </mat-icon>  {{shop.address}}</td>
+            <td>
+              <div>
+                <div class="contactButton">
+                  <button mat-fab color="primary" (click)="editAddress()">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+
+                <div>
+                  <div *ngIf="editShopField['address']" >
+                    <input mat-input [placeholder]="shop.address" matInput [formControl]="addressFormControl">
+                    <button mat-flat-button color="primary" (click)="changeAddress()">
+                      <mat-icon> done </mat-icon>
+                    </button>
+                    <button mat-flat-button (click)="editAddress()">
+                      <mat-icon> cancel </mat-icon>
+                    </button>
+                 </div>
+            </div>
+            </div>
+            </td>
+          </tr>
+          <tr>
+            <td> <p> <mat-icon> email </mat-icon>  {{shop.email}} </p></td>
+            <td>
+              <div>
+              <div  class="contactButton">
+                <button mat-fab color="primary" (click)="editEmail()" >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+
+                  <div *ngIf="editShopField['email']"  >
+                    <input mat-input [placeholder]="shop.email" matInput [formControl]="emailFormControl">
+                    <button mat-flat-button color="primary" (click)="changeEmail()">
+                       <mat-icon> done </mat-icon>
+                    </button>
+                    <button mat-flat-button (click)="editEmail()">
+                      <mat-icon> cancel </mat-icon>
+                    </button>
+                  </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><p> <mat-icon> phone </mat-icon>  {{shop.phone}} </p></td>
+            <td>
+              <div >
+                <div class="contactButton">
+                  <button mat-fab color="primary" (click)="editPhone()">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+
+              <div>
+                <div *ngIf="editShopField['phone']" >
+                  <input mat-input [placeholder]="shop.phone" matInput [formControl]="phoneFormControl">
+                  <button mat-flat-button color="primary" (click)="changePhone()">
+                     <mat-icon> done </mat-icon>
+                  </button>
+                  <button mat-flat-button (click)="editPhone()">
+                    <mat-icon> cancel </mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              </div>
+            </td>
+          </tr>
+        </table>
+
+
+      </div>
+    </div>
+
 
     <div fxLayout="row" fxLayoutAlign="center center">
       <div class="mat-elevation-z8 table-container">
@@ -34,15 +235,13 @@
         </div>
 
         <mat-divider></mat-divider>
-        
-        
 
-        <table class="custom-table" mat-table [dataSource]="dataSource" 
+        <table class="custom-table" mat-table [dataSource]="dataSource"
                matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
-          
+
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
-            <th id="header" mat-header-cell *matHeaderCellDef>
+            <th id="header" mat-header-cell *matHeaderCellDef class="productTable">
               <mat-checkbox
                 (change)="$event ? masterToggle() : null"
                 [checked]="selection.hasValue() && isAllSelected()"
@@ -60,33 +259,35 @@
           </ng-container>
 
           <ng-container matColumnDef="image">
-            <th mat-header-cell *matHeaderCellDef>Imagen</th>
+            <th mat-header-cell *matHeaderCellDef class="productTable">Imagen</th>
             <td mat-cell *matCellDef="let product">
               <img [src]="product | imagen" class="card-img-top img-responsive img-thumbnail" style="width: 95%; display: block; margin-top: 3px; margin-bottom: 3px;">
             </td>
           </ng-container>
 
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <th mat-header-cell *matHeaderCellDef class="productTable">Nombre</th>
             <td mat-cell *matCellDef="let product">{{ product.name }}</td>
           </ng-container>
 
           <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef>Precio</th>
+            <th mat-header-cell *matHeaderCellDef class="productTable">Precio</th>
             <td mat-cell *matCellDef="let product">{{ product.price | currency : 'EUR':'symbol':'.2-2':'es'}}</td>
           </ng-container>
 
           <ng-container matColumnDef="discount">
-            <th mat-header-cell *matHeaderCellDef> Descuento </th>
-            <td mat-cell *matCellDef="let product">{{ product.discount }}
-              <span *ngIf="product.discount">%</span>
+            <th mat-header-cell *matHeaderCellDef class="productTable"> Descuento </th>
+            <td mat-cell *matCellDef="let product" >
+              <span *ngIf="product.discount">{{ product.discount }}%</span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef></th>
+            <th mat-header-cell *matHeaderCellDef class="productTable"> Acciones </th>
             <td mat-cell *matCellDef="let product">
-              <mat-icon > delete_outline </mat-icon>
+              <button mat-raised-button (click)="onDelete()">
+                <mat-icon>delete</mat-icon> {{ "delete" | translate }}
+              </button>
             </td>
           </ng-container>
 
@@ -108,26 +309,8 @@
       </div>
     </div>
 
-    <div class="vendor-footer" fxFlexAlign="end">
-      <div fxLayout="row" fxLayoutAlign="space-around start" > 
-        <div>Logo y tienda</div>
-        <div>Redes sociales
-          <div class="icons-container">
-            <img src="https://scontent.fmad7-1.fna.fbcdn.net/v/t39.2365-6/89126182_222315695571651_4936319991919149056_n.svg?_nc_cat=1&amp;ccb=1-7&amp;_nc_sid=ad8a9d&amp;_nc_ohc=6BJo9MJXCSoAX_R89zx&amp;_nc_ht=scontent.fmad7-1.fna&amp;oh=00_AfCdVdl1rrJ2yRgXpqJ-J_cB6l5pbePT8JcPGOIZJaDMvA&amp;oe=6371976F">
-            <img src="https://scontent.fmad7-1.fna.fbcdn.net/v/t39.2365-6/89319900_506382610280628_2520212398984396800_n.svg?_nc_cat=1&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=MHeK3G0YcMcAX-I9fF0&_nc_ht=scontent.fmad7-1.fna&oh=00_AfAYYqs0t7375aSdhqoqy2DGVByeIfXUFjVCFagPZzoO0A&oe=63716AB5"> 
-          </div>
-          
-        </div>
-        <div>
-          <p>Contacta con nosotros:</p>
-          <p> <mat-icon> place </mat-icon>  {{shop.address}} </p>
-          <p> <mat-icon> email </mat-icon>  {{shop.email}} </p>
-          <p> <mat-icon> phone </mat-icon>  {{shop.phone}} </p>
-        </div>
-      </div>
-    </div>
-
 
 
   </div>
+
 </div>

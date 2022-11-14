@@ -2,9 +2,9 @@
 // Verde #00af91
 
 .main-container {
-    width: 100%;
+    width: 75%;
     background-color: white;
-    
+    margin: auto;
 }
 
 .main-img {
@@ -20,25 +20,35 @@
 }
 
 .description {
-    width: 75%;
-    margin-bottom: 60px;
-    background-color: #00897b;
+    width: 100%;
+
+    margin-top: 50px;
+}
+
+.title {
+
+  padding: 20px;
+  width: 200px;
+  height: 150px;
 }
 
 .shop-name {
     position: absolute;
-    top: 10%;
-    left: 4%;
-    color: rgb(61, 33, 1);
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 }
 
 .table-container {
-    width: 75%;
+    width: 100%;
     position: relative;
     object-position: center;
+    font-size: large;
 }
 
-
+.text-center {
+  text-align: center!important;
+}
 
 
 // Estilos personalizados tabla de productos
@@ -51,6 +61,10 @@
 // .mat-table {
 //     font-size: large;
 // }
+
+.contactButton > * {
+    transform: scale(0.5);
+}
 
 td.mat-cell {
     // padding: 16px 0 16px 0;
@@ -81,13 +95,13 @@ th.mat-header-cell:first-child {
     margin-left: 1%;
 }
 
-th {
+th.productTable {
     text-align: center;
     font-size: large;
     color: white;
-    
+
     background-color: #00af91;
-    
+
     height: 30px;
 }
 
@@ -99,23 +113,28 @@ tr.mat-row {
     height: 150px;
 }
 
-  
+
 //   td.mat-cell:last-child {
 //     border-right: 2px solid #ffa600;
 //   }
 
-
-// Footer
-.vendor-footer {
+.vendor-details {
     margin-top: 20px;
-
+    background-color:  #00af9294;
     min-height: 50px;
-    background-color: #00897b;
 
-    color: white;
     font-size: large;
+}
+
+.vendor-details .detailTitle {
+    font-weight: bold;
 }
 
 .icons-container img + img {
     margin-left: 20px;
   }
+
+.social_media_icon {
+    max-width: 50px;
+    max-height: 50px;
+}

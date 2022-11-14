@@ -6,8 +6,7 @@ import { Shop } from '../model/shop';
 })
 export class ShopImagenPipe implements PipeTransform {
   transform(shop: Shop): string {
-    console.log(shop)
-    if (shop.images.length > 0) {
+    if (shop.images) {
       return `http://localhost:9999/shops/uploads/img/${shop.images[0].url}`;
     } else {
       return 'assets/images/ImgNoAvailable.png';
