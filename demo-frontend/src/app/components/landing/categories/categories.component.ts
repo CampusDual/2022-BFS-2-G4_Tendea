@@ -26,12 +26,12 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.activateRoute.params
-      .pipe(switchMap(({ id }) => this.categoryService.getCategory(id)))
-      .subscribe((res) => (this.category = res));
-
+    .pipe(switchMap(({ id }) => this.categoryService.getCategory(id)))
+    .subscribe((res) => (this.category = res));
+    
     this.activateRoute.params
       .pipe(
-        switchMap(({ id }) => this.productService.getProductsByCategory(id)),
+        switchMap(({ id }) => this.productService.getProductsByCategory(id))
       )
       .subscribe((res) => ((this.sProducts = res), (this.spinner = false)));
   }

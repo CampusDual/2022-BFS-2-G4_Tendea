@@ -3,7 +3,9 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
+import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.entity.Category;
 import com.example.demo.entity.Product;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 
@@ -24,11 +26,12 @@ public interface IProductService {
 	ProductDTO createProduct(ProductDTO createProductRequest);
 	
 	/**
-	 * Crea el producto de una tienda
-	 * @param createProductRequest
+	 * Crea el producto con una tienda.
+	 * @param product
 	 * @return
 	 */
-	ProductDTO createProductStore(ProductDTO createProductRequest);
+	ProductDTO createProductStore(ProductDTO Cre);
+
 	
 	/**
 	 * Obtiene un producto
@@ -65,7 +68,7 @@ public interface IProductService {
 	/**
 	 * Obtener productos por categoria
 	 */
-	List<ProductDTO> findByCategory(Integer categoryId);
+	List<ProductDTO> findByCategory(CategoryDTO category);
 	
 	/**
 	 * Obtener producto por el nombre (Parametro de busqueda)
@@ -76,6 +79,8 @@ public interface IProductService {
 	
 
 	List<ProductDTO> findByNameContainingIgnoreCase(String query);
+
+
 	
 	List<ProductDTO> findByShopId(Integer id);
 	

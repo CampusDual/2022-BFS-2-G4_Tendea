@@ -41,12 +41,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
+import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.mapper.ProductMapper;
+import com.example.demo.entity.Category;
 import com.example.demo.entity.ProductImage;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
 import com.example.demo.rest.response.DataSourceRESTResponse;
+import com.example.demo.service.ICategoryService;
 import com.example.demo.service.IProductService;
 import com.example.demo.utils.Constant;
 
@@ -59,6 +62,9 @@ public class ProductsController {
 
 	@Autowired
 	private IProductService productService;
+	
+	@Autowired
+	private ICategoryService categoryService;
 
 	/**
 	 * Obtiene un producto de BDD con el id indicado.
@@ -96,7 +102,22 @@ public class ProductsController {
 	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProducts(@RequestBody AnyPageFilter pageFilter) {
 		LOGGER.info("getProducts in progress...");
 		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
-		try {
+		try {         
+			dres = productService.getProducts(pageFilter);
+		} catch (DemoException e) {
+			LOGGER.error(e.getMessage());
+			dres.setResponseMessage(e.getMessage());
+		}
+		LOGGER.info("getProducts is finished...");
+		return dres;
+	}
+	
+	@PostMapping(path = "/getProductsByShops", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	@PreAuthorize("hasAnyAuthority('CLIENTS')")
+	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProductsByShop(@RequestBody AnyPageFilter pageFilter) {
+		LOGGER.info("getProducts in progress...");
+		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
+		try {         
 			dres = productService.getProducts(pageFilter);
 		} catch (DemoException e) {
 			LOGGER.error(e.getMessage());
@@ -131,8 +152,8 @@ public class ProductsController {
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
 				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			}
-
 			response.put("product", productNew);
+			
 		} else {
 			List<String> errors = new ArrayList<>();
 			for (FieldError error : result.getFieldErrors()) {
@@ -278,12 +299,9 @@ public class ProductsController {
 		ProductDTO product = productService.getProduct(id);
 		
 		if (product == null) {
-			response.put("message", "Error al subir la imagen del producto"); // Acordarse
+			response.put("message", Constant.PRODUCT_NOT_EXISTS); // Acordarse
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		}
-		/**
-		 * TODO: Validar que el producto exista
-		 */
 		
 		LOGGER.info("upload image in progress...", product);
 		if (!file.isEmpty()) {
@@ -309,9 +327,9 @@ public class ProductsController {
 				product.getImages().add(productImg);
 				productService.createProduct(product);
 				response.put("product", product);
-				response.put("message", "Imagen añadida correctamente");
+				response.put("message", Constant.IMAGE_UPLOADED);
 			} catch (Exception e) {
-				response.put("message", "Error al subir la imagen del producto"); // Acordarse																											// TRANSLATE
+				response.put("message", Constant.IMAGE_UPLOAD_ERROR); // TRANSLATE																									// TRANSLATE
 				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
 				e.printStackTrace();
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
@@ -320,6 +338,7 @@ public class ProductsController {
 			LOGGER.info("upload image is finished...");
 
 		}
+		response.put("product", product);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
@@ -357,7 +376,8 @@ public class ProductsController {
 	@GetMapping("/getAllProductsByCategory/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<ProductDTO> getProductsByCategory(@PathVariable Integer id) {
-		return productService.findByCategory(id);
+		CategoryDTO cat = categoryService.getCategory(id);
+		return productService.findByCategory(cat);
 	}
 
 	/**

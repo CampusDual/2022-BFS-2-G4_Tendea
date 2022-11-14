@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import com.example.demo.entity.Category;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.Shop;
 
@@ -21,6 +22,16 @@ public interface ProductRepository extends JpaRepository<Product, Integer>, JpaS
 	public List<Product> findByNameContainingIgnoreCase(String query);
 	
 	public List<Product> findByShopId(Integer id);
+	
+	
+	/**
+	 * Obtiene los productos por categorias
+	 * @param categoryId
+	 * @return
+	 */
+	public List<Product> findByCategory(Category category);
+	
+	
 	
 	
 }

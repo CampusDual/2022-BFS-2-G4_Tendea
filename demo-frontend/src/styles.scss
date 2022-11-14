@@ -65,3 +65,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 .menu-title:active {
   color: #ff3d00;
 }
+
+.bg-green {
+  color: white;
+  background-color: #00af91;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

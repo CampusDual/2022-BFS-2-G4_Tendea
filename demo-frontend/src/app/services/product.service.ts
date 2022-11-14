@@ -121,7 +121,6 @@ export class ProductService {
     console.log(product);
     formData.append('file', img);
     formData.append('id', product.id);
-
     return this.http.post<Product>(url, formData, { headers }).pipe(
       catchError((e) => {
         return throwError(() => e);
