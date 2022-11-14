@@ -11,8 +11,7 @@ export class Product {
   createAt: string;
   updateAt: string;
   images: ProductImages[];
+  description: string;
   bulk: number;
   login?: string;
 }
-
-
