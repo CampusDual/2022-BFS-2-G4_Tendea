@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.example.demo.entity.Category;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.Shop;
 
 public interface ProductRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
 	
@@ -19,6 +20,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer>, JpaS
 	 * @return List<ProductDTO>
 	 */
 	public List<Product> findByNameContainingIgnoreCase(String query);
+	
+	public List<Product> findByShopId(Integer id);
 	
 	
 	/**

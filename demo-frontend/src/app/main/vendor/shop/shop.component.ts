@@ -1,8 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -22,6 +25,9 @@ import { User } from 'src/app/model/user';
 import { ProductService } from 'src/app/services/product.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { UserServicesService } from 'src/app/services/user-services.service';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+
+
 
 @Component({
   selector: 'app-shop',
@@ -31,6 +37,7 @@ import { UserServicesService } from 'src/app/services/user-services.service';
 export class ShopComponent implements OnInit {
   dataSource: ProductDataSource;
   products: Product[];
+  sProducts: Product[] = [];
 
   length = 100;
   pageSize = 10;
@@ -41,6 +48,7 @@ export class ShopComponent implements OnInit {
   error = false;
   displayedColumns: string[] = [
     'image',
+    'select',
     'name',
     'price',
     'discount',
@@ -48,11 +56,30 @@ export class ShopComponent implements OnInit {
   ];
   fields = ['name', 'category.name', 'price', 'discount', 'images.url'];
 
+
   shop: Shop;
   shops: Shop[];
   user: User;
   users: User[];
   login: String;
+  editShopField = [
+    {"name" : false},
+    {"description" : false},
+    {"address" : false},
+    {"phone" : false},
+    {"email" : false},
+    {"urlFB" : false},
+    {"urlInsta" : false},
+  ];
+
+  //Forms
+  nameFormControl: FormControl;
+  phoneFormControl: FormControl;
+  descriptionFormControl: FormControl;
+  addressFormControl: FormControl;
+  emailFormControl: FormControl;
+  urlFBFormControl: FormControl;
+  urlInstaFormControl: FormControl;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('input') input: ElementRef;
@@ -65,11 +92,20 @@ export class ShopComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private shopService: ShopService,
-    private userService: UserServicesService
+    private userService: UserServicesService,
+    private dialog: MatDialog,
+    private translate: TranslateService
   ) {
     this.login = authService.getUserName();
     this.shop = new Shop();
     this.user = new User();
+    this.phoneFormControl = new FormControl('', []);
+    this.nameFormControl = new FormControl('', []);
+    this.descriptionFormControl = new FormControl('', []);
+    this.addressFormControl = new FormControl('', []);
+    this.emailFormControl = new FormControl('', []);
+    this.urlFBFormControl = new FormControl('', []);
+    this.urlInstaFormControl = new FormControl('', []);
   }
 
   description: string =
@@ -99,6 +135,7 @@ export class ShopComponent implements OnInit {
         tap(() => {
           this.paginator.pageIndex = 0;
           this.loadProductsPage();
+          this.sProducts = this.shop.products;
         })
       )
       .subscribe();
@@ -161,11 +198,9 @@ export class ShopComponent implements OnInit {
   getUserAndShop(login) {
     this.userService.getUserByLogin(login).subscribe((res) => {
       this.users = res;
-      console.log(this.users[0].login);
       this.user = this.users[0];
       this.shopService.getShopByUserId(this.users[0].id).subscribe((res2) => {
         this.shops = res2;
-        console.log(this.shops[0].name);
         this.shop = this.shops[0];
       });
     });
@@ -181,4 +216,191 @@ export class ShopComponent implements OnInit {
     //  this.shop = this.shops[0];
     //  console.log("Tienda: " + this.shops.values());
   }
+
+
+  editPhone() {
+    if (this.editShopField["phone"] === true) {
+      this.editShopField["phone"] = false;
+    } else {
+      this.editShopField["phone"] = true;
+      console.log(this.editShopField["phone"]);
+    }
+  }
+
+  changePhone() {
+    this.shop.phone = this.phoneFormControl.value;
+    this.editPhone();
+    console.log(this.shop.phone);
+    this.shopService.createShop(this.shop).subscribe(
+      response => console.log(response)
+    );
+  }
+
+
+  editName() {
+    if (this.editShopField["name"] === true) {
+      this.editShopField["name"] = false;
+    } else {
+      this.editShopField["name"] = true;
+      console.log(this.editShopField["name"]);
+    }
+  }
+
+  changeName() {
+    this.shop.name = this.nameFormControl.value;
+    this.editName();
+    console.log(this.shop.name);
+    this.shopService.createShop(this.shop).subscribe(
+      response => console.log(response)
+    );
+  }
+
+  
+
+  editDescription() {
+    if (this.editShopField["description"] === true) {
+      this.editShopField["description"] = false;
+    } else {
+      this.editShopField["description"] = true;
+      console.log(this.editShopField["description"]);
+    }
+  }
+
+  changeDescription() {
+    this.shop.description = this.descriptionFormControl.value;
+    this.editDescription();
+    console.log(this.shop.description);
+    this.shopService.createShop(this.shop).subscribe(
+      response => console.log(response)
+    );
+  }
+
+
+  editAddress() {
+    if (this.editShopField["address"] === true) {
+      this.editShopField["address"] = false;
+    } else {
+      this.editShopField["address"] = true;
+      console.log(this.editShopField["address"]);
+    }
+  }
+
+  changeAddress() {
+    this.shop.address = this.addressFormControl.value;
+    this.editAddress();
+    console.log(this.shop.address);
+    this.shopService.createShop(this.shop).subscribe(
+      response => console.log(response)
+    );
+  }
+
+  
+
+  editEmail() {
+    if (this.editShopField["email"] === true) {
+      this.editShopField["email"] = false;
+    } else {
+      this.editShopField["email"] = true;
+      console.log(this.editShopField["email"]);
+    }
+  }
+
+  changeEmail() {
+    this.shop.email = this.emailFormControl.value;
+    this.editEmail();
+    console.log(this.shop.email);
+    this.shopService.createShop(this.shop).subscribe(
+      response => console.log(response)
+    );
+  }
+
+
+
+  editUrlFB() {
+    if (this.editShopField["urlFB"] === true) {
+      this.editShopField["urlFB"] = false;
+    } else {
+      this.editShopField["urlFB"] = true;
+      console.log(this.editShopField["urlFB"]);
+    }
+  }
+
+  changeUrlFB() {
+    this.shop.urlFb = this.urlFBFormControl.value;
+    this.editUrlFB();
+    console.log(this.shop.urlFb);
+    this.shopService.createShop(this.shop).subscribe(
+      response => console.log(response)
+    );
+  }
+
+
+  editUrlInsta() {
+    if (this.editShopField["urlInsta"] === true) {
+      this.editShopField["urlInsta"] = false;
+    } else {
+      this.editShopField["urlInsta"] = true;
+      console.log(this.editShopField["urlInsta"]);
+    }
+  }
+
+  changeUrlInsta() {
+    this.shop.urlInsta = this.urlInstaFormControl.value;
+    this.editUrlInsta();
+    console.log(this.shop.urlInsta);
+    this.shopService.createShop(this.shop).subscribe(
+      response => console.log(response)
+    );
+  }
+
+
+  editProduct() {
+    console.log("hola");
+  }
+
+
+  delete() {
+    const product = this.selection.selected[0];
+    this.selection.deselect(product);
+    if (this.selection.selected && this.selection.selected.length === 0) {
+      this.productService.deleteProduct(product.id).subscribe((response) => {
+        console.log(response)
+        if (response.responseCode !== 'OK') {
+           this.error = true;
+         } else {
+          this.loadProductsPage();
+         }
+      });
+    } else {
+      this.productService.deleteProduct(product.id).subscribe((response) => {
+        console.log(response);
+        if (response.responseCode !== 'OK') {
+           this.error = true;
+        }
+        this.delete();
+      });
+    }
+  }
+
+  onDelete() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: this.translate.instant('delete-element-confirmation'),
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.delete();
+        return new Observable((observer: Observer<boolean>) =>
+          observer.next(true)
+        );
+      } else {
+        return new Observable((observer: Observer<boolean>) =>
+          observer.next(false)
+        );
+      }
+    });
+  }
+
+
 }
+

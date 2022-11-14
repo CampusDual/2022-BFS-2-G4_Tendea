@@ -394,5 +394,20 @@ public class ProductsController {
 		return productService.findAll();
 
 	}
+	
+	
+	
+
+	// Get all the products from the selected shop
+	@GetMapping("/getProductsByShopId/{shopId}")
+	public List<ProductDTO> findByShop(@PathVariable Integer shopId) {
+		LOGGER.info("search in progress...", shopId);
+		
+		return productService.findByShopId(shopId);
+
+	}
+	
+	
+	
 
 }

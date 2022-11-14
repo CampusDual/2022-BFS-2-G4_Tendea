@@ -82,6 +82,9 @@ public interface IProductService {
 
 
 	
+	List<ProductDTO> findByShopId(Integer id);
+	
+	
 	
 
 }
