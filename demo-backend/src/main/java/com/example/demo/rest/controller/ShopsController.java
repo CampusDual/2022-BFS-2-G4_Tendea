@@ -273,7 +273,7 @@ public class ShopsController {
 		
 		if (!result.hasErrors()) {
 			try {
-				shop = shopService.getShopByUser("demoadmin");
+				shop = shopService.getShopByUser("Tabi");
 				newProduct.setShop(shop);
 				newProduct = productService.createProductStore(createProductRequest);
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());

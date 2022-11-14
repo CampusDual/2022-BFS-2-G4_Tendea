@@ -85,7 +85,7 @@
           {{ "table.product.price" | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="price">
-          {{ row.price }}
+          {{ row.price | currency : 'EUR':'symbol':'.2-2':'es'}}
         </mat-cell>
       </ng-container>
 

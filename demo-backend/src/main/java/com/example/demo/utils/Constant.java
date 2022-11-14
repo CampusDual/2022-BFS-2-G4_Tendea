@@ -63,11 +63,11 @@ public class Constant {
 	public static final String IMAGE_NOT_EXISTS = "IMAGE_NOT_EXISTS";
 	
 	// Shop message
-	public static final String SHOP_DELETE_SUCCESS = "SHOP_DELETE_SUCCESS";
+	public static final String SHOP_DELETE_SUCCESS = "TIENDA ELIMINADA";
 	public static final String SHOP_NOT_DELETE = "SHOP_NOT_DELETED";
 	public static final String SHOP_EDIT_SUCCESS = "SHOP_EDIT_SUCCESS";
 	public static final String SHOP_NOT_EDIT = "SHOP_NOT_EDIT";
-	public static final String SHOP_CREATED = "SHOP_CREATED";
+	public static final String SHOP_CREATED = "TIENDA ACTUALIZADA";
 	
 	//Common error
 	public static final String ID_NOT_EXISTS ="ID_NOT_EXISTS";
