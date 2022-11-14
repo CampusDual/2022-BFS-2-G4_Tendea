@@ -47,7 +47,7 @@ public interface IShopService {
      * @param user
      * @return
      */
-    Shop getShopByUser(UserDTO user);
+    Shop getShopByUser(String login);
     
     /**
      * Busqueda de tienda por usuario

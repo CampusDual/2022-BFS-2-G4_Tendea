@@ -120,9 +120,8 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public Shop getShopByUser(UserDTO userDTO) {
-		User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
-		Shop shop = shopRepository.findByUser(user);
+	public Shop getShopByUser(String login) {
+		Shop shop = shopRepository.findByUser(login);
 		return shop;
 	}
 

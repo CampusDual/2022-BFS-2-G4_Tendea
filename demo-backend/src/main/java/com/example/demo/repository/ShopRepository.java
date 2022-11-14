@@ -17,7 +17,7 @@ public interface ShopRepository extends JpaRepository<Shop, Integer>, JpaSpecifi
 	 * @param user
 	 * @return
 	 */
-	public Shop findByUser(User user);
+	public Shop findByUser(String login);
 	
 	/**
 	 * Listadod de tiendas por usuario

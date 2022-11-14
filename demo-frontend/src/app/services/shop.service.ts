@@ -121,7 +121,8 @@ export class ShopService {
           'utf8'
         ).toString('base64'),
     });
-    return this.http.post<Product>(url, product, { headers }).pipe(
+
+    return this.http.post<Product>(url, { product, login }, { headers }).pipe(
       catchError((e) => {
         return throwError(() => e);
       })
@@ -181,7 +182,6 @@ export class ShopService {
     formData.append('id', shop.id);
 
     return this.http.post<Product>(url, formData, { headers }).pipe(
-      
       catchError((e) => {
         return throwError(() => e);
       })

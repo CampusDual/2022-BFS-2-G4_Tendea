@@ -266,12 +266,15 @@ public class ShopsController {
 		LOGGER.info("createProduct in progress...");
 		ProductDTO newProduct = null;
 		Shop shop = null;
+		UserDTO user;
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
 		String message = Constant.PRODUCT_CREATE_SUCCESS;
 		
 		if (!result.hasErrors()) {
 			try {
+				shop = shopService.getShopByUser("demoadmin");
+				newProduct.setShop(shop);
 				newProduct = productService.createProductStore(createProductRequest);
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
 			} catch (DataAccessException e) {
