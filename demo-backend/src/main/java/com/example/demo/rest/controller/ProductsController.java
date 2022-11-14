@@ -111,21 +111,6 @@ public class ProductsController {
 		LOGGER.info("getProducts is finished...");
 		return dres;
 	}
-	
-	@PostMapping(path = "/getProductsByShops", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	@PreAuthorize("hasAnyAuthority('CLIENTS')")
-	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProductsByShop(@RequestBody AnyPageFilter pageFilter) {
-		LOGGER.info("getProducts in progress...");
-		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
-		try {         
-			dres = productService.getProducts(pageFilter);
-		} catch (DemoException e) {
-			LOGGER.error(e.getMessage());
-			dres.setResponseMessage(e.getMessage());
-		}
-		LOGGER.info("getProducts is finished...");
-		return dres;
-	}
 
 	/**
 	 * Crea los productos
@@ -406,6 +391,23 @@ public class ProductsController {
 		return productService.findByShopId(shopId);
 
 	}
+	
+	@PostMapping(path = "/getProductsByShop/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	@PreAuthorize("hasAnyAuthority('CLIENTS')")
+	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProductsByShop(@PathVariable Integer id, @RequestBody AnyPageFilter pageFilter) {
+		LOGGER.info("getProducts in progress...");
+		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
+		try {         
+			dres = productService.findProductsByShopPag(id, pageFilter);
+		} catch (DemoException e) {
+			LOGGER.error(e.getMessage());
+			dres.setResponseMessage(e.getMessage());
+		}
+		LOGGER.info("getProducts is finished...");
+		return dres;
+	}
+	
+	
 	
 	
 	
