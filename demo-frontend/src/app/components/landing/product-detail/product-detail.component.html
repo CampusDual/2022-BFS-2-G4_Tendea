@@ -11,10 +11,12 @@
             <div class="small mb-1">SKU: {{product.id}}</div>
             <h2 class="display-5 fw-bolder">{{product.name}}</h2>
             <div class="fs-5 mb-5">
-              <span class="original-price">{{ product.price * (1-product.discount/100) | currency :
+              <span *ngIf="product.discount !== 0 && product.discount !== null" class="original-price">{{ product.price  | currency :
                 'EUR':'symbol':'.2-2':'es'}}</span>
-              <span *ngIf="product.discount !== 0 && product.discount !== null" class="discounted-price ms-2">{{
-                product.price | currency : 'EUR':'symbol':'.2-2':'es' }} </span>
+                <span *ngIf="product.discount === 0 || product.discount === null" class="color-green"> {{ product.price  | currency :
+                  'EUR':'symbol':'.2-2':'es'}} </span>
+              <span *ngIf="product.discount !== 0 && product.discount !== null" class="discount-price color-green ms-2">{{
+                product.price * (1-product.discount/100) | currency : 'EUR':'symbol':'.2-2':'es' }} </span>
             </div>
             <p class="lead">{{product.description}}</p>
             <!-- <div class="d-flex">
@@ -25,10 +27,10 @@
                 Añadir al carrito
               </button>
             </div> -->
-            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+            <!-- <button class="btn btn-outline-dark flex-shrink-0" type="button">
               <i class="bi-cart-fill me-1"></i>
               Volver
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -52,19 +54,21 @@
               <div class="card-body p-4">
                 <div class="text-center">
                   <!-- Product name-->
-                  <h5 class="fw-bolder">{{pro.name}}</h5>
+                  <h6 class="fw-bolder">{{pro.name}}</h6>
                   <!-- Product price-->
-                  <span class="text-muted text-decoration-line-through"
-                    *ngIf="product.discount !== 0 && product.discount !== null">{{
-                    product.price | currency : 'EUR':'symbol':'.2-2':'es' }}</span>
-                    $25.00
+                  <span class="color-green"
+                    *ngIf="pro.discount !== 0 && pro.discount !== null">{{
+                    pro.price | currency : 'EUR':'symbol':'.2-2':'es' }}</span>
+                    <span class="color-green"
+                    *ngIf="pro.discount === 0 || pro.discount === null">{{
+                    pro.price | currency : 'EUR':'symbol':'.2-2':'es' }}</span>
                 </div>
               </div>
               <!-- Product actions-->
               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                   <!-- <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a> -->
-                  <button mat-raised-button color="primary" [routerLink]="['/heroes', pro.id]">
+                  <button mat-raised-button color="primary" [routerLink]="['/producto', pro.id]">
                     Detalle
                   </button>
                 </div>
