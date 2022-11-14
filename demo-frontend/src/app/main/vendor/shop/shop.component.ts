@@ -48,11 +48,10 @@ export class ShopComponent implements OnInit {
   error = false;
   displayedColumns: string[] = [
     'image',
-    'select',
     'name',
     'price',
     'discount',
-    'actions',
+    // 'actions',
   ];
   fields = ['name', 'category.name', 'price', 'discount', 'images.url'];
 

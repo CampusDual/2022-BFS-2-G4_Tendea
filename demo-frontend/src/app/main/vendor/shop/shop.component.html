@@ -1,4 +1,4 @@
-<!-- <h1 class="color-green"> Tienda </h1> -->
+<!-- <h1 class="color-green"> Tienda </h1>
 
 
 
@@ -34,19 +34,7 @@
         <mat-icon> cancel </mat-icon>
       </button>
     </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
+</div> -->
 
 
 
@@ -227,11 +215,15 @@
 
     <div fxLayout="row" fxLayoutAlign="center center">
       <div class="mat-elevation-z8 table-container">
-        <div class="custom-filter">
+        <div class="custom-filter ms-4 d-flex" fxLayoutAlign="space-between center">
           <mat-form-field>
             <input matInput placeholder="{{ 'filter' | translate }}" #input
               id="products-filter" name="products-filter"/>
           </mat-form-field>
+          <div class="me-4">
+            <button mat-raised-button  color="primary"  routerLink="/"> Crear producto </button>
+          </div>
+          
         </div>
 
         <mat-divider></mat-divider>

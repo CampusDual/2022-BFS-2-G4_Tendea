@@ -32,9 +32,9 @@ export class NavComponent implements OnInit, OnDestroy {
       allowedRoles: ['CLIENTS'],
     },
     {
-      icon: 'people',
-      route: 'shops/products/add',
-      title: 'menu.products.store',
+      icon: 'store',
+      route: 'vendors/shop',
+      title: 'Mi tienda',
       allowedRoles: ['SHOPS'],
     },
     {
