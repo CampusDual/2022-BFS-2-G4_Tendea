@@ -8,7 +8,7 @@ import com.example.demo.dto.ShopDTO;
 import com.example.demo.dto.ShopGetDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.entity.Shop;
-import com.example.demo.entity.User;
+
 import com.example.demo.rest.response.DataSourceRESTResponse;
 
 public interface IShopService {
@@ -47,7 +47,7 @@ public interface IShopService {
      * @param user
      * @return
      */
-    Shop getShopByUser(String login);
+    Shop getShopByUser(UserDTO user);
     
     /**
      * Busqueda de tienda por usuario

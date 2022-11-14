@@ -122,7 +122,7 @@ export class ShopService {
         ).toString('base64'),
     });
 
-    return this.http.post<Product>(url, { product, login }, { headers }).pipe(
+    return this.http.post<Product>(url, product, { headers }).pipe(
       catchError((e) => {
         return throwError(() => e);
       })

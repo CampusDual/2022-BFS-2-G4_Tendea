@@ -262,7 +262,7 @@ public class ShopsController {
 	 */
 	@PostMapping(path = "/createProduct")
 	//@PreAuthorize("hasAnyAuthority('SHOPS')")
-	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO createProductRequest, String login, BindingResult result) {
+	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO createProductStoreRequest, String login, BindingResult result) {
 		LOGGER.info("createProduct in progress...");
 		ProductDTO newProduct = null;
 		Shop shop = null;
@@ -273,9 +273,10 @@ public class ShopsController {
 		
 		if (!result.hasErrors()) {
 			try {
-				shop = shopService.getShopByUser("Tabi");
-				newProduct.setShop(shop);
-				newProduct = productService.createProductStore(createProductRequest);
+				user = userService.findByLogin("demoadmin");
+				shop = shopService.getShopByUser(user);
+				createProductStoreRequest.setShop(shop);
+				newProduct = productService.createProductStore(createProductStoreRequest);
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
 			} catch (DataAccessException e) {
 				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());

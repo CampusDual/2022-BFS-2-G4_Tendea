@@ -21,6 +21,7 @@ import com.example.demo.dto.mapper.UserGetMapper;
 import com.example.demo.dto.mapper.UserMapper;
 import com.example.demo.entity.Contact;
 import com.example.demo.entity.Section;
+import com.example.demo.entity.Shop;
 import com.example.demo.entity.User;
 import com.example.demo.exception.DemoException;
 import com.example.demo.repository.UserRepository;
@@ -79,20 +80,11 @@ public class UserServiceImpl extends AbstractDemoService implements IUserService
 		return users;
 	}
 
-	/**
-	 * Usauario por login
-	 */
 	@Override
 	public UserDTO findByLogin(String login) {
 		User user = userRepository.findByLogin(login).orElse(null);
 		UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
 		return userDTO;
 	}
-	
-	
-	
-	
-	
-	
 	
 }
