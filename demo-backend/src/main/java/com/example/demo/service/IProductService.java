@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.ProductDTO;
@@ -83,6 +85,8 @@ public interface IProductService {
 
 	
 	List<ProductDTO> findByShopId(Integer id);
+	
+	public DataSourceRESTResponse<List<ProductDTO>> findProductsByShopPag(int id, AnyPageFilter pageFilter);
 	
 	
 	

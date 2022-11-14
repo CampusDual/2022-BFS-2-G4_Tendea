@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -177,6 +178,19 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		List<Product> products = productRepository.findByCategory(cat);
 		return ProductMapper.INSTANCE.productToProductDTOList(products);
 	}
+	@Override
+	@Transactional(readOnly = true)
+	public DataSourceRESTResponse<List<ProductDTO>> findProductsByShopPag(int id, AnyPageFilter pageFilter) {
+		checkInputParams(pageFilter);
+		Page<Product> products = productRepository.findByShopPag(id, pageFilter.toPageable());
+		List<ProductDTO> productsDTO = ProductMapper.INSTANCE.productToProductDTOList(products.getContent());
+		DataSourceRESTResponse<List<ProductDTO>> datares = new DataSourceRESTResponse<>();
+		datares.setData(productsDTO);
+		datares.setTotalElements((int) products.getTotalElements());
+		return datares;
+		
+	}
+	
 
 
 
