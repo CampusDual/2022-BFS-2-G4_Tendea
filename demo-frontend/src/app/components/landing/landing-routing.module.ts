@@ -31,9 +31,8 @@ const routes: Routes = [
       {
         path: 'tienda/:id',
         component: ShopsComponent,
-        loadChildren: () =>
-          import('../shops/shops.module').then((s) => s.ShopsModule),
-      },
+      }
+      
       // {
       //   path: '**',
       //   redirectTo: '',
