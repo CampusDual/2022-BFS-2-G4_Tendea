@@ -122,11 +122,13 @@ export class ShopService {
         ).toString('base64'),
     });
 
-    return this.http.post<Product>(url, product, { headers }).pipe(
-      catchError((e) => {
-        return throwError(() => e);
-      })
-    );
+    return this.http
+      .post<Product>(`${url}/${login}`, product, { headers })
+      .pipe(
+        catchError((e) => {
+          return throwError(() => e);
+        })
+      );
   }
 
   public getShopById(id: number): Observable<Shop> {

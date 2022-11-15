@@ -73,7 +73,7 @@ public class ShopsController {
 
 	@Autowired
 	private IUserService userService;
-	
+
 	@Autowired
 	private IProductService productService;
 
@@ -256,13 +256,15 @@ public class ShopsController {
 
 	/**
 	 * Crear un producto desde una tienda
+	 * 
 	 * @param product
 	 * @param login
 	 * @return
 	 */
-	@PostMapping(path = "/createProduct")
-	//@PreAuthorize("hasAnyAuthority('SHOPS')")
-	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO createProductStoreRequest, String login, BindingResult result) {
+	@PostMapping(path = "/createProduct/{login}")
+	// @PreAuthorize("hasAnyAuthority('SHOPS')")
+	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO createProductStoreRequest,
+			@PathVariable(value = "login") String login, BindingResult result) {
 		LOGGER.info("createProduct in progress...");
 		ProductDTO newProduct = null;
 		Shop shop = null;
@@ -270,10 +272,10 @@ public class ShopsController {
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
 		String message = Constant.PRODUCT_CREATE_SUCCESS;
-		
+
 		if (!result.hasErrors()) {
 			try {
-				user = userService.findByLogin("demoadmin");
+				user = userService.findByLogin(login);
 				shop = shopService.getShopByUser(user);
 				createProductStoreRequest.setShop(shop);
 				newProduct = productService.createProductStore(createProductStoreRequest);
@@ -285,7 +287,7 @@ public class ShopsController {
 			response.put("id", newProduct.getId());
 		} else {
 			List<String> errors = new ArrayList<>();
-			for(FieldError error : result.getFieldErrors()) {
+			for (FieldError error : result.getFieldErrors()) {
 				errors.add(error.getDefaultMessage());
 			}
 			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.WARNING.getValue());
@@ -309,6 +311,7 @@ public class ShopsController {
 
 	/**
 	 * Subida de imagen de una tienda
+	 * 
 	 * @param file
 	 * @param id
 	 * @return
