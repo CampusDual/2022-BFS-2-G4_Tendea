@@ -37,7 +37,6 @@ import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/
 export class ShopComponent implements OnInit {
   dataSource: ProductDataSource;
   products: Product[];
-  sProducts: Product[] = [];
 
   length = 100;
   pageSize = 10;
@@ -51,7 +50,7 @@ export class ShopComponent implements OnInit {
     'name',
     'price',
     'discount',
-    // 'actions',
+    'actions',
   ];
   fields = ['name', 'category.name', 'price', 'discount', 'images.url'];
 
@@ -120,8 +119,8 @@ export class ShopComponent implements OnInit {
       'name'
     );
 
-    this.dataSource.getProducts(pageFilter);
     this.getUserAndShop(this.login);
+    // this.dataSource.getProductsByShop(this.shop.id, pageFilter);
 
   }
 
@@ -134,10 +133,10 @@ export class ShopComponent implements OnInit {
         tap(() => {
           this.paginator.pageIndex = 0;
           this.loadProductsPage();
-          this.sProducts = this.shop.products;
         })
       )
       .subscribe();
+      console.log("shopId" + this.shop.id);
 
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
@@ -168,7 +167,7 @@ export class ShopComponent implements OnInit {
     pageFilter.order.push(
       new SortFilter(this.sort.active, this.sort.direction.toString())
     );
-    this.dataSource.getProducts(pageFilter);
+    this.dataSource.getProductsByShop(this.shop.id, pageFilter);
   }
 
   setPageSizeOptions(event?: PageEvent) {
@@ -195,27 +194,27 @@ export class ShopComponent implements OnInit {
   }
 
   getUserAndShop(login) {
+    const pageFilter = new AnyPageFilter(
+      '',
+      this.fields.map((field) => new AnyField(field)),
+      0,
+      10,
+      'name'
+    );
     this.userService.getUserByLogin(login).subscribe((res) => {
       this.users = res;
       this.user = this.users[0];
       this.shopService.getShopByUserId(this.users[0].id).subscribe((res2) => {
         this.shops = res2;
         this.shop = this.shops[0];
+        this.dataSource.getProductsByShop(this.shop.id, pageFilter);
       });
     });
 
-    //Ejecuta el código antes de terminar de llenar users
-    //  this.user = this.users[0];
-    //  console.log("Usuario: " + this.user.login);
-
-    //  this.shopService.getShopByUserId(this.users[0].id).subscribe(
-    //   res => this.shops = res
-    //  );
-
-    //  this.shop = this.shops[0];
-    //  console.log("Tienda: " + this.shops.values());
   }
 
+
+  //*************************** Form buttons ***************************
 
   editPhone() {
     if (this.editShopField["phone"] === true) {
@@ -358,6 +357,9 @@ export class ShopComponent implements OnInit {
   }
 
 
+  //*************************** End form buttons ***************************
+
+
   delete() {
     const product = this.selection.selected[0];
     this.selection.deselect(product);
@@ -398,6 +400,11 @@ export class ShopComponent implements OnInit {
         );
       }
     });
+  }
+
+
+  onTableClick(row: Product) {
+    console.log("clic");
   }
 
 

@@ -39,6 +39,22 @@ export class ProductDataSource extends DataSource<Product> {
 
   }
 
+  // AÑADIR PAGE FILTER A getProductsByShopIdPag (service)
+  // getProducts --> getProductsByShopIdPag
+  getProductsByShop(id: number, pageFilter: AnyPageFilter) {
+    this.productsSubject.next([]);
+    this.loadingSubject.next(true);
+    this.productService
+      .getProductsByShopIdPag(id, pageFilter)
+      .pipe(finalize(() => this.loadingSubject.next(false)))
+      .subscribe((response) => {
+        this.totalElements = response.totalElements;
+        this.productsSubject.next(response.data);
+        this.products = response.data;
+      });
+
+  }
+
 
   connect(): BehaviorSubject<Product[]> {
     return this.productsSubject;

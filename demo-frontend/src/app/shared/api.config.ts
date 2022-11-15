@@ -27,6 +27,7 @@ export const API_CONFIG = {
   getProductsByCategory:
     environment.productsBaseUrl + '/getAllProductsByCategory',
   getProductsByName: environment.productsBaseUrl + '/getProductsByName',
+  getProductsByShopIdPag: environment.productsBaseUrl + '/getProductsByShop',
 
   // Category API
   getCategories: environment.categoriesBaseUrl + '/getCategories',

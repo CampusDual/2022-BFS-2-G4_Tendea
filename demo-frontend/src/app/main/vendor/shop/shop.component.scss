@@ -58,6 +58,17 @@
     border: 1px solid black;
 }
 
+.mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .mat-row:hover .mat-cell {
+    border-color: currentColor;
+    background-color: #88ada7;
+  }
+
 // .mat-table {
 //     font-size: large;
 // }
