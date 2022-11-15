@@ -7,6 +7,7 @@ import { CategoryService } from '../../../../services/category.service';
 import { Category } from '../../../../model/category';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { ProductImages } from '../../../../model/product-images';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -27,7 +28,8 @@ export class ProductComponent implements OnInit {
     private shopService: ShopService,
     private authService: AuthService,
     private categoryService: CategoryService,
-    private fileUpload: FileUploadService
+    private fileUpload: FileUploadService,
+    private router: Router
   ) {}
 
   productForm: FormGroup = this.fb.group({
@@ -54,6 +56,7 @@ export class ProductComponent implements OnInit {
     /** Send product to backend */
     this.shopService.createProduct(this.productForm.value).subscribe((res) => {
       this.uploadImage(res.id);
+      this.productForm.reset();
     });
   }
 
@@ -68,7 +71,9 @@ export class ProductComponent implements OnInit {
       return;
     }
 
-    /** Si tenemos imagen */
+    /** Si tenemos imagen la mostramos
+     */
+
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -76,9 +81,17 @@ export class ProductComponent implements OnInit {
     };
   }
 
+  /**
+   * Subida de imagen
+   * @param productId Subida de imagen
+   */
   uploadImage(productId: number) {
     this.fileUpload
       .uploadImage(this.imageUpload, productId, 'products')
-      .subscribe((res) => console.log(res));
+      .subscribe();
+  }
+
+  cancel() {
+    this.router.navigate(['/vendors/shop']);
   }
 }
