@@ -78,6 +78,9 @@
     "previous_page": "Página anterior",
     "of": "de"
   },
+  "productDetail": {
+    "soldBy": "Vendido por"
+  },
   "register": {
     "LOGIN_REQUIRED": "El nombre de usuario es obligatorio",
     "PASSWORD_REQUIRED": "La contraseña es obligatoria",
