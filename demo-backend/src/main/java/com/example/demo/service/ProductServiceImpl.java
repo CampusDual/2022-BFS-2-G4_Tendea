@@ -153,8 +153,8 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 	 * Crea el producto de una tienda
 	 */
 	@Override
-	public ProductDTO createProductStore(ProductDTO createProductRequest) {
-		Product product = ProductMapper.INSTANCE.productDTOtoProduct(createProductRequest);
+	public ProductDTO createProductStore(ProductDTO createProductStoreRequest) {
+		Product product = ProductMapper.INSTANCE.productDTOtoProduct(createProductStoreRequest);
 		Product newProduct = productRepository.save(product);
 		return ProductMapper.INSTANCE.productToProductDTO(newProduct);
 	}

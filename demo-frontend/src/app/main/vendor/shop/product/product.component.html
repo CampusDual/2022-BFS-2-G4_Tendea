@@ -1,33 +1,37 @@
 <div class="container pt-4">
   <div class="row">
-    <div class="col-6 mx-auto">
+    <div class="col-xs-12 col-md-9 mx-auto">
       <mat-card class="row animate__animated animate__fadeIn">
-        <mat-card-title class="color-green">Registro de Producto</mat-card-title>
+        <mat-card-title class="color-green">{{ 'form.create_product' | translate }}</mat-card-title>
         <hr>
         <form class="mt-5 col-12" [formGroup]="productForm" (ngSubmit)="save()" autocomplete="off">
           <mat-form-field class="full-width " appearance="fill">
-            <mat-label>Nombre del Producto</mat-label>
-            <input type="text" matInput placeholder="Introduce el nombre del producto" formControlName="name">
-            <!-- <mat-hint *ngIf="isValid('name')">
-              El nombre es <strong>Requerido</strong>
-            </mat-hint> -->
+            <mat-label>{{ 'table.product.name' | translate }}</mat-label>
+            <input type="text" matInput placeholder="{{ 'table.product.name' | translate }}" formControlName="name">
+            <mat-error *ngIf="productForm.get('name').hasError('minlength')">
+              {{'register.product.INVALID_NAME' | translate}} </mat-error>
+            <mat-error *ngIf="productForm.get('name').hasError('maxlength')">
+              {{'register.product.INVALID_NAME' | translate}} </mat-error>
+            <mat-error *ngIf="productForm.get('name').hasError('required')">
+              {{'register.product.NAME_REQUIRED' | translate}} </mat-error>
           </mat-form-field>
 
           <div class="row pt-3">
             <div class="col">
               <mat-form-field class="full-width" appearance="fill">
-                <mat-label>Precio del Producto</mat-label>
-                <input type="number" matInput placeholder="Precio del Producto" formControlName="price">
-                <!-- <mat-hint *ngIf="isValid('surname1')">
-                  Primer Apellido es <strong>Requerido</strong>
-                </mat-hint> -->
+                <mat-label>{{ 'table.product.price' | translate }}</mat-label>
+                <input type="number" matInput placeholder="{{ 'table.product.price' | translate }}"
+                  formControlName="price">
+                <mat-error *ngIf="productForm.get('price').hasError('required')">
+                  {{'register.product.PRICE_REQUIRED' | translate}} </mat-error>
               </mat-form-field>
             </div>
 
             <div class="col">
               <mat-form-field class="full-width" appearance="fill">
-                <mat-label>Descuento</mat-label>
-                <input type="email" matInput placeholder="Descuento" formControlName="discount">
+                <mat-label>{{ 'table.product.discount' | translate }}</mat-label>
+                <input type="email" matInput placeholder="{{ 'table.product.discount' | translate }}"
+                  formControlName="discount">
                 <!-- <mat-hint *ngIf="isValid('surname2')">
                   Segundo Apellido es <strong>Requerido</strong>
                 </mat-hint> -->
@@ -35,7 +39,7 @@
             </div>
           </div>
 
-          <div class="col">
+          <div class="col-xs-2">
             <section class="example-section">
               <mat-checkbox class="example-margin" formControlName="bulk">Granel</mat-checkbox>
             </section>
@@ -43,7 +47,7 @@
 
           <div class="col mt-2">
             <mat-form-field appearance="fill" class="full-width">
-              <mat-label>Categoria</mat-label>
+              <mat-label>{{ 'table.product.category' | translate }}</mat-label>
               <mat-select formControlName="category">
                 <mat-option *ngFor="let category of categories" [value]="category">
                   {{category.name}}</mat-option>
@@ -51,16 +55,20 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="full-width">
-              <mat-label>Descripción</mat-label>
-              <textarea matInput formControlName="description"></textarea>
+              <mat-label>{{ 'table.product.description' | translate }}</mat-label>
+              <textarea matInput formControlName="{{ 'table.product.price' | translate }}"></textarea>
             </mat-form-field>
 
             <input type="file" accept="" (change)="changeImage($event)" />
 
           </div>
 
-
-          <button mat-raised-button color="primary" class="mt-4" [disabled]="productForm.invalid">Guardar</button>
+          <div>
+            <button mat-raised-button color="warn" class="mt-4 me-2" (click)="cancel()">{{ 'button.cancel' |
+              translate }}</button>
+            <button mat-raised-button color="primary" class="mt-4" [disabled]="productForm.invalid">{{ 'button.save' |
+              translate }}</button>
+          </div>
 
         </form>
         <div class="col">
@@ -70,7 +78,7 @@
         </div>
       </mat-card>
     </div>
-    <div class="col-3 mx-auto">
+    <div class="col-xs-12 col-md-3" *ngIf="imgTemp">
       <mat-card class="example-card animate__animated animate__fadeIn" *ngIf="imgTemp">
         <img mat-card-image *ngIf="imgTemp" [src]="imgTemp">
         <img mat-card-image *ngIf="!imgTemp" [src]="imgTemp">

@@ -39,6 +39,7 @@
       "name": "Nombre de producto",
       "price": "Precio de producto",
       "discount": "Descuento",
+      "description": "Descripción",
       "category": "Categoría",
       "shop": "Tienda",
       "namerequired": "El nombre es un campo obligatorio",

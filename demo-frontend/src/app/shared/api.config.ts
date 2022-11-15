@@ -34,6 +34,7 @@ export const API_CONFIG = {
   getCategory: environment.categoriesBaseUrl + '/getCategory',
 
   // Shop API
+  getShopByIdLandind: environment.shopsBaseUrl + '/getShopById',
   createShopProduct: environment.shopsBaseUrl + '/createProduct',
   createShop: environment.shopsBaseUrl + '/createShop',
   deleteShop: environment.shopsBaseUrl + '/deleteShop',

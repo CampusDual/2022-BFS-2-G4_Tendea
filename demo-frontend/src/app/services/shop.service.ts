@@ -122,17 +122,48 @@ export class ShopService {
         ).toString('base64'),
     });
 
-    return this.http.post<Product>(url, { product, login }, { headers }).pipe(
-      catchError((e) => {
-        return throwError(() => e);
-      })
-    );
+    return this.http
+      .post<Product>(`${url}/${login}`, product, { headers })
+      .pipe(
+        catchError((e) => {
+          return throwError(() => e);
+        })
+      );
   }
 
   public getShopById(id: number): Observable<Shop> {
     const url = API_CONFIG.getShopById;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+    return this.http.get<Shop>(`${url}/${id}`, { headers }).pipe(
+      catchError((e) => {
+        console.log(e.message);
+        if (e.message!.includes('failure')) {
+          this.showMessageError('No se encuentra ninguna tienda con este id');
+        }
+
+        return throwError(() => e);
+      })
+    );
+  }
+
+  public getShopByIdLanding(id: number): Observable<Shop> {
+    const url = API_CONFIG.getShopByIdLandind;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
     });
     return this.http.get<Shop>(`${url}/${id}`, { headers }).pipe(
       catchError((e) => {
