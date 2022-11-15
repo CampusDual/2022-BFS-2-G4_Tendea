@@ -88,10 +88,14 @@ public class ShopServiceImpl extends AbstractShopService implements IShopService
 	}
 
 
+	/**
+	 * Devuelve las tiendas ordenadas por el id
+	 * TODO: Se podria ordenar por created_at
+	 */
 	@Override
 	public List<ShopDTO> lastStores() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Shop> shops = shopRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));;
+		return ShopMapper.INSTANCE.shopToShopDTOList(shops);
 	}
 
 	/**
