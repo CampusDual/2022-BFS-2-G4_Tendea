@@ -30,9 +30,8 @@ public interface IProductService {
 	 */
 	ProductDTO createProductStore(ProductDTO createProductStoreRequest);
 
-	
 	/**
-	 * Obtiene un producto
+	 * Obtiene un producto con el id
 	 * @param id
 	 * @return
 	 */

@@ -29,7 +29,6 @@ public class AbstractProductService {
 
 	
 	public Product fromEditProductRequest(Product productRequest) {
-		
 		return new Product(productRequest.getId(), productRequest.getName(), productRequest.getPrice(),
 				productRequest.getCreateAt(), productRequest.getImages(), productRequest.getDiscount(),
 				productRequest.getBulk(), productRequest.getCategory());
@@ -41,10 +40,32 @@ public class AbstractProductService {
 				productRequest.getBulk(), productRequest.getCategory());
 	}
 	
+	/**
+	 * Request para crear el producto desde una tienda
+	 * @param createProductStoreRequest
+	 * @return
+	 *
+	 * @Since 15 nov 2022
+	 * @author adolfob
+	 */
 	public Product fromCreateProductStoreRequest(ProductDTO createProductStoreRequest) {
 		return new Product(createProductStoreRequest.getId(), createProductStoreRequest.getName(), createProductStoreRequest.getPrice(),
 				createProductStoreRequest.getCreateAt(), createProductStoreRequest.getImages(), createProductStoreRequest.getDiscount(),
 				createProductStoreRequest.getBulk(), createProductStoreRequest.getCategory(), createProductStoreRequest.getShop());
+	}
+	
+	/**
+	 * Request para editar el producto desde una tienda
+	 * @param editProductStoreRequest
+	 * @return
+	 *
+	 * @Since 15 nov 2022
+	 * @author adolfob
+	 */
+	public Product fromEditProductStoreRequest(ProductDTO editProductStoreRequest) {
+		return new Product(editProductStoreRequest.getId(), editProductStoreRequest.getName(), editProductStoreRequest.getPrice(),
+				editProductStoreRequest.getCreateAt(), editProductStoreRequest.getImages(), editProductStoreRequest.getDiscount(),
+				editProductStoreRequest.getBulk(), editProductStoreRequest.getCategory(), editProductStoreRequest.getShop());
 	}
 
 }

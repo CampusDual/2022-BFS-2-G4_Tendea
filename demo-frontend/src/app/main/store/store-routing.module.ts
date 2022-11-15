@@ -19,12 +19,6 @@ const routes: Routes = [
       { path: 'shops/add', component: CreateShopsComponent },
       { path: 'home', component: AdminHomeComponent },
 
-      /** Productos */
-      {
-        path: 'shops/products/add',
-        component: ProductComponent,
-      },
-
       //{ path: 'edit/:id', component: EditContactComponent },
     ],
   },

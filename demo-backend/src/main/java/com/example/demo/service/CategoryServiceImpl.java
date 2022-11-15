@@ -30,6 +30,14 @@ public class CategoryServiceImpl  extends AbstractDemoService implements ICatego
 		Category category = categoryRepository.findById(id).orElse(null);
 		return CategoryMapper.INSTANCE.categoryToCategoryDto(category);
 	}
+
+	/**
+	 * Devuelve una categoria por el id
+	 */
+	@Override
+	public Category findById(Integer id) {
+		return categoryRepository.findById(id).orElse(null);
+	}
 	
 	
 

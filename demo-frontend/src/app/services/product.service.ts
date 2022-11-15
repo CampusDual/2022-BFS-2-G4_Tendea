@@ -165,10 +165,21 @@ export class ProductService {
     );
   }
 
+  /**
+   * Obtiene un producto por id
+   * @param id
+   * @returns
+   */
   public getProductById(id: number): Observable<Product> {
     const url = API_CONFIG.getProductById;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
     });
     return this.http.get<Product>(`${url}/${id}`, { headers }).pipe(
       catchError((e) => {
@@ -181,9 +192,36 @@ export class ProductService {
     );
   }
 
+  /**
+   * Edicion de un producto
+   * @returns
+   */
+  editProduct(product: Product) {
+    const url = API_CONFIG.editProduct;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+    console.log(product);
+    return this.http
+      .put<Product>(`${url}/${product.id}`, product, { headers })
+      .pipe(
+        catchError((e) => {
+          console.log(e);
+          return throwError(() => e);
+        })
+      );
+  }
 
-  public getProductsByShopIdPag(id: number, pageFilter: AnyPageFilter ): 
-  Observable<DataSourceRESTResponse<Product[]>> {
+  public getProductsByShopIdPag(
+    id: number,
+    pageFilter: AnyPageFilter
+  ): Observable<DataSourceRESTResponse<Product[]>> {
     const url = API_CONFIG.getProductsByShopIdPag;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
@@ -196,9 +234,11 @@ export class ProductService {
         ).toString('base64'),
     });
     return this.http.post<DataSourceRESTResponse<Product[]>>(
-      `${url}/${id}`, pageFilter, { headers, });
+      `${url}/${id}`,
+      pageFilter,
+      { headers }
+    );
   }
-    
 
   // Eliminar, esta copiado como ejemplo
 
@@ -220,7 +260,4 @@ export class ProductService {
   //     headers,
   //   });
   // }
-
-
-
 }

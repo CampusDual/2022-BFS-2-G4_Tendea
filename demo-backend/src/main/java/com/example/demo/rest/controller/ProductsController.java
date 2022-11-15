@@ -23,7 +23,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,14 +42,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.ProductDTO;
-import com.example.demo.dto.mapper.ProductMapper;
+import com.example.demo.dto.ShopDTO;
+import com.example.demo.dto.UserDTO;
 import com.example.demo.entity.Category;
 import com.example.demo.entity.ProductImage;
+import com.example.demo.entity.Shop;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 import com.example.demo.service.ICategoryService;
 import com.example.demo.service.IProductService;
+import com.example.demo.service.IShopService;
+import com.example.demo.service.IUserService;
 import com.example.demo.utils.Constant;
 
 @CrossOrigin(origins = { "http://localhost:4201" })
@@ -62,9 +65,15 @@ public class ProductsController {
 
 	@Autowired
 	private IProductService productService;
-	
+
 	@Autowired
 	private ICategoryService categoryService;
+	
+	@Autowired
+	private IShopService shopService;
+
+	@Autowired
+	private IUserService userService;
 
 	/**
 	 * Obtiene un producto de BDD con el id indicado.
@@ -97,12 +106,20 @@ public class ProductsController {
 		return re;
 	}
 
+	/**
+	 * Obtiene los productos
+	 * @param pageFilter
+	 * @return
+	 *
+	 * @Since 15 nov 2022
+	 * @author adolfob
+	 */
 	@PostMapping(path = "/getProducts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //	@PreAuthorize("hasAnyAuthority('CLIENTS')")
 	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProducts(@RequestBody AnyPageFilter pageFilter) {
 		LOGGER.info("getProducts in progress...");
 		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
-		try {         
+		try {
 			dres = productService.getProducts(pageFilter);
 		} catch (DemoException e) {
 			LOGGER.error(e.getMessage());
@@ -113,7 +130,7 @@ public class ProductsController {
 	}
 
 	/**
-	 * Crea los productos
+	 * Crea un producto desde el admin productos
 	 * 
 	 * @param createProductRequest
 	 * @param result
@@ -138,7 +155,7 @@ public class ProductsController {
 				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			}
 			response.put("product", productNew);
-			
+
 		} else {
 			List<String> errors = new ArrayList<>();
 			for (FieldError error : result.getFieldErrors()) {
@@ -162,12 +179,12 @@ public class ProductsController {
 	 */
 
 	@DeleteMapping("/deleteProduct")
-	@PreAuthorize("hasAnyAuthority('CONTACTS')")
+	// @PreAuthorize("hasAnyAuthority('SHOPS')")
 	public ResponseEntity<?> deleteProduct(@RequestParam(value = "id") Integer id) {
 		LOGGER.info("deleteProduct in progress...");
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.OK;
-		String message = Constant.CONTACT_DELETE_SUCCESS;
+		String message = Constant.PRODUCT_DELETE_SUCCESS;
 		try {
 			productService.deleteProduct(id);
 			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
@@ -190,16 +207,80 @@ public class ProductsController {
 	public List<ProductDTO> getAllProducts() {
 		return productService.findAll();
 	}
-
+	
 	/**
-	 * Edicion de un producto de la BD
+	 * Crea un producto desde una tienda con el id del usuario
+	 * @param createProductStoreRequest
+	 * @param login
+	 * @param result
+	 * @return
+	 *
+	 * @Since 15 nov 2022
+	 * @author adolfob
 	 */
+	@PostMapping(path = "/createProduct/{login}")
+	// @PreAuthorize("hasAnyAuthority('SHOPS')")
+	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO createProductStoreRequest,
+			@PathVariable(value = "login") String login, BindingResult result) {
+		LOGGER.info("createProduct in progress...");
+		ProductDTO newProduct = null;
+		Shop shop = null;
+		UserDTO user;
+		Map<String, Object> response = new HashMap<>();
+		HttpStatus status = HttpStatus.CREATED;
+		String message = Constant.PRODUCT_CREATE_SUCCESS;
 
-	@PostMapping(path = "/editProduct", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDTO editProductRequest, BindingResult result) {
+		if (!result.hasErrors()) {
+			try {
+				user = userService.findByLogin(login);
+				shop = shopService.getShopByUser(user);
+				createProductStoreRequest.setShop(shop);
+				newProduct = productService.createProductStore(createProductStoreRequest);
+				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
+			} catch (DataAccessException e) {
+				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
+				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			}
+			response.put("id", newProduct.getId());
+		} else {
+			List<String> errors = new ArrayList<>();
+			for (FieldError error : result.getFieldErrors()) {
+				errors.add(error.getDefaultMessage());
+			}
+			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.WARNING.getValue());
+			message = Constant.PRODUCT_NOT_CREATED;
+			response.put(Constant.ERROR, errors);
+			status = HttpStatus.BAD_REQUEST;
+		}
+		LOGGER.info("Create Product is finish...");
+		response.put(Constant.MESSAGE, "Producto registrado correctamente");
+		return new ResponseEntity<Map<String, Object>>(response, status);
+	}
+
+	@GetMapping("/getShopByUser/{query}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<ShopDTO> findByUser(@PathVariable Integer query) {
+		LOGGER.info("search in progress...", query);
+
+		return shopService.findByUserId(query);
+
+	}
+	
+	
+	/**
+	 * Edición de un producto
+	 * @return
+	 *
+	 * @Since 15 nov 2022
+	 * @author adolfob
+	 */
+	@PutMapping(path = "/editProduct/{id}")
+	// @PreAuthorize("hasAnyAuthority('SHOPS')")
+	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDTO editProductRequest, @PathVariable(value = "id") Integer id, BindingResult result ) {
 		LOGGER.info("editProduct in progress...");
-		int id;
-		ProductDTO productOlder = productService.getProduct(editProductRequest.getId());
+		Category category = categoryService.findById(editProductRequest.getCategory().getId());
+		editProductRequest.setCategory(category);
+		ProductDTO productOlder = productService.getProduct(id);
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
 		String message = Constant.CONTACT_EDIT_SUCCESS;
@@ -231,90 +312,56 @@ public class ProductsController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 
-		response.put(Constant.MESSAGE, message);
-		LOGGER.info("eeditProduct is finished...");
+		//response.put(Constant.MESSAGE, message);
+		LOGGER.info("editProduct is finished...");
 		return new ResponseEntity<Map<String, Object>>(response, status);
 
 	}
 
-	// Post Product with images
-
-//	@PostMapping(path = "createProduct")
-//	@ResponseStatus(HttpStatus.CREATED)
-////	@PreAuthorize("hasAnyAuthority('CONTACTS')")
-//	public ResponseEntity<?> createProductImg(@Valid @RequestBody ProductDTO createProductRequest, BindingResult result) {
-//		ProductDTO productNew = null;
-//		Map<String, Object> response = new HashMap<>();
-//		HttpStatus status = HttpStatus.CREATED;
-//		String message = "PRODUCTO CREADO";
-//		if (!result.hasErrors()) {
-//			try {
-//				productNew = productService.createProduct(createProductRequest);
-//				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
-//
-//			} catch (DataAccessException e) {
-//				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
-//				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-//			}
-//
-//			response.put("product", productNew);
-//		} else {
-//			List<String> errors = new ArrayList<>();
-//			for (FieldError error : result.getFieldErrors()) {
-//				errors.add(error.getDefaultMessage());
-//			}
-//			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.WARNING.getValue());
-//			message = Constant.PRODUCT_NOT_CREATED;
-//			response.put(Constant.ERROR, errors);
-//			status = HttpStatus.BAD_REQUEST;
-//		}
-//
-//		return new ResponseEntity<Map<String, Object>>(response, status);
-//	}
-
 	/**
 	 * Subir foto de producto, a la carpeta uploads, max 10MB
+	 * 
 	 * @param file
-	 * @param id
-	 * http://localhost:9999/products/upload
+	 * @param id   http://localhost:9999/products/upload
 	 */
 	@PostMapping("/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, @RequestParam("id") Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		ProductDTO product = productService.getProduct(id);
-		
+
 		if (product == null) {
 			response.put("message", Constant.PRODUCT_NOT_EXISTS); // Acordarse
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		}
-		
+
 		LOGGER.info("upload image in progress...", product);
 		if (!file.isEmpty()) {
-			// Para que el nombre sea unico, agregamos un UUID al nombre de la imagen y quitamos los espacios en blanco
+			// Para que el nombre sea unico, agregamos un UUID al nombre de la imagen y
+			// quitamos los espacios en blanco
 			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replace(" ", "");
-			
+
 			// Ruta a la que se sube la imagen
 			Path fileRoute = Paths.get("uploads").resolve(fileName).toAbsolutePath();
-			
+
 			try {
 				Files.copy(file.getInputStream(), fileRoute);
 			} catch (IOException e) {
-				response.put("message", "Error al subir la imagen del producto"); // Acordarse																											// TRANSLATE
+				response.put("message", "Error al subir la imagen del producto"); // Acordarse // TRANSLATE
 				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
 				e.printStackTrace();
 			}
-			
+
 			ProductImage productImg = new ProductImage();
 			productImg.setName(fileName);
 			productImg.setUrl(fileName);
-			
+
 			try {
 				product.getImages().add(productImg);
 				productService.createProduct(product);
 				response.put("product", product);
 				response.put("message", Constant.IMAGE_UPLOADED);
 			} catch (Exception e) {
-				response.put("message", Constant.IMAGE_UPLOAD_ERROR); // TRANSLATE																									// TRANSLATE
+				response.put("message", Constant.IMAGE_UPLOAD_ERROR); // TRANSLATE // TRANSLATE
 				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
 				e.printStackTrace();
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
@@ -326,13 +373,12 @@ public class ProductsController {
 		response.put("product", product);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-	
-	
+
 	/**
 	 * Mostrar foto de producto
 	 */
 	@GetMapping("/uploads/img/{photo:.+}") // Indica que va a recobir un parametro .extencion .jpg
-	public ResponseEntity<Resource> showPhoto(@PathVariable String photo){
+	public ResponseEntity<Resource> showPhoto(@PathVariable String photo) {
 		LOGGER.info("show image in progress...", photo);
 		Path fileRoute = Paths.get("uploads").resolve(photo).toAbsolutePath();
 		Resource recurso = null;
@@ -342,18 +388,16 @@ public class ProductsController {
 
 			e.printStackTrace();
 		}
-		
+
 		if (!recurso.exists() && !recurso.isReadable()) {
 			throw new RuntimeException("No se pudo cargar la imagen: " + photo);
 		}
-		
+
 		HttpHeaders header = new HttpHeaders();
-		header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"" );
+		header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
 		LOGGER.info("show image finish...", photo);
 		return new ResponseEntity<Resource>(recurso, header, HttpStatus.OK);
 	}
-	
-	
 
 	/**
 	 * Busqueda de productos por la categoria
@@ -379,25 +423,23 @@ public class ProductsController {
 		return productService.findAll();
 
 	}
-	
-	
-	
 
 	// Get all the products from the selected shop
 	@GetMapping("/getProductsByShopId/{shopId}")
 	public List<ProductDTO> findByShop(@PathVariable Integer shopId) {
 		LOGGER.info("search in progress...", shopId);
-		
+
 		return productService.findByShopId(shopId);
 
 	}
-	
+
 	@PostMapping(path = "/getProductsByShop/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //	@PreAuthorize("hasAnyAuthority('CLIENTS')")
-	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProductsByShop(@PathVariable Integer id, @RequestBody AnyPageFilter pageFilter) {
+	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProductsByShop(@PathVariable Integer id,
+			@RequestBody AnyPageFilter pageFilter) {
 		LOGGER.info("getProducts in progress...");
 		DataSourceRESTResponse<List<ProductDTO>> dres = new DataSourceRESTResponse<>();
-		try {         
+		try {
 			dres = productService.findProductsByShopPag(id, pageFilter);
 		} catch (DemoException e) {
 			LOGGER.error(e.getMessage());
@@ -406,10 +448,5 @@ public class ProductsController {
 		LOGGER.info("getProducts is finished...");
 		return dres;
 	}
-	
-	
-	
-	
-	
 
 }
