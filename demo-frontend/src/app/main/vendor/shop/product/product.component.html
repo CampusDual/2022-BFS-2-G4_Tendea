@@ -19,7 +19,7 @@
           <div class="row pt-3">
             <div class="col">
               <mat-form-field class="full-width" appearance="fill">
-                <mat-label>{{ 'table.product.price' | translate }}</mat-label>
+                <mat-label>{{ 'table.product.price' | translate }} (€)</mat-label>
                 <input type="number" matInput placeholder="{{ 'table.product.price' | translate }}"
                   formControlName="price">
                 <mat-error *ngIf="productForm.get('price').hasError('required')">
@@ -29,7 +29,7 @@
 
             <div class="col">
               <mat-form-field class="full-width" appearance="fill">
-                <mat-label>{{ 'table.product.discount' | translate }}</mat-label>
+                <mat-label>{{ 'table.product.discount' | translate }} (%)</mat-label>
                 <input type="email" matInput placeholder="{{ 'table.product.discount' | translate }}"
                   formControlName="discount">
               </mat-form-field>
