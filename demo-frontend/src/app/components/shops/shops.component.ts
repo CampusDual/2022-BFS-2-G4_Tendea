@@ -22,6 +22,7 @@ export class ShopsComponent implements OnInit {
   shop: Shop;
   product: Product;
   products: Product[];
+  id: number;
 
   pageEvent: PageEvent;
   dataSource: ProductDataSource;
@@ -56,7 +57,7 @@ export class ShopsComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private shopServices: ShopService,
     private productService: ProductService
-  ) {}
+  ) { }
 
 
 
@@ -73,41 +74,33 @@ export class ShopsComponent implements OnInit {
       'name'
     );
 
+    this.activateRoute.queryParams.subscribe( params => {
+      console.log(params);
+      })
+
     this.activateRoute.params
       .pipe(switchMap(({ id }) => this.shopServices.getShopByIdLanding(id)))
-      .subscribe((res) => (this.shop = res));
+      .subscribe((res) => {
+        this.shop = res,
+        this.id = res.id;
+        this.dataSource.getProductsByShop(this.id, pageFilter);
+        this.productService
+          .getProductsByShopIdPagData(this.id, this.pageIndex, this.pageSize)
+          .subscribe((res) => (this.sProducts = res.data));
+      });
+
+    
 
   }
 
 
   ngAfterViewInit(): void {
     // server-side search
-    fromEvent(this.input.nativeElement, 'keyup')
-      .pipe(
-        debounceTime(150),
-        distinctUntilChanged(),
-        tap(() => {
-          this.paginator.pageIndex = 0;
-          this.loadProductsPage();
-        })
-      )
-      .subscribe();
-      console.log("shopId" + this.shop.id);
-
-    // reset the paginator after sorting
-    this.sort.sortChange.subscribe(() => {
-      this.paginator.pageIndex = 0;
-      this.selection.clear();
-    });
-
-    // on sort or paginate events, load a new page
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        tap(() => {
-          this.loadProductsPage();
-        })
-      )
-      .subscribe();
+    this.paginator.pageIndex = 0;
+    this.paginator.pageSize = 8;
+    this.productService.getProductsByShopIdPagData(
+      this.id, this.pageIndex, 
+      this.pageSize);
   }
 
 
@@ -117,24 +110,32 @@ export class ShopsComponent implements OnInit {
     this.selection.clear();
     this.error = false;
     const pageFilter = new AnyPageFilter(
-      this.input.nativeElement.value,
+      '',
       this.fields.map((field) => new AnyField(field)),
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
-    pageFilter.order = [];
-    pageFilter.order.push(
-      new SortFilter(this.sort.active, this.sort.direction.toString())
-    );
-    this.dataSource.getProductsByShop(this.shop.id, pageFilter);
+    console.log("LoadProducts: " + this.paginator.pageIndex);
+
+    // pageFilter.order = [];
+    // pageFilter.order.push(
+    //   new SortFilter(this.sort.active, this.sort.direction.toString())
+    // );
+
+
+    this.productService.getProductsByShopIdPagData(
+      this.id, this.paginator.pageIndex, this.paginator.pageSize)
+      .subscribe(res => (this.sProducts = res.data));
+    
   }
 
 
 
   setPageSizeOptions(event?: PageEvent) {
     this.pageEvent = event;
-
     this.paginator.pageIndex = this.pageEvent.pageIndex;
+    this.paginator.pageSize = this.pageEvent.pageSize;
+
     this.loadProductsPage();
 
     return event;
