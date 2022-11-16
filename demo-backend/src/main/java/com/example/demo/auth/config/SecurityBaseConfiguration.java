@@ -44,6 +44,8 @@ public class SecurityBaseConfiguration extends ResourceServerConfigurerAdapter {
 		            "/products/getProducts",
 		            "/categories/getCategories",
 		            "/categories/getCategory",
+		            "/products/editProduct/**",
+		            "/products/editProduct/**/**",
 		            "/products/getAllProducts",
 		            "/products/getProduct/**",
 		            "/products/getProductsByName/**",
@@ -51,7 +53,9 @@ public class SecurityBaseConfiguration extends ResourceServerConfigurerAdapter {
 		            "/shops/uploads/img/**",
 		            "/shops/createProduct",
 		            "/shops/getShopsLastShop",
-		            "/products/getAllProductsByCategory/**")
+		            "/shops/getShopById/**",
+		            "/products/getAllProductsByCategory/**",
+		            "/products/getProductsByShop/**")
 				.permitAll()
                 .anyRequest().authenticated();
     }

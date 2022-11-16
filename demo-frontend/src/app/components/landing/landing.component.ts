@@ -47,9 +47,9 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     /** Llamda a la bbd ultimas tiendas registradas */
-    // this.shopService.getLastShop().subscribe((res) => {
-    //   this.shops = res;
-    // });
+    this.shopService.getLastShop().subscribe((res) => {
+      this.shops = res;
+    });
 
     /** LLamada a la bd de productos, obtenemos los ultimos 5 */
     this.productService.getProductsLanding(1, 5).subscribe((res) => {

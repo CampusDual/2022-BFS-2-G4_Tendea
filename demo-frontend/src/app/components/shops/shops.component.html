@@ -1,0 +1,70 @@
+<div fxLayout="column" fxLayoutAlign="center strech">
+  <div class="main-container">
+    <img class="main-img" *ngIf="shop.images[0]"
+    src="http://localhost:9999/shops/uploads/img/{{ shop.images[0].url }}" />
+    <h1 class="shop-name text-center">{{ shop.name }}</h1>
+
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <div class="description">
+        <p>{{ shop.description }}</p>
+      </div>
+    </div>
+
+        <!-- PRODUCTS -->
+
+        <div class="album py-5 bg-light">
+          <div class="container">
+        
+            <div class="row">
+              <div class="col-md-3" *ngFor="let product of sProducts">
+                <app-product-card [product]="product"></app-product-card>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <mat-paginator [length]="dataSource.totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+          aria-label="Select page" showFirstLastButtons (page)="pageEvent = setPageSizeOptions($event)">
+        </mat-paginator>
+
+
+        <!-- FOOTER -->
+        <div class="vendor-details">
+          <div fxLayout="row" fxLayoutAlign="space-around start">
+            <div>
+              <p class="detailTitle">Redes sociales</p>
+              <div class="icons-container">
+                <a href="{{ shop.urlFb }}" >
+                  <img class="social_media_icon" src="./assets/images/social_media_icons/facebook.png" />
+                </a>
+                <a href="{{ shop.urlInsta }}" >
+                  <img class="social_media_icon" src="./assets/images/social_media_icons/instagram.png" /> 
+                </a>
+              </div>
+            </div>
+        <table>
+          <tr>
+            <th colspan="2" class="text-center">
+              <p class="detailTitle">Contacta con nosotros:</p>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <p><mat-icon> place </mat-icon> {{ shop.address }}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><mat-icon> email </mat-icon> {{ shop.email }}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><mat-icon> phone </mat-icon> {{ shop.phone }}</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

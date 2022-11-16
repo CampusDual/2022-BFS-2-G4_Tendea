@@ -10,14 +10,23 @@ import { Component, OnInit } from '@angular/core';
         max-height: 625px;
       }
       .carousel-caption {
-        bottom: 12rem;
+        bottom: 18rem;
       }
-      h2 {
+      h1 {
         color: #00af91;
       }
-      p {
+      h3 {
         color: white;
       }
+      #entrance-button{
+        margin-right: 1vw;
+        margin-up: 20vw;
+        color: white;
+        font-size: 25px;
+        line-height: 18px;
+        height: 40px;
+        width: 300px;
+    }
     `,
   ],
 })

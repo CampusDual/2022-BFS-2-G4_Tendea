@@ -5,12 +5,6 @@ import { Product } from 'src/app/model/product';
 import { LoggerService } from 'src/app/services/logger.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Location } from '@angular/common'
-
-
-import {MatSelectModule} from '@angular/material/select';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import { subscribeOn } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/services/category.service';
 

@@ -74,6 +74,7 @@ export class NavComponent implements OnInit, OnDestroy {
         this.router.url === `/categoria/${Number}` ||
         this.router.url === '/welcome' ||
         this.router.url === `/producto/${Number}` ||
+        this.router.url === `/tienda/${Number}` ||
         this.router.url === '/auth/login' ||
         this.router.url === '/auth/registro' ||
         this.router.url === '/'

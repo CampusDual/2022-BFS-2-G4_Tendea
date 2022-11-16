@@ -1,10 +1,11 @@
-import { NgModule, Output } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { NavSearchComponent } from './nav-search/nav-search.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ShopsComponent } from '../shops/shops.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,12 @@ const routes: Routes = [
         path: 'welcome',
         component: WelcomeComponent,
       },
+      {
+        path: 'tienda/:id',
+        component: ShopsComponent,
+
+      },
+
       // {
       //   path: '**',
       //   redirectTo: '',

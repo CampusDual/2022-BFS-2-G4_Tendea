@@ -1,14 +1,10 @@
 package com.example.demo.service;
 
 import java.util.List;
-
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
-
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.ProductDTO;
-import com.example.demo.entity.Category;
-import com.example.demo.entity.Product;
+
 import com.example.demo.rest.response.DataSourceRESTResponse;
 
 public interface IProductService {
@@ -32,11 +28,10 @@ public interface IProductService {
 	 * @param product
 	 * @return
 	 */
-	ProductDTO createProductStore(ProductDTO Cre);
+	ProductDTO createProductStore(ProductDTO createProductStoreRequest);
 
-	
 	/**
-	 * Obtiene un producto
+	 * Obtiene un producto con el id
 	 * @param id
 	 * @return
 	 */

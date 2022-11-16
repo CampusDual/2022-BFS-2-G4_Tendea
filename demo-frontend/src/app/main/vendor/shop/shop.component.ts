@@ -27,8 +27,6 @@ import { ShopService } from 'src/app/services/shop.service';
 import { UserServicesService } from 'src/app/services/user-services.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
-
-
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
@@ -37,24 +35,24 @@ import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/
 export class ShopComponent implements OnInit {
   dataSource: ProductDataSource;
   products: Product[];
-  sProducts: Product[] = [];
+
+  highlightedRow: Product;
+  selection = new SelectionModel<Product>(true, []);
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
 
-  selection = new SelectionModel<Product>(true, []);
   error = false;
   displayedColumns: string[] = [
     'image',
     'name',
     'price',
     'discount',
-    // 'actions',
+    'actions',
   ];
   fields = ['name', 'category.name', 'price', 'discount', 'images.url'];
-
 
   shop: Shop;
   shops: Shop[];
@@ -62,13 +60,13 @@ export class ShopComponent implements OnInit {
   users: User[];
   login: String;
   editShopField = [
-    {"name" : false},
-    {"description" : false},
-    {"address" : false},
-    {"phone" : false},
-    {"email" : false},
-    {"urlFB" : false},
-    {"urlInsta" : false},
+    { name: false },
+    { description: false },
+    { address: false },
+    { phone: false },
+    { email: false },
+    { urlFB: false },
+    { urlInsta: false },
   ];
 
   //Forms
@@ -120,9 +118,8 @@ export class ShopComponent implements OnInit {
       'name'
     );
 
-    this.dataSource.getProducts(pageFilter);
     this.getUserAndShop(this.login);
-
+    // this.dataSource.getProductsByShop(this.shop.id, pageFilter);
   }
 
   ngAfterViewInit(): void {
@@ -134,10 +131,10 @@ export class ShopComponent implements OnInit {
         tap(() => {
           this.paginator.pageIndex = 0;
           this.loadProductsPage();
-          this.sProducts = this.shop.products;
         })
       )
       .subscribe();
+    console.log('shopId' + this.shop.id);
 
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
@@ -168,7 +165,7 @@ export class ShopComponent implements OnInit {
     pageFilter.order.push(
       new SortFilter(this.sort.active, this.sort.direction.toString())
     );
-    this.dataSource.getProducts(pageFilter);
+    this.dataSource.getProductsByShop(this.shop.id, pageFilter);
   }
 
   setPageSizeOptions(event?: PageEvent) {
@@ -195,34 +192,32 @@ export class ShopComponent implements OnInit {
   }
 
   getUserAndShop(login) {
+    const pageFilter = new AnyPageFilter(
+      '',
+      this.fields.map((field) => new AnyField(field)),
+      0,
+      10,
+      'name'
+    );
     this.userService.getUserByLogin(login).subscribe((res) => {
       this.users = res;
       this.user = this.users[0];
       this.shopService.getShopByUserId(this.users[0].id).subscribe((res2) => {
         this.shops = res2;
         this.shop = this.shops[0];
+        this.dataSource.getProductsByShop(this.shop.id, pageFilter);
       });
     });
-
-    //Ejecuta el código antes de terminar de llenar users
-    //  this.user = this.users[0];
-    //  console.log("Usuario: " + this.user.login);
-
-    //  this.shopService.getShopByUserId(this.users[0].id).subscribe(
-    //   res => this.shops = res
-    //  );
-
-    //  this.shop = this.shops[0];
-    //  console.log("Tienda: " + this.shops.values());
   }
 
+  //*************************** Form buttons ***************************
 
   editPhone() {
-    if (this.editShopField["phone"] === true) {
-      this.editShopField["phone"] = false;
+    if (this.editShopField['phone'] === true) {
+      this.editShopField['phone'] = false;
     } else {
-      this.editShopField["phone"] = true;
-      console.log(this.editShopField["phone"]);
+      this.editShopField['phone'] = true;
+      console.log(this.editShopField['phone']);
     }
   }
 
@@ -230,18 +225,17 @@ export class ShopComponent implements OnInit {
     this.shop.phone = this.phoneFormControl.value;
     this.editPhone();
     console.log(this.shop.phone);
-    this.shopService.createShop(this.shop).subscribe(
-      response => console.log(response)
-    );
+    this.shopService
+      .createShop(this.shop)
+      .subscribe((response) => console.log(response));
   }
 
-
   editName() {
-    if (this.editShopField["name"] === true) {
-      this.editShopField["name"] = false;
+    if (this.editShopField['name'] === true) {
+      this.editShopField['name'] = false;
     } else {
-      this.editShopField["name"] = true;
-      console.log(this.editShopField["name"]);
+      this.editShopField['name'] = true;
+      console.log(this.editShopField['name']);
     }
   }
 
@@ -249,19 +243,17 @@ export class ShopComponent implements OnInit {
     this.shop.name = this.nameFormControl.value;
     this.editName();
     console.log(this.shop.name);
-    this.shopService.createShop(this.shop).subscribe(
-      response => console.log(response)
-    );
+    this.shopService
+      .createShop(this.shop)
+      .subscribe((response) => console.log(response));
   }
 
-  
-
   editDescription() {
-    if (this.editShopField["description"] === true) {
-      this.editShopField["description"] = false;
+    if (this.editShopField['description'] === true) {
+      this.editShopField['description'] = false;
     } else {
-      this.editShopField["description"] = true;
-      console.log(this.editShopField["description"]);
+      this.editShopField['description'] = true;
+      console.log(this.editShopField['description']);
     }
   }
 
@@ -269,18 +261,17 @@ export class ShopComponent implements OnInit {
     this.shop.description = this.descriptionFormControl.value;
     this.editDescription();
     console.log(this.shop.description);
-    this.shopService.createShop(this.shop).subscribe(
-      response => console.log(response)
-    );
+    this.shopService
+      .createShop(this.shop)
+      .subscribe((response) => console.log(response));
   }
 
-
   editAddress() {
-    if (this.editShopField["address"] === true) {
-      this.editShopField["address"] = false;
+    if (this.editShopField['address'] === true) {
+      this.editShopField['address'] = false;
     } else {
-      this.editShopField["address"] = true;
-      console.log(this.editShopField["address"]);
+      this.editShopField['address'] = true;
+      console.log(this.editShopField['address']);
     }
   }
 
@@ -288,19 +279,17 @@ export class ShopComponent implements OnInit {
     this.shop.address = this.addressFormControl.value;
     this.editAddress();
     console.log(this.shop.address);
-    this.shopService.createShop(this.shop).subscribe(
-      response => console.log(response)
-    );
+    this.shopService
+      .createShop(this.shop)
+      .subscribe((response) => console.log(response));
   }
 
-  
-
   editEmail() {
-    if (this.editShopField["email"] === true) {
-      this.editShopField["email"] = false;
+    if (this.editShopField['email'] === true) {
+      this.editShopField['email'] = false;
     } else {
-      this.editShopField["email"] = true;
-      console.log(this.editShopField["email"]);
+      this.editShopField['email'] = true;
+      console.log(this.editShopField['email']);
     }
   }
 
@@ -308,19 +297,17 @@ export class ShopComponent implements OnInit {
     this.shop.email = this.emailFormControl.value;
     this.editEmail();
     console.log(this.shop.email);
-    this.shopService.createShop(this.shop).subscribe(
-      response => console.log(response)
-    );
+    this.shopService
+      .createShop(this.shop)
+      .subscribe((response) => console.log(response));
   }
 
-
-
   editUrlFB() {
-    if (this.editShopField["urlFB"] === true) {
-      this.editShopField["urlFB"] = false;
+    if (this.editShopField['urlFB'] === true) {
+      this.editShopField['urlFB'] = false;
     } else {
-      this.editShopField["urlFB"] = true;
-      console.log(this.editShopField["urlFB"]);
+      this.editShopField['urlFB'] = true;
+      console.log(this.editShopField['urlFB']);
     }
   }
 
@@ -328,18 +315,17 @@ export class ShopComponent implements OnInit {
     this.shop.urlFb = this.urlFBFormControl.value;
     this.editUrlFB();
     console.log(this.shop.urlFb);
-    this.shopService.createShop(this.shop).subscribe(
-      response => console.log(response)
-    );
+    this.shopService
+      .createShop(this.shop)
+      .subscribe((response) => console.log(response));
   }
 
-
   editUrlInsta() {
-    if (this.editShopField["urlInsta"] === true) {
-      this.editShopField["urlInsta"] = false;
+    if (this.editShopField['urlInsta'] === true) {
+      this.editShopField['urlInsta'] = false;
     } else {
-      this.editShopField["urlInsta"] = true;
-      console.log(this.editShopField["urlInsta"]);
+      this.editShopField['urlInsta'] = true;
+      console.log(this.editShopField['urlInsta']);
     }
   }
 
@@ -347,48 +333,47 @@ export class ShopComponent implements OnInit {
     this.shop.urlInsta = this.urlInstaFormControl.value;
     this.editUrlInsta();
     console.log(this.shop.urlInsta);
-    this.shopService.createShop(this.shop).subscribe(
-      response => console.log(response)
-    );
+    this.shopService
+      .createShop(this.shop)
+      .subscribe((response) => console.log(response));
   }
-
 
   editProduct() {
-    console.log("hola");
+    console.log('hola');
   }
 
+  //*************************** End form buttons ***************************
 
-  delete() {
-    const product = this.selection.selected[0];
-    this.selection.deselect(product);
+  delete(product: Product) {
     if (this.selection.selected && this.selection.selected.length === 0) {
+      console.log(product);
       this.productService.deleteProduct(product.id).subscribe((response) => {
-        console.log(response)
+        console.log(response);
         if (response.responseCode !== 'OK') {
-           this.error = true;
-         } else {
+          this.error = true;
+        } else {
           this.loadProductsPage();
-         }
+        }
       });
     } else {
       this.productService.deleteProduct(product.id).subscribe((response) => {
         console.log(response);
         if (response.responseCode !== 'OK') {
-           this.error = true;
+          this.error = true;
         }
-        this.delete();
+        this.delete(product);
       });
     }
   }
 
-  onDelete() {
+  onDelete(product: Product) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
       data: this.translate.instant('delete-element-confirmation'),
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.delete();
+        this.delete(product);
         return new Observable((observer: Observer<boolean>) =>
           observer.next(true)
         );
@@ -400,6 +385,8 @@ export class ShopComponent implements OnInit {
     });
   }
 
-
+  onTableClick(row: Product) {
+    this.highlightedRow = row;
+    this.router.navigate(['/vendors/shop/products/edit/' + row.id]);
+  }
 }
-

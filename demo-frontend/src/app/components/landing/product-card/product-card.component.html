@@ -10,8 +10,8 @@
 
   <div class="card-body">
 
-    <h6 class="card-title" [routerLink]="['/tienda', product.shop.id]" style="cursor: pointer;">{{product.name }}</h6>
-    <p class="card-text"> <a [routerLink]="['/tienda', product.shop.id]">{{product.shop.name}}</a> </p>
+    <h6 class="card-title" style="cursor: pointer;">{{product.name }}</h6>
+    <p class="card-text" [routerLink]="['/tienda/', product.shop.id]" style="cursor: pointer;"> {{product.shop.name}} </p>
     <table style="width:100%">
       <td align="center"> </td>
       <td align="center">
@@ -28,12 +28,14 @@
 
     <div class="d-flex justify-content-between align-items-center">
       <div class="btn-group">
-
+        <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
+          <mat-icon mat-list-icon [routerLink]="['/producto', product.id]">info</mat-icon>
+        </button> -->
         <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
           <mat-icon mat-list-icon>shopping_cart</mat-icon>
         </button> -->
       </div>
-      <small class="text-muted">{{product.category.name}}</small>
+      <small class="text-muted" [routerLink]="['/categoria', product.category.id]" style="cursor: pointer;">{{product.category.name}}</small>
     </div>
   </div>
 </div>
