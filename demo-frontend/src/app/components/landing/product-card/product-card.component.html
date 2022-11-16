@@ -10,8 +10,8 @@
 
   <div class="card-body">
 
-    <h6 class="card-title" [routerLink]="['/producto', product.id]" style="cursor: pointer;">{{product.name }}</h6>
-    <p class="card-text"> {{product.shop.name}} </p>
+    <h6 class="card-title" [routerLink]="['/tienda', product.shop.id]" style="cursor: pointer;">{{product.name }}</h6>
+    <p class="card-text"> <a [routerLink]="['/tienda', product.shop.id]">{{product.shop.name}}</a> </p>
     <table style="width:100%">
       <td align="center"> </td>
       <td align="center">

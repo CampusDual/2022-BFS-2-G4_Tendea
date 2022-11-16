@@ -135,6 +135,8 @@
   "phonerequired":"El teléfono es un campo obligatorio",
   "phonepattern": "El formato del teléfono no es correcto",
   "emailpattern": "El formato del email no es correcto",
-  "PRODUCT_CREATED": "Producto creado"
+  "PRODUCT_CREATED": "Producto creado",
+  "Products": "Productos",
+  "Stores": "Tiendas"
 
 }

@@ -134,5 +134,7 @@
   "phonerequired":"Phone is a required field",
   "phonepattern": "The phone format is not correct",
   "emailpattern": "The email format is not correct",
-  "PRODUCT_CREATED": "Product created"
+  "PRODUCT_CREATED": "Product created",
+  "Products": "Products",
+  "Stores": "Shops"
 }
