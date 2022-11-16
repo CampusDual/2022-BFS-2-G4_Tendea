@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
+import { Router, TitleStrategy } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
   debounceTime,
@@ -57,6 +57,7 @@ export class ShopComponent implements OnInit {
 
   imageUpload: File;
   imgTemp: any;
+  baseUrl: string = "http://localhost:9999/shops/uploads/img/"
 
   shop: Shop;
   shops: Shop[];
@@ -408,6 +409,7 @@ export class ShopComponent implements OnInit {
     };
     
     this.uploadImage(this.shop.id);
+
   }
 
   uploadImage(shopId: number) {

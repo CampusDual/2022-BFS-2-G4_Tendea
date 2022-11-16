@@ -1,10 +1,29 @@
 <input type="file" accept="" (change)="changeImage($event)" />
 
+<div class="image-upload">
+  <button mat-fab color="primary" for="file-input">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+  <input id="file-input" type="file" />
+</div>
+
+<div>
+  <button mat-fab color="primary" for="files"  >
+    <mat-icon>edit</mat-icon>
+  </button>
+  <input type="file" style="visibility:hidden;" accept="" (change)="changeImage($event)" />
+
+</div>
+
+
 <div fxLayout="column" fxLayoutAlign="center strech">
   <div class="main-container">
-    <img class="main-img" [src]="shop | shopImagen" />
-    <!-- <img class="main-img" src="" > -->
+    <!-- <img class="main-img" *ngIf ="!imgTemp" [src]="shop | shopImagen" /> -->
+    <img class="main-img" *ngIf ="!imgTemp" [src]="baseUrl + shop.images[0].url" />
+    <img class="main-img" *ngIf ="imgTemp" [src]="imgTemp" />
     <h1 class="shop-name text-center"> {{ shop.name }}</h1>
+    <!-- <h1 class="shop-name text-center"> {{ shop.images[0].url }}</h1> -->
 
     <div class="contactButton">
       <button mat-fab color="primary" (click)="editName()">
