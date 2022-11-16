@@ -83,9 +83,9 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 	 * Edita un producto con el id (Esto viene de @AbstractProductService)
 	 */
 	@Override
-	public Integer editProduct(ProductDTO editProductRequest) {
-		Product productFromDTO = ProductMapper.INSTANCE.productDTOtoProduct(editProductRequest);
-		Product editProduct = productRepository.save(fromEditProductRequest(productFromDTO));
+	public Integer editProduct(ProductDTO editProductStoreRequest) {
+		Product productFromDTO = ProductMapper.INSTANCE.productDTOtoProduct(editProductStoreRequest);
+		Product editProduct = productRepository.save(fromEditProductStoreRequest(productFromDTO));
 		return editProduct.getId();
 	}
 

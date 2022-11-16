@@ -35,7 +35,7 @@ export const API_CONFIG = {
 
   // Shop API
   getShopByIdLandind: environment.shopsBaseUrl + '/getShopById',
-  createShopProduct: environment.shopsBaseUrl + '/createProduct',
+  createShopProduct: environment.productsBaseUrl + '/createProduct',
   createShop: environment.shopsBaseUrl + '/createShop',
   deleteShop: environment.shopsBaseUrl + '/deleteShop',
   getLastShops: environment.shopsBaseUrl + '/getShopsLastShop',

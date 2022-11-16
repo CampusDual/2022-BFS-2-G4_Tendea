@@ -261,25 +261,24 @@ public class ProductsController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<ShopDTO> findByUser(@PathVariable Integer query) {
 		LOGGER.info("search in progress...", query);
-
 		return shopService.findByUserId(query);
 
 	}
 	
 	
 	/**
-	 * Edición de un producto
+	 * Edición de un producto desde una tienda con el 
 	 * @return
 	 *
 	 * @Since 15 nov 2022
 	 * @author adolfob
 	 */
-	@PutMapping(path = "/editProduct/{id}")
-	// @PreAuthorize("hasAnyAuthority('SHOPS')")
-	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDTO editProductRequest, @PathVariable(value = "id") Integer id, BindingResult result ) {
+	@PutMapping(path = "/editProduct/{id}/{login}")
+	//@PreAuthorize("hasAnyAuthority('SHOPS')")
+	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDTO editProductRequest, @PathVariable(value = "id") Integer id, @PathVariable(value = "login") String login,BindingResult result ) {
 		LOGGER.info("editProduct in progress...");
-		Category category = categoryService.findById(editProductRequest.getCategory().getId());
-		editProductRequest.setCategory(category);
+		//Shop shop = null;
+		UserDTO user;
 		ProductDTO productOlder = productService.getProduct(id);
 		Map<String, Object> response = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
@@ -287,6 +286,12 @@ public class ProductsController {
 		if (productOlder != null) {
 			if (!result.hasErrors()) {
 				try {
+					Category category = categoryService.findById(editProductRequest.getCategory().getId());
+					editProductRequest.setImages(productOlder.getImages());
+					editProductRequest.setCreateAt(productOlder.getCreateAt());
+					editProductRequest.setShop(productOlder.getShop());
+					editProductRequest.setCategory(category);
+					user = userService.findByLogin(login);
 					id = productService.editProduct(editProductRequest);
 					response.put("product_id", id);
 					response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
@@ -314,6 +319,7 @@ public class ProductsController {
 
 		//response.put(Constant.MESSAGE, message);
 		LOGGER.info("editProduct is finished...");
+		response.put(Constant.MESSAGE, "Producto editado correctamente");
 		return new ResponseEntity<Map<String, Object>>(response, status);
 
 	}
@@ -338,7 +344,7 @@ public class ProductsController {
 		if (!file.isEmpty()) {
 			// Para que el nombre sea unico, agregamos un UUID al nombre de la imagen y
 			// quitamos los espacios en blanco
-			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replace(" ", "");
+			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replace(" ", "").toLowerCase();
 
 			// Ruta a la que se sube la imagen
 			Path fileRoute = Paths.get("uploads").resolve(fileName).toAbsolutePath();
@@ -350,12 +356,14 @@ public class ProductsController {
 				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
 				e.printStackTrace();
 			}
+			
 
 			ProductImage productImg = new ProductImage();
 			productImg.setName(fileName);
 			productImg.setUrl(fileName);
 
 			try {
+				product.getImages().clear();
 				product.getImages().add(productImg);
 				productService.createProduct(product);
 				response.put("product", product);

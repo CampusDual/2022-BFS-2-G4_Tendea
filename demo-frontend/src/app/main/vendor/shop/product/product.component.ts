@@ -86,6 +86,7 @@ export class ProductComponent implements OnInit {
       category: [this.product.category, Validators.required],
       bulk: [this.product.bulk],
       description: [this.product.description],
+      shop: [this.product.shop],
     });
   }
 
@@ -101,9 +102,16 @@ export class ProductComponent implements OnInit {
     if (this.product.id) {
       this.productService
         .editProduct(this.productForm.value)
-        .subscribe((res) => console.log(res));
+        .subscribe((res) => {
+          if (this.imgTemp) {
+            console.log('Tiene imagen');
+            this.uploadImage(this.product.id);
+          }
+          console.log('No tiene imagen');
+        });
     } else {
       /** Send product to backend */
+      console.log('aqui estamos')
       this.shopService
         .createProduct(this.productForm.value)
         .subscribe((res) => {

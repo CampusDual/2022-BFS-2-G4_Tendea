@@ -212,6 +212,7 @@ export class ProductService {
    * @returns
    */
   editProduct(product: Product) {
+    console.log(product);
     const login = this.authService.getUserName();
     const url = API_CONFIG.editProduct;
     const headers = new HttpHeaders({
@@ -228,7 +229,6 @@ export class ProductService {
       .put<Product>(`${url}/${product.id}/${login}`, product, { headers })
       .pipe(
         catchError((e) => {
-          console.log(e);
           return throwError(() => e);
         })
       );
