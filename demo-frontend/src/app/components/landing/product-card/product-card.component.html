@@ -11,7 +11,7 @@
   <div class="card-body">
 
     <h6 class="card-title">{{product.name }}</h6>
-    <p class="card-text"> <a> Vendor space </a> </p>
+    <p class="card-text" [routerLink]="['/tienda/', product.shop.id]"> {{product.shop.name}} </p>
     <table style="width:100%">
       <td align="center"> </td>
       <td align="center">
@@ -35,7 +35,7 @@
           <mat-icon mat-list-icon>shopping_cart</mat-icon>
         </button> -->
       </div>
-      <small class="text-muted">{{product.category.name}}</small>
+      <small class="text-muted" [routerLink]="['/categoria', product.category.id]">{{product.category.name}}</small>
     </div>
   </div>
 </div>
