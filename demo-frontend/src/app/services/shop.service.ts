@@ -195,27 +195,5 @@ export class ShopService {
     );
   }
 
-  public uploadShopImg(shop: any, img: File): Observable<any> {
-    const url = API_CONFIG.uploadShopImg;
-    // const body: CreateProductRequest = new CreateProductRequest(product);
-    const headers = new HttpHeaders({
-      'Content-type': 'multipart/form-data; charset=utf-8',
-      Authorization:
-        'Basic ' +
-        Buffer.from(
-          `${environment.clientName}:${environment.clientSecret}`,
-          'utf8'
-        ).toString('base64'),
-    });
-    let formData = new FormData();
-    console.log(shop);
-    formData.append('file', img);
-    formData.append('id', shop.id);
 
-    return this.http.post<Product>(url, formData, { headers }).pipe(
-      catchError((e) => {
-        return throwError(() => e);
-      })
-    );
-  }
 }
