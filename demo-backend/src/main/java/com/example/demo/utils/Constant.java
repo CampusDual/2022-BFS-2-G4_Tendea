@@ -46,11 +46,14 @@ public class Constant {
 	public static final String USER_ACTIVE_STATUS_REQUIRED ="ACTIVE_STATUS_REQUIRED";
 	
 	//Products error
+	public static final String PRODUCT_DELETE_SUCCESS ="PRODUCT_DELETE_SUCCESS";
 	public static final String PRODUCT_CREATE_SUCCESS ="PRODUCT_CREATE_SUCCESS";
 	public static final String PRODUCT_NOT_CREATED = "PRODUCT_NOT_CREATED";
 	public static final String PRODUCT_CREATED ="PRODUCT_CREATED";
 	public static final String PRODUCT_NOT_EXISTS ="PRODUCT_NOT_EXISTS";
 	public static final String PRODUCT_ALREADY_EXISTS ="PRODUCT_ALREADY_EXISTS";
+	public static final String PRODUCT_EDIT_SUCCESS ="PRODUCT_EDIT_SUCCESS";
+	public static final String PRODUCT_NOT_EDIT ="PRODUCT_NOT_EDIT";
 	
 	
 	//Profile error

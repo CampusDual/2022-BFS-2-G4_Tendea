@@ -31,8 +31,9 @@ const routes: Routes = [
       {
         path: 'tienda/:id',
         component: ShopsComponent,
-      }
-      
+
+      },
+
       // {
       //   path: '**',
       //   redirectTo: '',

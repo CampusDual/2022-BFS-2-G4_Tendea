@@ -13,9 +13,10 @@ const routes: Routes = [
       { path: 'shop', component: ShopComponent },
       /** Productos */
       {
-        path: 'products/add',
+        path: 'shop/products/add',
         component: ProductComponent,
       },
+      { path: 'shop/products/edit/:id', component: ProductComponent },
     ],
   },
 ];

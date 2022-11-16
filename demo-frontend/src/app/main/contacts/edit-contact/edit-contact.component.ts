@@ -17,7 +17,7 @@ export class EditContactComponent implements OnInit {
   contact: Contact;
   errores: string[];
 
-  constructor(
+  constructor( 
     private fb: FormBuilder,
     private contactService: ContactService,
     private router: Router,

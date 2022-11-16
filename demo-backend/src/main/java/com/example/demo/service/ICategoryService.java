@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.ContactDTO;
+import com.example.demo.entity.Category;
 
 public interface ICategoryService {
 
@@ -19,4 +20,11 @@ public interface ICategoryService {
      * @return categoryDTO
      */
     CategoryDTO getCategory(Integer id);
+    
+    
+    /**
+     * Devuelve una categoria por el id
+     */
+    
+    Category findById(Integer id);
 }

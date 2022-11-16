@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 col-md-9 mx-auto">
       <mat-card class="row animate__animated animate__fadeIn">
-        <mat-card-title class="color-green">{{ 'form.create_product' | translate }}</mat-card-title>
+        <mat-card-title class="color-green">{{ formName}}</mat-card-title>
         <hr>
         <form class="mt-5 col-12" [formGroup]="productForm" (ngSubmit)="save()" autocomplete="off">
           <mat-form-field class="full-width " appearance="fill">
@@ -32,9 +32,6 @@
                 <mat-label>{{ 'table.product.discount' | translate }}</mat-label>
                 <input type="email" matInput placeholder="{{ 'table.product.discount' | translate }}"
                   formControlName="discount">
-                <!-- <mat-hint *ngIf="isValid('surname2')">
-                  Segundo Apellido es <strong>Requerido</strong>
-                </mat-hint> -->
               </mat-form-field>
             </div>
           </div>
@@ -47,16 +44,17 @@
 
           <div class="col mt-2">
             <mat-form-field appearance="fill" class="full-width">
-              <mat-label>{{ 'table.product.category' | translate }}</mat-label>
-              <mat-select formControlName="category">
-                <mat-option *ngFor="let category of categories" [value]="category">
-                  {{category.name}}</mat-option>
+              <mat-label>{{category.name}}</mat-label>
+              <mat-select [(ngModel)]="category" formControlName="category" name="category">
+                <mat-option *ngFor="let cat of categories" [value]="cat">
+                  {{cat.name}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>{{ 'table.product.description' | translate }}</mat-label>
-              <textarea matInput formControlName="{{ 'table.product.price' | translate }}"></textarea>
+              <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
 
             <input type="file" accept="" (change)="changeImage($event)" />
@@ -78,10 +76,11 @@
         </div>
       </mat-card>
     </div>
-    <div class="col-xs-12 col-md-3" *ngIf="imgTemp">
-      <mat-card class="example-card animate__animated animate__fadeIn" *ngIf="imgTemp">
+    <div class="col-xs-12 col-md-3">
+      <mat-card class="example-card animate__animated animate__fadeIn">
         <img mat-card-image *ngIf="imgTemp" [src]="imgTemp">
         <img mat-card-image *ngIf="!imgTemp" [src]="imgTemp">
+        <img mat-card-image [src]="product|imagen">
       </mat-card>
     </div>
   </div>
