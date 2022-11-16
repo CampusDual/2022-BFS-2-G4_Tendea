@@ -8,6 +8,8 @@ import { DataSourceRESTResponse } from '../model/rest/response';
 import { API_CONFIG } from '../shared/api.config';
 import { Buffer } from 'buffer';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserServicesService } from './user-services.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +22,11 @@ export class ProductService {
       verticalPosition: 'top',
     });
   }
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {}
-
-  // TODO: Es necesario hacer un PageFilter, comprobar funcionamiento en contacts.component.ts
+  constructor(
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authService: AuthService
+  ) {}
 
   public getProducts(
     pageFilter: AnyPageFilter
@@ -90,6 +94,11 @@ export class ProductService {
     });
   }
 
+  /**
+   * Eliminar un producto
+   * @param id
+   * @returns
+   */
   public deleteProduct(id: number): Observable<any> {
     const url = API_CONFIG.deleteProduct;
     const headers = new HttpHeaders({
@@ -105,6 +114,12 @@ export class ProductService {
     return this.http.delete<any>(url, { params, headers });
   }
 
+  /**
+   * Subida de imagenes de producto
+   * @param product
+   * @param img
+   * @returns
+   */
   public uploadProductImg(product: any, img: File): Observable<any> {
     const url = API_CONFIG.uploadProductImg;
     // const body: CreateProductRequest = new CreateProductRequest(product);
@@ -193,10 +208,11 @@ export class ProductService {
   }
 
   /**
-   * Edicion de un producto
+   * Edicion de un producto desde una tienda
    * @returns
    */
   editProduct(product: Product) {
+    const login = this.authService.getUserName();
     const url = API_CONFIG.editProduct;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
@@ -209,7 +225,7 @@ export class ProductService {
     });
     console.log(product);
     return this.http
-      .put<Product>(`${url}/${product.id}`, product, { headers })
+      .put<Product>(`${url}/${product.id}/${login}`, product, { headers })
       .pipe(
         catchError((e) => {
           console.log(e);

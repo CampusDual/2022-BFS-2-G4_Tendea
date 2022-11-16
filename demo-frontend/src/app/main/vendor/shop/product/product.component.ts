@@ -49,7 +49,6 @@ export class ProductComponent implements OnInit {
       this.formName = 'Edición de producto';
       this.productService.getProductById(this.idProduct).subscribe((res) => {
         this.product = res;
-        this.category = res.category;
         this.productForm.patchValue(this.product, {
           emitEvent: false,
           onlySelf: false,
@@ -100,7 +99,6 @@ export class ProductComponent implements OnInit {
       : this.productForm.get('bulk').setValue(0);
 
     if (this.product.id) {
-      console.log(this.productForm.value);
       this.productService
         .editProduct(this.productForm.value)
         .subscribe((res) => console.log(res));

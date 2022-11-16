@@ -44,10 +44,11 @@
 
           <div class="col mt-2">
             <mat-form-field appearance="fill" class="full-width">
-              <mat-label>{{ 'table.product.category' | translate }}</mat-label>
-              <mat-select formControlName="category" [(value)]="category">
-                <mat-option *ngFor="let cat of categories" value="{{cat.id}}">
-                  {{cat.name}}</mat-option>
+              <mat-label>{{category.name}}</mat-label>
+              <mat-select [(ngModel)]="category" formControlName="category" name="category">
+                <mat-option *ngFor="let cat of categories" [value]="cat">
+                  {{cat.name}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
 
