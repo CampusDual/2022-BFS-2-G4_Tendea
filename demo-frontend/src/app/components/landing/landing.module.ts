@@ -13,6 +13,7 @@ import { NavSearchComponent } from './nav-search/nav-search.component';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { CarouselComponent } from './welcome/carousel/carousel.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ShopsComponent } from '../shops/shops.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ProductDetailComponent,
     CarouselComponent,
     WelcomeComponent,
+    ShopsComponent
   ],
   imports: [CommonModule, LandingRoutingModule, MaterialModule, FormsModule],
   exports: [],

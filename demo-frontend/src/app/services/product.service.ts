@@ -256,24 +256,23 @@ export class ProductService {
     );
   }
 
-  // Eliminar, esta copiado como ejemplo
+  public getProductsByShopIdPagData(id: number, pageNumber: number, pageSize: number ): 
+  Observable<DataSourceRESTResponse<Product[]>> {
+    const url = API_CONFIG.getProductsByShopIdPag;
+    const pageFilter = {pageSize, pageNumber}
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+      // Authorization: 'Basic ' + btoa(`${environment.clientName}:${environment.clientSecret}`),
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+    return this.http.post<DataSourceRESTResponse<Product[]>>(
+      `${url}/${id}`, pageFilter, { headers, });
+  }
 
-  // public getProducts(
-  //   pageFilter: AnyPageFilter
-  // ): Observable<DataSourceRESTResponse<Product[]>> {
-  //   const url = `${environment.apiBaseUrl}/products/getProducts`;
-  //   const headers = new HttpHeaders({
-  //     'Content-type': 'application/json; charset=utf-8',
-  //     // Authorization: 'Basic ' + btoa(`${environment.clientName}:${environment.clientSecret}`),
-  //     Authorization:
-  //       'Basic ' +
-  //       Buffer.from(
-  //         `${environment.clientName}:${environment.clientSecret}`,
-  //         'utf8'
-  //       ).toString('base64'),
-  //   });
-  //   return this.http.post<DataSourceRESTResponse<Product[]>>(url, pageFilter, {
-  //     headers,
-  //   });
-  // }
+
 }

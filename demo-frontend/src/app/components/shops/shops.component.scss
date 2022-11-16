@@ -1,0 +1,70 @@
+// Verde oscuro #00897b
+// Verde #00af91
+
+.main-container {
+    width: 75%;
+    background-color: white;
+    margin: auto;
+}
+
+.main-img {
+    width: 100%;
+    height: 400px;
+    display: block;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin-bottom: 40px;
+
+}
+
+.description {
+    width: 100%;
+
+    margin-top: 50px;
+}
+
+.title {
+
+  padding: 20px;
+  width: 200px;
+  height: 150px;
+}
+
+.shop-name {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.text-center {
+  text-align: center!important;
+}
+
+
+.contactButton > * {
+    transform: scale(0.5);
+}
+
+.vendor-details {
+    margin-top: 20px;
+    background-color:  #00af9294;
+    min-height: 50px;
+
+    font-size: large;
+}
+
+.vendor-details .detailTitle {
+    font-weight: bold;
+}
+
+.icons-container img + img {
+    margin-left: 20px;
+  }
+
+.social_media_icon {
+    max-width: 50px;
+    max-height: 50px;
+}
