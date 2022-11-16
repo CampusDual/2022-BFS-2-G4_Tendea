@@ -1,7 +1,7 @@
 // Verde oscuro #00897b
 // Verde #00af91
 
-.image-upload>input {
+.file-input {
     display: none;
   }
 
@@ -23,9 +23,19 @@
 
 }
 
+.img-container {
+    position: relative;
+  }
+  
+  .topright {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+  }
+
 .description {
     width: 100%;
-
     margin-top: 50px;
 }
 
