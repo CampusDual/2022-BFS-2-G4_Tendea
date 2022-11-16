@@ -79,6 +79,9 @@
     "previous_page": "Página anterior",
     "of": "de"
   },
+  "productDetail": {
+    "soldBy": "Vendido por"
+  },
   "register": {
     "LOGIN_REQUIRED": "El nombre de usuario es obligatorio",
     "PASSWORD_REQUIRED": "La contraseña es obligatoria",
@@ -133,6 +136,8 @@
   "phonerequired":"El teléfono es un campo obligatorio",
   "phonepattern": "El formato del teléfono no es correcto",
   "emailpattern": "El formato del email no es correcto",
-  "PRODUCT_CREATED": "Producto creado"
+  "PRODUCT_CREATED": "Producto creado",
+  "Products": "Productos",
+  "Stores": "Tiendas"
 
 }

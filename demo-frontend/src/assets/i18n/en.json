@@ -78,6 +78,9 @@
     "previous_page": "Previous page",
     "of": "of"
   },
+  "productDetail": {
+    "soldBy": "Sold by"
+  },
   "register": {
     "LOGIN_REQUIRED": "Name is a required field",
     "PASSWORD_REQUIRED": "Password is a required field",
@@ -132,5 +135,7 @@
   "phonerequired": "Phone is a required field",
   "phonepattern": "The phone format is not correct",
   "emailpattern": "The email format is not correct",
-  "PRODUCT_CREATED": "Product created"
+  "PRODUCT_CREATED": "Product created",
+  "Products": "Products",
+  "Stores": "Shops"
 }

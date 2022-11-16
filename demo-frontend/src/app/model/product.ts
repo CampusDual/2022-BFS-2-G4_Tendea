@@ -15,5 +15,5 @@ export class Product {
   description?: string;
   bulk: number;
   login?: string;
-  shop: Shop;
+  shop?: Shop;
 }

@@ -9,7 +9,8 @@
           </div>
           <div class="col-md-6">
             <div class="small mb-1">SKU: {{product.id}}</div>
-            <h2 class="display-5 fw-bolder">{{product.name}}</h2>
+            <h2 class="display-6 fw-bolder">{{product.name}}</h2>
+            <div class="display-8">{{ 'productDetail.soldBy' | translate }} {{product.shop.name}}</div>
             <div class="fs-5 mb-5">
               <span *ngIf="product.discount !== 0 && product.discount !== null" class="original-price">{{ product.price  | currency :
                 'EUR':'symbol':'.2-2':'es'}}</span>
