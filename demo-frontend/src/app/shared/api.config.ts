@@ -35,13 +35,14 @@ export const API_CONFIG = {
 
   // Shop API
   getShopByIdLandind: environment.shopsBaseUrl + '/getShopById',
-  createShopProduct: environment.shopsBaseUrl + '/createProduct',
+  createShopProduct: environment.productsBaseUrl + '/createProduct',
   createShop: environment.shopsBaseUrl + '/createShop',
   deleteShop: environment.shopsBaseUrl + '/deleteShop',
   getLastShops: environment.shopsBaseUrl + '/getShopsLastShop',
 
   // Upload product image
   uploadProductImage: environment.shopsBaseUrl + 'products/upload',
+  editProduct: environment.productsBaseUrl + '/editProduct',
   getShopById: environment.shopsBaseUrl + '/getShop',
   getShopsByUserId: environment.shopsBaseUrl + '/getShopByUser',
   uploadShopImg: environment.shopsBaseUrl + '/upload',

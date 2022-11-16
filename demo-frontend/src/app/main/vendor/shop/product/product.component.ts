@@ -7,7 +7,8 @@ import { CategoryService } from '../../../../services/category.service';
 import { Category } from '../../../../model/category';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { ProductImages } from '../../../../model/product-images';
-import { Route, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ProductService } from '../../../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -15,13 +16,16 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
+  idProduct: number;
   product: Product;
-  category: Category;
+  category!: Category;
   userName: string;
   categories: Category[];
   imageUpload: File; // Imagen a subir
   imagen: ProductImages;
   imgTemp: any;
+  productForm: FormGroup;
+  formName!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -29,35 +33,92 @@ export class ProductComponent implements OnInit {
     private authService: AuthService,
     private categoryService: CategoryService,
     private fileUpload: FileUploadService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private activateRoute: ActivatedRoute,
+    private productService: ProductService
+  ) {
+    this.product = new Product();
+    this.category = new Category();
+  }
 
-  productForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    price: [, Validators.required],
-    discount: [],
-    category: [, Validators.required],
-    bulk: [false],
-    description: [],
-  });
   ngOnInit(): void {
+    /** Si viene el ide en la url */
+    this.createForm();
+    this.idProduct = this.activateRoute.snapshot.params['id'];
+    if (this.idProduct) {
+      this.formName = 'Edición de producto';
+      this.productService.getProductById(this.idProduct).subscribe((res) => {
+        this.product = res;
+        this.productForm.patchValue(this.product, {
+          emitEvent: false,
+          onlySelf: false,
+        });
+      });
+    } else {
+      this.formName = 'Nuevo producto';
+    }
+
     this.userName = this.authService.getUserName();
     this.categoryService
       .getCategories()
       .subscribe((res) => (this.categories = res));
   }
 
+  onFormChanges() {
+    this.productForm.valueChanges.subscribe((val) => {
+      console.log(val);
+    });
+  }
+
+  setCategory(category) {
+    console.log(category);
+  }
+
+  /**
+   * Creacion del formulario
+   */
+  createForm() {
+    this.productForm = this.fb.group({
+      id: [this.product.id],
+      name: [this.product.name, Validators.required],
+      price: [this.product.price, Validators.required],
+      discount: [this.product.discount],
+      category: [this.product.category, Validators.required],
+      bulk: [this.product.bulk],
+      description: [this.product.description],
+      shop: [this.product.shop],
+    });
+  }
+
+  /**
+   * Guardar producto
+   */
   save() {
     /** Cambio de bult to integer */
     this.productForm.controls['bulk'].value
       ? this.productForm.get('bulk').setValue(1)
       : this.productForm.get('bulk').setValue(0);
 
-    /** Send product to backend */
-    this.shopService.createProduct(this.productForm.value).subscribe((res) => {
-      this.uploadImage(res.id);
-      this.productForm.reset();
-    });
+    if (this.product.id) {
+      this.productService
+        .editProduct(this.productForm.value)
+        .subscribe((res) => {
+          if (this.imgTemp) {
+            console.log('Tiene imagen');
+            this.uploadImage(this.product.id);
+          }
+          console.log('No tiene imagen');
+        });
+    } else {
+      /** Send product to backend */
+      console.log('aqui estamos')
+      this.shopService
+        .createProduct(this.productForm.value)
+        .subscribe((res) => {
+          this.uploadImage(res.id);
+          this.productForm.reset();
+        });
+    }
   }
 
   /**

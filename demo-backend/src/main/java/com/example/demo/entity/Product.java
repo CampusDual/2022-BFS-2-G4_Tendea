@@ -73,7 +73,7 @@ public class Product implements Serializable {
 	}
 	
 	public Product(Integer id, String name, Double price, Date createAt, List<ProductImage> images,
-			Double discount, Integer bulk, Category category) {
+			Double discount, Integer bulk, Category category, String description) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -82,11 +82,12 @@ public class Product implements Serializable {
 		this.discount = discount;
 		this.bulk = bulk;
 		this.category = category;
+		this.description = description;
 	}
 
 	/** Constructor con tienda **/
 	public Product(Integer id, String name, Double price, Date createAt, List<ProductImage> images,
-			Double discount, Integer bulk, Category category, Shop shop) {
+			Double discount, Integer bulk, Category category, Shop shop, String Description) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -95,6 +96,7 @@ public class Product implements Serializable {
 		this.discount = discount;
 		this.bulk = bulk;
 		this.category = category;
+		this.description = description;
 		this.shop = shop;
 	}
 

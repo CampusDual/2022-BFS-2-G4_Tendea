@@ -8,6 +8,8 @@ import { DataSourceRESTResponse } from '../model/rest/response';
 import { API_CONFIG } from '../shared/api.config';
 import { Buffer } from 'buffer';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserServicesService } from './user-services.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +22,11 @@ export class ProductService {
       verticalPosition: 'top',
     });
   }
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {}
-
-  // TODO: Es necesario hacer un PageFilter, comprobar funcionamiento en contacts.component.ts
+  constructor(
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authService: AuthService
+  ) {}
 
   public getProducts(
     pageFilter: AnyPageFilter
@@ -90,6 +94,11 @@ export class ProductService {
     });
   }
 
+  /**
+   * Eliminar un producto
+   * @param id
+   * @returns
+   */
   public deleteProduct(id: number): Observable<any> {
     const url = API_CONFIG.deleteProduct;
     const headers = new HttpHeaders({
@@ -105,6 +114,12 @@ export class ProductService {
     return this.http.delete<any>(url, { params, headers });
   }
 
+  /**
+   * Subida de imagenes de producto
+   * @param product
+   * @param img
+   * @returns
+   */
   public uploadProductImg(product: any, img: File): Observable<any> {
     const url = API_CONFIG.uploadProductImg;
     // const body: CreateProductRequest = new CreateProductRequest(product);
@@ -165,10 +180,21 @@ export class ProductService {
     );
   }
 
+  /**
+   * Obtiene un producto por id
+   * @param id
+   * @returns
+   */
   public getProductById(id: number): Observable<Product> {
     const url = API_CONFIG.getProductById;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
     });
     return this.http.get<Product>(`${url}/${id}`, { headers }).pipe(
       catchError((e) => {
@@ -181,9 +207,37 @@ export class ProductService {
     );
   }
 
+  /**
+   * Edicion de un producto desde una tienda
+   * @returns
+   */
+  editProduct(product: Product) {
+    console.log(product);
+    const login = this.authService.getUserName();
+    const url = API_CONFIG.editProduct;
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
+    });
+    console.log(product);
+    return this.http
+      .put<Product>(`${url}/${product.id}/${login}`, product, { headers })
+      .pipe(
+        catchError((e) => {
+          return throwError(() => e);
+        })
+      );
+  }
 
-  public getProductsByShopIdPag(id: number, pageFilter: AnyPageFilter ): 
-  Observable<DataSourceRESTResponse<Product[]>> {
+  public getProductsByShopIdPag(
+    id: number,
+    pageFilter: AnyPageFilter
+  ): Observable<DataSourceRESTResponse<Product[]>> {
     const url = API_CONFIG.getProductsByShopIdPag;
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
@@ -196,9 +250,11 @@ export class ProductService {
         ).toString('base64'),
     });
     return this.http.post<DataSourceRESTResponse<Product[]>>(
-      `${url}/${id}`, pageFilter, { headers, });
+      `${url}/${id}`,
+      pageFilter,
+      { headers }
+    );
   }
-    
 
   // Eliminar, esta copiado como ejemplo
 
@@ -220,7 +276,4 @@ export class ProductService {
   //     headers,
   //   });
   // }
-
-
-
 }

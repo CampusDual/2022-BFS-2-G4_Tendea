@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
+import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.ShopDTO;
 import com.example.demo.dto.UserDTO;
@@ -64,9 +65,6 @@ public class ShopsController {
 
 	@Autowired
 	private IUserService userService;
-
-	@Autowired
-	private IProductService productService;
 
 	/**
 	 * Devuelve las tiendas registradas, ordenadas por id
@@ -153,6 +151,15 @@ public class ShopsController {
 		return re;
 	}
 
+	/**
+	 * Creacion de una tienda
+	 * @param createShopRequest
+	 * @param result
+	 * @return
+	 *
+	 * @Since 15 nov 2022
+	 * @author adolfob
+	 */
 	@PostMapping(path = "/createShop")
 	@ResponseStatus(HttpStatus.CREATED)
 	// @PreAuthorize("hasAnyAuthority('CONTACTS')")
@@ -276,60 +283,7 @@ public class ShopsController {
 
 	}
 
-	/**
-	 * Crear un producto desde una tienda
-	 * 
-	 * @param product
-	 * @param login
-	 * @return
-	 */
-	@PostMapping(path = "/createProduct/{login}")
-	// @PreAuthorize("hasAnyAuthority('SHOPS')")
-	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO createProductStoreRequest,
-			@PathVariable(value = "login") String login, BindingResult result) {
-		LOGGER.info("createProduct in progress...");
-		ProductDTO newProduct = null;
-		Shop shop = null;
-		UserDTO user;
-		Map<String, Object> response = new HashMap<>();
-		HttpStatus status = HttpStatus.CREATED;
-		String message = Constant.PRODUCT_CREATE_SUCCESS;
 
-		if (!result.hasErrors()) {
-			try {
-				user = userService.findByLogin(login);
-				shop = shopService.getShopByUser(user);
-				createProductStoreRequest.setShop(shop);
-				newProduct = productService.createProductStore(createProductStoreRequest);
-				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
-			} catch (DataAccessException e) {
-				response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
-				response.put(Constant.ERROR, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			}
-			response.put("id", newProduct.getId());
-		} else {
-			List<String> errors = new ArrayList<>();
-			for (FieldError error : result.getFieldErrors()) {
-				errors.add(error.getDefaultMessage());
-			}
-			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.WARNING.getValue());
-			message = Constant.PRODUCT_NOT_CREATED;
-			response.put(Constant.ERROR, errors);
-			status = HttpStatus.BAD_REQUEST;
-		}
-		LOGGER.info("Create Product is finish...");
-		response.put(Constant.MESSAGE, "Producto registrado correctamente");
-		return new ResponseEntity<Map<String, Object>>(response, status);
-	}
-
-	@GetMapping("/getShopByUser/{query}")
-	@ResponseStatus(HttpStatus.OK)
-	public List<ShopDTO> findByUser(@PathVariable Integer query) {
-		LOGGER.info("search in progress...", query);
-
-		return shopService.findByUserId(query);
-
-	}
 
 	/**
 	 * Subida de imagen de una tienda
@@ -351,8 +305,8 @@ public class ShopsController {
 		LOGGER.info("upload image in progress...", shop);
 		if (!file.isEmpty()) {
 			// Para que el nombre sea unico, agregamos un UUID al nombre de la imagen y
-			// quitamos los espacios en blanco
-			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replace(" ", "");
+			// quitamos los espacios en blanco, y lo pasamos todo a minusculas
+			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replace(" ", "").toLowerCase();
 
 			// Ruta a la que se sube la imagen
 			Path fileRoute = Paths.get("uploads").resolve(fileName).toAbsolutePath();
@@ -386,7 +340,29 @@ public class ShopsController {
 		}
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
+	
+	/**
+	 * Obtiene una tienda por usuario
+	 * @param query
+	 * @return
+	 *
+	 * @Since 15 nov 2022
+	 * @author pablo
+	 */
+	@GetMapping("/getShopByUser/{query}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<ShopDTO> findByUser(@PathVariable Integer query) {
+		LOGGER.info("search in progress...", query);
 
+		return shopService.findByUserId(query);
+
+	}
+
+	/**
+	 * Muestra la imagen de una tienda
+	 * @param photo
+	 * @return
+	 */
 	@GetMapping("/uploads/img/{photo:.+}") // Indica que va a recobir un parametro .extencion .jpg
 	public ResponseEntity<Resource> showPhoto(@PathVariable String photo) {
 		LOGGER.info("show image in progress...", photo);
@@ -408,5 +384,6 @@ public class ShopsController {
 		LOGGER.info("show image finish...", photo);
 		return new ResponseEntity<Resource>(recurso, header, HttpStatus.OK);
 	}
+	
 
 }
