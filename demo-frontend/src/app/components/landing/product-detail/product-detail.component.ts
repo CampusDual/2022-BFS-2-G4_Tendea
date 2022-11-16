@@ -18,6 +18,9 @@ import { CategoryService } from '../../../services/category.service';
         color: darkgrey;
         text-decoration: line-through;
       }
+      .card { 
+        cursor: pointer; 
+      }
     `,
   ],
 })
