@@ -26,45 +26,44 @@
         <mat-paginator [length]="dataSource.totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
           aria-label="Select page" showFirstLastButtons (page)="pageEvent = setPageSizeOptions($event)">
         </mat-paginator>
+  </div>
+</div>
 
-
-        <!-- FOOTER -->
-        <div class="vendor-details">
-          <div fxLayout="row" fxLayoutAlign="space-around start">
-            <div>
-              <p class="detailTitle">Redes sociales</p>
-              <div class="icons-container">
-                <a href="{{ shop.urlFb }}" >
-                  <img class="social_media_icon" src="./assets/images/social_media_icons/facebook.png" />
-                </a>
-                <a href="{{ shop.urlInsta }}" >
-                  <img class="social_media_icon" src="./assets/images/social_media_icons/instagram.png" /> 
-                </a>
-              </div>
-            </div>
-        <table>
-          <tr>
-            <th colspan="2" class="text-center">
-              <p class="detailTitle">Contacta con nosotros:</p>
-            </th>
-          </tr>
-          <tr>
-            <td>
-              <p><mat-icon> place </mat-icon> {{ shop.address }}</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p><mat-icon> email </mat-icon> {{ shop.email }}</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p><mat-icon> phone </mat-icon> {{ shop.phone }}</p>
-            </td>
-          </tr>
-        </table>
+<!-- FOOTER -->
+<div class="container-fluid mt-5 container-custom ">
+  <div fxLayout="row" fxLayoutAlign="space-around start">
+    <div>
+      <p class="detailTitle">Redes sociales</p>
+      <div class="icons-container">
+        <a href="{{ shop.urlFb }}" >
+          <img class="social_media_icon" src="./assets/images/social_media_icons/facebook.png" />
+        </a>
+        <a href="{{ shop.urlInsta }}" >
+          <img class="social_media_icon" src="./assets/images/social_media_icons/instagram.png" /> 
+        </a>
       </div>
     </div>
-  </div>
+<table>
+  <tr>
+    <th colspan="2" class="text-center">
+      <p class="detailTitle">Contacta con nosotros:</p>
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <p><mat-icon> place </mat-icon> {{ shop.address }}</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p><mat-icon> email </mat-icon> {{ shop.email }}</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p><mat-icon> phone </mat-icon> {{ shop.phone }}</p>
+    </td>
+  </tr>
+</table>
+</div>
 </div>
