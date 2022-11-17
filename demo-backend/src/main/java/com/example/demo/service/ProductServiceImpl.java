@@ -22,6 +22,7 @@ import com.example.demo.dto.mapper.ProductMapper;
 import com.example.demo.entity.Category;
 import com.example.demo.entity.Contact;
 import com.example.demo.entity.Product;
+import com.example.demo.repository.ProductImageRepository;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 
@@ -30,6 +31,9 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private ProductImageRepository imageRepository;
 
 	@Override
 	public List<ProductDTO> findAll() {
@@ -189,6 +193,12 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		datares.setTotalElements((int) products.getTotalElements());
 		return datares;
 		
+	}
+
+	@Override
+	public Integer deleteProductImage(Integer id) {
+		imageRepository.deleteById(id);
+		return id;
 	}
 	
 

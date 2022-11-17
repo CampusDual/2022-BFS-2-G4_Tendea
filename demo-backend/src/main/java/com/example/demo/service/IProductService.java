@@ -17,6 +17,12 @@ public interface IProductService {
 	
 	
 	/**
+	 * Eliminar imagenes de un producto
+	 */
+	
+	Integer deleteProductImage(Integer id);
+	
+	/**
 	 * Crea un producto
 	 * @param createProductRequest
 	 * @return

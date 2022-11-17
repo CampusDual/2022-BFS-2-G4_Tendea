@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -339,6 +340,8 @@ public class ProductsController {
 			response.put("message", Constant.PRODUCT_NOT_EXISTS); // Acordarse
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		}
+		
+		
 
 		LOGGER.info("upload image in progress...", product);
 		if (!file.isEmpty()) {
@@ -361,10 +364,18 @@ public class ProductsController {
 			ProductImage productImg = new ProductImage();
 			productImg.setName(fileName);
 			productImg.setUrl(fileName);
+			
+			
 
-			try {
-				product.getImages().clear();
+			try {	
 				product.getImages().add(productImg);
+				
+				for (int i = 0; i < product.getImages().size(); i++) {
+					productService.deleteProductImage(productImg.getId());
+				}
+				
+				
+				
 				productService.createProduct(product);
 				response.put("product", product);
 				response.put("message", Constant.IMAGE_UPLOADED);
