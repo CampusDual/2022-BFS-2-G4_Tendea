@@ -54,6 +54,7 @@ export class LandingComponent implements OnInit {
     /** LLamada a la bd de productos, obtenemos los ultimos 5 */
     this.productService.getProductsLanding(1, 5).subscribe((res) => {
       this.products = res.data;
+      console.log(this.products);
     });
 
     /** LLamada a la bd de categorias, obtenemos los ultimos 5 */

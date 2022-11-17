@@ -5,7 +5,8 @@
     <mat-card>
       <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-          <div class="col-md-6"><img class="card-img-top img-responsive" [src]="product" alt="{{product.name}}">
+          <div class="col-md-6"><img class="card-img-top img-responsive" [src]="product |ProductImage"
+              alt="{{product.name}}">
           </div>
           <div class="col-md-6">
             <div class="small mb-1">SKU: {{product.id}}</div>

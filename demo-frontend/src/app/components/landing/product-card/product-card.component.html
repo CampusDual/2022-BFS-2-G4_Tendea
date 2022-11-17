@@ -6,7 +6,7 @@
   <p>
 
     <img class="card-img-top img-responsive" [routerLink]="['/producto', product.id]" alt="{{product.name}}"
-      style="width: 100%; display: block; cursor: pointer;" [src]="product " alt="Image not available"
+      style="width: 100%; display: block; cursor: pointer;" [src]="product | ProductImage" alt="Image not available"
       data-holder-rendered="true">
 
   <div class="card-body">

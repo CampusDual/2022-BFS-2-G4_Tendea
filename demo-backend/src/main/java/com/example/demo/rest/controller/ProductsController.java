@@ -75,7 +75,7 @@ public class ProductsController {
 
 	@Autowired
 	private IUserService userService;
-	
+
 	@Autowired
 	private IProductImageService imageService;
 
@@ -417,7 +417,17 @@ public class ProductsController {
 		}
 
 		if (!recurso.exists() && !recurso.isReadable()) {
-			throw new RuntimeException("No se pudo cargar la imagen: " + photo);
+			HttpHeaders header = new HttpHeaders();
+			photo = "ImgNoAvailable.png";
+			fileRoute = Paths.get("uploads").resolve(photo).toAbsolutePath();
+			try {
+				recurso = new UrlResource(fileRoute.toUri());
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+			LOGGER.info("show image finish...", photo);
+			return new ResponseEntity<Resource>(recurso, header, HttpStatus.OK);
 		}
 
 		HttpHeaders header = new HttpHeaders();
@@ -438,6 +448,7 @@ public class ProductsController {
 
 	/**
 	 * Busqueda de los productos por el nombre
+	 * 
 	 * @param query
 	 * @return
 	 *
@@ -467,6 +478,7 @@ public class ProductsController {
 
 	/**
 	 * Obtiene los productos por el id para una tienda
+	 * 
 	 * @param id
 	 * @param pageFilter
 	 * @return
