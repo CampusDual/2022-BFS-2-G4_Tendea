@@ -107,7 +107,6 @@ export class ProductComponent implements OnInit {
             console.log('Tiene imagen');
             this.uploadImage(this.product.id);
           }
-          console.log('No tiene imagen');
         });
     } else {
       /** Send product to backend */

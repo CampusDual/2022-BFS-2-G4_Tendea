@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,18 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.ContactDTO;
-import com.example.demo.dto.ProductDTO;
+
 import com.example.demo.dto.UserDTO;
 import com.example.demo.dto.UserGetDTO;
-import com.example.demo.dto.mapper.UserMapper;
-import com.example.demo.entity.Profile;
-import com.example.demo.entity.User;
 import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.service.IUserService;
 import com.example.demo.utils.CipherUtils;
