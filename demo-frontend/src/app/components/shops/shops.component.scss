@@ -3,8 +3,12 @@
 
 .main-container {
     width: 75%;
-    background-color: white;
+    background-color: white !important;
     margin: auto;
+}
+
+.container>div {
+    background-color: white !important;
 }
 
 .main-img {
@@ -23,6 +27,13 @@
     width: 100%;
 
     margin-top: 50px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    color: gray;
+    font-size: 1.5em;
+    font-weight: 450;
+
+    
 }
 
 .title {
