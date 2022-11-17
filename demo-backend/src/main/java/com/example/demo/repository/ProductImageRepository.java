@@ -4,14 +4,13 @@
 package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.example.demo.entity.Product;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.example.demo.entity.ProductImage;
 
 /**
  * @author adolfob
  *
  */
-public interface ProductImageRepository extends JpaRepository<ProductImage, Integer> {
+public interface ProductImageRepository extends JpaRepository<ProductImage, Integer>, JpaSpecificationExecutor<ProductImage> {
 
 }

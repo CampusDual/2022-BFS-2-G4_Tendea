@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.example.demo.dto.ContactDTO;
-import com.example.demo.entity.Contact;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 
 public interface IContactService {

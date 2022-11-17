@@ -20,7 +20,7 @@ public interface IProductService {
 	 * Eliminar imagenes de un producto
 	 */
 	
-	Integer deleteProductImage(Integer id);
+	void deleteProductImage(Integer id);
 	
 	/**
 	 * Crea un producto

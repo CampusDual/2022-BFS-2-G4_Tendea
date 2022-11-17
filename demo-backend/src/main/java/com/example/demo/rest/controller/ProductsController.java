@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -52,6 +51,7 @@ import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 import com.example.demo.service.ICategoryService;
+import com.example.demo.service.IProductImageService;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.IShopService;
 import com.example.demo.service.IUserService;
@@ -69,12 +69,15 @@ public class ProductsController {
 
 	@Autowired
 	private ICategoryService categoryService;
-	
+
 	@Autowired
 	private IShopService shopService;
 
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IProductImageService imageService;
 
 	/**
 	 * Obtiene un producto de BDD con el id indicado.
@@ -109,6 +112,7 @@ public class ProductsController {
 
 	/**
 	 * Obtiene los productos
+	 * 
 	 * @param pageFilter
 	 * @return
 	 *
@@ -208,9 +212,10 @@ public class ProductsController {
 	public List<ProductDTO> getAllProducts() {
 		return productService.findAll();
 	}
-	
+
 	/**
 	 * Crea un producto desde una tienda con el id del usuario
+	 * 
 	 * @param createProductStoreRequest
 	 * @param login
 	 * @param result
@@ -265,20 +270,21 @@ public class ProductsController {
 		return shopService.findByUserId(query);
 
 	}
-	
-	
+
 	/**
-	 * Edición de un producto desde una tienda con el 
+	 * Edición de un producto desde una tienda con el
+	 * 
 	 * @return
 	 *
 	 * @Since 15 nov 2022
 	 * @author adolfob
 	 */
 	@PutMapping(path = "/editProduct/{id}/{login}")
-	//@PreAuthorize("hasAnyAuthority('SHOPS')")
-	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDTO editProductRequest, @PathVariable(value = "id") Integer id, @PathVariable(value = "login") String login,BindingResult result ) {
+	// @PreAuthorize("hasAnyAuthority('SHOPS')")
+	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDTO editProductRequest,
+			@PathVariable(value = "id") Integer id, @PathVariable(value = "login") String login, BindingResult result) {
 		LOGGER.info("editProduct in progress...");
-		//Shop shop = null;
+		// Shop shop = null;
 		UserDTO user;
 		ProductDTO productOlder = productService.getProduct(id);
 		Map<String, Object> response = new HashMap<>();
@@ -318,7 +324,7 @@ public class ProductsController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 
-		//response.put(Constant.MESSAGE, message);
+		// response.put(Constant.MESSAGE, message);
 		LOGGER.info("editProduct is finished...");
 		response.put(Constant.MESSAGE, "Producto editado correctamente");
 		return new ResponseEntity<Map<String, Object>>(response, status);
@@ -340,14 +346,13 @@ public class ProductsController {
 			response.put("message", Constant.PRODUCT_NOT_EXISTS); // Acordarse
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		}
-		
-		
 
 		LOGGER.info("upload image in progress...", product);
 		if (!file.isEmpty()) {
 			// Para que el nombre sea unico, agregamos un UUID al nombre de la imagen y
 			// quitamos los espacios en blanco
-			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replace(" ", "").toLowerCase();
+			String fileName = UUID.randomUUID().toString() + "_"
+					+ file.getOriginalFilename().replace(" ", "").toLowerCase();
 
 			// Ruta a la que se sube la imagen
 			Path fileRoute = Paths.get("uploads").resolve(fileName).toAbsolutePath();
@@ -359,23 +364,26 @@ public class ProductsController {
 				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
 				e.printStackTrace();
 			}
-			
 
+			/**
+			 * si el producto tienes otras imagenes las elimina de la BD
+			 */
+			if (product.getImages().size() >= 0) {
+				for (int i = 0; i < product.getImages().size(); i++) {
+					imageService.deleteImage(product.getImages().get(i).getId());
+				}
+			}
+
+			/**
+			 * Agrega la nueva imagen al producto
+			 */
 			ProductImage productImg = new ProductImage();
 			productImg.setName(fileName);
 			productImg.setUrl(fileName);
-			
-			
 
-			try {	
+			try {
 				product.getImages().add(productImg);
-				
-				for (int i = 0; i < product.getImages().size(); i++) {
-					productService.deleteProductImage(productImg.getId());
-				}
-				
-				
-				
+
 				productService.createProduct(product);
 				response.put("product", product);
 				response.put("message", Constant.IMAGE_UPLOADED);
@@ -429,7 +437,12 @@ public class ProductsController {
 	}
 
 	/**
-	 * Busqueda de productos por el nombre
+	 * Busqueda de los productos por el nombre
+	 * @param query
+	 * @return
+	 *
+	 * @Since 17 nov 2022
+	 * @author adolfob
 	 */
 	@GetMapping("/getProductsByName/{query}")
 	@ResponseStatus(HttpStatus.OK)
@@ -452,6 +465,15 @@ public class ProductsController {
 
 	}
 
+	/**
+	 * Obtiene los productos por el id para una tienda
+	 * @param id
+	 * @param pageFilter
+	 * @return
+	 *
+	 * @Since 17 nov 2022
+	 * @author adolfob
+	 */
 	@PostMapping(path = "/getProductsByShop/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //	@PreAuthorize("hasAnyAuthority('CLIENTS')")
 	public @ResponseBody DataSourceRESTResponse<List<ProductDTO>> getProductsByShop(@PathVariable Integer id,

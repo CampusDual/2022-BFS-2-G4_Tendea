@@ -31,10 +31,13 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private ProductImageRepository imageRepository;
 
+	/**
+	 * Devuelve todos los productos
+	 */
 	@Override
 	public List<ProductDTO> findAll() {
 		return ProductMapper.INSTANCE.productToProductDTOList(productRepository.findAll());
@@ -60,6 +63,9 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		return ProductMapper.INSTANCE.productToProductDTO(product);
 	}
 
+	/**
+	 * Elimina un producto
+	 */
 	@Override
 	public Integer deleteProduct(Integer id) {
 		productRepository.deleteById(id);
@@ -152,7 +158,6 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		return products;
 	}
 
-
 	/**
 	 * Crea el producto de una tienda
 	 */
@@ -162,7 +167,7 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		Product newProduct = productRepository.save(product);
 		return ProductMapper.INSTANCE.productToProductDTO(newProduct);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<ProductDTO> findByShopId(Integer id) {
@@ -170,8 +175,6 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		products = ProductMapper.INSTANCE.productToProductDTOList(productRepository.findByShopId(id));
 		return products;
 	}
-	
-	
 
 	/**
 	 * Obtiene los productos por categorias
@@ -182,6 +185,7 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		List<Product> products = productRepository.findByCategory(cat);
 		return ProductMapper.INSTANCE.productToProductDTOList(products);
 	}
+
 	@Override
 	@Transactional(readOnly = true)
 	public DataSourceRESTResponse<List<ProductDTO>> findProductsByShopPag(int id, AnyPageFilter pageFilter) {
@@ -192,16 +196,12 @@ public class ProductServiceImpl extends AbstractProductService implements IProdu
 		datares.setData(productsDTO);
 		datares.setTotalElements((int) products.getTotalElements());
 		return datares;
-		
+
 	}
 
 	@Override
-	public Integer deleteProductImage(Integer id) {
+	public void deleteProductImage(Integer id) {
 		imageRepository.deleteById(id);
-		return id;
 	}
-	
-
-
 
 }
