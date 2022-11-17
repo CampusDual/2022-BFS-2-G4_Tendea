@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
+import { Router, TitleStrategy } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
   debounceTime,
@@ -22,6 +22,7 @@ import { Product } from 'src/app/model/product';
 import { AnyField, AnyPageFilter, SortFilter } from 'src/app/model/rest/filter';
 import { Shop } from 'src/app/model/shop';
 import { User } from 'src/app/model/user';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { UserServicesService } from 'src/app/services/user-services.service';
@@ -53,6 +54,10 @@ export class ShopComponent implements OnInit {
     'actions',
   ];
   fields = ['name', 'category.name', 'price', 'discount', 'images.url'];
+
+  imageUpload: File;
+  imgTemp: any;
+  baseUrl: string = "http://localhost:9999/shops/uploads/img/"
 
   shop: Shop;
   shops: Shop[];
@@ -91,7 +96,8 @@ export class ShopComponent implements OnInit {
     private shopService: ShopService,
     private userService: UserServicesService,
     private dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private fileUpload: FileUploadService
   ) {
     this.login = authService.getUserName();
     this.shop = new Shop();
@@ -134,7 +140,6 @@ export class ShopComponent implements OnInit {
         })
       )
       .subscribe();
-    console.log('shopId' + this.shop.id);
 
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
@@ -338,10 +343,6 @@ export class ShopComponent implements OnInit {
       .subscribe((response) => console.log(response));
   }
 
-  editProduct() {
-    console.log('hola');
-  }
-
   //*************************** End form buttons ***************************
 
   delete(product: Product) {
@@ -389,4 +390,42 @@ export class ShopComponent implements OnInit {
     this.highlightedRow = row;
     this.router.navigate(['/vendors/shop/products/edit/' + row.id]);
   }
+
+  changeImage(event) {
+    const file = event.target.files[0];
+    this.imageUpload = file;
+    if (!file) {
+      this.imgTemp = '';
+      return;
+    }
+
+    /** Si tenemos imagen la mostramos
+     */
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      this.imgTemp = reader.result;
+    };
+    
+    this.uploadImage(this.shop.id);
+
+  }
+
+  uploadImage(shopId: number) {
+    this.fileUpload
+      .uploadShopImage(this.imageUpload, shopId, 'shops')
+      .subscribe(() => {
+        this.shopService.createShop(this.shop);
+      });
+  }
+
+
+
+
+
+
+
+
 }
+

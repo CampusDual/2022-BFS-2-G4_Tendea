@@ -324,6 +324,7 @@ public class ShopsController {
 			shopImg.setUrl(fileName);
 
 			try {
+				shop.getImages().clear();
 				shop.getImages().add(shopImg);
 				shopService.createShop(shop);
 				response.put("shop", shop);
