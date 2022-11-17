@@ -1,17 +1,19 @@
-<div class=" container card mb-4 box-shadow" >
+<div class=" container card mb-4 box-shadow">
 
   <img *ngIf="product.discount != null && product.discount !=0" class="top-left"
     [src]="'../../../assets/images/DiscountLabel.png'" alt="Discount Label">
   <p *ngIf="product.discount != null && product.discount !=0" class="centered-text"> {{ product.discount }}%
   <p>
 
-    <img class="card-img-top img-responsive" [routerLink]="['/producto', product.id]" alt="{{product.name}}" style="width: 100%; display: block; cursor: pointer;"
-      [src]="product | imagen " alt="Image not available" data-holder-rendered="true">
+    <img class="card-img-top img-responsive" [routerLink]="['/producto', product.id]" alt="{{product.name}}"
+      style="width: 100%; display: block; cursor: pointer;" [src]="product " alt="Image not available"
+      data-holder-rendered="true">
 
   <div class="card-body">
 
     <h6 class="card-title" style="cursor: pointer;">{{product.name }}</h6>
-    <p class="card-text" [routerLink]="['/tienda/', product.shop.id]" style="cursor: pointer;"> {{product.shop.name}} </p>
+    <p class="card-text" [routerLink]="['/tienda/', product.shop.id]" style="cursor: pointer;"> {{product.shop.name}}
+    </p>
     <table style="width:100%">
       <td align="center"> </td>
       <td align="center">
@@ -31,11 +33,12 @@
         <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
           <mat-icon mat-list-icon [routerLink]="['/producto', product.id]">info</mat-icon>
         </button> -->
-        <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
+        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="addProductToCart(product)">
           <mat-icon mat-list-icon>shopping_cart</mat-icon>
-        </button> -->
+        </button>
       </div>
-      <small class="text-muted" [routerLink]="['/categoria', product.category.id]" style="cursor: pointer;">{{product.category.name}}</small>
+      <small class="text-muted" [routerLink]="['/categoria', product.category.id]"
+        style="cursor: pointer;">{{product.category.name}}</small>
     </div>
   </div>
 </div>

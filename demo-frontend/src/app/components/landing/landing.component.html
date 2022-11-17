@@ -56,13 +56,15 @@
 
   <mat-toolbar>
     <div class="logoContainer">
-    <img [src]="'../../../assets/images/logo_tendea.png'" class="nav-logo" routerLink="/" role="button">
+      <img [src]="'../../../assets/images/logo_tendea.png'" class="nav-logo" routerLink="/" role="button">
     </div>
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
     <span class="spacer"></span>
-
+    <button mat-icon-button class="example-icon favorite-icon" routerLink="carrito">
+      <mat-icon>favorite</mat-icon>
+    </button>
     <a mat-raised-button color="primary" routerLink="/auth/login">{{ 'menu.login' | translate }}</a>
   </mat-toolbar>
 

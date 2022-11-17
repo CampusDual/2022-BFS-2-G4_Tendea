@@ -19,7 +19,11 @@ import { StoreComponent } from './store/store.component';
 import { ImagenPipe } from '../pipes/imagen.pipe';
 
 @NgModule({
-  declarations: [MainHomeComponent, FilterItemDirective, StoreComponent],
+  declarations: [
+    MainHomeComponent,
+    FilterItemDirective,
+    StoreComponent,
+  ],
   imports: [
     TranslateModule,
     CommonModule,
@@ -33,7 +37,6 @@ import { ImagenPipe } from '../pipes/imagen.pipe';
     LightboxModule,
     NgxChartsModule,
     BrowserAnimationsModule,
-    MaterialModule,
   ],
   bootstrap: [AppComponent],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }, DatePipe],

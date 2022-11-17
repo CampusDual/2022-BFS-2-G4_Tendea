@@ -26,11 +26,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatRadioModule } from '@angular/material/radio';
-import { ImagenPipe } from '../pipes/imagen.pipe';
+import { MatRadioModule } from '@angular/material/radio'
 
 @NgModule({
-  declarations: [ImagenPipe],
+  declarations: [],
   exports: [
     MatDividerModule,
     MatIconModule,
@@ -60,7 +59,6 @@ import { ImagenPipe } from '../pipes/imagen.pipe';
     FlexLayoutModule,
     MatTreeModule,
     MatRadioModule,
-    ImagenPipe,
   ],
 })
 export class MaterialModule {}

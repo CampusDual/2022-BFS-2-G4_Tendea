@@ -5,29 +5,30 @@
     <mat-card>
       <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-          <div class="col-md-6"><img class="card-img-top img-responsive" [src]="product|imagen" alt="{{product.name}}">
+          <div class="col-md-6"><img class="card-img-top img-responsive" [src]="product" alt="{{product.name}}">
           </div>
           <div class="col-md-6">
             <div class="small mb-1">SKU: {{product.id}}</div>
             <h2 class="display-6 fw-bolder">{{product.name}}</h2>
             <div class="display-8">{{ 'productDetail.soldBy' | translate }} {{product.shop.name}}</div>
             <div class="fs-5 mb-5">
-              <span *ngIf="product.discount !== 0 && product.discount !== null" class="original-price">{{ product.price  | currency :
+              <span *ngIf="product.discount !== 0 && product.discount !== null" class="original-price">{{ product.price
+                | currency :
                 'EUR':'symbol':'.2-2':'es'}}</span>
-                <span *ngIf="product.discount === 0 || product.discount === null" class="color-green"> {{ product.price  | currency :
-                  'EUR':'symbol':'.2-2':'es'}} </span>
-              <span *ngIf="product.discount !== 0 && product.discount !== null" class="discount-price color-green ms-2">{{
+              <span *ngIf="product.discount === 0 || product.discount === null" class="color-green"> {{ product.price |
+                currency :
+                'EUR':'symbol':'.2-2':'es'}} </span>
+              <span *ngIf="product.discount !== 0 && product.discount !== null"
+                class="discount-price color-green ms-2">{{
                 product.price * (1-product.discount/100) | currency : 'EUR':'symbol':'.2-2':'es' }} </span>
             </div>
             <p class="lead">{{product.description}}</p>
-            <!-- <div class="d-flex">
-              <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-                style="max-width: 3rem">
-              <button class="btn btn-outline-dark flex-shrink-0" type="button">
+            <div class="d-flex">
+              <button class="btn btn-outline-dark flex-shrink-0" type="button" (click)="addProductToCart(product)">
                 <i class="bi-cart-fill me-1"></i>
                 Añadir al carrito
               </button>
-            </div> -->
+            </div>
             <!-- <button class="btn btn-outline-dark flex-shrink-0" type="button">
               <i class="bi-cart-fill me-1"></i>
               Volver
@@ -45,23 +46,21 @@
         <h2 class="fw-bolder mb-4">Productos relacionados</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <div class="col mb-5" *ngFor="let pro of relatedProducts" [routerLink]="['/producto', pro.id]">
-            <div class="card h-100" >
+            <div class="card h-100">
               <!-- Sale badge-->
               <div class="badge bg-green text-white position-absolute" style="top: 0.5rem; right: 0.5rem"
                 *ngIf="pro.discount !== 0 && pro.discount !== null">Oferta</div>
               <!-- Product image-->
-              <img class="card-img-top" [src]="pro |imagen" alt="...">
+              <img class="card-img-top" [src]="pro" alt="...">
               <!-- Product details-->
               <div class="card-body p-4">
                 <div class="text-center">
                   <!-- Product name-->
                   <h6 class="fw-bolder">{{pro.name}}</h6>
                   <!-- Product price-->
-                  <span class="color-green"
-                    *ngIf="pro.discount !== 0 && pro.discount !== null">{{
+                  <span class="color-green" *ngIf="pro.discount !== 0 && pro.discount !== null">{{
                     pro.price | currency : 'EUR':'symbol':'.2-2':'es' }}</span>
-                    <span class="color-green"
-                    *ngIf="pro.discount === 0 || pro.discount === null">{{
+                  <span class="color-green" *ngIf="pro.discount === 0 || pro.discount === null">{{
                     pro.price | currency : 'EUR':'symbol':'.2-2':'es' }}</span>
                 </div>
               </div>
