@@ -7,18 +7,21 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
-  styleUrls: ['./navigation-bar.component.scss']
+  styleUrls: ['./navigation-bar.component.scss'],
 })
 export class NavigationBarComponent {
-
   @Output() toggleSidenav = new EventEmitter<void>();
 
   private returnUrl = '/';
   selectedLanguage = this.translateService.currentLang;
   userName: string;
 
-  constructor(private authService: AuthService, private router: Router, private logger: LoggerService,
-    private translateService: TranslateService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private logger: LoggerService,
+    private translateService: TranslateService
+  ) {
     this.userName = authService.getUserName();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -33,10 +36,26 @@ export class NavigationBarComponent {
     // Redirect the user
     this.router.navigateByUrl('/');
     localStorage.setItem('close_session', '1');
-    localStorage.setItem('close_session_language', this.translateService.currentLang);
+    localStorage.setItem(
+      'close_session_language',
+      this.translateService.currentLang
+    );
     setTimeout(() => {
       window.location.reload();
     }, 100);
+  }
+
+  /**
+   *
+   * @param lang Metoo para el nav
+   */
+  get showWelcome() {
+    let navVisible: boolean = true;
+    if (this.router.url === '/welcome') {
+      navVisible = false;
+    }
+
+    return navVisible;
   }
 
   toogleLanguage(lang: string) {
