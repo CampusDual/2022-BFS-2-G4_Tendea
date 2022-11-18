@@ -3,11 +3,8 @@
 <div fxLayout="column" fxLayoutAlign="center strech">
   <div class="main-container">
     <div class="img-container">
-      <img
-        class="main-img"
-        *ngIf="!imgTemp"
-        [src]="baseUrl + shop.images[0].url"
-      />
+      <!-- <img class="main-img" *ngIf="!imgTemp" [src]="baseUrl + shop.images[0].url"/> -->
+      <img class="main-img" *ngIf="!imgTemp" [src]="shop | shopImagen"/>
       <img class="main-img" *ngIf="imgTemp" [src]="imgTemp" />
       <div class="topright">
         <input
@@ -146,16 +143,10 @@
               Imagen
             </th>
             <td mat-cell *matCellDef="let product">
-              <img
-                [src]="product"
-                class="card-img-top img-responsive img-thumbnail"
-                style="
-                  width: 95%;
-                  display: block;
-                  margin-top: 3px;
-                  margin-bottom: 3px;
-                "
-              />
+              <!-- <img [src]="product" class="card-img-top img-responsive img-thumbnail" 
+              style="width: 95%; display: block; margin-top: 3px; margin-bottom: 3px;" /> -->
+              <img [src]="product | ProductImage" class="card-img-top img-responsive img-thumbnail" 
+              style="width: 95%; display: block; margin-top: 3px; margin-bottom: 3px;" />
             </td>
           </ng-container>
 
