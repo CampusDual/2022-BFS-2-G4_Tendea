@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { CloseScrollStrategy } from '@angular/cdk/overlay';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../../../model/product';
 import { ShoppingCartService } from '../../../../services/shopping-cart.service';
 
@@ -9,11 +10,16 @@ import { ShoppingCartService } from '../../../../services/shopping-cart.service'
 })
 export class CartDetailsComponent implements OnInit {
   @Input() product: Product;
+
+  @Output() productDelete: EventEmitter<Number>;
+
   constructor(private shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {}
 
   deleteProductFromCart(product: Product) {
     this.shoppingCartService.deleteProduct(product);
+    this.productDelete.emit(product.id);
+    console.log('Emitiendo', product.id);
   }
 }

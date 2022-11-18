@@ -114,6 +114,15 @@ public class Cart implements Serializable {
 	public Cart() {
 		items = new ArrayList<>();
 	}
+	
+	public Cart(Integer id, String comment, Date createAt, Date updatedAt, User user, List<CartItem> items) {
+		this.id = id;
+		this.comment = comment;
+		this.createAt = createAt;
+		this.updatedAt = updatedAt;
+		this.user = user;
+		this.items = items;
+	}
 
 	/** Metodos propios **/
 

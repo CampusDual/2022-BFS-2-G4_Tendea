@@ -15,6 +15,9 @@ export class CartComponent implements OnInit {
     this.cartItems = this.shoppingCartService.loadCart();
   }
 
-
-  
+  cleanCart() {
+    this.shoppingCartService.cleanCart();
+    this.cartItems = this.shoppingCartService.loadCart();
+    console.log(this.cartItems);
+  }
 }

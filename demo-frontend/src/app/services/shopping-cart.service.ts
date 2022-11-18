@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../model/product';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,9 @@ export class ShoppingCartService {
    */
   loadCart() {
     const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) {
+      return [];
+    }
     this.itemsCart = cart;
     return cart;
   }
@@ -49,6 +53,7 @@ export class ShoppingCartService {
     localStorage.setItem('cart', JSON.stringify(cart));
     this.showMessage(`Producto eliminado: ${product.name}`);
   }
+
 
   /**
    * Limpia el carrito
