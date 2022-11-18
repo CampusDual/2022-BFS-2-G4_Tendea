@@ -41,7 +41,12 @@ export class AuthGuard implements CanActivate {
   }
 
   isAllowed(allowedRoles: Array<string>): boolean {
-    // return this.authService.getRoles().some(authoritie => allowedRoles.indexOf(authoritie) > -1);
-    return true;
+    return this.authService.getRoles().some(authoritie => allowedRoles.indexOf(authoritie) > -1);
+      // let roles = this.authService.getRoles();
+      // if(this.authService.getRoles().includes(allowedRoles[0])) {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
   }
 }
