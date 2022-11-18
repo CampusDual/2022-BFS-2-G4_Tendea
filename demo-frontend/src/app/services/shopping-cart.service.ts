@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class ShoppingCartService {
+  private items: Product[] = [];
   private items$: Subject<Product[]>;
 
   /**
@@ -21,10 +22,8 @@ export class ShoppingCartService {
     });
   }
 
-  itemsCart: Product[] = [];
   constructor(private _snackBar: MatSnackBar) {
     this.items$ = new Subject();
-    this.loadCart();
   }
 
   /**
@@ -35,13 +34,15 @@ export class ShoppingCartService {
     if (!cart) {
       return [];
     }
-    this.itemsCart = cart;
-    return cart;
+    console.log('LoadCart', cart);
+    this.items = cart;
+    return this.items;
   }
 
   loadNewCart(): Observable<Product[]> {
+    this.items = JSON.parse(localStorage.getItem('cart'));
+    console.log('LoadNewart', this.items);
     return this.items$.asObservable();
-    return JSON.parse(localStorage.getItem('cart'));
   }
 
   /**
@@ -49,15 +50,17 @@ export class ShoppingCartService {
    * @param item Agrega un producto al carro
    */
   addProductToCart(item: Product) {
-    this.itemsCart.push(item);
-    localStorage.setItem('cart', JSON.stringify(this.itemsCart));
+    console.log('Agregue un producto');
+    this.items.push(item);
+    this.items$.next(this.items);
+    localStorage.setItem('cart', JSON.stringify(this.items));
     this.showMessage(`Producto agregado: ${item.name}`);
   }
 
   deleteProduct(product: Product) {
-    const nCart = this.itemsCart.filter((p) => p.id !== product.id);
+    const nCart = this.items.filter((p) => p.id !== product.id);
     localStorage.setItem('cart', JSON.stringify(nCart));
-    //this.loadCart();
+    console.log(nCart);
     this.items$.next(nCart);
     this.showMessage(`Producto eliminado: ${product.name}`);
   }
