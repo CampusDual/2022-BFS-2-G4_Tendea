@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
-  styles: [],
+  styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent implements OnInit {
   welcome: boolean = true;
