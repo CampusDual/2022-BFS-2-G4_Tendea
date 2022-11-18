@@ -4,8 +4,9 @@ import { LandingComponent } from './landing.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { NavSearchComponent } from './nav-search/nav-search.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { ShopsComponent } from '../shops/shops.component';
+import { CartComponent } from './cart/cart.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   {
@@ -31,13 +32,11 @@ const routes: Routes = [
       {
         path: 'tienda/:id',
         component: ShopsComponent,
-
       },
-
-      // {
-      //   path: '**',
-      //   redirectTo: '',
-      // },
+      {
+        path: 'carrito',
+        component: CartComponent,
+      },
     ],
   },
 ];

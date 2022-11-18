@@ -4,6 +4,7 @@ import { ProductService } from '../../../services/product.service';
 import { switchMap } from 'rxjs';
 import { Product } from '../../../model/product';
 import { CategoryService } from '../../../services/category.service';
+import { ShoppingCartService } from '../../../services/shopping-cart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,8 +19,8 @@ import { CategoryService } from '../../../services/category.service';
         color: darkgrey;
         text-decoration: line-through;
       }
-      .card { 
-        cursor: pointer; 
+      .card {
+        cursor: pointer;
       }
     `,
   ],
@@ -29,10 +30,9 @@ export class ProductDetailComponent implements OnInit {
   relatedProducts: Product[];
 
   constructor(
-    private router: Router,
     private activateRoute: ActivatedRoute,
     private productService: ProductService,
-    private categoryServices: CategoryService
+    private shoppingCartService: ShoppingCartService
   ) {}
 
   ngOnInit(): void {
@@ -51,5 +51,9 @@ export class ProductDetailComponent implements OnInit {
             })
         )
       );
+  }
+
+  addProductToCart(product: Product) {
+    this.shoppingCartService.addProductToCart(product);
   }
 }

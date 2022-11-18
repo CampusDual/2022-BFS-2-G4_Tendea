@@ -21,7 +21,7 @@ interface ROUTE {
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit, OnDestroy {
-  userName: string;
+  userName?: string = '';
   @ViewChild('commandbarSidenav') public sidenav: MatSidenav;
 
   sidenavRoutes: ROUTE[] = [
@@ -62,7 +62,7 @@ export class NavComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.userName = this.authService.getUserName();
+    //this.userName = this.authService.getUserName();
     this.logger.info('NavComponent: ngOnInit()');
     this.commandBarSidenavService.setSidenav(this.sidenav);
   }

@@ -28,9 +28,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatRadioModule } from '@angular/material/radio';
 import { ImagenPipe } from '../pipes/imagen.pipe';
+import { ShopImagenPipe } from '../pipes/shop-imagen.pipe';
 
 @NgModule({
-  declarations: [ImagenPipe],
+  declarations: [ImagenPipe, ShopImagenPipe],
   exports: [
     MatDividerModule,
     MatIconModule,
@@ -61,6 +62,7 @@ import { ImagenPipe } from '../pipes/imagen.pipe';
     MatTreeModule,
     MatRadioModule,
     ImagenPipe,
+    ShopImagenPipe,
   ],
 })
 export class MaterialModule {}

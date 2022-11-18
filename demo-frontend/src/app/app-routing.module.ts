@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WelcomeComponent } from './components/landing/welcome/welcome.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -20,6 +19,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./main/contacts/contacts.module').then((x) => x.ContactsModule),
   },
+
   //{ path: '**', redirectTo: ''},
 ];
 

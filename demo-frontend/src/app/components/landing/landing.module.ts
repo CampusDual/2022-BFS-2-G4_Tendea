@@ -10,10 +10,12 @@ import { FormsModule } from '@angular/forms';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { NavSearchComponent } from './nav-search/nav-search.component';
-import { ImagenPipe } from '../../pipes/imagen.pipe';
+
 import { CarouselComponent } from './welcome/carousel/carousel.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { ShopsComponent } from '../shops/shops.component';
+import { CartComponent } from './cart/cart.component';
+import { CartDetailsComponent } from './cart/cart-details/cart-details.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,10 @@ import { ShopsComponent } from '../shops/shops.component';
     ProductDetailComponent,
     CarouselComponent,
     WelcomeComponent,
-    ShopsComponent
+    ShopsComponent,
+    CartComponent,
+    CartDetailsComponent,
+    WelcomeComponent,
   ],
   imports: [CommonModule, LandingRoutingModule, MaterialModule, FormsModule],
   exports: [],
