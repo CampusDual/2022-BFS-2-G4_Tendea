@@ -23,6 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -144,7 +145,7 @@ public class ProductsController {
 
 	@PostMapping(path = "createProduct")
 	@ResponseStatus(HttpStatus.CREATED)
-//	@PreAuthorize("hasAnyAuthority('CONTACTS')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'SHOP')")
 	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO createProductRequest, BindingResult result) {
 		ProductDTO productNew = null;
 		Map<String, Object> response = new HashMap<>();

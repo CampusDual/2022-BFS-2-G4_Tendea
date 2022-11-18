@@ -104,4 +104,18 @@ export class AuthService {
       window.location.reload();
     }, 100);
   }
+
+
+  redirectMain() {
+
+    if(this.getRoles().includes('SHOPS')) {
+      this.redirectUrl = '/vendors/shop';
+    }
+
+    if(this.getRoles().includes('ADMIN') ) {
+      this.redirectUrl = '/home';
+  }
+}
+
+
 }
