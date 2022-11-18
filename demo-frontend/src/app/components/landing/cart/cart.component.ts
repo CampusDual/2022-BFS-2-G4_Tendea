@@ -8,16 +8,22 @@ import { Product } from '../../../model/product';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  @Output() cartItems: Product[];
+  @Output() cartItems: Product[] = [];
   constructor(private shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {
-    this.cartItems = this.shoppingCartService.loadCart();
+    this.shoppingCartService.loadNewCart().subscribe((res) => {
+      if (this.cartItems === null) {
+        this.cartItems = [];
+        return;
+      }
+      this.cartItems = res;
+      console.log('cargue en el compoenent', this.cartItems);
+    });
   }
 
   cleanCart() {
     this.shoppingCartService.cleanCart();
-    this.cartItems = this.shoppingCartService.loadCart();
-    console.log(this.cartItems);
+    console.log('limpie', this.cartItems);
   }
 }

@@ -19,7 +19,5 @@ export class CartDetailsComponent implements OnInit {
 
   deleteProductFromCart(product: Product) {
     this.shoppingCartService.deleteProduct(product);
-    this.productDelete.emit(product.id);
-    console.log('Emitiendo', product.id);
   }
 }
