@@ -1,3 +1,4 @@
+
 <div fxLayout="column" fxLayoutAlign="center strech">
   <div class="main-container">
     <!-- <img class="main-img" *ngIf="shop.images[0]"
@@ -6,11 +7,13 @@
     <img class="main-img" [src]="shop | shopImagen" />
     <h1 class="shop-name text-center">{{ shop.name }}</h1>
 
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <div class="description">
-        <p>{{ shop.description }}</p>
-      </div>
+  <h1 class="shop-name text-center">{{ shop.name }}</h1>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="description">
+      <p>{{ shop.description }}</p>
     </div>
+  </div>
 
     <!-- PRODUCTS -->
 
@@ -74,4 +77,6 @@
       </tr>
     </table>
   </div>
+</div>
+
 </div>
