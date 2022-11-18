@@ -29,7 +29,7 @@ export class NavComponent implements OnInit, OnDestroy {
       icon: 'home',
       route: '/home',
       title: 'menu.home',
-      allowedRoles: ['CLIENTS'],
+      allowedRoles: ['ADMIN'],
     },
     {
       icon: 'store',
@@ -41,7 +41,7 @@ export class NavComponent implements OnInit, OnDestroy {
       icon: 'people',
       route: 'products',
       title: 'menu.products', // TODO añadir a translate GAL/ENG, decidir nombre
-      allowedRoles: ['SHOPS'],
+      allowedRoles: ['ADMIN'],
     },
     {
       icon: 'store', //Buscar icono
@@ -98,6 +98,22 @@ export class NavComponent implements OnInit, OnDestroy {
           allowedRoutes.push(route);
         }
       });
+      if(!this.authService.getRoles().includes('ADMIN') && (
+        this.router.url.includes('/products') ||
+        this.router.url.includes('/home') ||
+        this.router.url.includes('/shops')
+      ) ) {
+        this.router.navigate(['/']);
+      }
+
+      if( (!this.authService.getRoles().includes('SHOPS')) &&
+         this.router.url.includes('/vendors')
+         ) {
+          this.router.navigate(['/']);
+         }
+
+
+
     }
     return allowedRoutes;
   }
