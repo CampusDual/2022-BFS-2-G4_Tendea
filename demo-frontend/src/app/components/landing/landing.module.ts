@@ -16,7 +16,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { ShopsComponent } from '../shops/shops.component';
 import { CartComponent } from './cart/cart.component';
 import { CartDetailsComponent } from './cart/cart-details/cart-details.component';
-import { ImagenPipe } from 'src/app/pipes/imagen.pipe';
 
 @NgModule({
   declarations: [

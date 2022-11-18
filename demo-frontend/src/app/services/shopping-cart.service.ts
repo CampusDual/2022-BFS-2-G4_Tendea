@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../model/product';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingCartService {
+  private items$: Subject<Product[]>;
+
   /**
-   *
+   * Message notification
    * @param message Notificaciones
    */
   showMessage(message: string) {
@@ -21,6 +23,7 @@ export class ShoppingCartService {
 
   itemsCart: Product[] = [];
   constructor(private _snackBar: MatSnackBar) {
+    this.items$ = new Subject();
     this.loadCart();
   }
 
@@ -36,24 +39,28 @@ export class ShoppingCartService {
     return cart;
   }
 
+  loadNewCart(): Observable<Product[]> {
+    return this.items$.asObservable();
+    return JSON.parse(localStorage.getItem('cart'));
+  }
+
   /**
    *
    * @param item Agrega un producto al carro
    */
   addProductToCart(item: Product) {
     this.itemsCart.push(item);
-    console.log(this.itemsCart);
     localStorage.setItem('cart', JSON.stringify(this.itemsCart));
     this.showMessage(`Producto agregado: ${item.name}`);
   }
 
   deleteProduct(product: Product) {
-    this.loadCart();
-    const cart = this.itemsCart.filter((p) => p.id !== product.id);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    const nCart = this.itemsCart.filter((p) => p.id !== product.id);
+    localStorage.setItem('cart', JSON.stringify(nCart));
+    //this.loadCart();
+    this.items$.next(nCart);
     this.showMessage(`Producto eliminado: ${product.name}`);
   }
-
 
   /**
    * Limpia el carrito
