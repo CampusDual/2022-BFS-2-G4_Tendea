@@ -2,6 +2,7 @@ import { CloseScrollStrategy } from '@angular/cdk/overlay';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../../../model/product';
 import { ShoppingCartService } from '../../../../services/shopping-cart.service';
+import { ShoppingCartItem } from '../../../../model/shopping-cart-item';
 
 @Component({
   selector: 'app-cart-details',
@@ -19,5 +20,14 @@ export class CartDetailsComponent implements OnInit {
 
   deleteProductFromCart(product: Product) {
     this.shoppingCartService.deleteProduct(product);
+  }
+
+  /**
+   * Elimina un producto del carrtio de compra
+   * @param item ShoppingCartItem
+   */
+  deleteProduct(item: ShoppingCartItem) {
+    console.log(item);
+    this.shoppingCartService.deleteCartItem(item);
   }
 }
