@@ -32,6 +32,12 @@ export class NavComponent implements OnInit, OnDestroy {
       allowedRoles: ['ADMIN'],
     },
     {
+      icon: 'lists',
+      route: '/mis-listas',
+      title: 'menu.carts.lists',
+      allowedRoles: ['CLIENTS'],
+    },
+    {
       icon: 'store',
       route: 'vendors/shop',
       title: 'Mi tienda',
@@ -98,22 +104,21 @@ export class NavComponent implements OnInit, OnDestroy {
           allowedRoutes.push(route);
         }
       });
-      if(!this.authService.getRoles().includes('ADMIN') && (
-        this.router.url.includes('/products') ||
-        this.router.url.includes('/home') ||
-        this.router.url.includes('/shops')
-      ) ) {
+      if (
+        !this.authService.getRoles().includes('ADMIN') &&
+        (this.router.url.includes('/products') ||
+          this.router.url.includes('/home') ||
+          this.router.url.includes('/shops'))
+      ) {
         this.router.navigate(['/']);
       }
 
-      if( (!this.authService.getRoles().includes('SHOPS')) &&
-         this.router.url.includes('/vendors')
-         ) {
-          this.router.navigate(['/']);
-         }
-
-
-
+      if (
+        !this.authService.getRoles().includes('SHOPS') &&
+        this.router.url.includes('/vendors')
+      ) {
+        this.router.navigate(['/']);
+      }
     }
     return allowedRoutes;
   }

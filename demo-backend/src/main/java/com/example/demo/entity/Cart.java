@@ -57,6 +57,25 @@ public class Cart implements Serializable {
 	@JoinColumn(name = "catery_id") // crea la llave foranea en la otra tabla
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<CartItem> items;
+	
+	
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	private Integer status;
 
 	@PrePersist
 	public void prePersist() {

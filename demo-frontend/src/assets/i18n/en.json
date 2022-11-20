@@ -19,7 +19,10 @@
     "products": "Products",
     "categories": "Categories",
     "latest_products": "Latest products",
-    "shops": "Shops"
+    "shops": "Shops",
+    "carts": {
+      "lists": "My List"
+    }
   },
   "language": {
     "spanish": "Spanish",

@@ -10,7 +10,7 @@ import { ShoppingCartItem } from '../../../../model/shopping-cart-item';
   styleUrls: ['./cart-details.component.scss'],
 })
 export class CartDetailsComponent implements OnInit {
-  @Input() product: Product;
+  @Input() item: ShoppingCartItem;
 
   @Output() productDelete: EventEmitter<Number>;
 
@@ -18,16 +18,11 @@ export class CartDetailsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  deleteProductFromCart(product: Product) {
-    this.shoppingCartService.deleteProduct(product);
-  }
-
   /**
    * Elimina un producto del carrtio de compra
    * @param item ShoppingCartItem
    */
   deleteProduct(item: ShoppingCartItem) {
-    console.log(item);
     this.shoppingCartService.deleteCartItem(item);
   }
 }

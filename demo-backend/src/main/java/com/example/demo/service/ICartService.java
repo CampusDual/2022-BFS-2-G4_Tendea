@@ -5,7 +5,10 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import com.borjaglez.springify.repository.filter.impl.AnyPageFilter;
 import com.example.demo.dto.CartDTO;
+import com.example.demo.dto.ContactDTO;
+import com.example.demo.rest.response.DataSourceRESTResponse;
 
 /**
  * CartService
@@ -50,6 +53,16 @@ public interface ICartService {
 	 * @author adolfob
 	 */
 	CartDTO createCart(CartDTO createCartRequest);
+	
+	/**
+	 * get my carts
+	 * @param pageFilter
+	 * @return
+	 *
+	 * @Since 20 nov 2022
+	 * @author adolfob
+	 */
+	List<CartDTO> getMyCars(String user);
 	
 
 }

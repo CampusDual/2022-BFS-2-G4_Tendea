@@ -10,9 +10,8 @@ export class ShoppingCart {
   id?: number;
   comment: string;
   user: User;
-  items: ShoppingCartItem[];
-  itemNumber?: number;
-  total?: number;
+  items: ShoppingCartItem[] = [];
+  total?: number = 0;
   createdAt?: string;
   updatedAt?: string;
 }

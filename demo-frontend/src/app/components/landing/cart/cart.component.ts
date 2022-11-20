@@ -9,13 +9,16 @@ import { ShoppingCart } from '../../../model/shopping-cart';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  @Output() cartItems: Product[] = this.shoppingCartService.items;
-  @Output() shoppingCart: ShoppingCart = this.shoppingCartService.cart;
+  @Output() cart = this.shoppingCartService.cart;
+  @Output() items = this.shoppingCartService.items;
+
   
+  total: number = 0;
+
   constructor(private shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {
-    console.log('Cart Component');
+    console.log('Cart Component', this.cart);
   }
 
   /**
@@ -23,7 +26,5 @@ export class CartComponent implements OnInit {
    */
   cleanCart() {
     this.shoppingCartService.cleanCart();
-    this.cartItems = [];
-    console.log('limpie', this.cartItems);
   }
 }

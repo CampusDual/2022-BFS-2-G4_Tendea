@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../model/product';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { ShoppingCart } from '../model/shopping-cart';
 import { ShoppingCartItem } from '../model/shopping-cart-item';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { API_CONFIG } from '../shared/api.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingCartService {
   public cart: ShoppingCart;
-  private cart$: Subject<ShoppingCart>;
+  public items: ShoppingCartItem;
 
-  public items: Product[] = [];
-  public total: number;
-  private items$: Subject<Product[]>;
+  private cart$: Subject<ShoppingCart>;
+  private items$: Subject<ShoppingCartItem>;
 
   /**
    * Message notification
@@ -28,69 +29,77 @@ export class ShoppingCartService {
     });
   }
 
-  constructor(private _snackBar: MatSnackBar) {
+  constructor(private _snackBar: MatSnackBar, private http: HttpClient) {
+    console.log('construyo el carro');
+    this.cart$ = new Subject();
     this.items$ = new Subject();
-    this.loadNewCart();
+    this.cart = new ShoppingCart();
+    this.cart.items = [];
+    this.cart.total = 0;
+    console.log('total', this.cart.total);
+    this.loadCard();
   }
 
-  /**
-   * Carga el carrito del localStorage si existe
-   */
-  loadCart() {
-    const cart = JSON.parse(localStorage.getItem('cart'));
-    if (!cart) {
-      return [];
+  loadCard() {
+    const lCar = JSON.parse(localStorage.getItem('cart'));
+    if (!lCar) {
+      this.cart.items = [];
+      this.cart.total = 0;
+      return;
     }
-    console.log('LoadCart', cart);
-    this.items = cart;
-    return this.items;
+    this.cart = lCar;
+    console.log('Me cargo', this.cart);
   }
 
-  loadNewCart(): Observable<Product[]> {
-    this.items = JSON.parse(localStorage.getItem('cart'));
-    if (!this.items) {
-      this.items = [];
-    }
-
-    console.log('LoadNewart', this.items);
-    return this.items$.asObservable();
-  }
-
-  /**
-   *
-   * @param item Agrega un producto al carro
-   */
   addProductToCart(item: Product) {
-    console.log('Agregue un producto', item);
-    this.items.push(item);
-    this.items$.next(this.items);
-    localStorage.setItem('cart', JSON.stringify(this.items));
+    const itemS = {
+      quantity: 1,
+      product: item,
+    };
+    this.cart.items.push(itemS);
+    localStorage.setItem('cart', JSON.stringify(this.cart));
+    console.log((this.cart.total += item.price));
     this.showMessage(`Producto agregado: ${item.name}`);
   }
 
-  calCulateGrandTotal() {}
-
-  deleteProduct(product: Product) {
-    const nCart = this.items.filter((p) => p.id !== product.id);
-    localStorage.setItem('cart', JSON.stringify(nCart));
-    this.items$.next(nCart);
-    this.showMessage(`Producto eliminado: ${product.name}`);
+  grandTotal() {
+    this.cart.items.map((i) => {
+      this.cart.total += i.product.price;
+    });
+    console.log(this.cart.total);
   }
+
+  loadCart() {
+    this.cart = JSON.parse(localStorage.getItem('cart'));
+  }
+
+  /** Elimina un producto del carrito */
 
   deleteCartItem(item: ShoppingCartItem) {
     const nCart = this.cart.items.filter(
-      (item) => item.product.id !== item.product.id
+      (i) => i.product.id !== item.product.id
     );
-    localStorage.setItem('cart', JSON.stringify(nCart));
     this.cart.items = nCart;
-    console.log(this.cart.items);
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   /**
-   * Limpia el carrito
+   * Vaciar el carrito de la compra
    */
   cleanCart() {
     localStorage.removeItem('cart');
-    this.showMessage(`Se vacio el carrito`);
+    this.cart.items = [];
+    this.cart.total = 0;
+    this.showMessage(`La lista de compra se vaacio correctamente`);
+  }
+
+  getAllMyCars(): Observable<ShoppingCart[]> {
+    const url = API_CONFIG.getMyCars;
+    //const body: CreateUserRequest = new CreateUserRequest(registerUser);
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json; charset=utf-8',
+    });
+
+    return this.http.get<ShoppingCart[]>(url, { headers });
   }
 }
