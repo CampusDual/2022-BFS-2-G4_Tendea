@@ -6,10 +6,10 @@ import { Shop } from '../model/shop';
 })
 export class ShopImagenPipe implements PipeTransform {
   transform(shop: Shop): string {
-    if (shop.images) {
+    if (shop.images[0]) {
       return `http://localhost:9999/shops/uploads/img/${shop.images[0].url}`;
     } else {
-      return 'assets/images/headerShop.png';
+      return './assets/images/headerShop.png';
     }
   }
 }

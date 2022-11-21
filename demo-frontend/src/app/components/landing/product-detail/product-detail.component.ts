@@ -27,7 +27,7 @@ import { ShoppingCartService } from '../../../services/shopping-cart.service';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product;
-  relatedProducts: Product[];
+  relatedProducts: Product[] = [];
 
   constructor(
     private activateRoute: ActivatedRoute,
