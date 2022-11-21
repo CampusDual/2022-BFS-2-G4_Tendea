@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.GeneratedValue;
@@ -22,8 +23,7 @@ public class ShopDTO {
     private String description;
     
     private Set<Category> categories = new HashSet<>(); 
-//    private Set<Product> products = new HashSet<>(); 
-    private Set<ShopImage> images = new HashSet<>();
+    private List<ShopImage> images;
     
     private String address;
     private String city;
@@ -64,12 +64,6 @@ public class ShopDTO {
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
-//    public Set<Product> getProducts() {
-//        return products;
-//    }
-//    public void setProducts(Set<Product> products) {
-//        this.products = products;
-//    }
     public String getAddress() {
         return address;
     }
@@ -106,10 +100,10 @@ public class ShopDTO {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-	public Set<ShopImage> getImages() {
+	public List<ShopImage> getImages() {
 		return images;
 	}
-	public void setImages(Set<ShopImage> images) {
+	public void setImages(List<ShopImage> images) {
 		this.images = images;
 	}
 	public String getUrlFB() {

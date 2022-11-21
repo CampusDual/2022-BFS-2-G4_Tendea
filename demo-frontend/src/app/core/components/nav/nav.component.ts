@@ -99,15 +99,22 @@ export class NavComponent implements OnInit, OnDestroy {
         }
       });
       if(!this.authService.getRoles().includes('ADMIN') && (
-        this.router.url.includes('/products') ||
-        this.router.url.includes('/home') ||
-        this.router.url.includes('/shops')
+        this.router.url === '/products' ||
+        this.router.url === '/products/add' ||
+        this.router.url === '/home' ||
+        this.router.url === '/shops' ||
+        this.router.url === '/shops/add'
       ) ) {
         this.router.navigate(['/']);
       }
 
-      if( (!this.authService.getRoles().includes('SHOPS')) &&
-         this.router.url.includes('/vendors')
+      if( (!this.authService.getRoles().includes('SHOPS')) && (
+        this.router.url === '/vendors/shop' ||
+        this.router.url === '/vendors/shop' ||
+        this.router.url === '/vendors/shop/products/add' ||
+        this.router.url.includes('/vendors/shop/products/edit')
+      )
+        
          ) {
           this.router.navigate(['/']);
          }

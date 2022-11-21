@@ -104,13 +104,11 @@ export class ProductComponent implements OnInit {
         .editProduct(this.productForm.value)
         .subscribe((res) => {
           if (this.imgTemp) {
-            console.log('Tiene imagen');
             this.uploadImage(this.product.id);
           }
         });
     } else {
       /** Send product to backend */
-      console.log('aqui estamos')
       this.shopService
         .createProduct(this.productForm.value)
         .subscribe((res) => {
