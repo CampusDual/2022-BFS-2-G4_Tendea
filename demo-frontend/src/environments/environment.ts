@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:9999' ,
+  apiBaseUrl: 'http://localhost:9999',
   authBaseUrl: 'http://localhost:9999',
   adminBaseUrl: 'http://localhost:9999',
   contactsBaseUrl: 'http://localhost:9999/contacts',
@@ -13,12 +13,13 @@ export const environment = {
   productsBaseUrl: 'http://localhost:9999/products',
   categoriesBaseUrl: 'http://localhost:9999/categories',
   shopsBaseUrl: 'http://localhost:9999/shops',
+  cartsBaseUrl: 'http://localhost:9999/carts',
   clientName: 'demo',
   clientSecret: '8Fjkk59bXKws8bmMNFZB',
   isDebugMode: false,
   idle: 1,
   idleTimeout: 900,
-  idlePingInterval: 15
+  idlePingInterval: 15,
 };
 
 /*

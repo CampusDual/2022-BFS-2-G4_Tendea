@@ -48,5 +48,5 @@ export const API_CONFIG = {
   uploadShopImg: environment.shopsBaseUrl + '/upload',
 
   //Cars
-  getMyCars: environment.shopsBaseUrl + '/carts/getMyCars/',
+  getMyCars: environment.cartsBaseUrl + '/getMyCars',
 };

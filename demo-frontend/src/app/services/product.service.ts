@@ -8,7 +8,6 @@ import { DataSourceRESTResponse } from '../model/rest/response';
 import { API_CONFIG } from '../shared/api.config';
 import { Buffer } from 'buffer';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserServicesService } from './user-services.service';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -212,7 +211,6 @@ export class ProductService {
    * @returns
    */
   editProduct(product: Product) {
-    console.log(product);
     const login = this.authService.getUserName();
     const url = API_CONFIG.editProduct;
     const headers = new HttpHeaders({
@@ -256,7 +254,7 @@ export class ProductService {
     );
   }
 
-  public getProductsByShopIdPagData(id: number, pageNumber: number, pageSize: number ): 
+  public getProductsByShopIdPagData(id: number, pageNumber: number, pageSize: number ):
   Observable<DataSourceRESTResponse<Product[]>> {
     const url = API_CONFIG.getProductsByShopIdPag;
     const pageFilter = {pageSize, pageNumber}

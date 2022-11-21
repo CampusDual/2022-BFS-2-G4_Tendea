@@ -27,13 +27,25 @@ export class NavComponent implements OnInit, OnDestroy {
   sidenavRoutes: ROUTE[] = [
     {
       icon: 'home',
+      route: '/',
+      title: 'menu.home',
+      allowedRoles: ['CLIENTS'],
+    },
+    {
+      icon: 'home',
+      route: '/clients',
+      title: 'menu.home',
+      allowedRoles: ['CLIENTS'],
+    },
+    {
+      icon: 'home',
       route: '/home',
       title: 'menu.home',
       allowedRoles: ['ADMIN'],
     },
     {
       icon: 'lists',
-      route: '/mis-listas',
+      route: '/clients/mis-listas',
       title: 'menu.carts.lists',
       allowedRoles: ['CLIENTS'],
     },
@@ -118,6 +130,14 @@ export class NavComponent implements OnInit, OnDestroy {
         this.router.url.includes('/vendors')
       ) {
         this.router.navigate(['/']);
+      }
+
+      //TODO: Verificar los roles
+      if (
+        !this.authService.getRoles().includes('CLIENTS') &&
+        this.router.url.includes('/clients')
+      ) {
+        this.router.navigate(['/clients']);
       }
     }
     return allowedRoutes;

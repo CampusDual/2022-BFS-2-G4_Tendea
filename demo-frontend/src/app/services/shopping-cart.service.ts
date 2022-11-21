@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../model/product';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, Subject, map, catchError, throwError } from 'rxjs';
 import { ShoppingCart } from '../model/shopping-cart';
 import { ShoppingCartItem } from '../model/shopping-cart-item';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from '../shared/api.config';
+import { AuthService } from '../auth/auth.service';
+import { environment } from 'src/environments/environment';
+import { Buffer } from 'buffer';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +32,11 @@ export class ShoppingCartService {
     });
   }
 
-  constructor(private _snackBar: MatSnackBar, private http: HttpClient) {
+  constructor(
+    private _snackBar: MatSnackBar,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
     console.log('construyo el carro');
     this.cart$ = new Subject();
     this.items$ = new Subject();
@@ -93,13 +100,24 @@ export class ShoppingCartService {
     this.showMessage(`La lista de compra se vaacio correctamente`);
   }
 
+  /**
+   * Devuelve el historial de carros de un cliente
+   * @returns ShoppingCars[]
+   */
   getAllMyCars(): Observable<ShoppingCart[]> {
     const url = API_CONFIG.getMyCars;
+    const login = this.authService.getUserName();
     //const body: CreateUserRequest = new CreateUserRequest(registerUser);
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
+      Authorization:
+        'Basic ' +
+        Buffer.from(
+          `${environment.clientName}:${environment.clientSecret}`,
+          'utf8'
+        ).toString('base64'),
     });
 
-    return this.http.get<ShoppingCart[]>(url, { headers });
+    return this.http.get<ShoppingCart[]>(`${url}/${login}`, { headers });
   }
 }

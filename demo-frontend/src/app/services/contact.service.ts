@@ -27,7 +27,6 @@ export class ContactService {
     pageFilter: AnyPageFilter
   ): Observable<DataSourceRESTResponse<Contact[]>> {
     const url = API_CONFIG.getContacts;
-    console.log(pageFilter);
     const headers = new HttpHeaders({
       'Content-type': 'application/json; charset=utf-8',
       // Authorization: 'Basic ' + btoa(`${environment.clientName}:${environment.clientSecret}`),

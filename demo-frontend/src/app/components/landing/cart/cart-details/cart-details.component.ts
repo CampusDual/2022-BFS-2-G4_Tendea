@@ -4,6 +4,8 @@ import { Product } from '../../../../model/product';
 import { ShoppingCartService } from '../../../../services/shopping-cart.service';
 import { ShoppingCartItem } from '../../../../model/shopping-cart-item';
 
+
+
 @Component({
   selector: 'app-cart-details',
   templateUrl: './cart-details.component.html',

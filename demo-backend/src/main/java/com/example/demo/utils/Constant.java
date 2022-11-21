@@ -92,5 +92,7 @@ public class Constant {
     public static final String IMAGE_UPLOADED = "IMAGE_UPLOADED";
     //Image error
     public static final String IMAGE_UPLOAD_ERROR = "IMAGE_UPLOAD_ERROR";
-
+    
+    
+    public static final String CARTS_NOT_EXIST = "CARTS_NOT_EXIST";
 }

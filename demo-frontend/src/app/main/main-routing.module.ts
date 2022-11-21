@@ -8,6 +8,7 @@ import { RegisterComponent } from '../auth/register/register.component';
 import { LandingComponent } from '../components/landing/landing.component';
 import { ShopComponent } from './vendor/shop/shop.component';
 import { VendorComponent } from './vendor/vendor.component';
+import { ClientsComponent } from './clients/clients.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
     data: {
       allowedRoles: ['SHOPS'],
     },
+  },
+  {
+    path: 'clients',
+    loadChildren: () =>
+      import('./clients/clients.module').then((c) => c.ClientsModule),
   },
   {
     path: '',

@@ -40,7 +40,7 @@ export class UserServicesService {
           this.showMessageError('Este email ya está registrado');
         }
         if (e.error.errors!.includes('login')) {
-          this.showMessageError('Este nombre de usuario ya está registrado');
+          return throwError(() => e.error);
         }
         return throwError(() => e);
       })
@@ -64,7 +64,6 @@ export class UserServicesService {
     });
     return this.http.get<User[]>(`${url}/${query}`, { headers }).pipe(
       catchError((e) => {
-        console.log(e.message);
         if (e.message!.includes('failure')) {
           this.showMessageError(
             'No se encuentra ningun usuario con este nombre'
@@ -86,7 +85,4 @@ export class UserServicesService {
     }
     return httpHeaders;
   }
-
-
-  
 }
