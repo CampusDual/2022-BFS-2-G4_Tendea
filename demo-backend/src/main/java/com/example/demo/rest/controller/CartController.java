@@ -80,18 +80,14 @@ public class CartController {
 		if (cars.isEmpty()) {
 			response.put(Constant.MESSAGE, Constant.CARTS_NOT_EXIST);
 			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.KO.getValue());
-			response.put("cars", cars);
 			re = new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		} else {
 			response.put(Constant.RESPONSE_CODE, ResponseCodeEnum.OK.getValue());
-			re = new ResponseEntity<CartDTO>(HttpStatus.OK);
+			response.put("cars", cars);
+			re = new ResponseEntity<CartDTO>(cars, HttpStatus.OK);
 		}
 
 		return re;
 	}
 	
-	@GetMapping(path = "/create/{user}")
-	@PreAuthorize("hasAnyAuthority('CLIENTS')")
-
-
 }
