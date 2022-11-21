@@ -37,7 +37,7 @@ public class Shop implements Serializable {
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "shop_id") // crea la llave foranea en la otra tabla
-	private List<ShopImage> images;
+	private Set<ShopImage> images;
     
     @NotEmpty(message = Constant.NAME_REQUIRED)
     @Size(min = 2, max = 24, message = Constant.SHOP_INCORRECT_SIZE)
@@ -51,10 +51,6 @@ public class Shop implements Serializable {
     @JoinTable(name = "shops_categories_map", joinColumns = { @JoinColumn(name = "shop_id") }, inverseJoinColumns = {
             @JoinColumn(name = "category_id") })
     private Set<Category> categories = new HashSet<>(); 
-    
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "shop_id")
-//    private Set<Product> products = new HashSet<>(); 
 
     private String address;
     
@@ -75,7 +71,6 @@ public class Shop implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     
-    //@NotEmpty(message = Constant.USER_ACTIVE_STATUS_REQUIRED)
     @Column(name = "active_status")
     private Integer activeStatus;
     
@@ -119,7 +114,6 @@ public class Shop implements Serializable {
             Integer activeStatus,
             User user,
             Set<Category> categories
-//            ,Set<Product> products
             ) {
         super();
         this.id = id;
@@ -132,7 +126,6 @@ public class Shop implements Serializable {
         this.activeStatus = activeStatus;
         this.user = user;
         this.categories = categories;
-//        this.products = products;
     }
 
 
@@ -170,14 +163,6 @@ public class Shop implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-//    public Set<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(Set<Product> products) {
-//        this.products = products;
-//    }
 
     public String getAddress() {
         return address;
@@ -227,11 +212,11 @@ public class Shop implements Serializable {
         this.activeStatus = activeStatus;
     }
     
-    public List<ShopImage> getImages() {
+    public Set<ShopImage> getImages() {
 		return images;
 	}
 
-	public void setImages(List<ShopImage> images) {
+	public void setImages(Set<ShopImage> images) {
 		this.images = images;
 	}
 

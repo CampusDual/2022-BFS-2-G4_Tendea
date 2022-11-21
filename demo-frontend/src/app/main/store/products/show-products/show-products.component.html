@@ -95,7 +95,7 @@
           {{ "table.product.discount" | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="discount">
-          {{ row.discount }}
+          {{ row.discount }}<span *ngIf="row.discount">%</span> 
         </mat-cell>
       </ng-container>
 

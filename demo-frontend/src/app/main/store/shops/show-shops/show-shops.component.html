@@ -43,9 +43,8 @@
       class="w-full"
     >
       <!-- Checkbox Column -->
-      <ng-container matColumnDef="select">
+      <ng-container matColumnDef="select" >
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ "table.shop.name" | translate }}
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             [checked]="selection.hasValue() && isAllSelected()"

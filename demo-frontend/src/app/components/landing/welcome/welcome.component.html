@@ -5,7 +5,13 @@
 <app-footer></app-footer> -->
 
 <mat-sidenav-container fullscreen>
-<app-carousel fullscreen></app-carousel>
-  <!-- <app-footer></app-footer> -->
+  <div  fxLayout="column" fxLayoutAlign="start stretch" >
+    <div fxFill>
+      <app-carousel ></app-carousel>
+    </div>
+    <div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+
 </mat-sidenav-container>
-<mat-divider></mat-divider>
