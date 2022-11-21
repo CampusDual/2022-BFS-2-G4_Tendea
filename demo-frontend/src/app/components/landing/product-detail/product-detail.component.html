@@ -11,7 +11,8 @@
           <div class="col-md-6">
             <div class="small mb-1">SKU: {{product.id}}</div>
             <h2 class="display-6 fw-bolder">{{product.name}}</h2>
-            <div class="display-8" [routerLink]="['/tienda/', product.shop.id]" style="cursor: pointer;"> {{ 'productDetail.soldBy' | translate }} {{product.shop.name}}</div>
+            <div class="display-8" [routerLink]="['/tienda/', product.shop.id]" style="cursor: pointer;"> {{
+              'productDetail.soldBy' | translate }} {{product.shop.name}}</div>
             <div class="fs-5 mb-5">
               <span *ngIf="product.discount !== 0 && product.discount !== null" class="original-price">{{ product.price
                 | currency :
@@ -24,13 +25,13 @@
                 product.price * (1-product.discount/100) | currency : 'EUR':'symbol':'.2-2':'es' }} </span>
             </div>
             <p class="lead">{{product.description}}</p>
-            <mat-divider *ngIf="product.description" ></mat-divider>
-            <div class="d-flex">
+            <mat-divider *ngIf="product.description"></mat-divider>
+            <!-- <div class="d-flex">
               <button class="btn btn-outline-dark flex-shrink-0" type="button" (click)="addProductToCart(product)">
                 <i class="bi-cart-fill me-1"></i>
                 Añadir a la lista
               </button>
-            </div>
+            </div> -->
             <!-- <button class="btn btn-outline-dark flex-shrink-0" type="button">
               <i class="bi-cart-fill me-1"></i>
               Volver
