@@ -49,6 +49,7 @@ import com.example.demo.entity.enums.ResponseCodeEnum;
 import com.example.demo.exception.DemoException;
 import com.example.demo.rest.response.DataSourceRESTResponse;
 import com.example.demo.service.IProductService;
+import com.example.demo.service.IShopImageService;
 import com.example.demo.service.IShopService;
 import com.example.demo.service.IUserService;
 import com.example.demo.utils.Constant;
@@ -65,6 +66,9 @@ public class ShopsController {
 
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IShopImageService shopImgService;
 
 	/**
 	 * Devuelve las tiendas registradas, ordenadas por id
@@ -298,7 +302,7 @@ public class ShopsController {
 		ShopDTO shop = shopService.getShopComplete(id);
 
 		if (shop == null) {
-			response.put("message", Constant.SHOP_NOT_EXISTS); //
+			response.put("message", Constant.SHOP_NOT_EXISTS);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		}
 
@@ -317,6 +321,19 @@ public class ShopsController {
 				response.put("message", Constant.IMAGE_NOT_EXISTS);
 				response.put("error", e.getMessage().concat(" :").concat(e.getCause().getMessage()));
 				e.printStackTrace();
+			}
+			
+			if(shop.getImages() != null) {
+				List<Integer> imgId = new ArrayList<>();
+				for(ShopImage sImg: shop.getImages()) {
+					imgId.add(sImg.getId());
+				}
+				Integer delId;
+				
+				for(Integer i=0; i<imgId.size(); i++) {
+					System.out.println("Image id: " + imgId.get(i));
+					shopImgService.deleteShopImage(imgId.get(i));
+				}
 			}
 
 			ShopImage shopImg = new ShopImage();
