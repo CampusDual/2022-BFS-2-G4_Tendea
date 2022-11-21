@@ -40,10 +40,10 @@
     <div>
       <p class="detailTitle">Redes sociales</p>
       <div class="icons-container">
-        <a href="{{ shop.urlFb }}">
+        <a href="{{ shop.urlFb }}" *ngIf="shop.urlFb">
           <img class="social_media_icon" src="./assets/images/social_media_icons/facebook.png" />
         </a>
-        <a href="{{ shop.urlInsta }}">
+        <a href="{{ shop.urlInsta }}" *ngIf="shop.urlInsta">
           <img class="social_media_icon" src="./assets/images/social_media_icons/instagram.png" />
         </a>
       </div>
@@ -54,23 +54,23 @@
           <p class="detailTitle">Contacta con nosotros:</p>
         </th>
       </tr>
-      <tr>
+      <tr *ngIf="shop.address">
         <td>
-          <p>
+          <p *ngIf="shop.address">
             <mat-icon> place </mat-icon> {{ shop.address }}
           </p>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="shop.email">
         <td>
-          <p>
+          <p *ngIf="shop.email">
             <mat-icon> email </mat-icon> {{ shop.email }}
           </p>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="shop.phone">
         <td>
-          <p>
+          <p *ngIf="shop.phone">
             <mat-icon> phone </mat-icon> {{ shop.phone }}
           </p>
         </td>

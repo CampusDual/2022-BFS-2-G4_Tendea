@@ -22,7 +22,7 @@
             <div>
               <button mat-raised-button color="warn" class="mx-2" (click)="cleanCart()"
                 [disabled]="cartItems.length < 1">Vaciar Carrito</button>
-              <button mat-raised-button color="primary">Guardar Carrito</button>
+              <button mat-raised-button color="primary">Guardar carrito</button>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@
 
         <div class=" card mb-4 animate__animated animate__fadeIn" *ngIf="cartItems.length < 1">
           <div class="card-body">
-            <p class="text-center h-3">Tú carro esta vacio</p>
+            <p class="text-center h-3">Tu carro está vacío</p>
           </div>
         </div>
 
