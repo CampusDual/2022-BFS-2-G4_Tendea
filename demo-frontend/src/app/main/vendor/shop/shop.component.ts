@@ -57,7 +57,6 @@ export class ShopComponent implements OnInit {
 
   imageUpload: File;
   imgTemp: any;
-  baseUrl: string = "http://localhost:9999/shops/uploads/img/"
 
   shop: Shop;
   shops: Shop[];
@@ -125,7 +124,6 @@ export class ShopComponent implements OnInit {
     );
 
     this.getUserAndShop(this.login);
-    // this.dataSource.getProductsByShop(this.shop.id, pageFilter);
   }
 
   ngAfterViewInit(): void {
@@ -308,11 +306,11 @@ export class ShopComponent implements OnInit {
   }
 
   editUrlFB() {
-    if (this.editShopField['urlFB'] === true) {
-      this.editShopField['urlFB'] = false;
+    if (this.editShopField['urlFb'] === true) {
+      this.editShopField['urlFb'] = false;
     } else {
-      this.editShopField['urlFB'] = true;
-      console.log(this.editShopField['urlFB']);
+      this.editShopField['urlFb'] = true;
+      console.log(this.editShopField['urlFb']);
     }
   }
 

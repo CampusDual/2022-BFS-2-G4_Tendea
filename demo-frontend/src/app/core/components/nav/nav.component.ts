@@ -132,7 +132,7 @@ export class NavComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    if(this.authService.isLoggedIn) {
+    if(this.isAuthenticated()) {
       this.userName = this.authService.getUserName();
     }
     this.logger.info('NavComponent: ngOnInit()');
