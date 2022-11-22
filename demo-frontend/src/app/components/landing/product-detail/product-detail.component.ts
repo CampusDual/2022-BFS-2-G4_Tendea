@@ -26,7 +26,7 @@ import { ShoppingCartService } from '../../../services/shopping-cart.service';
   ],
 })
 export class ProductDetailComponent implements OnInit {
-  product: Product;
+  product!: Product;
   relatedProducts: Product[] = [];
 
   constructor(

@@ -14,6 +14,52 @@
         {{ item.title | translate }}
       </a>
     </mat-nav-list>
+
+    <mat-divider></mat-divider>
+    <mat-nav-list>
+
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button [routerLink]="['/categoria', node.id]">
+            {{node.name }}
+          </button>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          <h4 class="m-3">{{ 'menu.categories' | translate }}</h4>
+
+        </mat-tree-node>
+      </mat-tree>
+
+      <mat-divider></mat-divider>
+
+      <mat-list role="list">
+        <h4 class="m-3">{{ 'menu.latest_products' | translate }}</h4>
+        <mat-list-item role="listitem" *ngFor="let product of products" [routerLink]="['/producto', product.id]">
+          {{product.name}}</mat-list-item>
+      </mat-list>
+
+      <mat-divider></mat-divider>
+
+      <mat-list role="list">
+        <h4 class="m-3">Últimas tiendas registradas</h4>
+        <mat-list-item role="listitem" *ngFor="let shop of shops" [routerLink]="['/tienda', shop.id]">{{shop.name}}
+        </mat-list-item>
+      </mat-list>
+
+      <!-- <a mat-list-item (click)="sidenav.toggle()" routerLink="./clientes/nuevo">
+        <mat-icon mat-list-icon>create</mat-icon>
+        <span>Nuevo Cliente</span>
+      </a> -->
+
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content role="main">
